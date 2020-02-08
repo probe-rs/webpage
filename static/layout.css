@@ -1,0 +1,12 @@
+.banner {
+    background-color: white;
+    max-width: 580px;
+}
+
+.navbar .nav-link {
+    border-bottom: 3px solid transparent;
+}
+
+.navbar .nav-link:hover {
+    border-bottom: 3px solid black;
+}
