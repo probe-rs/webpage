@@ -14,7 +14,7 @@ fn render<T>(template: WithTemplate<T>, tera: Arc<Mutex<Tera>>) -> impl warp::Re
 where
     T: Serialize,
 {
-    let mut guard = tera.lock().unwrap();
+    let guard = tera.lock().unwrap();
     #[cfg(debug_assertions)]
     guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
 
