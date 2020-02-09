@@ -7,37 +7,49 @@
     <h1 class="display-4">probe-rs</h1>
     <p class="lead">a modern, embedded debugging toolkit, written in Rust to preserve your sanity</p>
     <div class="d-flex align-items-center justify-content-center">
-        <i class="fab fa-github m-1" style="font-size:1.2em"></i>
-        <a href="https://crates.io/crates/probe-rs"><img src="https://meritbadge.herokuapp.com/probe-rs" alt="crates.io" class="m-1"/></a>
-        <a href="https://docs.rs/probe-rs"><img src="https://docs.rs/probe-rs/badge.svg" alt="documentation" class="m-1"/></a>
-        <a href="https://github.com/probe-rs/probe-rs/actions"><img src="https://github.com/probe-rs/probe-rs/workflows/CI/badge.svg" alt="GH Actions Status" class="m-1"/></a>
-        <a href="https://matrix.to/#/!vhKMWjizPZBgKeknOo:matrix.org"><img src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1"/></a>
+        <a href="https://github.com/probe-rs/probe-rs" style="color:black" target="_blank"><i class="fab fa-github m-1" style="font-size:1.2em"></i></a>
+        <a href="https://crates.io/crates/probe-rs" target="_blank"><img src="https://meritbadge.herokuapp.com/probe-rs" alt="crates.io" class="m-1"/></a>
+        <a href="https://docs.rs/probe-rs" target="_blank"><img src="https://docs.rs/probe-rs/badge.svg" alt="documentation" class="m-1"/></a>
+        <a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"><img src="https://github.com/probe-rs/probe-rs/workflows/CI/badge.svg" alt="GH Actions Status" class="m-1"/></a>
+        <a href="https://matrix.to/#/!vhKMWjizPZBgKeknOo:matrix.org" target="_blank"><img src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1"/></a>
     </div>
 </div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
     {{ macros::card(
         title="Flash programming",
-        content="Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex or plain binary."
+        content="Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex or plain binary.",
+        img="/static/img/flash.svg",
+        color="#80ADBF"
     ) }}
     {{ macros::card(
-        title="Architecture & probe independent",
-        content="ARM, RiscV, CMSIS-DAP, STLink, JLink, and many more to to come probe-rs supports it all."
+        title="Compatible",
+        content="ARM, RiscV, CMSIS-DAP, STLink, JLink, and many more to to come, probe-rs supports it all.",
+        img="/static/img/multilingual.svg",
+        color="#BF3459"
     ) }}
     {{ macros::card(
         title="Cargo integration",
-        content="With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises."
+        content="With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises.",
+        img="/static/img/cargo.png",
+        color="#BF834E"
     ) }}
     {{ macros::card(
         title="Extensible",
-        content="probe-rs can be used as a library, giving you even more flexibility."
+        content="probe-rs can be used as a library, giving you even more flexibility.",
+        img="/static/img/extensible.svg",
+        color="#964FC2"
     ) }}
     {{ macros::card(
         title="GDB integration",
-        content="probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools."
+        content="probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools.",
+        img="/static/img/gdb.svg",
+        color="#000000"
     ) }}
     {{ macros::card(
         title="VSCode integration",
-        content="We provide a Microsoft DAP server implementation with probe-rs to debug in VSCode."
+        content="We provide a Microsoft DAP server implementation with probe-rs to debug in VSCode.",
+        img="/static/img/vscode.svg",
+        color="#4992BF"
     ) }}
 </div>
 <br /><br />
