@@ -1,5 +1,5 @@
 #![deny(warnings)]
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use serde::Serialize;
 use serde_json::json;
 use warp::Filter;
@@ -10,12 +10,16 @@ struct WithTemplate<T: Serialize> {
     value: T,
 }
 
-fn render<T>(template: WithTemplate<T>, tera: Arc<Tera>) -> impl warp::Reply
+fn render<T>(template: WithTemplate<T>, tera: Arc<Mutex<Tera>>) -> impl warp::Reply
 where
     T: Serialize,
 {
+    let mut guard = tera.lock().unwrap();
+    #[cfg(debug_assertions)]
+    guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
+
     let render = match Context::from_serialize(&template.value) {
-        Ok(context) => tera.render(template.name, &context).unwrap_or_else(|err| err.to_string()),
+        Ok(context) => guard.render(template.name, &context).unwrap_or_else(|err| err.to_string()),
         Err(err) => err.to_string(),
     };
     warp::reply::html(render)
@@ -23,6 +27,8 @@ where
 
 #[tokio::main]
 async fn main() {
+    pretty_env_logger::init();
+
     // Initialize the template store.
     let templates = match Tera::new("templates/**/*.html") {
         Ok(t) => t,
@@ -31,7 +37,7 @@ async fn main() {
             ::std::process::exit(1);
         }
     };
-    let templates = Arc::new(templates);
+    let templates = Arc::new(Mutex::new(templates));
 
     // Create a reusable closure to render a template.
     let tera = move |with_template| render(with_template, templates.clone());

@@ -1,60 +1,44 @@
 {% extends "layout.html" %}
+{% import "macros.html" as macros %}
 
 {% block content %}
 
 <div class="banner jumbotron m-auto text-center">
     <h1 class="display-4">probe-rs</h1>
     <p class="lead">a modern, embedded debugging toolkit, written in Rust to preserve your sanity</p>
+    <div class="d-flex align-items-center justify-content-center">
+        <i class="fab fa-github m-1" style="font-size:1.2em"></i>
+        <a href="https://crates.io/crates/probe-rs"><img src="https://meritbadge.herokuapp.com/probe-rs" alt="crates.io" class="m-1"/></a>
+        <a href="https://docs.rs/probe-rs"><img src="https://docs.rs/probe-rs/badge.svg" alt="documentation" class="m-1"/></a>
+        <a href="https://github.com/probe-rs/probe-rs/actions"><img src="https://github.com/probe-rs/probe-rs/workflows/CI/badge.svg" alt="GH Actions Status" class="m-1"/></a>
+        <a href="https://matrix.to/#/!vhKMWjizPZBgKeknOo:matrix.org"><img src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1"/></a>
+    </div>
 </div>
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">Flash programming</h5>
-                <p class="card-text">Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex or plain binary.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">Architecture & probe independent</h5>
-                <p class="card-text">ARM, RiscV, CMSIS-DAP, STLink, JLink, and many more to to come probe-rs supports it all.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">Cargo integration</h5>
-                <p class="card-text">With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">Extensible</h5>
-                <p class="card-text">probe-rs can be used as a library, giving you even more flexibility.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">GDB integration</h5>
-                <p class="card-text">probe-rs includes a GDB stub to integrate seamlessly into your usual workflow.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col mb-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5 class="card-title">VSCode integration</h5>
-                <p class="card-text">A modern debugging toolkit requires a modern editor, which is why we provide a plugin for our favorite one.</p>
-            </div>
-        </div>
-    </div>
+    {{ macros::card(
+        title="Flash programming",
+        content="Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex or plain binary."
+    ) }}
+    {{ macros::card(
+        title="Architecture & probe independent",
+        content="ARM, RiscV, CMSIS-DAP, STLink, JLink, and many more to to come probe-rs supports it all."
+    ) }}
+    {{ macros::card(
+        title="Cargo integration",
+        content="With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises."
+    ) }}
+    {{ macros::card(
+        title="Extensible",
+        content="probe-rs can be used as a library, giving you even more flexibility."
+    ) }}
+    {{ macros::card(
+        title="GDB integration",
+        content="probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools."
+    ) }}
+    {{ macros::card(
+        title="VSCode integration",
+        content="We provide a Microsoft DAP server implementation with probe-rs to debug in VSCode."
+    ) }}
 </div>
 <br /><br />
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictumst quisque sagittis purus sit amet volutpat consequat mauris. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Pellentesque massa placerat duis ultricies lacus sed turpis tincidunt. Lacus laoreet non curabitur gravida. Neque volutpat ac tincidunt vitae semper quis lectus nulla at. Sagittis id consectetur purus ut. Auctor urna nunc id cursus metus aliquam eleifend. Nulla facilisi etiam dignissim diam quis enim. Elit duis tristique sollicitudin nibh sit amet commodo. Duis at tellus at urna condimentum mattis pellentesque id. Quis risus sed vulputate odio ut.
