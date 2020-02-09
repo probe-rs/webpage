@@ -3,7 +3,19 @@ use std::sync::{Arc, Mutex};
 use serde::Serialize;
 use serde_json::json;
 use warp::Filter;
-use tera::{Tera, Context};
+use tera::{Tera, Error as TeraError, Context, Value};
+use std::collections::HashMap;
+use syntect::{
+    html::highlighted_html_for_string,
+    parsing::SyntaxSet,
+    highlighting::ThemeSet,
+};
+
+lazy_static::lazy_static! {
+    // Load the code syntax & theme sets.
+    static ref SS: SyntaxSet = SyntaxSet::load_defaults_newlines();
+    static ref TS: ThemeSet = ThemeSet::load_defaults();
+}
 
 struct WithTemplate<T: Serialize> {
     name: &'static str,
@@ -28,18 +40,38 @@ where
     warp::reply::html(render)
 }
 
+fn colorize(args: &HashMap<String, Value>) -> Result<Value, TeraError> {
+    let extension = args
+        .get("extension")
+        .map(|s| s.as_str().unwrap_or_else(|| "rs"))
+        .unwrap_or_else(|| "rs");
+    let theme = args
+        .get("theme")
+        .map(|s| s.as_str().unwrap_or_else(|| "InspiredGitHub"))
+        .unwrap_or_else(|| "InspiredGitHub");
+    let code = args
+        .get("code")
+        .map(|s| s.as_str().unwrap_or_else(|| "rs"))
+        .unwrap_or_else(|| "");
+    let syntax = SS.find_syntax_by_extension(extension).unwrap();
+    let theme = &TS.themes[theme];
+    Ok(highlighted_html_for_string(code, &SS, syntax, theme).into())
+}
+
 #[tokio::main]
 async fn main() {
     pretty_env_logger::init();
 
     // Initialize the template store.
-    let templates = match Tera::new("templates/**/*.html") {
+    let mut templates = match Tera::new("templates/**/*.html") {
         Ok(t) => t,
         Err(e) => {
             println!("Parsing error(s): {}", e);
             ::std::process::exit(1);
         }
     };
+
+    templates.register_function("colorize", colorize);
     let templates = Arc::new(Mutex::new(templates));
 
     // Create a reusable closure to render a template.

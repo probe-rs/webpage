@@ -4,6 +4,11 @@
 
 FROM ekidd/rust-musl-builder:1.41.0 as cargo-build
 
+RUN sudo apt-get update && \
+    sudo apt-get install -y \
+        llvm-dev \
+        libclang-dev
+
 # Copy the source
 COPY src/ src/
 COPY Cargo.toml Cargo.toml

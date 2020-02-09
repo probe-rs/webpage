@@ -30,3 +30,7 @@
     <td><span class="badge badge-{{ color }}">{{ text }}</span></td>
 </tr>
 {% endmacro feature_entry %}
+
+{% macro colorize(extension="rs", theme="InspiredGitHub", code) %}
+{{ colorize(extension=extension, theme=theme, code=code) | safe }}
+{% endmacro colorize %}

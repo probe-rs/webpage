@@ -27,18 +27,18 @@
         img="/static/img/multilingual.svg",
         color="#BF3459"
     ) }}
-    {{ macros::card(
+    <a href="#a-cargo-flash" style="text-decoration: none; color: black;">{{ macros::card(
         title="Cargo integration",
         content="With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises.",
         img="/static/img/cargo.png",
         color="#BF834E"
-    ) }}
-    {{ macros::card(
+    ) }}</a>
+    <a href="#a-probe-rs-library" style="text-decoration: none; color: black;">{{ macros::card(
         title="Extensible",
         content="probe-rs can be used as a library, giving you even more flexibility.",
         img="/static/img/extensible.svg",
         color="#964FC2"
-    ) }}
+    ) }}</a>
     {{ macros::card(
         title="GDB integration",
         content="probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools.",
@@ -52,6 +52,173 @@
         color="#4992BF"
     ) }}
 </div>
+
+<h2 class="text-center mt-5 mb-5" style="color:#BF834E" id="a-cargo-flash">cargo flash</h2>
+<div class="row">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ macros::colorize(
+            extension="bash",
+            code=
+"# Installing cargo flash is simple:
+cargo install cargo-flash
+
+# In your cargo project directory, call
+cargo flash --release --chip <chip_name>
+
+# Don't know if your target is available
+# and what it's name is?
+cargo flash --list-targets
+
+# You can run your examples as usual with
+cargo flash --example <your_example>
+    
+# If you like GDB for debugging,
+# you can open a GDB server after downloading
+cargo flash --gdb"
+        ) | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                <b>cargo-flash</b> is a cargo extension and drop in replacement for 'cargo run'.
+            </p>
+            <p>
+                You can use <b>cargo-flash</b> just like 'cargo run', but instead of running on the host, <b>cargo-flash</b> will download your binary to the target and run.
+            </p>
+            <p>
+                Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.
+                If not, hit us with an <a href="https://github.com/probe-rs/cargo-flash/issues/new/choose" target="_blank">issue</a>.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<h2 class="text-center mt-5 mb-5" style="color:#964FC2" id="a-probe-rs-library">probe-rs as a library</h2>
+<div class="row">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ macros::colorize(
+            code=
+'use probe_rs::Probe;
+
+// Get a list of all available debug probes.
+let probes = Probe::list_all();
+
+// Use the first probe found.
+let probe = probes[0].open()?;
+
+// Attach to a chip.
+let session = probe.attach("nrf52")?;
+
+// Select a core.
+let core = session.attach_to_core(0)?;
+
+// Halt the attached core.
+core.halt()?;'
+        ) | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                <b>probe-rs</b> as a library can be used to automate your workflow.
+            </p>
+            <p>
+                Want to do
+                    <ul>
+                        <li>hardware-in-the-loop testing?</li>
+                        <li>WCET analysis with automatic stepping and reporting</li>
+                        <li>automatic firmware downloads in your project?</li>
+                    </ul>
+                Ditch the wonky setup of OpenOCD and GDB with a thousand lines of setup scripts today!
+            </p>
+            <p>
+                <b>probe-rs</b> was designed with such usecases in mind.<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ macros::colorize(
+            code=
+'use probe_rs::Core;
+
+let core = Core::auto_attach("nrf52")?;
+
+// Read a block of 50 32 bit words.
+let mut buff = [0u32;50];
+core.read_32(0x2000_0000, &mut buff)?;
+
+// Read a single 32 bit word.
+let word = core.read_word_32(0x2000_0000)?;
+
+// Writing is just as simple.
+let buff = [0u32;50];
+core.write_32(0x2000_0000, &buff)?;
+
+// of course we can also write 8bit words.
+let buff = [0u8;50];
+core.write_8(0x2000_0000, &buff)?;'
+        ) | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                Reading and writing memory is trivial with <b>probe-rs</b>.
+            </p>
+            <p>
+                <b>probe-rs</b> supports differnt word sizes and block transfers.
+            </p>
+            <p>
+                Don't forget to unlock the flash before you write to it!
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ macros::colorize(
+            code=
+'use probe_rs::Probe;
+use probe_rs::flash::download::{Format, download_file};
+
+// Get a list of all available debug probes.
+let probes = Probe::list_all();
+
+// Use the first probe found.
+let probe = probes[0].open()?;
+
+// Attach to a chip.
+let session = probe.attach("nrf52")?;
+
+// Load the memory map.
+let mm = session.memory_map();
+
+download_file(
+    &session,
+    std::path::Path::new("/path/to/elf"),
+    Format::Elf,
+    &mm,
+).unwrap();'
+        ) | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                Downloading firmware to your target is as easy.
+            </p>
+            <p>
+                Of course the flash facility can also report progress. Have a closer look at <i>probe_rs::flash::download::download_file_with_progress_reporting</i>.
+            </p>
+            <p>
+                Any target that has a CMSIS-Pack can be converted into a <b>probe-rs</b> flash download target with our <a href="https://github.com/probe-rs/target-gen" target="_blank">utility</a>
+            </p>
+        </div>
+    </div>
+</div>
+
 <h2 class="text-center mt-5 mb-5">Features</h2>
 <table class="table">
     <tbody>
@@ -73,6 +240,8 @@
       {{ macros::feature_entry(title="ITM support", state="planned") }}
       {{ macros::feature_entry(title="Flash (soft) breakpoints", state="planned") }}
       {{ macros::feature_entry(title="Write to externally connected flashes", state="planned") }}
+      {{ macros::feature_entry(title="Segger RTT support", state="planned") }}
+      {{ macros::feature_entry(title="Semihosting", state="planned") }}
     </tbody>
   </table>
 {% endblock %}
