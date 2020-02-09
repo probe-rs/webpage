@@ -1,8 +1,8 @@
 {% macro card(title, content, img="", icon="", icontype="b", color="") %}
 <div class="col mb-4 d-flex align-items-stretch">
-    <div class="card" {% if color %}style="border-color:{{ color }}"{% endif %}>
+    <div class="card banner-card" {% if color %}style="border-color:{{ color }};"{% endif %}>
         <div class="card-body text-center">
-            {% if img %}<img src="{{ img }}" style="max-height: 100px;"/>{% endif %}
+            {% if img %}<img src="{{ img }}" style="max-height: 70px;"/>{% endif %}
             {% if icon %}<i class="fa{{ icontype }} fa-{{ icon }} mt-3 mb-3" style="font-size:4.42em;"></i>{% endif %}
             <h4 class="card-title" {% if color %}style="color:{{ color }}"{% endif %}>{{ title }}</h5>
             <p class="card-text">{{ content }}</p>

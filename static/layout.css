@@ -3,6 +3,10 @@
     max-width: 580px;
 }
 
+.banner-card {
+    border-style: none !important;
+}
+
 .navbar .nav-link {
     border-bottom: 3px solid transparent;
 }
