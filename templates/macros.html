@@ -9,4 +9,24 @@
         </div>
     </div>
 </div>
-{% endmacro input %}
+{% endmacro card %}
+
+{% macro feature_entry(title, state="planned") %}
+{% if state == 'stable' %}
+    {% set color = "success" %}
+    {% set text = "stable" %}
+{% elif state == 'beta' %}
+    {% set color = "warning" %}
+    {% set text = "beta" %}
+{% elif state == 'alpha' %}
+    {% set color = "danger" %}
+    {% set text = "alpha" %}
+{% else %}
+    {% set color = "secondary" %}
+    {% set text = "planned" %}
+{% endif %}
+<tr>
+    <th scope="row">{{ title }}</th>
+    <td><span class="badge badge-{{ color }}">{{ text }}</span></td>
+</tr>
+{% endmacro feature_entry %}

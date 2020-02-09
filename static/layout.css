@@ -6,11 +6,3 @@
 .banner-card {
     border-style: none !important;
 }
-
-.navbar .nav-link {
-    border-bottom: 3px solid transparent;
-}
-
-.navbar .nav-link:hover {
-    border-bottom: 3px solid black;
-}

@@ -52,5 +52,27 @@
         color="#4992BF"
     ) }}
 </div>
-
+<h2 class="text-center mt-5 mb-5">Features</h2>
+<table class="table">
+    <tbody>
+      {{ macros::feature_entry(title="Flash programming", state="stable") }}
+      {{ macros::feature_entry(title="Cargo integration", state="stable") }}
+      {{ macros::feature_entry(title="CMSIS-Pack support", state="stable") }}
+      {{ macros::feature_entry(title="RiscV support", state="alpha") }}
+      {{ macros::feature_entry(title="ARM support", state="stable") }}
+      {{ macros::feature_entry(title="CMSIS-DAP (DAP-Link) support", state="stable") }}
+      {{ macros::feature_entry(title="ST-Link support", state="stable") }}
+      {{ macros::feature_entry(title="J-Link support", state="alpha") }}
+      {{ macros::feature_entry(title="JTAG support", state="alpha") }}
+      {{ macros::feature_entry(title="SWD support", state="stable") }}
+      {{ macros::feature_entry(title="GDB stub", state="beta") }}
+      {{ macros::feature_entry(title="Microsoft DAP (VSCode) server", state="alpha") }}
+      {{ macros::feature_entry(title="WASM extensions for chip-specific fucntionality", state="planned") }}
+      {{ macros::feature_entry(title="Chip autodetection", state="beta") }}
+      {{ macros::feature_entry(title="Debugging (run, halt, step, break)", state="beta") }}
+      {{ macros::feature_entry(title="ITM support", state="planned") }}
+      {{ macros::feature_entry(title="Flash (soft) breakpoints", state="planned") }}
+      {{ macros::feature_entry(title="Write to externally connected flashes", state="planned") }}
+    </tbody>
+  </table>
 {% endblock %}
