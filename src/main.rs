@@ -1,4 +1,4 @@
-#![deny(warnings)]
+// #![deny(warnings)]
 use std::sync::{Arc, Mutex};
 use serde::Serialize;
 use serde_json::json;
@@ -10,6 +10,7 @@ use syntect::{
     parsing::SyntaxSet,
     highlighting::ThemeSet,
 };
+use comrak::{markdown_to_html, ComrakOptions};
 
 lazy_static::lazy_static! {
     // Load the code syntax & theme sets.
@@ -30,8 +31,8 @@ where
     let mut guard = tera.lock().unwrap();
     #[cfg(not(debug_assertions))]
     let guard = tera.lock().unwrap();
-    #[cfg(debug_assertions)]
-    guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
+    // #[cfg(debug_assertions)]
+    // guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
 
     let render = match Context::from_serialize(&template.value) {
         Ok(context) => guard.render(template.name, &context).unwrap_or_else(|err| err.to_string()),
@@ -58,6 +59,51 @@ fn colorize(args: &HashMap<String, Value>) -> Result<Value, TeraError> {
     Ok(highlighted_html_for_string(code, &SS, syntax, theme).into())
 }
 
+fn code(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraError> {
+    let path = std::path::Path::new(match arg.as_str() {
+        Some(path) => path,
+        None => return Err(TeraError::msg("argument needs to be a path"))
+    });
+
+    let snippet = std::fs::read_to_string(path);
+    
+    let syntax = if let Some(ext) = path.extension() {
+        SS.find_syntax_by_extension(ext.to_str().unwrap()).unwrap()
+    } else {
+        &SS.syntaxes()[0]
+    };
+    
+    let theme = &TS.themes["InspiredGitHub"];
+    
+    let snippet = highlighted_html_for_string(&snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?, &SS, syntax, theme);
+    
+    Ok(snippet.into())
+}
+
+fn markdown(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraError> {
+    let path = std::path::Path::new(match arg.as_str() {
+        Some(path) => path,
+        None => return Err(TeraError::msg("argument needs to be a path"))
+    });
+    let snippet = std::fs::read_to_string(path);
+
+    let snippet = markdown_to_html(&snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?, &ComrakOptions::default());
+        
+    let theme = &TS.themes["InspiredGitHub"];
+    
+    let re = regex::Regex::new(r#"<pre><code class="language-([^"]+)">([^<]*)</code>"#).unwrap();
+    let snippet = re.replace(&snippet, |caps: &regex::Captures| {
+        let syntax = match SS.find_syntax_by_token(&caps[1]) {
+            Some(syntax) => syntax,
+            None => &SS.find_syntax_plain_text(),
+        };
+        let code = htmlescape::decode_html(&caps[2]).unwrap();
+        highlighted_html_for_string(&code, &SS, syntax, theme)
+    });
+
+    Ok(snippet.into())
+}
+
 #[tokio::main]
 async fn main() {
     pretty_env_logger::init();
@@ -72,6 +118,8 @@ async fn main() {
     };
 
     templates.register_function("colorize", colorize);
+    templates.register_filter("code", code);
+    templates.register_filter("markdown", markdown);
     let templates = Arc::new(Mutex::new(templates));
 
     // Create a reusable closure to render a template.

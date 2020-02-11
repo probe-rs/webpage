@@ -56,26 +56,8 @@
 <h2 class="text-center mt-5 mb-5" style="color:#BF834E" id="a-cargo-flash">cargo flash</h2>
 <div class="row">
     <div class="col-12 col-lg-6 order-last order-lg-first">
-        {{ macros::colorize(
-            extension="bash",
-            code=
-"# Installing cargo flash is simple:
-cargo install cargo-flash
-
-# In your cargo project directory, call
-cargo flash --release --chip <chip_name>
-
-# Don't know if your target is available
-# and what it's name is?
-cargo flash --list-targets
-
-# You can run your examples as usual with
-cargo flash --example <your_example>
-    
-# If you like GDB for debugging,
-# you can open a GDB server after downloading
-cargo flash --gdb"
-        ) | safe }}
+        {{ "snippets/cargo-flash.sh" | code | safe }}
+        {{ "md/md-test.md" | markdown | safe }}
     </div>
     <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
         <div>
