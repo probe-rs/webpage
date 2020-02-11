@@ -12,10 +12,17 @@ use syntect::{
 };
 use comrak::{markdown_to_html, ComrakOptions};
 
+#[derive(PartialEq, Eq, Hash)]
+struct CacheEntry {
+    path: String,
+    timestamp: std::time::SystemTime,
+}
+
 lazy_static::lazy_static! {
     // Load the code syntax & theme sets.
     static ref SS: SyntaxSet = SyntaxSet::load_defaults_newlines();
     static ref TS: ThemeSet = ThemeSet::load_defaults();
+    static ref CACHE: Arc<Mutex<HashMap<String, String>>> = Arc::new(Mutex::new(HashMap::new()));
 }
 
 struct WithTemplate<T: Serialize> {
@@ -31,8 +38,8 @@ where
     let mut guard = tera.lock().unwrap();
     #[cfg(not(debug_assertions))]
     let guard = tera.lock().unwrap();
-    // #[cfg(debug_assertions)]
-    // guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
+    #[cfg(debug_assertions)]
+    guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
 
     let render = match Context::from_serialize(&template.value) {
         Ok(context) => guard.render(template.name, &context).unwrap_or_else(|err| err.to_string()),
@@ -60,10 +67,23 @@ fn colorize(args: &HashMap<String, Value>) -> Result<Value, TeraError> {
 }
 
 fn code(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraError> {
-    let path = std::path::Path::new(match arg.as_str() {
-        Some(path) => path,
+    let path_string = match arg.as_str() {
+        Some(path) => {
+            #[cfg(not(debug_assertions))]
+            {
+                let guard = CACHE.lock().unwrap();
+                if let Some(html) = guard.get(path) {
+                    return Ok(html.clone().into());
+                } else {
+                    path
+                }
+            }
+            #[cfg(debug_assertions)]
+            path
+        },
         None => return Err(TeraError::msg("argument needs to be a path"))
-    });
+    };
+    let path = std::path::Path::new(path_string);
 
     let snippet = std::fs::read_to_string(path);
     
@@ -77,16 +97,31 @@ fn code(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraError>
     
     let snippet = highlighted_html_for_string(&snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?, &SS, syntax, theme);
     
+    let mut guard = CACHE.lock().unwrap();
+    guard.insert(path_string.into(), snippet.to_string());
     Ok(snippet.into())
 }
 
 fn markdown(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraError> {
-    let path = std::path::Path::new(match arg.as_str() {
-        Some(path) => path,
+    let path_string = match arg.as_str() {
+        Some(path) => {
+            #[cfg(not(debug_assertions))]
+            {
+                let guard = CACHE.lock().unwrap();
+                if let Some(html) = guard.get(path) {
+                    return Ok(html.clone().into());
+                } else {
+                    path
+                }
+            }
+            #[cfg(debug_assertions)]
+            path
+        },
         None => return Err(TeraError::msg("argument needs to be a path"))
-    });
-    let snippet = std::fs::read_to_string(path);
+    };
+    let path = std::path::Path::new(path_string);
 
+    let snippet = std::fs::read_to_string(path);
     let snippet = markdown_to_html(&snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?, &ComrakOptions::default());
         
     let theme = &TS.themes["InspiredGitHub"];
@@ -101,6 +136,8 @@ fn markdown(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraEr
         highlighted_html_for_string(&code, &SS, syntax, theme)
     });
 
+    let mut guard = CACHE.lock().unwrap();
+    guard.insert(path_string.into(), snippet.to_string());
     Ok(snippet.into())
 }
 
