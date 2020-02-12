@@ -31,6 +31,7 @@ COPY --from=cargo-build /home/rust/src/target/x86_64-unknown-linux-musl/release/
 
 COPY scripts/startup.sh housekeeping/startup.sh
 COPY templates/ data/templates/
+COPY snippets/ data/snippets/
 COPY static/ data/static/
 
 RUN chmod 777 housekeeping/startup.sh
