@@ -2,6 +2,69 @@
 
 {% block content %}
 
-<h2 class="text-center">Coming soon!</h2>
+<h2 class="text-center mt-5 mb-5" style="color:#964FC2" id="a-probe-rs-library">probe-rs as a library</h2>
+<div class="row">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ "snippets/as_library/basic_probe_usage.rs" | code | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                <b>probe-rs</b> as a library can be used to automate your workflow.
+            </p>
+            <p>
+                Want to do
+                    <ul>
+                        <li>hardware-in-the-loop testing?</li>
+                        <li>WCET analysis with automatic stepping and reporting</li>
+                        <li>automatic firmware downloads in your project?</li>
+                    </ul>
+            </p>
+            <p>
+                <b>probe-rs</b> was designed with such usecases in mind.<br>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ "snippets/as_library/memory_ops.rs" | code | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                Reading and writing memory is trivial with <b>probe-rs</b>.
+            </p>
+            <p>
+                <b>probe-rs</b> supports differnt word sizes and block transfers.
+            </p>
+            <p>
+                Don't forget to unlock the flash before you write to it!
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12 col-lg-6 order-last order-lg-first">
+        {{ "snippets/as_library/memory_ops.rs" | code | safe }}
+    </div>
+    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
+        <div>
+            <p>
+                Downloading firmware to your target is as easy.
+            </p>
+            <p>
+                Of course the flash facility can also report progress. Have a closer look at <i>probe_rs::flash::download::download_file_with_progress_reporting</i>.
+            </p>
+            <p>
+                Any target that has a CMSIS-Pack can be converted into a <b>probe-rs</b> flash download target with our <a href="https://github.com/probe-rs/target-gen" target="_blank">utility</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-center">More content to follow soon(TM)!</h2>
 
 {% endblock %}
