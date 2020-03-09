@@ -1,5 +1,8 @@
 use probe_rs::Probe;
-use probe_rs::flash::download::{Format, download_file};
+use probe_rs::flash::download::{
+    Format,
+    download_file,
+};
 
 // Get a list of all available debug probes.
 let probes = Probe::list_all();

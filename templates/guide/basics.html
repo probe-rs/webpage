@@ -2,6 +2,13 @@
 
 {% block guide_content %}
 
-<h2 class="guide" id="basics">Comming soon</h2>
+<h1 class="guide">probe-rs basics</h1>
+<h2 class="guide" id="probe">The Probe struct</h2>
+<div class="row">
+    <div class="col-12">
+        {{ "md/basics/probe.md" | markdown | safe }}
+        {{ "md/basics/session.md" | markdown | safe }}
+    </div>
+</div>
 
 {% endblock %}

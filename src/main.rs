@@ -135,7 +135,7 @@ fn markdown(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraEr
     let theme = &TS.themes["InspiredGitHub"];
 
     let re = regex::Regex::new(r#"<pre><code class="language-([^"]+)">([^<]*)</code>"#).unwrap();
-    let snippet = re.replace(&snippet, |caps: &regex::Captures| {
+    let snippet = re.replace_all(&snippet, |caps: &regex::Captures| {
         let syntax = match SS.find_syntax_by_token(&caps[1]) {
             Some(syntax) => syntax,
             None => &SS.find_syntax_plain_text(),
