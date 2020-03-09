@@ -1,11 +1,11 @@
 {% macro card(title, content, img="", icon="", icontype="b", color="") %}
 <div class="col mb-4 d-flex align-items-stretch">
-    <div class="card banner-card" {% if color %}style="border-color:{{ color }};"{% endif %}>
+    <div class="card banner-card" {% if color %}style="border-color:{{ color }};" {% endif %}>
         <div class="card-body text-center">
-            {% if img %}<img src="{{ img }}" style="max-height: 70px;"/>{% endif %}
+            {% if img %}<img src="{{ img }}" style="max-height: 70px;" />{% endif %}
             {% if icon %}<i class="fa{{ icontype }} fa-{{ icon }} mt-3 mb-3" style="font-size:4.42em;"></i>{% endif %}
-            <h4 class="card-title" {% if color %}style="color:{{ color }}"{% endif %}>{{ title }}</h5>
-            <p class="card-text">{{ content }}</p>
+            <h4 class="card-title" {% if color %}style="color:{{ color }}" {% endif %}>{{ title }}</h5>
+                <p class="card-text">{{ content }}</p>
         </div>
     </div>
 </div>
@@ -13,17 +13,17 @@
 
 {% macro feature_entry(title, state="planned") %}
 {% if state == 'stable' %}
-    {% set color = "success" %}
-    {% set text = "stable" %}
+{% set color = "success" %}
+{% set text = "stable" %}
 {% elif state == 'beta' %}
-    {% set color = "warning" %}
-    {% set text = "beta" %}
+{% set color = "warning" %}
+{% set text = "beta" %}
 {% elif state == 'alpha' %}
-    {% set color = "danger" %}
-    {% set text = "alpha" %}
+{% set color = "danger" %}
+{% set text = "alpha" %}
 {% else %}
-    {% set color = "secondary" %}
-    {% set text = "planned" %}
+{% set color = "secondary" %}
+{% set text = "planned" %}
 {% endif %}
 <tr>
     <th scope="row">{{ title }}</th>
@@ -31,6 +31,6 @@
 </tr>
 {% endmacro feature_entry %}
 
-{% macro colorize(extension="rs", theme="InspiredGitHub", code) %}
-{{ colorize(extension=extension, theme=theme, code=code) | safe }}
-{% endmacro colorize %}
+{% macro sb(l, c, u) %}
+<{{ l }}><a href="{{ u }}">{{ c }}</a></{{ l }}>
+{% endmacro sb %}

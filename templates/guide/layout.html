@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% import "macros.html" as macros %}
+
+{% block content %}
+<!-- <h2 class="text-center mt-5 mb-5" style="color:#964FC2" id="a-probe-rs-library">Guide</h2> -->
+<div class="container d-flex p-0 pt-4">
+    <div class="sidebar d-none d-xl-block">
+        <div class="sidebar-content">
+            {{ macros::sb(
+                l="h1",
+                c="Quickstart",
+                u="/guide/quickstart"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Attaching",
+                u="/guide/quickstart#attaching"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Memory R/W",
+                u="/guide/quickstart#memory"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Flashing",
+                u="/guide/quickstart#flashing"
+            ) }}
+
+            {{ macros::sb(
+                l="h1",
+                c="Basics",
+                u="/guide/basics"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Structure",
+                u="/guide/basics#"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Probe",
+                u="/guide/basics#"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Session",
+                u="/guide/basics#"
+            ) }}
+            {{ macros::sb(
+                l="h2",
+                c="Core",
+                u="/guide/basics#"
+            ) }}
+
+            {{ macros::sb(
+                l="h1",
+                c="Downloading flash",
+                u="/guide/downloading"
+            ) }}
+
+            {{ macros::sb(
+                l="h1",
+                c="ITM tracing",
+                u="/guide/itm"
+            ) }}
+
+            {{ macros::sb(
+                l="h1",
+                c="Implementing a probe",
+                u="/guide/implement-probe"
+            ) }}
+        </div>
+    </div>
+    <div class="d-flex flex-grow-1">
+        <div class="container">
+            {% block guide_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

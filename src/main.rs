@@ -1,16 +1,12 @@
 // #![deny(warnings)]
-use std::sync::{Arc, Mutex};
+use comrak::{markdown_to_html, ComrakOptions};
 use serde::Serialize;
 use serde_json::json;
-use warp::Filter;
-use tera::{Tera, Error as TeraError, Context, Value};
 use std::collections::HashMap;
-use syntect::{
-    html::highlighted_html_for_string,
-    parsing::SyntaxSet,
-    highlighting::ThemeSet,
-};
-use comrak::{markdown_to_html, ComrakOptions};
+use std::sync::{Arc, Mutex};
+use syntect::{highlighting::ThemeSet, html::highlighted_html_for_string, parsing::SyntaxSet};
+use tera::{Context, Error as TeraError, Tera, Value};
+use warp::Filter;
 
 #[derive(PartialEq, Eq, Hash)]
 struct CacheEntry {
@@ -26,7 +22,7 @@ lazy_static::lazy_static! {
 }
 
 struct WithTemplate<T: Serialize> {
-    name: &'static str,
+    name: String,
     value: T,
 }
 
@@ -39,10 +35,14 @@ where
     #[cfg(not(debug_assertions))]
     let guard = tera.lock().unwrap();
     #[cfg(debug_assertions)]
-    guard.full_reload().unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
+    guard
+        .full_reload()
+        .unwrap_or_else(|e| log::error!("Could not reload templates {}.", e));
 
     let render = match Context::from_serialize(&template.value) {
-        Ok(context) => guard.render(template.name, &context).unwrap_or_else(|err| err.to_string()),
+        Ok(context) => guard
+            .render(&template.name, &context)
+            .unwrap_or_else(|err| err.to_string()),
         Err(err) => err.to_string(),
     };
     warp::reply::html(render)
@@ -80,23 +80,28 @@ fn code(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraError>
             }
             #[cfg(debug_assertions)]
             path
-        },
-        None => return Err(TeraError::msg("argument needs to be a path"))
+        }
+        None => return Err(TeraError::msg("argument needs to be a path")),
     };
     let path = std::path::Path::new(path_string);
 
     let snippet = std::fs::read_to_string(path);
-    
+
     let syntax = if let Some(ext) = path.extension() {
         SS.find_syntax_by_extension(ext.to_str().unwrap()).unwrap()
     } else {
         &SS.syntaxes()[0]
     };
-    
+
     let theme = &TS.themes["InspiredGitHub"];
-    
-    let snippet = highlighted_html_for_string(&snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?, &SS, syntax, theme);
-    
+
+    let snippet = highlighted_html_for_string(
+        &snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?,
+        &SS,
+        syntax,
+        theme,
+    );
+
     let mut guard = CACHE.lock().unwrap();
     guard.insert(path_string.into(), snippet.to_string());
     Ok(snippet.into())
@@ -116,16 +121,19 @@ fn markdown(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraEr
             }
             #[cfg(debug_assertions)]
             path
-        },
-        None => return Err(TeraError::msg("argument needs to be a path"))
+        }
+        None => return Err(TeraError::msg("argument needs to be a path")),
     };
     let path = std::path::Path::new(path_string);
 
     let snippet = std::fs::read_to_string(path);
-    let snippet = markdown_to_html(&snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?, &ComrakOptions::default());
-        
+    let snippet = markdown_to_html(
+        &snippet.map_err(|_e| TeraError::template_not_found(path.to_string_lossy()))?,
+        &ComrakOptions::default(),
+    );
+
     let theme = &TS.themes["InspiredGitHub"];
-    
+
     let re = regex::Regex::new(r#"<pre><code class="language-([^"]+)">([^<]*)</code>"#).unwrap();
     let snippet = re.replace(&snippet, |caps: &regex::Captures| {
         let syntax = match SS.find_syntax_by_token(&caps[1]) {
@@ -166,18 +174,23 @@ async fn main() {
 
     let index = warp::path::end()
         .map(|| WithTemplate {
-            name: "index.html",
+            name: "index.html".to_string(),
             value: json!({"page" : "index"}),
         })
         .map(tera.clone());
 
     let index = warp::path("index").and(index.clone()).or(index);
 
-    let guide = warp::get()
-        .and(warp::path("guide"))
-        .and(warp::path::end())
+    let guide_index = warp::path!("guide")
         .map(|| WithTemplate {
-            name: "guide.html",
+            name: "guide/index.html".to_string(),
+            value: json!({"page" : "guide"}),
+        })
+        .map(tera.clone());
+
+    let guide = warp::path!("guide" / String)
+        .map(|page| WithTemplate {
+            name: format!("guide/{}.html", page),
             value: json!({"page" : "guide"}),
         })
         .map(tera.clone());
@@ -186,6 +199,7 @@ async fn main() {
     let route = warp::get()
         .and(static_files)
         .or(index)
+        .or(guide_index)
         .or(guide);
 
     warp::serve(route).run(([0, 0, 0, 0], 3030)).await;
