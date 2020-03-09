@@ -32,5 +32,108 @@
 {% endmacro feature_entry %}
 
 {% macro sb(l, c, u) %}
-<{{ l }}><a href="{{ u }}">{{ c }}</a></{{ l }}>
+<{{ l }} class="sidebar-h"><a href="{{ u }}">{{ c }}</a></{{ l }}>
 {% endmacro sb %}
+
+{% macro sidebar() %}
+{{ macros::sb(
+    l="h1",
+    c="Index",
+    u="/guide"
+) }}
+{{ macros::sb(
+    l="h1",
+    c="Quickstart",
+    u="/guide/quickstart"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Attaching",
+    u="/guide/quickstart#attaching"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Memory R/W",
+    u="/guide/quickstart#memory"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Flashing",
+    u="/guide/quickstart#flashing"
+) }}
+
+{{ macros::sb(
+    l="h1",
+    c="Basics",
+    u="/guide/basics"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Structure",
+    u="/guide/basics#structure"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Probe",
+    u="/guide/basics#probe"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Session",
+    u="/guide/basics#session"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Core",
+    u="/guide/basics#core"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Target",
+    u="/guide/basics#target"
+) }}
+
+{{ macros::sb(
+    l="h1",
+    c="Downloading flash",
+    u="/guide/downloading"
+) }}
+
+{{ macros::sb(
+    l="h1",
+    c="ITM tracing",
+    u="/guide/itm"
+) }}
+
+{{ macros::sb(
+    l="h1",
+    c="CMSIS-Packs",
+    u="/guide/cmsis-packs"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Basics",
+    u="/guide/cmsis-packs#basics"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Flash algorithms",
+    u="/guide/cmsis-packs#flash-algorithms"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="YAML format",
+    u="/guide/cmsis-packs#yaml-format"
+) }}
+{{ macros::sb(
+    l="h2",
+    c="Target extraction",
+    u="/guide/cmsis-packs#target-extraction"
+) }}
+
+{{ macros::sb(
+    l="h1",
+    c="Implementing a probe",
+    u="/guide/implement-probe"
+) }}
+{% endmacro sidebar %}

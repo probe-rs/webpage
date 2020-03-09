@@ -17,12 +17,12 @@
     position: fixed;
 }
 
-.sidebar h1 {
+h1.sidebar-h {
     font-size: 1.25em;
     color: red;
 }
 
-.sidebar h2 {
+h2.sidebar-h {
     padding-left: 1em;
     font-size: 1em;
     color: red;
@@ -37,4 +37,8 @@ h2.guide {
 h1.guide {
     color:#964FC2;
     margin-bottom: 0.5em;
+}
+
+.guide-content {
+    min-height: calc(100vh - 112px - 180px - 24px);
 }
