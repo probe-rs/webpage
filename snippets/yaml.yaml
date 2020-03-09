@@ -1,0 +1,36 @@
+---
+name: string # The name of the chip family.
+variants: # A list of all the chips in the family.
+  - name: string # The name of the chip.
+    memory_map: # A list of all the available memories and their properties.
+      - Ram: # The type of the memory. Possible are [Ram, Flash]. There needs to be at least one of each present.
+          range:
+            start: number # The start address of the memory (inclusive).
+            end: number # The end address of the memory (inclusive).
+          is_boot_memory: boolean # Marks the memory as the memory which the chip boots from.
+    flash_algorithms: # A list of all the used flash algorithms.
+      - string # The name of the flash algorithm.
+flash_algorithms: # A hashmap of all the available flash algorithms with the algorithms name as the key.
+  name: # The name of the flash algorithm.
+    name: string # The name of the flash algorithm.
+    description: string # A description of the flash algorithm.
+    default: boolean # Marks the algorithm to be used as the default algorithm.
+    instructions: base64string # A base 64 encoded ELF binary blob containing all the loadable symbols of the flash algorithm.
+    pc_init: number # The position independent address of the init routine.
+    pc_uninit: number # The position independent address of the uninit routine.
+    pc_program_page: number # The position independent address of the program page routine.
+    pc_erase_sector: number # The position independent address of the erase sector routine.
+    pc_erase_all: number # The position independent address of the erase all routine.
+    data_section_offset: number # The offset where the data section of the ELF binary starts.
+    flash_properties:
+      address_range: # The address range for which this flash algorithm is to be used.
+        start: number # The start address (inclusive).
+        end: number # The start address (inclusive).
+      page_size: number # The programmable block size. This is the unit size that can be written to flash.
+      erased_byte_value: number # The erased value of a byte in flash.
+      program_page_timeout: number # How long a page program procedure can take.
+      erase_sector_timeout: number # How long a sector erase procedure can take.
+      sectors: # The sectors this piece of flash consists of. A sector is the eraseable unit.
+        - size: number # The size of the sectors starting form the address below.
+          address: number # The address from which the new sector size above is applicable.
+core: string # The core type. Currently valid are [M4, M3, M33, M0, RISCV]
