@@ -41,11 +41,11 @@ h1.guide {
 
 .guide-content {
     min-height: calc(100vh - 112px - 180px - 24px);
-    max-width: calc(100% - 250px);
+    /* max-width: calc(100% - 250px); */
     margin: 0;
 }
 
 pre {
-    border: 1px solid #CFCFCF;
-    padding: 0.5em;
+    background-color: #F8F8F8 !important;
+    padding: 1em;
 }

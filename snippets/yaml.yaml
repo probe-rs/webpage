@@ -15,8 +15,7 @@ variants:
             start: number
             # The end address of the memory (inclusive).
             end: number
-          # Marks the memory as the memory
-          # which the chip boots from.
+          # Marks the memory as the memory which the chip boots from.
           is_boot_memory: boolean
     # A list of all the used flash algorithms.
     flash_algorithms:
@@ -48,15 +47,13 @@ flash_algorithms:
     # The offset where the data section of the ELF binary starts.
     data_section_offset: number
     flash_properties:
-      # The address range for which
-      # this flash algorithm is to be used.
+      # The address range for which this flash algorithm is to be used.
       address_range:
         # The start address (inclusive).
         start: number
         # The start address (inclusive).
         end: number
-      # The programmable block size.
-      # This is the unit size that can be written to flash.
+      # The programmable block size. This is the unit size that can be written to flash.
       page_size: number
       # The erased value of a byte in flash.
       erased_byte_value: number
@@ -64,13 +61,11 @@ flash_algorithms:
       program_page_timeout: number
       # How long a sector erase procedure can take.
       erase_sector_timeout: number
-      # The sectors this piece of flash consists of.
-      # A sector is the eraseable unit.
+      # The sectors this piece of flash consists of. A sector is the eraseable unit.
       sectors:
         # The size of the sectors starting form the address below.
         - size: number
-          # The address from on which
-          # the new sector size is applicable.
+          # The address from on which the new sector size is applicable.
           address: number
 # The core type. Currently valid are [M4, M3, M33, M0, RISCV]
 core: string
