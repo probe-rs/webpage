@@ -11,7 +11,7 @@
 </div>
 {% endmacro card %}
 
-{% macro feature_entry(title, state="planned") %}
+{% macro feature_entry(title, link, state="planned") %}
 {% if state == 'stable' %}
 {% set color = "success" %}
 {% set text = "stable" %}
@@ -26,7 +26,7 @@
 {% set text = "planned" %}
 {% endif %}
 <tr>
-    <th scope="row">{{ title }}</th>
+    <th scope="row"><a href={{ link }}>{{ title }}</a></th>
     <td><span class="badge badge-{{ color }}">{{ text }}</span></td>
 </tr>
 {% endmacro feature_entry %}
