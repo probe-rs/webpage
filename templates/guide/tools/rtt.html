@@ -1,0 +1,88 @@
+{% extends "guide/layout.html" %}
+
+{% block guide_content %}
+
+<h1 class="guide">RTT</h1>
+<h2 class="guide" id="basics">Basics</h2>
+
+RTT stands for real time transfers and is a mechanism to transfer data between the debug host and the debuggee.<br>
+<br>
+In it's essence it provides a configurable amount of ringbuffers, which are read/written by the target and the debug
+host.
+The protocol initially was published by <a
+    href="https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/"
+    target="_blank">Segger</a> but there is really no magic to it other then ringbuffers being worked.
+This mechanism allows us to transfer data from the target to the host and vice versa really fast.<br>
+<br>
+RTT features:
+<ul>
+    <li>Fast duplex data transfers</li>
+    <li>A configurable ammount of channels(buffers)</li>
+    <li>Channels can be blocking and non blocking - your choice</li>
+</ul>
+
+This guide should get you going in no time to speed up your development with probe-rs.
+
+<h2 class="guide" id="target-simple">The target side</h2>
+
+For the target side, we offer <a href="https://crates.io/crates/rtt-target" target="_blank">rtt-target</a>, a small lib
+to set up the RTT structures in the target memory and read/write data from/to them.
+
+A minimal example of a host firmware would be
+
+{{ "snippets/guide/rtt_target_simple.rs" | code | safe }}
+
+<h2 class="guide" id="host-simple">The host side</h2>
+
+For the host side, we provide a simple TUI utility called <a href="https://crates.io/crates/rttui"
+    target="_blank">rttui</a>.
+We recommend installing it via
+<pre>cargo install rttui</pre>
+After a successfull install you should be able to run the TUI by providing just the target name!
+In our case this is the nrf51 on the microbit.
+
+<pre>rttui --chip nrf51</pre>
+
+Now you should be able to see all the 'Hello World!'s in a default Channel called Terminal!
+
+<center><img src="/static/img/rttui-simple.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
+
+<h2 class="guide" id="target-simple">Don't panic!</h2>
+
+Of course it is easy to log all panics via RTT! Here is a most simple example of a panic handler:
+
+{{ "snippets/guide/rtt_target_panic.rs" | code | safe }}
+
+And in the rttui you should see the panic.
+
+<center><img src="/static/img/rttui-panic.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
+
+We intentionally ship no default panic handler, so that you may choose the channel of your choice to log the panic
+to!<br>
+<br>
+
+So how do I get more channels, you might ask. Read on!
+
+<h2 class="guide" id="target-simple">All the channels!</h2>
+
+You can define multiple channels via a provided macro as seen in this snippet
+
+{{ "snippets/guide/rtt_target.rs" | code | safe }}
+
+In this example we define three up channels and one down channel.
+The third up channel continuously logs, the second prints just a single info message and what the first one does, you'll
+figure it when you examine channel two ;)<br>
+<br>
+On the host side it looks like
+
+<center><img src="/static/img/rttui.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
+
+As you can observe, we see all three up channels. You can switch to and from them with the F-keys.
+The down channel will automatically be associated with the corresponding up channel and an input field will
+automatically be displayed for channels with a corresponding down channel. This is done via the channel number, which
+must be the same for the up and down channels. This is only a limitation to rttui. RTT itself can handle any up/down
+numbers combination.<br>
+<br>
+Now you should be able to debug conveninently. Happy coding!
+
+{% endblock %}

@@ -19,13 +19,13 @@
 
 h1.sidebar-h {
     font-size: 1.25em;
-    color: red;
+    color: black;
 }
 
 h2.sidebar-h {
     padding-left: 1em;
     font-size: 1em;
-    color: red;
+    color: black;
 }
 
 h2.guide {
@@ -48,4 +48,5 @@ h1.guide {
 pre {
     background-color: #F8F8F8 !important;
     padding: 1em;
+    margin-top: 1em;
 }

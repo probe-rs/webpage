@@ -36,56 +36,68 @@
 {% endmacro sb %}
 
 {% macro sidebar() %}
+<h1 class="sidebar-h">Tools</h1>
+{{ macros::sb(
+    l="h1",
+    c="cargo-flash",
+    u="/tools/cargo-flash"
+) }}
+{{ macros::sb(
+    l="h1",
+    c="RTT",
+    u="/tools/rtt"
+) }}
+<h1 class="sidebar-h">Library use</h1>
 {{ macros::sb(
     l="h1",
     c="Index",
-    u="/guide"
+    u="/library"
 ) }}
 {{ macros::sb(
     l="h1",
     c="Quickstart",
-    u="/guide/quickstart"
+    u="/library/quickstart"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Attaching",
-    u="/guide/quickstart#attaching"
+    u="/library/quickstart#attaching"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Memory R/W",
-    u="/guide/quickstart#memory"
+    u="/library/quickstart#memory"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Flashing",
-    u="/guide/quickstart#flashing"
+    u="/library/quickstart#flashing"
 ) }}
 
 {{ macros::sb(
     l="h1",
     c="Basics",
-    u="/guide/basics"
+    u="/library/basics"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Structure",
-    u="/guide/basics#structure"
+    u="/library/basics#structure"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Probe",
-    u="/guide/basics#probe"
+    u="/library/basics#probe"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Session",
-    u="/guide/basics#session"
+    u="/library/basics#session"
 ) }}
 {{ macros::sb(
     l="h2",
     c="Core",
-    u="/guide/basics#core"
+    u="/library/basics#core"
 ) }}
 
 {{ macros::sb(

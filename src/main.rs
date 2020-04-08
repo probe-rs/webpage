@@ -181,16 +181,23 @@ async fn main() {
 
     let index = warp::path("index").and(index.clone()).or(index);
 
-    let guide_index = warp::path!("guide")
+    let library_index = warp::path!("library")
         .map(|| WithTemplate {
-            name: "guide/index.html".to_string(),
+            name: "guide/library/index.html".to_string(),
             value: json!({"page" : "guide"}),
         })
         .map(tera.clone());
 
-    let guide = warp::path!("guide" / String)
+    let library = warp::path!("library" / String)
         .map(|page| WithTemplate {
-            name: format!("guide/{}.html", page),
+            name: format!("guide/library/{}.html", page),
+            value: json!({"page" : "guide"}),
+        })
+        .map(tera.clone());
+
+    let tools = warp::path!("tools" / String)
+        .map(|page| WithTemplate {
+            name: format!("guide/tools/{}.html", page),
             value: json!({"page" : "guide"}),
         })
         .map(tera.clone());
@@ -199,8 +206,9 @@ async fn main() {
     let route = warp::get()
         .and(static_files)
         .or(index)
-        .or(guide_index)
-        .or(guide);
+        .or(library_index)
+        .or(library)
+        .or(tools);
 
     warp::serve(route).run(([0, 0, 0, 0], 3030)).await;
 }

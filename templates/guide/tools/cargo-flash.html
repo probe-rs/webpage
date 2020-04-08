@@ -1,0 +1,32 @@
+{% extends "guide/layout.html" %}
+
+{% block guide_content %}
+
+<h1 class="guide">cargo-flash</h1>
+<h2 class="guide" id="basics">Basics</h2>
+
+<p>
+    <b>cargo-flash</b> is a cargo extension and drop in replacement for 'cargo run'.
+</p>
+<p>
+    We recommend you install it with
+    <pre>cargo install cargo-flash</pre>
+</p>
+<p>
+    You can use <b>cargo-flash</b> just like 'cargo run', but instead of running on the host,
+    <b>cargo-flash</b> will download your binary to the target and run.
+</p>
+
+Here are the basics
+
+{{ "snippets/cargo-flash.sh" | code | safe }}
+
+<p>
+    Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.
+    If not, hit us with an <a href="https://github.com/probe-rs/cargo-flash/issues/new/choose"
+        target="_blank">issue</a>.
+</p>
+
+Happy coding!
+
+{% endblock %}
