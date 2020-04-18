@@ -2,8 +2,27 @@
 
 {% block guide_content %}
 
-<h1 class="guide">RTT</h1>
+<h1 class="guide">cargo-embed</h1>
 <h2 class="guide" id="basics">Basics</h2>
+
+<b>cargo-embed</b> is the big brother of cargo-flash.<br>
+It can also flash a target just like cargo-flash, but it can also open an RTT terminal as well as a GDB server.<br>
+<br>
+And there is much more to come in the future!
+
+<h3 class="guide">Installation</h3>
+
+<a href="https://crates.io/crates/cargo-embed"
+    target="_blank">cargo-embed</a> can be found on crates.io.
+We recommend installing it via
+<pre>cargo install cargo-embed</pre>
+
+<h3 class="guide">Configuration</h3>
+
+cargo-embed can be configured via a `Embed.toml` in the project root.
+The available options can be found in the <a href="https://github.com/probe-rs/cargo-embed/blob/master/src/config/default.toml" target="_blank">default.toml</a>.
+
+<h2 class="guide" id="basics">RTT</h2>
 
 RTT stands for real time transfers and is a mechanism to transfer data between the debug host and the debuggee.<br>
 <br>
@@ -23,7 +42,7 @@ RTT features:
 
 This guide should get you going in no time to speed up your development with probe-rs.
 
-<h2 class="guide" id="target-simple">The target side</h2>
+<h3 class="guide" id="target-simple">The target side</h3>
 
 For the target side, we offer <a href="https://crates.io/crates/rtt-target" target="_blank">rtt-target</a>, a small lib
 to set up the RTT structures in the target memory and read/write data from/to them.
@@ -32,30 +51,27 @@ A minimal example of a host firmware would be
 
 {{ "snippets/guide/rtt_target_simple.rs" | code | safe }}
 
-<h2 class="guide" id="host-simple">The host side</h2>
+<h3 class="guide" id="host-simple">The host side</h3>
 
-For the host side, we provide a simple TUI utility called <a href="https://crates.io/crates/rttui"
-    target="_blank">rttui</a>.
-We recommend installing it via
-<pre>cargo install rttui</pre>
-After a successfull install you should be able to run the TUI by providing just the target name!
-In our case this is the nrf51 on the microbit.
+On the host, just run
 
-<pre>rttui --chip nrf51</pre>
+<pre>cargo-embed</pre>
+
+with RTT enabled in the Embed.toml file.
 
 Now you should be able to see all the 'Hello World!'s in a default Channel called Terminal!
 
-<center><img src="/static/img/rttui-simple.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
+<center><img src="/static/img/cargo-embed-simple.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
 
-<h2 class="guide" id="target-simple">Don't panic!</h2>
+<h3 class="guide" id="target-simple">Don't panic!</h3>
 
 Of course it is easy to log all panics via RTT! Here is a most simple example of a panic handler:
 
 {{ "snippets/guide/rtt_target_panic.rs" | code | safe }}
 
-And in the rttui you should see the panic.
+And in the open rttui view you should see the panic.
 
-<center><img src="/static/img/rttui-panic.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
+<center><img src="/static/img/cargo-embed-panic.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
 
 We intentionally ship no default panic handler, so that you may choose the channel of your choice to log the panic
 to!<br>
@@ -63,7 +79,7 @@ to!<br>
 
 So how do I get more channels, you might ask. Read on!
 
-<h2 class="guide" id="target-simple">All the channels!</h2>
+<h3 class="guide" id="target-simple">All the channels!</h3>
 
 You can define multiple channels via a provided macro as seen in this snippet
 
@@ -75,12 +91,12 @@ figure it when you examine channel two ;)<br>
 <br>
 On the host side it looks like
 
-<center><img src="/static/img/rttui.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
+<center><img src="/static/img/cargo-embed.png" style="margin-top: 1em; margin-bottom: 1em;" /></center>
 
 As you can observe, we see all three up channels. You can switch to and from them with the F-keys.
 The down channel will automatically be associated with the corresponding up channel and an input field will
 automatically be displayed for channels with a corresponding down channel. This is done via the channel number, which
-must be the same for the up and down channels. This is only a limitation to rttui. RTT itself can handle any up/down
+must be the same for the up and down channels. This is the default rttui behavior and can be configured. RTT itself can handle any up/down
 numbers combination.<br>
 <br>
 Now you should be able to debug conveninently. Happy coding!

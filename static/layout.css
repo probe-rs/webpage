@@ -28,6 +28,12 @@ h2.sidebar-h {
     color: black;
 }
 
+h3.guide {
+    color:#964FC2;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
 h2.guide {
     color:#964FC2;
     margin-top: 1em;
