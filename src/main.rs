@@ -2,8 +2,11 @@
 use comrak::{markdown_to_html, ComrakOptions};
 use serde::Serialize;
 use serde_json::json;
-use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
+use std::{
+    collections::HashMap,
+    env,
+    sync::{Arc, Mutex},
+};
 use syntect::{highlighting::ThemeSet, html::highlighted_html_for_string, parsing::SyntaxSet};
 use tera::{Context, Error as TeraError, Tera, Value};
 use warp::Filter;
@@ -151,6 +154,11 @@ fn markdown(arg: &Value, _args: &HashMap<String, Value>) -> Result<Value, TeraEr
 
 #[tokio::main]
 async fn main() {
+    // Use info log level if nothing is configured
+    if env::var("RUST_LOG").is_err() {
+        env::set_var("RUST_LOG", "info")
+    }
+
     pretty_env_logger::init();
 
     // Initialize the template store.
