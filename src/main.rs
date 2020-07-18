@@ -210,6 +210,20 @@ async fn main() {
         })
         .map(tera.clone());
 
+    let probes = warp::path!("guide" / "probes" / String)
+        .map(|page| WithTemplate {
+            name: format!("guide/probes/{}.html", page),
+            value: json!({"page" : "guide"}),
+        })
+        .map(tera.clone());
+
+    let udev = warp::path!("guide" / "udev")
+        .map(|| WithTemplate {
+            name: format!("guide/udev.html"),
+            value: json!({"page" : "guide"}),
+        })
+        .map(tera.clone());
+
     let development = warp::path!("guide" / "development" / String)
         .map(|page| WithTemplate {
             name: format!("guide/development/{}.html", page),
@@ -224,6 +238,8 @@ async fn main() {
         .or(library_index)
         .or(library)
         .or(tools)
+        .or(probes)
+        .or(udev)
         .or(development);
 
     warp::serve(route).run(([0, 0, 0, 0], 3030)).await;

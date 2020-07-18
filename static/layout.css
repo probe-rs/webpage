@@ -34,13 +34,30 @@ h3.guide {
     margin-bottom: 0.5em;
 }
 
+.guide-content h3 {
+    color:#964FC2;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
 h2.guide {
     color:#964FC2;
     margin-top: 1em;
     margin-bottom: 0.5em;
 }
 
+.guide-content h2 {
+    color:#964FC2;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
 h1.guide {
+    color:#964FC2;
+    margin-bottom: 0.5em;
+}
+
+.guide-content h1 {
     color:#964FC2;
     margin-bottom: 0.5em;
 }
