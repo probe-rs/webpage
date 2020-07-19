@@ -27,11 +27,10 @@ No driver installation required.
 
 The following versions of the ST-Link are supported:
 
-* ST-Link V2, Firmware version xx or higher
-* ST-Link V3
+* ST-Link V2, Firmware version 2.26 or higher
+* ST-Link V3, Firmware version 3.2 or higher
 
 If you get an error message indicating that the firmware is outdated, please use the
 official ST tools to update the firmware.
 The update tool can be found on 
 the [ST website](https://www.st.com/en/development-tools/stsw-link007.html).
-
