@@ -1,21 +1,23 @@
 <!doctype html>
-
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
 
     <title>probe.rs - the embedded toolkit</title>
+    <title>{% block title %}{% endblock title %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="probe-rs the embedded toolkit written in rust">
     <meta name="author" content="probe-rs">
 
-    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css"
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="/static/fontawesome/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/layout.css?v=1">
+    <link href="/fontawesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/layout.css?v=1">
 
-    <script src="/static/bootstrap/js/jquery-3.4.1.min.js" type="text/javascript"></script>
-    <script src="/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -28,11 +30,18 @@
             </button>
             <div class="collapse navbar-collapse float-right" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if page == 'guide' %}active{% endif %}">
-                        <a class="nav-link" href="/index">Overview<span class="sr-only">(current)</span></a>
+                    <li class="nav-item {% if current_path is starting_with('/') %}active{% endif %}">
+                        <a class="nav-link" href="/">
+                            Overview
+                            {% if current_path is starting_with('/') %}<span class="sr-only">(current)</span>{% endif %}
+                        </a>
                     </li>
-                    <li class="nav-item {% if page == 'guide' %}active{% endif %}">
-                        <a class="nav-link" href="/guide/library">Guide<span class="sr-only">(current)</span></a>
+                    <li class="nav-item {% if current_path is starting_with('guide/') %}active{% endif %}">
+                        <a class="nav-link" href="/guide/1_tools">
+                            Guide
+                            {% if current_path is starting_with('guide/') %}<span
+                                class="sr-only">(current)</span>{% endif %}
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://docs.rs/probe-rs/*/probe_rs/" target="_blank">Docs</a>
@@ -45,6 +54,7 @@
         </div>
     </nav>
     <div class="container">
+        <!-- {{ __tera_context }} -->
         {% block content %}
         {% endblock %}
     </div>

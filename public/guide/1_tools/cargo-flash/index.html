@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>probe.rs - the embedded toolkit</title>
+    <title>cargo-flash</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="probe-rs the embedded toolkit written in rust">
+    <meta name="author" content="probe-rs">
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="/fontawesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/layout.css?v=1">
+
+    <script src="/bootstrap/js/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light mt-5 mb-2">
+        <div class="container">
+            <a class="navbar-brand" href="#">probe-rs</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse float-right" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/">
+                            Overview
+                            
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/guide/1_tools">
+                            Guide
+                            <span
+                                class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://docs.rs/probe-rs/*/probe_rs/" target="_blank">Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/probe-rs/probe-rs" target="_blank">Code</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- {
+  "config": {
+    "base_url": "http://127.0.0.1:1111",
+    "theme": null,
+    "title": null,
+    "description": null,
+    "default_language": "en",
+    "languages": [],
+    "translations": {},
+    "highlight_code": true,
+    "highlight_theme": "base16-ocean-dark",
+    "generate_feed": false,
+    "feed_limit": null,
+    "feed_filename": "atom.xml",
+    "hard_link_static": false,
+    "taxonomies": [],
+    "compile_sass": true,
+    "build_search_index": true,
+    "ignored_content": [],
+    "extra_syntaxes": [],
+    "link_checker": {
+      "skip_prefixes": [],
+      "skip_anchor_prefixes": []
+    },
+    "slugify": {
+      "paths": "on",
+      "taxonomies": "on",
+      "anchors": "on"
+    },
+    "extra": {},
+    "build_timestamp": 1595624506
+  },
+  "current_path": "guide/1_tools/cargo-flash/",
+  "current_url": "http://127.0.0.1:1111/guide/1_tools/cargo-flash/",
+  "lang": "en",
+  "page": {
+    "relative_path": "guide/1_tools/cargo-flash.md",
+    "content": "<h2 id=\"basics\">Basics</h2>\n<p><strong>cargo-flash</strong> is a cargo extension and drop in replacement for <code>cargo run</code>.</p>\n<p>We recommend you install it with</p>\n<pre style=\"background-color:#2b303b;\">\n<code><span style=\"color:#bf616a;\">cargo</span><span style=\"color:#c0c5ce;\"> install cargo-flash\n</span></code></pre>\n<p>You can use <strong>cargo-flash</strong> just like 'cargo run', but instead of running on the host,\n<strong>cargo-flash</strong> will download your binary to the target and run.</p>\n<p>Here are the basics</p>\n<pre style=\"background-color:#2b303b;\">\n<code><span style=\"color:#65737e;\"># Installing cargo flash is simple:\n</span><span style=\"color:#bf616a;\">cargo</span><span style=\"color:#c0c5ce;\"> install cargo-flash\n\n</span><span style=\"color:#65737e;\"># In your cargo project directory, call\n</span><span style=\"color:#c0c5ce;\">cargo flash</span><span style=\"color:#bf616a;\"> --release --chip </span><span style=\"color:#c0c5ce;\">&lt;chip_name&gt;\n\n</span><span style=\"color:#65737e;\"># Don&#39;t know if your target is supported\n# by cargo flash and what it&#39;s name is?\n</span><span style=\"color:#c0c5ce;\">cargo flash</span><span style=\"color:#bf616a;\"> --list-chips\n\n</span><span style=\"color:#65737e;\"># You can run your examples as usual with\n</span><span style=\"color:#bf616a;\">cargo</span><span style=\"color:#c0c5ce;\"> flash</span><span style=\"color:#bf616a;\"> --example </span><span style=\"color:#c0c5ce;\">&lt;your_example&gt;\n\n</span><span style=\"color:#65737e;\"># If you like GDB for debugging,\n# you can open a GDB server after downloading\n</span><span style=\"color:#c0c5ce;\">cargo flash</span><span style=\"color:#bf616a;\"> --gdb\n</span></code></pre>\n<p>Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.\nIf not, hit us with an <a href=\"https://github.com/probe-rs/cargo-flash/issues/new/choose\">issue</a>.</p>\n<p>Happy coding!</p>\n",
+    "permalink": "http://127.0.0.1:1111/guide/1_tools/cargo-flash/",
+    "slug": "cargo-flash",
+    "ancestors": [
+      "_index.md",
+      "guide/_index.md",
+      "guide/1_tools/_index.md"
+    ],
+    "title": "cargo-flash",
+    "description": null,
+    "updated": null,
+    "date": null,
+    "year": null,
+    "month": null,
+    "day": null,
+    "taxonomies": {},
+    "extra": {},
+    "path": "guide/1_tools/cargo-flash/",
+    "components": [
+      "guide",
+      "1_tools",
+      "cargo-flash"
+    ],
+    "summary": null,
+    "toc": [
+      {
+        "level": 2,
+        "id": "basics",
+        "permalink": "http://127.0.0.1:1111/guide/1_tools/cargo-flash/#basics",
+        "title": "Basics",
+        "children": []
+      }
+    ],
+    "word_count": 160,
+    "reading_time": 1,
+    "assets": [],
+    "draft": false,
+    "lang": "en",
+    "lighter": null,
+    "heavier": null,
+    "earlier": null,
+    "later": null,
+    "translations": []
+  }
+} -->
+        
+<div class="container d-flex flex-column flex-lg-row p-0 pt-4">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            
+<ul>
+    
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/1_tools/">Development tools</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/1_tools/cargo-embed/">cargo-embed</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/1_tools/cargo-flash/">cargo-flash</a>
+                
+                <ul>
+                    
+                    <li>
+                        <a href="http://127.0.0.1:1111/guide/1_tools/cargo-flash/#basics">Basics</a>
+                        
+                    </li>
+                    
+                </ul>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/2_probes/">Probe setup</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/cmsis-dap/">CMSIS-DAP Probe Setup</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/j-link/">J-Link Setup</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/st-link/">ST-Link Setup</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/udev/">Installing udev rules</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/3_library/">Use probe-rs as a library</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/3_library/basics/">Basic library usage</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/3_library/quickstart/">probe-rs quickstart</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/4_development/">Development of probe-rs</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/4_development/cmsis-packs/">ARM CMSIS-Packs</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+</ul>
+
+        </div>
+    </div>
+    <div class="d-flex flex-grow-1">
+        <div class="container guide-content">
+            <h1>cargo-flash</h1>
+            <h2 id="basics">Basics</h2>
+<p><strong>cargo-flash</strong> is a cargo extension and drop in replacement for <code>cargo run</code>.</p>
+<p>We recommend you install it with</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#bf616a;">cargo</span><span style="color:#c0c5ce;"> install cargo-flash
+</span></code></pre>
+<p>You can use <strong>cargo-flash</strong> just like 'cargo run', but instead of running on the host,
+<strong>cargo-flash</strong> will download your binary to the target and run.</p>
+<p>Here are the basics</p>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#65737e;"># Installing cargo flash is simple:
+</span><span style="color:#bf616a;">cargo</span><span style="color:#c0c5ce;"> install cargo-flash
+
+</span><span style="color:#65737e;"># In your cargo project directory, call
+</span><span style="color:#c0c5ce;">cargo flash</span><span style="color:#bf616a;"> --release --chip </span><span style="color:#c0c5ce;">&lt;chip_name&gt;
+
+</span><span style="color:#65737e;"># Don&#39;t know if your target is supported
+# by cargo flash and what it&#39;s name is?
+</span><span style="color:#c0c5ce;">cargo flash</span><span style="color:#bf616a;"> --list-chips
+
+</span><span style="color:#65737e;"># You can run your examples as usual with
+</span><span style="color:#bf616a;">cargo</span><span style="color:#c0c5ce;"> flash</span><span style="color:#bf616a;"> --example </span><span style="color:#c0c5ce;">&lt;your_example&gt;
+
+</span><span style="color:#65737e;"># If you like GDB for debugging,
+# you can open a GDB server after downloading
+</span><span style="color:#c0c5ce;">cargo flash</span><span style="color:#bf616a;"> --gdb
+</span></code></pre>
+<p>Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.
+If not, hit us with an <a href="https://github.com/probe-rs/cargo-flash/issues/new/choose">issue</a>.</p>
+<p>Happy coding!</p>
+
+        </div>
+    </div>
+</div>
+
+    </div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md text-center">
+                    <small class="d-block mb-3 text-muted">© 2019-2020 <a
+                            href="https://github.com/Yatekii">@Yatekii</a></small>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script src="/livereload.js?port=1024&amp;mindelay=10"></script></body>
+
+</html>

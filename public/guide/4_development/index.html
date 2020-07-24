@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>probe.rs - the embedded toolkit</title>
+    <title>Development of probe-rs</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="probe-rs the embedded toolkit written in rust">
+    <meta name="author" content="probe-rs">
+
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="/fontawesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/layout.css?v=1">
+
+    <script src="/bootstrap/js/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light mt-5 mb-2">
+        <div class="container">
+            <a class="navbar-brand" href="#">probe-rs</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse float-right" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/">
+                            Overview
+                            
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/guide/1_tools">
+                            Guide
+                            <span
+                                class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://docs.rs/probe-rs/*/probe_rs/" target="_blank">Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/probe-rs/probe-rs" target="_blank">Code</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <!-- {
+  "config": {
+    "base_url": "http://127.0.0.1:1111",
+    "theme": null,
+    "title": null,
+    "description": null,
+    "default_language": "en",
+    "languages": [],
+    "translations": {},
+    "highlight_code": true,
+    "highlight_theme": "base16-ocean-dark",
+    "generate_feed": false,
+    "feed_limit": null,
+    "feed_filename": "atom.xml",
+    "hard_link_static": false,
+    "taxonomies": [],
+    "compile_sass": true,
+    "build_search_index": true,
+    "ignored_content": [],
+    "extra_syntaxes": [],
+    "link_checker": {
+      "skip_prefixes": [],
+      "skip_anchor_prefixes": []
+    },
+    "slugify": {
+      "paths": "on",
+      "taxonomies": "on",
+      "anchors": "on"
+    },
+    "extra": {},
+    "build_timestamp": 1595624506
+  },
+  "current_path": "guide/4_development/",
+  "current_url": "http://127.0.0.1:1111/guide/4_development/",
+  "lang": "en",
+  "section": {
+    "relative_path": "guide/4_development/_index.md",
+    "content": "<p>All the development on probe-rs happens on <a href=\"https://github.com/probe-rs\">Github</a>.</p>\n<p>With an up to date Rust toolchain, you can hop right into the action.</p>\n<p>If you are having any questions, ask us on <a href=\"https://matrix.to/#/#probe-rs:matrix.org\"><img src=\"https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen\" alt=\"chat\" /></a> or open an <a href=\"https://github.com/probe-rs/probe-rs/issues\">issue</a>.</p>\n",
+    "permalink": "http://127.0.0.1:1111/guide/4_development/",
+    "ancestors": [
+      "_index.md",
+      "guide/_index.md"
+    ],
+    "title": "Development of probe-rs",
+    "description": null,
+    "extra": {},
+    "path": "guide/4_development/",
+    "components": [
+      "guide",
+      "4_development"
+    ],
+    "toc": [],
+    "word_count": 60,
+    "reading_time": 1,
+    "lang": "en",
+    "assets": [],
+    "pages": [
+      {
+        "relative_path": "guide/4_development/cmsis-packs.md",
+        "content": "<h2 id=\"basics\">Basics</h2>\n<p>CMSIS-Packs are an ARM mechanism and loose <a href=\"https://arm-software.github.io/CMSIS_5/Pack/html/cp_Packs.html\">specification</a>\nto distribute documentation, flash algorithms, code samples, HALs, etc for an ARM core.</p>\n<p>A CMSIS-Pack is supposed to be created by the ARM core manufacturer and can be distributed in decentralized\nfashion via a list of sources. Nevertheless, ARM <a href=\"https://developer.arm.com/tools-and-software/embedded/cmsis/cmsis-search\">hosts</a> the CMSIS-Packs for pretty much any chip you'd ever want.</p>\n<p>CMSIS-Packs are ZIP files and contain arbitrary files. The exact structure is manufacturer defined and is\ndescribed in the .pdsc file being placed at the root level of the ZIP file.\nThe .pdsc file is a simple XML file containing all the meta information about the Pack.</p>\n<p>Also inside the Pack - most of the time (they can be absent if the manufacturer chooses so) - are the flash\nalgorithms to flash the chips described by the Pack.\nThose are the .FLM files, which are plain old <a href=\"https://en.wikipedia.org/wiki/Executable_and_Linkable_Format\">ELF binaries</a> adhering to a certain defined structure.</p>\n<h2 id=\"flash-algorithms\">Flash Algorithms</h2>\n<p>A flash algorithm is a simple program that is executed. It consists of a fixed set of (sometimes optional)\nfunctions which get loaded into RAM and are executed by the flash downloader.\nThose functions are described <a href=\"https://arm-software.github.io/CMSIS_5/Pack/html/flashAlgorithm.html\">here</a>.\nThe same specification also describes the metadata that is stored inside the\nELF binary itself as a debug symbol and inside the .pdsc file.</p>\n<p>Both, the loadable ELF symbols, as well as the metadata are required to assemble a fully functional flash\nalgorithm. This is the job of the flash downloader.\nThe functions follow standard ARM EABI calling convention.</p>\n<h2 id=\"yaml-format\">YAML format</h2>\n<p>Since the Packs are full of bloat we don't need, we have introduced a slimmed down format for target\ndescription.\nWe chose YAML to represent the target as it is a well known format and allows comments.\nEvery YAML file adresses an entire family of chips equivalent to the CMSIS-Packs.</p>\n<p>The yaml format follows the following structure:</p>\n<pre style=\"background-color:#2b303b;\">\n<code><span style=\"color:#c0c5ce;\">---\n</span><span style=\"color:#65737e;\"># The name of the chip family.\n</span><span style=\"color:#bf616a;\">name</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">string\n</span><span style=\"color:#65737e;\"># A list of all the chips in the family.\n</span><span style=\"color:#bf616a;\">variants</span><span style=\"color:#c0c5ce;\">:\n  </span><span style=\"color:#65737e;\"># The name of the chip.\n  </span><span style=\"color:#c0c5ce;\">- </span><span style=\"color:#bf616a;\">name</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">string\n    </span><span style=\"color:#65737e;\"># A list of all the available memories and their properties.\n    </span><span style=\"color:#bf616a;\">memory_map</span><span style=\"color:#c0c5ce;\">:\n      </span><span style=\"color:#65737e;\"># The type of the memory. Possible are [Ram, Flash].\n      # There needs to be at least one of each present.\n      </span><span style=\"color:#c0c5ce;\">- </span><span style=\"color:#bf616a;\">Ram</span><span style=\"color:#c0c5ce;\">:\n          </span><span style=\"color:#bf616a;\">range</span><span style=\"color:#c0c5ce;\">:\n            </span><span style=\"color:#65737e;\"># The start address of the memory (inclusive).\n            </span><span style=\"color:#bf616a;\">start</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n            </span><span style=\"color:#65737e;\"># The end address of the memory (inclusive).\n            </span><span style=\"color:#bf616a;\">end</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n          </span><span style=\"color:#65737e;\"># Marks the memory as the memory which the chip boots from.\n          </span><span style=\"color:#bf616a;\">is_boot_memory</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">boolean\n    </span><span style=\"color:#65737e;\"># A list of all the used flash algorithms.\n    </span><span style=\"color:#bf616a;\">flash_algorithms</span><span style=\"color:#c0c5ce;\">:\n      </span><span style=\"color:#65737e;\"># The name of the flash algorithm.\n      </span><span style=\"color:#c0c5ce;\">- </span><span style=\"color:#a3be8c;\">string\n</span><span style=\"color:#65737e;\"># A hashmap of all the available flash algorithms.\n</span><span style=\"color:#bf616a;\">flash_algorithms</span><span style=\"color:#c0c5ce;\">:\n  </span><span style=\"color:#65737e;\"># The name of the flash algorithm.\n  </span><span style=\"color:#bf616a;\">name</span><span style=\"color:#c0c5ce;\">:\n    </span><span style=\"color:#65737e;\"># The name of the flash algorithm.\n    </span><span style=\"color:#bf616a;\">name</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">string\n    </span><span style=\"color:#65737e;\"># A description of the flash algorithm.\n    </span><span style=\"color:#bf616a;\">description</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">string\n    </span><span style=\"color:#65737e;\"># Marks the algorithm to be used as the default algorithm.\n    </span><span style=\"color:#bf616a;\">default</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">boolean\n    </span><span style=\"color:#65737e;\"># A base 64 encoded ELF binary blob containing\n    # all the loadable symbols of the flash algorithm.\n    </span><span style=\"color:#bf616a;\">instructions</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">base64string                          \n    </span><span style=\"color:#65737e;\"># The position independent address of the init routine.\n    </span><span style=\"color:#bf616a;\">pc_init</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n    </span><span style=\"color:#65737e;\"># The position independent address of the uninit routine.\n    </span><span style=\"color:#bf616a;\">pc_uninit</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n    </span><span style=\"color:#65737e;\"># The position independent address of the program page routine.\n    </span><span style=\"color:#bf616a;\">pc_program_page</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n    </span><span style=\"color:#65737e;\"># The position independent address of the erase sector routine.\n    </span><span style=\"color:#bf616a;\">pc_erase_sector</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n    </span><span style=\"color:#65737e;\"># The position independent address of the erase all routine.\n    </span><span style=\"color:#bf616a;\">pc_erase_all</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n    </span><span style=\"color:#65737e;\"># The offset where the data section of the ELF binary starts.\n    </span><span style=\"color:#bf616a;\">data_section_offset</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#bf616a;\">number\n    flash_properties</span><span style=\"color:#c0c5ce;\">:\n      </span><span style=\"color:#65737e;\"># The address range for which this flash algorithm is to be used.\n      </span><span style=\"color:#bf616a;\">address_range</span><span style=\"color:#c0c5ce;\">:\n        </span><span style=\"color:#65737e;\"># The start address (inclusive).\n        </span><span style=\"color:#bf616a;\">start</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n        </span><span style=\"color:#65737e;\"># The start address (inclusive).\n        </span><span style=\"color:#bf616a;\">end</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n      </span><span style=\"color:#65737e;\"># The programmable block size. This is the unit size that can be written to flash.\n      </span><span style=\"color:#bf616a;\">page_size</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n      </span><span style=\"color:#65737e;\"># The erased value of a byte in flash.\n      </span><span style=\"color:#bf616a;\">erased_byte_value</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n      </span><span style=\"color:#65737e;\"># How long a page program procedure can take.\n      </span><span style=\"color:#bf616a;\">program_page_timeout</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n      </span><span style=\"color:#65737e;\"># How long a sector erase procedure can take.\n      </span><span style=\"color:#bf616a;\">erase_sector_timeout</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n      </span><span style=\"color:#65737e;\"># The sectors this piece of flash consists of. A sector is the eraseable unit.\n      </span><span style=\"color:#bf616a;\">sectors</span><span style=\"color:#c0c5ce;\">:\n        </span><span style=\"color:#65737e;\"># The size of the sectors starting form the address below.\n        </span><span style=\"color:#c0c5ce;\">- </span><span style=\"color:#bf616a;\">size</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n          </span><span style=\"color:#65737e;\"># The address from on which the new sector size is applicable.\n          </span><span style=\"color:#bf616a;\">address</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">number\n</span><span style=\"color:#65737e;\"># The core type. Currently valid are [M4, M3, M33, M0, RISCV]\n</span><span style=\"color:#bf616a;\">core</span><span style=\"color:#c0c5ce;\">: </span><span style=\"color:#a3be8c;\">string\n</span></code></pre><h2 id=\"target-extraction\">Target extraction</h2>\n<p>Since doing all of this by hand would be madness, we provide a utility called <a href=\"https://github.com/probe-rs/target-gen\">target-gen</a> which can be used to\nextract a family definition. Including all metadata and the ELF blob.</p>\n<p>The utility accepts both an unzipped Pack folder as well as the still zipped .pack file.\nTo run it, use <code>target-gen &lt;pack-file&gt; &lt;output-directory&gt;</code>.\nThe generated file can be loaded as a target by probe-rs.</p>\n",
+        "permalink": "http://127.0.0.1:1111/guide/4_development/cmsis-packs/",
+        "slug": "cmsis-packs",
+        "ancestors": [
+          "_index.md",
+          "guide/_index.md",
+          "guide/4_development/_index.md"
+        ],
+        "title": "ARM CMSIS-Packs",
+        "description": null,
+        "updated": null,
+        "date": null,
+        "year": null,
+        "month": null,
+        "day": null,
+        "taxonomies": {},
+        "extra": {},
+        "path": "guide/4_development/cmsis-packs/",
+        "components": [
+          "guide",
+          "4_development",
+          "cmsis-packs"
+        ],
+        "summary": null,
+        "toc": [
+          {
+            "level": 2,
+            "id": "basics",
+            "permalink": "http://127.0.0.1:1111/guide/4_development/cmsis-packs/#basics",
+            "title": "Basics",
+            "children": []
+          },
+          {
+            "level": 2,
+            "id": "flash-algorithms",
+            "permalink": "http://127.0.0.1:1111/guide/4_development/cmsis-packs/#flash-algorithms",
+            "title": "Flash Algorithms",
+            "children": []
+          },
+          {
+            "level": 2,
+            "id": "yaml-format",
+            "permalink": "http://127.0.0.1:1111/guide/4_development/cmsis-packs/#yaml-format",
+            "title": "YAML format",
+            "children": []
+          },
+          {
+            "level": 2,
+            "id": "target-extraction",
+            "permalink": "http://127.0.0.1:1111/guide/4_development/cmsis-packs/#target-extraction",
+            "title": "Target extraction",
+            "children": []
+          }
+        ],
+        "word_count": 779,
+        "reading_time": 4,
+        "assets": [],
+        "draft": false,
+        "lang": "en",
+        "lighter": null,
+        "heavier": null,
+        "earlier": null,
+        "later": null,
+        "translations": []
+      }
+    ],
+    "subsections": [],
+    "translations": []
+  }
+} -->
+        
+<div class="container d-flex flex-column flex-lg-row p-0 pt-4">
+    <div class="sidebar">
+        <div class="sidebar-content">
+            
+<ul>
+    
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/1_tools/">Development tools</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/1_tools/cargo-embed/">cargo-embed</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/1_tools/cargo-flash/">cargo-flash</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/2_probes/">Probe setup</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/cmsis-dap/">CMSIS-DAP Probe Setup</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/j-link/">J-Link Setup</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/st-link/">ST-Link Setup</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/2_probes/udev/">Installing udev rules</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/3_library/">Use probe-rs as a library</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/3_library/basics/">Basic library usage</a>
+                
+            </li>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/3_library/quickstart/">probe-rs quickstart</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+    <li>
+        
+        <a href="http://127.0.0.1:1111/guide/4_development/">Development of probe-rs</a>
+        <ul>
+            
+            <li>
+                <a href="http://127.0.0.1:1111/guide/4_development/cmsis-packs/">ARM CMSIS-Packs</a>
+                
+            </li>
+            
+        </ul>
+    </li>
+    
+</ul>
+
+        </div>
+    </div>
+    <div class="d-flex flex-grow-1">
+        <div class="container guide-content">
+            <h1>Development of probe-rs</h1>
+            <p>All the development on probe-rs happens on <a href="https://github.com/probe-rs">Github</a>.</p>
+<p>With an up to date Rust toolchain, you can hop right into the action.</p>
+<p>If you are having any questions, ask us on <a href="https://matrix.to/#/#probe-rs:matrix.org"><img src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" /></a> or open an <a href="https://github.com/probe-rs/probe-rs/issues">issue</a>.</p>
+
+        </div>
+    </div>
+</div>
+
+    </div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md text-center">
+                    <small class="d-block mb-3 text-muted">© 2019-2020 <a
+                            href="https://github.com/Yatekii">@Yatekii</a></small>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script src="/livereload.js?port=1024&amp;mindelay=10"></script></body>
+
+</html>

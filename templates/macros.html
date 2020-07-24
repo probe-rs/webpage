@@ -31,120 +31,39 @@
 </tr>
 {% endmacro feature_entry %}
 
-{% macro sb(l, c, u) %}
-<{{ l }} class="sidebar-h"><a href="{{ u }}">{{ c }}</a></{{ l }}>
-{% endmacro sb %}
-
 {% macro sidebar() %}
-<h1 class="sidebar-h">Tools</h1>
-{{ macros::sb(
-    l="h1",
-    c="cargo-flash",
-    u="/guide/tools/cargo-flash"
-) }}
-{{ macros::sb(
-    l="h1",
-    c="cargo-embed",
-    u="/guide/tools/cargo-embed"
-) }}
-<h1 class="sidebar-h">Library use</h1>
-{{ macros::sb(
-    l="h1",
-    c="Index",
-    u="/guide/library"
-) }}
-{{ macros::sb(
-    l="h1",
-    c="Quickstart",
-    u="/guide/library/quickstart"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Attaching",
-    u="/guide/library/quickstart#attaching"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Memory R/W",
-    u="/guide/library/quickstart#memory"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Flashing",
-    u="/guide/library/quickstart#flashing"
-) }}
-<h1 class="sidebar-h">Probes</h1>
-{{ macros::sb(
-    l="h2",
-    c="CMSIS-DAP",
-    u="/guide/probes/cmsis_dap"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="ST-Link",
-    u="/guide/probes/st_link"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="J-Link",
-    u="/guide/probes/jlink"
-) }}
-
-{{ macros::sb(
-    l="h1",
-    c="Basics",
-    u="/guide/library/basics"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Structure",
-    u="/guide/library/basics#structure"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Probe",
-    u="/guide/library/basics#probe"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Session",
-    u="/guide/library/basics#session"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Core",
-    u="/guide/library/basics#core"
-) }}
-<h1 class="sidebar-h">Development</h1>
-{{ macros::sb(
-    l="h1",
-    c="CMSIS-Packs",
-    u="/guide/development/cmsis-packs"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Basics",
-    u="/guide/development/cmsis-packs#basics"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Flash algorithms",
-    u="/guide/development/cmsis-packs#flash-algorithms"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="YAML format",
-    u="/guide/development/cmsis-packs#yaml-format"
-) }}
-{{ macros::sb(
-    l="h2",
-    c="Target extraction",
-    u="/guide/development/cmsis-packs#target-extraction"
-) }}
-
-{{ macros::sb(
-    l="h1",
-    c="Implementing a probe",
-    u="/guide/development/implement-probe"
-) }}
+<ul>
+    {% set section = get_section(path='guide/_index.md') %}
+    {% for ss in section.subsections | sort() %}
+    <li>
+        {% set ss = get_section(path=ss) %}
+        <a href="{{ss.permalink | safe}}">{{ ss.title }}</a>
+        <ul>
+            {% for h2 in ss.pages %}
+            <li>
+                <a href="{{h2.permalink | safe}}">{{ h2.title }}</a>
+                {% if page and page.permalink == h2.permalink %}
+                <ul>
+                    {% for h3 in page.toc %}
+                    <li>
+                        <a href="{{h3.permalink | safe}}">{{ h3.title }}</a>
+                        {% if h3.children %}
+                        <ul>
+                            {% for h4 in h3.children %}
+                            <li>
+                                <a href="{{h4.permalink | safe}}">{{ h4.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
 {% endmacro sidebar %}

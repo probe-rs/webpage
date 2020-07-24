@@ -2,8 +2,8 @@
 
 ## Development
 
-The entire webpage is built with [warp](https://github.com/seanmonstar/warp) and [tera](https://github.com/Keats/tera).
-You can run the webserver with `cargo run` during development. Templates will automatically be reloaded everytime you reload the page to ease development. This only happens in debug builds.
+The entire webpage is built with [zola](https://www.getzola.org/) which is based on statically compiled Markdown and [tera](https://github.com/Keats/tera) templates.
+You can run the file watcher & compiler with `zola serve` during development. The webpage will automatically be reloaded everytime you change any involved file.
 
 ## Deployment
 

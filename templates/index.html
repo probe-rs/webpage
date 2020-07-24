@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% import "macros.html" as macros %}
 
+{% block title %}probe.rs - the embedded toolkit{% endblock title %}
 {% block content %}
 
 <div class="banner jumbotron m-auto text-center">
@@ -16,7 +17,7 @@
         <a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"><img
                 src="https://github.com/probe-rs/probe-rs/workflows/CI/badge.svg" alt="GH Actions Status"
                 class="m-1" /></a>
-        <a href="https://matrix.to/#/!vhKMWjizPZBgKeknOo:matrix.org" target="_blank"><img
+        <a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"><img
                 src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1" /></a>
     </div>
 </div>
@@ -24,62 +25,39 @@
     {{ macros::card(
         title="Flash programming",
         content="Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex and plain binary.",
-        img="/static/img/flash.svg",
+        img="/img/flash.svg",
         color="#80ADBF"
     ) }}
     {{ macros::card(
         title="Compatible",
         content="ARM, RISC-V, CMSIS-DAP, STLink, JLink probe-rs supports it all. And many more to come!",
-        img="/static/img/multilingual.svg",
+        img="/img/multilingual.svg",
         color="#BF3459"
     ) }}
-    <a href="#a-cargo-flash" style="text-decoration: none; color: black;">{{ macros::card(
+    <a href="/guide/1_tools/cargo-flash" style="text-decoration: none; color: black;">{{ macros::card(
         title="Cargo integration",
         content="With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises.",
-        img="/static/img/cargo.png",
+        img="/img/cargo.png",
         color="#BF834E"
     ) }}</a>
     <a href="/guide#a-probe-rs-library" style="text-decoration: none; color: black;">{{ macros::card(
         title="Extensible",
         content="probe-rs can be used as a library, giving you even more flexibility.",
-        img="/static/img/extensible.svg",
+        img="/img/extensible.svg",
         color="#964FC2"
     ) }}</a>
     {{ macros::card(
         title="GDB integration",
         content="probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools.",
-        img="/static/img/gdb.svg",
+        img="/img/gdb.svg",
         color="#000000"
     ) }}
     {{ macros::card(
         title="VSCode integration",
         content="We provide a Microsoft DAP server implementation with probe-rs to debug in VSCode.",
-        img="/static/img/vscode.svg",
+        img="/img/vscode.svg",
         color="#4992BF"
     ) }}
-</div>
-
-<h2 class="text-center mt-5 mb-5" style="color:#BF834E" id="a-cargo-flash">cargo flash</h2>
-<div class="row">
-    <div class="col-12 col-lg-6 order-last order-lg-first">
-        {{ "snippets/cargo-flash.sh" | code | safe }}
-    </div>
-    <div class="col-12 col-lg-6 mb-3 d-flex align-items-center">
-        <div>
-            <p>
-                <b>cargo-flash</b> is a cargo extension and drop in replacement for 'cargo run'.
-            </p>
-            <p>
-                You can use <b>cargo-flash</b> just like 'cargo run', but instead of running on the host,
-                <b>cargo-flash</b> will download your binary to the target and run.
-            </p>
-            <p>
-                Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.
-                If not, hit us with an <a href="https://github.com/probe-rs/cargo-flash/issues/new/choose"
-                    target="_blank">issue</a>.
-            </p>
-        </div>
-    </div>
 </div>
 
 <h2 class="text-center mt-5 mb-5">Features</h2>
@@ -92,18 +70,18 @@
         {{ macros::feature_entry(title="ARM support", link="https://github.com/probe-rs/probe-rs/labels/architecture%3Aarm", state="stable") }}
         {{ macros::feature_entry(title="CMSIS-DAP (DAP-Link) support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Acmsis-dap", state="stable") }}
         {{ macros::feature_entry(title="ST-Link support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Astlink", state="stable") }}
-        {{ macros::feature_entry(title="J-Link support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Ajlink", state="beta") }}
+        {{ macros::feature_entry(title="J-Link support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Ajlink", state="stable") }}
         {{ macros::feature_entry(title="JTAG support", link="https://github.com/probe-rs/probe-rs/labels/protocol%3Ajtag", state="beta") }}
         {{ macros::feature_entry(title="SWD support", link="https://github.com/probe-rs/probe-rs/labels/protocol%3Aswd", state="stable") }}
-        {{ macros::feature_entry(title="Debugging (run, halt, step, break)", link="https://github.com/probe-rs/probe-rs/labels/feature%3Adebugging", state="beta") }}
-        {{ macros::feature_entry(title="GDB stub", link="https://github.com/probe-rs/probe-rs/labels/feature%3Agdb-server", state="beta") }}
+        {{ macros::feature_entry(title="Debugging (run, halt, step, break)", link="https://github.com/probe-rs/probe-rs/labels/feature%3Adebugging", state="stable") }}
+        {{ macros::feature_entry(title="GDB stub", link="https://github.com/probe-rs/probe-rs/labels/feature%3Agdb-server", state="stable") }}
         {{ macros::feature_entry(title="Microsoft DAP (VSCode) server", link="https://github.com/probe-rs/vscode", state="alpha") }}
-        {{ macros::feature_entry(title="WASM extensions for chip-specific functionality", link="https://github.com/probe-rs/probe-rs/labels/feature%3Awasm-extensions", state="planned") }}
-        {{ macros::feature_entry(title="Chip autodetection", link="https://github.com/probe-rs/probe-rs/labels/feature%3Achip-detection", state="beta") }}
+        {{ macros::feature_entry(title="Custom debug sequence hooks", link="https://github.com/probe-rs/probe-rs/labels/feature%3Awasm-extensions", state="planned") }}
+        {{ macros::feature_entry(title="Chip autodetection", link="https://github.com/probe-rs/probe-rs/labels/feature%3Achip-detection", state="planned") }}
         {{ macros::feature_entry(title="Flash (soft) breakpoints", link="https://github.com/probe-rs/probe-rs/labels/feature%3Aflash-breakpoints", state="planned") }}
         {{ macros::feature_entry(title="Write to externally connected flashes", link="https://github.com/probe-rs/probe-rs/labels/feature%3Aexternal-flash", state="planned") }}
         {{ macros::feature_entry(title="ITM support", link="https://github.com/probe-rs/probe-rs/labels/communication%3Aitm", state="alpha") }}
-        {{ macros::feature_entry(title="RTT support", link="https://github.com/probe-rs/probe-rs/labels/communication%3Artt", state="beta") }}
+        {{ macros::feature_entry(title="RTT support", link="https://github.com/probe-rs/probe-rs/labels/communication%3Artt", state="stable") }}
     </tbody>
 </table>
 {% endblock %}
