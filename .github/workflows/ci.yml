@@ -1,7 +1,20 @@
 on:
     push:
       branches:
-        - master 
+        - master
+      jobs:
+        build_and_deploy:
+          runs-on: ubuntu-latest
+          if: github.ref == 'refs/heads/master'
+          steps:
+            - name: 'Checkout'
+              uses: actions/checkout@master
+            - name: 'Build and deploy'
+              uses: shalzz/zola-deploy-action@master
+              env:
+                PAGES_BRANCH: gh-pages
+                BUILD_DIR: .
+                TOKEN: ${{ secrets.TOKEN }}
     pull_request:
       jobs:
         build:
@@ -16,15 +29,3 @@ on:
                 BUILD_DIR: .
                 TOKEN: ${{ secrets.TOKEN }}
                 BUILD_ONLY: true
-        build_and_deploy:
-          runs-on: ubuntu-latest
-          if: github.ref == 'refs/heads/master'
-          steps:
-            - name: 'Checkout'
-              uses: actions/checkout@master
-            - name: 'Build and deploy'
-              uses: shalzz/zola-deploy-action@master
-              env:
-                PAGES_BRANCH: gh-pages
-                BUILD_DIR: .
-                TOKEN: ${{ secrets.TOKEN }}
