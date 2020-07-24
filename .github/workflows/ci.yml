@@ -8,7 +8,7 @@ jobs:
     if: github.ref != 'refs/heads/master'
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: 'Build only' 
         uses: shalzz/zola-deploy-action@master
         env:
@@ -20,7 +20,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: 'Checkout'
-        uses: actions/checkout@master
+        uses: actions/checkout@main
       - name: 'Build and deploy'
         uses: shalzz/zola-deploy-action@master
         env:
