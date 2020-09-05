@@ -18,7 +18,10 @@ We recommend installing it via
 <h3 class="guide">Configuration</h3>
 
 cargo-embed can be configured via a `Embed.toml` in the project root.
-The available options can be found in the <a href="https://github.com/probe-rs/cargo-embed/blob/master/src/config/default.toml" target="_blank">default.toml</a>.
+
+The data from this file is structured in two levels; the outer layer is a configuration profile name, inside each configuration there are then a series of sections with different options. When invoking cargo-embed, a different configuration name can be passed as an argument, which will load the settings under that profile instead of `default`.
+
+The available options can be found in the <a href="https://github.com/probe-rs/cargo-embed/blob/master/src/config/default.toml" target="_blank">default.toml</a>. This example uses toml syntax to set each option under the `default` top-level profile key.
 
 <h2 class="guide" id="basics">RTT</h2>
 
