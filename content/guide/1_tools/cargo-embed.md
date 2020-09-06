@@ -217,4 +217,4 @@ automatically be displayed for channels with a corresponding down channel. This 
 must be the same for the up and down channels. This is the default rttui behavior and can be configured. RTT itself can handle any up/down
 numbers combination.<br>
 <br>
-Now you should be able to debug conveninently. Happy coding!
+Now you should be able to debug conveniently. Happy coding!
