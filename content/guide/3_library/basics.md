@@ -3,7 +3,7 @@ title = "Basic library usage"
 +++
 ## The Probe struct
 
-The [Probe](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Probe.html) struct represents the physical probe in code form.
+The [Probe](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html) struct represents the physical probe in code form.
 It is used to do probe discovery, setting phyiscal parameters of the probe, spawning sessions and last but
 not least use special probe specific features such as SWV tracing, hard reset, etc.
 So if you are looking for non-core-architecture-specific functionality, the `Probe` struct is most likely the
@@ -34,12 +34,12 @@ probe.select_protocol(WireProtocol::Swd)?;
 let session = probes[0].attach("nRF52")?;
 ```
 
-Now we have got our [Session](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Session.html) ready to conduct further business.
-Take a closer look at the [::attach()](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Probe.html#method.attach) call. Appart from passing a chip name, you can also pass various other arguments for selecting the chip.
+Now we have got our [Session](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html) ready to conduct further business.
+Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html#method.attach) call. Appart from passing a chip name, you can also pass various other arguments for selecting the chip.
 
 ## The Session struct
 
-The [Session](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Session.html) construct is an established connection of a Probe to a Chip.
+The [Session](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html) construct is an established connection of a Probe to a Chip.
 The session can be used to list cores and attach to a core.
 It can also read properties of the target and is used to facilitate some internal things.
 Most likely the only thing you'll ever use a Session for is attaching to a core.
@@ -50,18 +50,23 @@ let cores = session.list_cores();
 println!("{:?}", cores);
 
 /// Attach to a core.
-let core = session.attach_to_core(0);
+let core = session.core(0);
 ```
 
 ## The Core struct
 
-The [Core](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Core.html) is probably the struct you will interact most with.
+The [Core](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html) is probably the struct you will interact most with.
 With the core struct you can manipulate the CPU and it's accessible memories.
 
-In the previous sections we have learned how we attach to a core. Someties you want to access the core operations in quick fashion. This is what [Core::auto_attach()](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Core.html#method.auto_attach) is for. It lets you attach to the Core without first opening a Probe and a Session. It will select the Core as best as it can
+In the previous sections we have learned how we attach to a core. 
+Someties you want to access the core operations in quick fashion. 
+This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for. 
+It lets you attach to the Core without first opening a Probe. 
+It will try to open a connected prbe, and select the Core as best as it can
 
 ```rs
-let core = Core::auto_attach("chip_name")?;
+let session = Session::auto_attach("chip_name")?;
+let core = session.core(0)?;
 ```
 
 Once you have attached to the Core, you are able to halt the Core at any point in time.
@@ -70,7 +75,7 @@ Once you have attached to the Core, you are able to halt the Core at any point i
 core.halt()?;
 ```
 
-The [Core::halt()](https://docs.rs/probe-rs/0.5.1/probe_rs/struct.Core.html#method.halt) call does not ensure the Core will actually halt.
+The [Core::halt()](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html#method.halt) call does not ensure the Core will actually halt.
 So you might want to ask the core whether it has halted
 
 ```rs

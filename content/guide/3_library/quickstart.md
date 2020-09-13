@@ -16,7 +16,7 @@ let probe = probes[0].open()?;
 let session = probe.attach("nrf52")?;
 
 // Select a core.
-let core = session.attach_to_core(0)?;
+let core = session.core(0)?;
 
 // Halt the attached core.
 core.halt()?;
@@ -38,9 +38,13 @@ Read more about <a href="/guide/basics#structure">the structure</a>.
 ## Reading and writing memory
 
 ```rs
-use probe_rs::Core;
+use probe_rs::Core, Session};
 
-let core = Core::auto_attach("nrf52")?;
+// Attach to the first connected probe.
+let session = Session::auto_attach("nrf52")?;
+
+// Select the first core found.
+let mut core = session.core(0);
 
 // Read a block of 50 32 bit words.
 let mut buff = [0u32;50];
