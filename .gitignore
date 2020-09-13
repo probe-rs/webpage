@@ -1,3 +1,6 @@
 /target
 **/*.rs.bk
 Cargo.lock
+
+# Generated Zola files should not be added to git
+public/
