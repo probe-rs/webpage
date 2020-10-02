@@ -27,10 +27,6 @@ cargo flash --list-chips
 
 # You can run your examples as usual with
 cargo flash --example <your_example>
-
-# If you like GDB for debugging,
-# you can open a GDB server after downloading
-cargo flash --gdb
 ```
 
 Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.
