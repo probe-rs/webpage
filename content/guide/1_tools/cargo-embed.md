@@ -31,13 +31,13 @@ In it's essence it provides a configurable amount of ringbuffers, which are read
 host.
 The protocol initially was published by <a
     href="https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/"
-    target="_blank">Segger</a> but there is really no magic to it other then ringbuffers being worked.
+    target="_blank">Segger</a> but there is really no magic to it other than ringbuffers being used.
 This mechanism allows us to transfer data from the target to the host and vice versa really fast.<br>
 <br>
 RTT features:
 <ul>
     <li>Fast duplex data transfers</li>
-    <li>A configurable ammount of channels(buffers)</li>
+    <li>A configurable amount of channels(buffers)</li>
     <li>Channels can be blocking and non blocking - your choice</li>
 </ul>
 
