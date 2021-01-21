@@ -5,7 +5,7 @@ title = "cargo-flash"
 
 **cargo-flash** is a cargo extension and drop in replacement for `cargo run`.
 
-We recommend you install it with
+We recommend you install it with cargo after installing the [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites).
 ```sh
 cargo install cargo-flash
 ```
