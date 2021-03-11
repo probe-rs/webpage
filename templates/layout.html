@@ -39,8 +39,8 @@
                     <li class="nav-item {% if current_path is starting_with('guide/') %}active{% endif %}">
                         <a class="nav-link" href="/guide/1_tools">
                             Guide
-                            {% if current_path is starting_with('guide/') %}<span
-                                class="sr-only">(current)</span>{% endif %}
+                            {% if current_path is starting_with('guide/') %}<span class="sr-only">(current)</span>{%
+                            endif %}
                         </a>
                     </li>
                     <li class="nav-item">
@@ -50,7 +50,12 @@
                         <a class="nav-link" href="https://github.com/probe-rs/probe-rs" target="_blank">Code</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/sponsors/probe-rs" target="_blank">Sponsor</a>
+                        <a class="nav-link" href="https://shop.probe.rs/products/hs-probe-v1-3" target="_blank">Get
+                            Hardware</a>
+                    </li>
+                    <li class="nav-item">
+                        <iframe src="https://github.com/sponsors/probe-rs/button" title="Sponsor probe-rs" height="35"
+                            width="116" style="border: 0; margin-top: 3px"></iframe>
                     </li>
                 </ul>
             </div>
