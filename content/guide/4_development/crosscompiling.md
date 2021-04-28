@@ -28,7 +28,7 @@ git clone https://github.com/probe-rs/cargo-flash
 # Installing cross
 cargo install cross
 
-# CD into the cargo-flash repository
+# `cd` into the cargo-flash repository
 # And Create a `crossimage` folder
 cd cargo-flash && mkdir crossimage
 
