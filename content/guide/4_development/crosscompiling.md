@@ -22,7 +22,7 @@ The downside of this approach is that **you will have to rely on the Cross Proje
 Building `cargo-flash` for the Raspberry Pi 400, on an `x86_64` Linux System will happen as follows :
 
 ```sh
-# Cloning cargo-flash on the system we will build the binary
+# Cloning cargo-flash on the system we will build the binary on.
 git clone https://github.com/probe-rs/cargo-flash
 
 # Installing cross
