@@ -19,7 +19,7 @@ Its main advantage is to **not be susceptible** on the usual cross compilation i
 
 The downside of this approach is that **you will have to rely on the Cross Project** and **supply the build environment Dockerfile**, making sure that it resembles the system you are building for with **a cross C toolchain installed** as much as possible.
 
-Building `cargo-flash` for the Raspberry Pi 400, on an `x86_64` Linux System will happen as follows :
+Building `cargo-flash` for the Raspberry Pi 400, on an `x86_64` Linux System happens as follows:
 
 ```sh
 # Cloning cargo-flash on the system we will build the binary on.
@@ -29,31 +29,33 @@ git clone https://github.com/probe-rs/cargo-flash
 cargo install cross
 
 # `cd` into the cargo-flash repository
-# And Create a `crossimage` folder
+# And create a `crossimage` folder
 cd cargo-flash && mkdir crossimage
 
 # Create a Dockerfile resembling the target system,
-# and put it inside the crossimage Folder
+# and put it inside the `crossimage` folder.
 ```
 
-We can take a `armv7-unknown-linux-gnueabihf` base system from the `rustembedded/cross` Docker hub container registry.
+We can take an `armv7-unknown-linux-gnueabihf` base system from the `rust-embedded/cross` Docker Hub container registry.
 
-Then, we need to follow the instructions to prepare it for building steps the image from the `probe-rs`, `cargo-flash` [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites).
+After that, follow the instructions from the `probe-rs`, `cargo-flash` [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites) to prepare the image for the building steps.
 
-You can download the Dockerfile for this example from [here](/content/cross-dockerfile.txt)
+You can download the Dockerfile for this example from [here](/content/cross-dockerfile.txt).
 
 ```sh
-# Create and edit a Cross.toml file on the root of the cloned repo
+# Create and edit a Cross.toml file in the root of the cloned repo.
 vim Cross.toml
 ```
 
 Add the following to the `Cross.toml`. Which will define to `cross` which container should be used for the target architecture:
 
-<pre>[target.armv7-unknown-linux-gnueabihf]
-image = "crossimage"</pre>
+    ```toml
+    [target.armv7-unknown-linux-gnueabihf]
+    image = "crossimage"
+    ```
 
 ```sh
-# Build and tag the container image, specifying the name as defined on Cross.toml
+# Build and tag the container image, specifying the name as defined in the `Cross.toml`.
 docker build -t crossimage crossimage/
 
 # Run cross to compile, cross arguments are the same as the `cargo` ones
@@ -62,8 +64,8 @@ cross build --release --target=armv7-unknown-linux-gnueabihf
 # Done
 ```
 
-You will now have a statically built `cargo-flash` binary inside the `target/<architecture>/release` folder on the root directory of the cloned repo, which you can now move to the **Raspberry Pi 400** `Cargo bin Path` folder ( usually `~/.cargo/bin` ).
+You now have a statically built `cargo-flash` binary inside the `target/<architecture>/release` folder on the root directory of the cloned repo, which you can now move to the **Raspberry Pi 400** `cargo bin path` folder (usually `~/.cargo/bin`).
 
 ## Using LLVM
 
-As using `LLVM` for cosscompiling can go out of the scope of just generating a `cargo-flash` binary, Please follow the instructions on how to Crosscompile from the **LLVM** [guide](https://www.llvm.org/docs/HowToCrossCompileLLVM.html).
+As using `LLVM` for cosscompiling can go out of the scope of just generating a `cargo-flash` binary, please follow the instructions on how to crosscompile in the **LLVM** [guide](https://www.llvm.org/docs/HowToCrossCompileLLVM.html).
