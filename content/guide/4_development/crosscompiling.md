@@ -47,7 +47,7 @@ You can download the Dockerfile for this example from [here](/content/cross-dock
 vim Cross.toml
 ```
 
-Add the following inside the **Cross.toml**. Which will define to `cross` which container should be used for the target Architecture :
+Add the following to the `Cross.toml`. Which will define to `cross` which container should be used for the target architecture:
 
 <pre>[target.armv7-unknown-linux-gnueabihf]
 image = "crossimage"</pre>
