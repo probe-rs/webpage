@@ -32,7 +32,7 @@ cargo install cross
 # And Create a `crossimage` folder
 cd cargo-flash && mkdir crossimage
 
-# Create a Dockerfile resempling the target system,
+# Create a Dockerfile resembling the target system,
 # and put it inside the crossimage Folder
 ```
 
