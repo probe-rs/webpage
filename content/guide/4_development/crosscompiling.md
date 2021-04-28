@@ -17,7 +17,7 @@ After defining the target system architecture, in this example being `armv7-unkn
 
 Its main advantage is to **not be susceptible** on the usual cross compilation issues that arise **from using the host machine's shared object libraries**, by using a Docker image to build the static binary.
 
-The downside of this approach is that **you will have to rely on the Cross Project** and **supply the build environment Dockerfile**, making sure that it resembles as much as possible the system you are building for with **a cross C toolchain installed**.
+The downside of this approach is that **you will have to rely on the Cross Project** and **supply the build environment Dockerfile**, making sure that it resembles the system you are building for with **a cross C toolchain installed** as much as possible.
 
 Building `cargo-flash` for the Raspberry Pi 400, on an `x86_64` Linux System will happen as follows :
 
