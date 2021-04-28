@@ -15,7 +15,7 @@ After defining the target system architecture, in this example being `armv7-unkn
 
 > “Zero setup” cross compilation and “cross testing” of Rust crates
 
-It's main advantage is to **not be suseptible** on the usual cross compilation issues that arise **from using Host machine's shared object libraries**, by using a Docker image to build the static binary.
+Its main advantage is to **not be susceptible** on the usual cross compilation issues that arise **from using the host machine's shared object libraries**, by using a Docker image to build the static binary.
 
 The downside of this approach is that **you will have to rely on the Cross Project** and **supply the build environment Dockerfile**, making sure that it resembles as much as possible the system you are building for with **a cross C toolchain installed**.
 
