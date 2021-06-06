@@ -1,92 +1,96 @@
-{% extends "layout.html" %}
-{% import "macros.html" as macros %}
+{% extends "base.html" %}
 
-{% block title %}probe.rs - the embedded toolkit{% endblock title %}
+{% block seo %}
+{{ super() }}
+
+{% if config.title %}
+{% set title = config.title %}
+{% else %}
+{% set title = "" %}
+{% endif %}
+
+{% if config.extra.title_addition and title %}
+{% set title_addition = title_separator ~ config.extra.title_addition %}
+{% elif config.extra.title_addition %}
+{% set title_addition = config.extra.title_addition %}
+{% else %}
+{% set title_addition = "" %}
+{% endif %}
+
+{% set description = config.description %}
+
+{{ macros_head::seo(title=title, title_addition=title_addition, description=description, is_home=true) }}
+{% endblock seo %}
+
 {% block content %}
+<div class="wrap container" role="document">
+  <div class="content">
+    <section class="section container-fluid mt-n3 pb-3">
+      <div class="row justify-content-center">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-0">{{ section.title | default(value="Modern Documentation Theme") }}</h1>
+        </div>
+        <div class="col-lg-9 col-xl-8 text-center">
+          <p class="lead">{{ section.extra.lead | default(value="Please start setting config.toml and adding your
+            content.") | safe }}</p>
+          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ get_url(path=section.extra.url | default(value=" /")) |
+            safe }}" role="button">{{ section.extra.url_button | default(value="Get started") }}</a>
+          <p class="meta">{{ section.extra.repo_license | default(value="MIT")}}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
 
-<div class="banner jumbotron m-auto text-center">
-    <h1 class="display-4">probe-rs</h1>
-    <p class="lead">a modern, embedded debugging toolkit,<br>written in Rust</p>
-    <div class="d-flex align-items-center justify-content-center">
-        <a href="https://github.com/probe-rs/probe-rs" style="color:black" target="_blank"><i class="fab fa-github m-1"
-                style="font-size:1.2em"></i></a>
-        <a href="https://crates.io/crates/probe-rs" target="_blank"><img src="https://meritbadge.herokuapp.com/probe-rs"
-                alt="crates.io" class="m-1" /></a>
-        <a href="https://docs.rs/probe-rs" target="_blank"><img src="https://docs.rs/probe-rs/badge.svg"
-                alt="documentation" class="m-1" /></a>
-        <a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"><img
-                src="https://github.com/probe-rs/probe-rs/workflows/CI/badge.svg" alt="GH Actions Status"
-                class="m-1" /></a>
-        <a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"><img
-                src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1" /></a>
+<section class="section section-sm">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      {% if section.extra.list %}
+      {% for val in section.extra.list %}
+      <div class="col-lg-5">
+        {% if val.img %}<img src="/img/{{ val.img }}" style="max-height: 70px;" />{% endif %}
+        <h2 class="h4" {% if val.color %}style="color:{{ val.color }}" {% endif %}>{{ val.title }}</h2>
+        <p>{{ val.content | safe }}</p>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="col-lg-5">
+        <h2 class="h4">Security aware</h2>
+        <p>Get A+ scores on <a href="https://observatory.mozilla.org/analyze/doks.netlify.app">Mozilla Observatory</a>
+          out of the box. Easily change the default Security Headers to suit your needs.</p>
+      </div>
+      <div class="col-lg-5">
+        <h2 class="h4">Fast by default ⚡️</h2>
+        <p>Get 100 scores on <a
+            href="https://googlechrome.github.io/lighthouse/viewer/?gist=7731347bb8ce999eff7428a8e763b637">Google
+            Lighthouse</a> by default. Doks removes unused css, prefetches links, and lazy loads images.</p>
+      </div>
+      <div class="col-lg-5">
+        <h2 class="h4">SEO-ready</h2>
+        <p>Use sensible defaults for structured data, open graph, and Twitter cards. Or easily change the SEO settings
+          to your liking.</p>
+      </div>
+      <div class="col-lg-5">
+        <h2 class="h4">Full text search</h2>
+        <p>Search your Doks site with FlexSearch. Easily customize index settings and search options to your liking.</p>
+      </div>
+      <div class="col-lg-5">
+        <h2 class="h4">Page layouts</h2>
+        <p>Build pages with a landing page, blog, or documentation layout. Add custom sections and components to suit
+          your needs.</p>
+      </div>
+      <div class="col-lg-5">
+        <h2 class="h4">Dark mode</h2>
+        <p>Switch to a low-light UI with the click of a button. Change colors with variables to match your branding.</p>
+      </div>
+      {% endif %}
     </div>
-</div>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-    {{ macros::card(
-        title="Flash programming",
-        content="Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex and plain binary.",
-        img="/img/flash.svg",
-        color="#80ADBF"
-    ) }}
-    {{ macros::card(
-        title="Compatible",
-        content="ARM, RISC-V, CMSIS-DAP, STLink, JLink probe-rs supports it all. And many more to come!",
-        img="/img/multilingual.svg",
-        color="#BF3459"
-    ) }}
-    <a href="/guide/1_tools/cargo-flash" style="text-decoration: none; color: black;">{{ macros::card(
-        title="Cargo integration",
-        content="With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises.",
-        img="/img/cargo.png",
-        color="#BF834E"
-    ) }}</a>
-    <a href="/guide#a-probe-rs-library" style="text-decoration: none; color: black;">{{ macros::card(
-        title="Extensible",
-        content="probe-rs can be used as a library, giving you even more flexibility.",
-        img="/img/extensible.svg",
-        color="#964FC2"
-    ) }}</a>
-    {{ macros::card(
-        title="GDB integration",
-        content="probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools.",
-        img="/img/gdb.svg",
-        color="#000000"
-    ) }}
-    {{ macros::card(
-        title="VSCode integration",
-        content="We provide a Microsoft DAP server implementation with probe-rs to debug in VSCode.",
-        img="/img/vscode.svg",
-        color="#4992BF"
-    ) }}
-</div>
+  </div>
+</section>
 
-<h2 class="text-center mt-5 mb-5">Sponsor us :)</h2>
-
-<center><iframe src="https://github.com/sponsors/probe-rs/card" title="Sponsor probe-rs" height="225" width="600"
-        style="border: 0;"></iframe></center>
-
-<h2 class="text-center mt-5 mb-5">Features</h2>
-<table class="table">
-    <tbody>
-        {{ macros::feature_entry(title="Flash programming", link="https://github.com/probe-rs/probe-rs/labels/feature%3Aflash-programming", state="stable") }}
-        {{ macros::feature_entry(title="Cargo integration", link="https://github.com/probe-rs/cargo-flash", state="stable") }}
-        {{ macros::feature_entry(title="CMSIS-Pack support", link="https://github.com/probe-rs/target-gen/", state="stable") }}
-        {{ macros::feature_entry(title="RISC-V support", link="https://github.com/probe-rs/probe-rs/labels/architecture%3Ariscv", state="beta") }}
-        {{ macros::feature_entry(title="ARM support", link="https://github.com/probe-rs/probe-rs/labels/architecture%3Aarm", state="stable") }}
-        {{ macros::feature_entry(title="CMSIS-DAP (DAP-Link) support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Acmsis-dap", state="stable") }}
-        {{ macros::feature_entry(title="ST-Link support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Astlink", state="stable") }}
-        {{ macros::feature_entry(title="J-Link support", link="https://github.com/probe-rs/probe-rs/labels/probe%3Ajlink", state="stable") }}
-        {{ macros::feature_entry(title="JTAG support", link="https://github.com/probe-rs/probe-rs/labels/protocol%3Ajtag", state="beta") }}
-        {{ macros::feature_entry(title="SWD support", link="https://github.com/probe-rs/probe-rs/labels/protocol%3Aswd", state="stable") }}
-        {{ macros::feature_entry(title="Debugging (run, halt, step, break)", link="https://github.com/probe-rs/probe-rs/labels/feature%3Adebugging", state="stable") }}
-        {{ macros::feature_entry(title="GDB stub", link="https://github.com/probe-rs/probe-rs/labels/feature%3Agdb-server", state="stable") }}
-        {{ macros::feature_entry(title="Microsoft DAP (VSCode) server", link="https://github.com/probe-rs/vscode", state="alpha") }}
-        {{ macros::feature_entry(title="Custom debug sequence hooks", link="https://github.com/probe-rs/probe-rs/labels/feature%3Awasm-extensions", state="planned") }}
-        {{ macros::feature_entry(title="Chip autodetection", link="https://github.com/probe-rs/probe-rs/labels/feature%3Achip-detection", state="planned") }}
-        {{ macros::feature_entry(title="Flash (soft) breakpoints", link="https://github.com/probe-rs/probe-rs/labels/feature%3Aflash-breakpoints", state="planned") }}
-        {{ macros::feature_entry(title="Write to externally connected flashes", link="https://github.com/probe-rs/probe-rs/labels/feature%3Aexternal-flash", state="planned") }}
-        {{ macros::feature_entry(title="ITM support", link="https://github.com/probe-rs/probe-rs/labels/communication%3Aitm", state="alpha") }}
-        {{ macros::feature_entry(title="RTT support", link="https://github.com/probe-rs/probe-rs/labels/communication%3Artt", state="stable") }}
-    </tbody>
-</table>
-{% endblock %}
+<section class="section section-sm container-fluid">
+  <div class="row justify-content-center text-center">
+    <div class="col-lg-9"></div>
+  </div>
+</section>
+{% endblock content %}
