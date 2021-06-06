@@ -33,8 +33,20 @@
         <div class="col-lg-9 col-xl-8 text-center">
           <p class="lead">{{ section.extra.lead | default(value="Please start setting config.toml and adding your
             content.") | safe }}</p>
-          <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ get_url(path=section.extra.url | default(value=" /")) |
-            safe }}" role="button">{{ section.extra.url_button | default(value="Get started") }}</a>
+          {% if section.extra.buttons %}
+          {% for button in section.extra.buttons %}
+          <a class="btn btn-primary btn-lg px-4 mb-2"
+            href="{% if button.path %}{{ get_url(path=button.path | default(value='/')) | safe }}{% else %}{{ button.url | safe }}{% endif%}"
+            role="button">{{ button.text | default(value="Get started") }}</a>
+          {% endfor %}
+          {% endif %}
+          <div class="d-flex align-items-center justify-content-center">
+            {% if section.extra.badges %}
+            {% for badge in section.extra.badges %}
+            {{ badge.html | safe }}
+            {% endfor %}
+            {% endif %}
+          </div>
           <p class="meta">{{ section.extra.repo_license | default(value="MIT")}}</p>
         </div>
       </div>
