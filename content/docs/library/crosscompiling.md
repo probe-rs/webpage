@@ -52,7 +52,7 @@ We can take an `armv7-unknown-linux-gnueabihf` base system from the `rust-embedd
 
 After that, follow the instructions from the `probe-rs`, `cargo-flash` [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites) to prepare the image for the building steps.
 
-You can download the Dockerfile for this example from [here](/content/cross-dockerfile.txt).
+You can download the Dockerfile for this example from [here](/files/cross-dockerfile.txt).
 
 ```sh
 # Create and edit a Cross.toml file in the root of the cloned repo.
