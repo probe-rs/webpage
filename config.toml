@@ -24,13 +24,13 @@ section = 'docs'
 path = 'docs'
 
 [[extra.menu.main]]
-name = 'API'
-url = 'https://docs.rs/probe-rs'
-
-[[extra.menu.main]]
 name = 'Blog'
 section = 'blog'
 path = 'blog'
+
+[[extra.menu.main]]
+name = 'API'
+url = 'https://docs.rs/probe-rs'
 
 [[extra.menu.main]]
 name = 'Sponsor'
