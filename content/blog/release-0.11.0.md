@@ -101,7 +101,7 @@ A sneak peek of the rig's design can be seen below ;)
 
 <center><img src="/img/release-0.11.0/hive.jpg" style="max-width:100%"></center>
 
-To push this project a little further, we have put up a posting for a BSc theory with a local technical university (Switzerland). If you are a BSc student and would like to work on this, feel free to reach out to [@Yatekii](https://github.com/Yatekii) no matter of locality. We cannot promise anything but we will try to figure something out to make this work!
+To push this project a little further, we have put up a posting for a BSc thesis with a local technical university (Switzerland). If you are a BSc student and would like to work on this, feel free to reach out to [@Yatekii](https://github.com/Yatekii) no matter of locality. We cannot promise anything but we will try to figure something out to make this work!
 
 ## Various
 
