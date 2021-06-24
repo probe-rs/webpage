@@ -106,7 +106,7 @@ To push this project a little further, we have put up a posting for a BSc theory
 
 ### hs-probe
 
-We announced the [hs-probe](https://github.com/probe-rs/hs-probe) quite a while ago. Many of you have ordered one already. Unfortunately the manufacturing was hit by the global chip shortages as well. The good news is that on the 26th of June the manufacturing should conclude and we can start the shipping of the probes!
+We announced the [hs-probe](https://github.com/probe-rs/hs-probe) quite a while ago. Many of you have ordered one already. Unfortunately the manufacturing was hit by the global chip shortages as well. The good news is that manufacturing has concluded today and the probes now go into programming. This means we can start the shipping of the probes soon!
 [Emil](https://github.com/korken89) has been working really hard to make this a possibility and get the probe manufactured even during chip shortages!
 If you have not ordered a probe yet, and would like to get ahold one, you can do so on our [shop](https://shop.probe.rs/).
 
