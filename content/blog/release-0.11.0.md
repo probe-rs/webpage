@@ -100,7 +100,7 @@ A sneak peek of the rig's design can be seen below ;)
 
 <center><img src="/img/release-0.11.0/hive.jpg" style="max-width:100%"></center>
 
-To push this project a little further, I have put up a posting for a BSc theory with a local technical university (Switzerland). If you are a BSc student and would like to work on this, feel free to reach out to [@Yatekii](https://github.com/Yatekii) no matter of locality. I cannot promise anything but I will try to figure something out to make this work!
+To push this project a little further, we have put up a posting for a BSc theory with a local technical university (Switzerland). If you are a BSc student and would like to work on this, feel free to reach out to [@Yatekii](https://github.com/Yatekii) no matter of locality. We cannot promise anything but we will try to figure something out to make this work!
 
 ## Various
 
@@ -115,7 +115,7 @@ If you have not ordered a probe yet, and would like to get ahold one, you can do
 We now have a pipeline set up to automate releases of the probe-rs core library and related crates. This should allow us to release way more often so your own tools do not have to pull from master constantly.
 At the start we are aiming for approximately one release every two weeks. This is an experiment and we will see how it goes. We believe that we should bring new functionality and especially fixes to you as soon as possible.
 
-Alongside more releases I'd like to try to blog a little more about the ongoing development and curiosities we encounter. Though, to focus more on development and user support I will keep this promise as small as possible for now ;)
+Alongside more releases I'd like to try to blog a little more about the ongoing development and curiosities we encounter. Though, to focus more on development and user support we will keep this promise as small as possible for now ;)
 
 ### Sponsoring
 
@@ -129,7 +129,7 @@ You can do so through [Github](https://github.com/sponsors/probe-rs) or [OpenCol
 
 ### probe-rs in Production
 
-I have heard of a handful of companies that are using or going to use probe-rs in production to provision their devices. This excites us very much and reassures that we are actually making a change in the embedded ecosystem!
+We have heard of a handful of companies that are using or going to use probe-rs in production to provision their devices. This excites us very much and reassures that we are actually making a change in the embedded ecosystem!
 
 # Thank you!
 
