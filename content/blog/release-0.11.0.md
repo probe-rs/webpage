@@ -90,7 +90,7 @@ Unlocking and flashing of a nRF5340 (two M33 cores) already works, but we are mi
 
 Not part of this PR, but closely related and under development as well is SWD v2 Multidrop support. This will enable us to flash chips like the RaspberryPI Pico. While a useable [fork](https://github.com/rp-rs/probe-rs) already exists, some work is still left to integrate this properly into the probe-rs core.
 
-### Hardware based testing
+### Hardware Based Testing
 
 We have recently merged a great addition by [@Tiwalun](https://github.com/Tiwalun) to improve testing of our PRs in the form of a smoke testing tool in the main repository.
 You can set it up to test each PR against the devkits you own. This will catch many regressions and errors before we can merge them into master.
@@ -110,7 +110,7 @@ We announced the [hs-probe](https://github.com/probe-rs/hs-probe) quite a while 
 [Emil](https://github.com/korken89) has been working really hard to make this a possibility and get the probe manufactured even during chip shortages!
 If you have not ordered a probe yet, and would like to get ahold one, you can do so on our [shop](https://shop.probe.rs/).
 
-### Automatic releases
+### Automatic Releases
 
 We now have a pipeline set up to automate releases of the probe-rs core library and related crates. This should allow us to release way more often so your own tools do not have to pull from master constantly.
 At the start we are aiming for approximately one release every two weeks. This is an experiment and we will see how it goes. We believe that we should bring new functionality and especially fixes to you as soon as possible.
