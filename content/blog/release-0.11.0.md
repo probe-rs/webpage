@@ -47,7 +47,7 @@ We have a whole error/hint catalogue and try to expand this. This feature can ea
 
 cargo-embed got two big quality of life improvements:
 
-- RTT and the GDB server can not run concurrently. Previously this was not possible at all. Now you can enable RTT and GDB at the same time. Make sure to put `RUST_LOG=off` such that the GDB server does not print into the RTT UI. This is of course a bit suboptimal and we are working better ways to use RTT unhindered.
+- RTT and the GDB server can now run concurrently. Previously this was not possible at all. Now you can enable RTT and GDB at the same time. Make sure to put `RUST_LOG=off` such that the GDB server does not print into the RTT UI. This is of course a bit suboptimal and we are working better ways to use RTT unhindered.
 - Typos or non-existant config flags are now spotted and reported to the user, such that things like `enable` vs `enabled` do not cost you hours of debugging anymore.
 
 ## Ongoing Work & Behind the Scenes
