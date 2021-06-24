@@ -19,13 +19,14 @@ This release sports a lot of internal improvements, bugfixes and quality of life
 ## probe-rs
 
 Most notable for probe-rs are:
-    - Our flash layout algorithm got a huge overhaul and fixed some issues with ihex files and small data chunks.
-    - A lot of SWD improvements for J-Link to work better and faster!
-    - Secure access on chips with TrustZone™ is now possible.
-    - probe-rs now makes use of double buffering in the flash process which gives it a decent speed improvement.
-    - Many papercut fixes and RISC-V support for the GDB server.
-    - probe-rs can now perform flash verification after flashing!
-    - A lot of bugfixes for the ARM Debug Interface.
+
+- Our flash layout algorithm got a huge overhaul and fixed some issues with ihex files and small data chunks.
+- A lot of SWD improvements for J-Link to work better and faster!
+- Secure access on chips with TrustZone™ is now possible.
+- probe-rs now makes use of double buffering in the flash process which gives it a decent speed improvement.
+- Many papercut fixes and RISC-V support for the GDB server.
+- probe-rs can now perform flash verification after flashing!
+- A lot of bugfixes for the ARM Debug Interface.
 
 On top of that we added support for a multitude of targets!
 Many SAMD, STM32, nRF5x and LPC devices were added or got improvements.
