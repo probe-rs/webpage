@@ -9,7 +9,7 @@ repo_license = 'Open-source Apache 2.0 or MIT License.'
 repo_url = 'https://github.com/probe-rs/probe-rs'
 
 [[extra.buttons]]
-path = '/docs/getting-started/introduction/'
+path = '/docs/getting-started/probe-setup/'
 text = 'Get Started'
 
 [[extra.buttons]]
