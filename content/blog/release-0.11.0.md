@@ -14,12 +14,12 @@ authors = ["Yatekii", "Tiwalun"]
 We are happy to announce the huge release of probe-rs 0.11.0 today.
 It has been a long time coming and is possibly our biggest release so far with over 7 months of development since the last one in November 2020!
 
-This release sports a lot of internal improvements, bugfixes and ease of life additions.
+This release sports a lot of internal improvements, bugfixes and quality of life additions.
 
 ## probe-rs
 
 Most notable for probe-rs are:
-    - Our flash layouter got a huge overhaul and fixed some issues with ihex files and small data chunks.
+    - Our flash layout algorithm got a huge overhaul and fixed some issues with ihex files and small data chunks.
     - A lot of SWD improvements for J-Link to work better and faster!
     - Secure access on chips with TrustZone™ is now possible.
     - probe-rs now makes use of double buffering in the flash process which gives it a decent speed improvement.
@@ -44,7 +44,7 @@ We have a whole error/hint catalogue and try to expand this. This feature can ea
 
 ## cargo-embed
 
-cargo-embed got two big ease of life improvements:
+cargo-embed got two big quality of life improvements:
 
 - RTT and the GDB server can not run concurrently. Previously this was not possible at all. Now you can enable RTT and GDB at the same time. Make sure to put `RUST_LOG=off` such that the GDB server does not print into the RTT UI. This is of course a bit suboptimal and we are working better ways to use RTT unhindered.
 - Typos or non-existant config flags are now spotted and reported to the user, such that things like `enable` vs `enabled` do not cost you hours of debugging anymore.
@@ -68,14 +68,14 @@ A proof of concept of the SVD viewer can be seen below.
 
 ### Debug Sequences
 
-Debug sequences are ARMs intended way of performing special procedures on targets which deviate from standards (within allowed reasons or even violating the spec) to unlock features of different targets which go beyond simple flashing.
+Debug sequences are ARM's intended way of performing special procedures on targets which deviate from standards (within reason or even violating the spec) to unlock features of different targets which go beyond simple flashing.
 
 As many of you might have experienced while using probe-rs, some chips do not work as well as others. Furthermore, some chips do not work at all or lack certain features. Sequences will improve this a lot!
-To illustrate what sequences will bring to probe-rs, here is a few examples:
+To illustrate what sequences will bring to probe-rs, here are a few examples:
 
 - Special reset needs of SAMD devices will be enabled by sequences, meaning those chips are less troublesome.
 - Flashing secure or otherwise special memory portions such as the network core memory of the nRF5340 will be possible with sequences as it allows us to perform special unlock procedures.
-- Unlocking locked chips such as the nRF52xxx series is something sequences will enable (this is not a hack, this is manufacturer intended functionality. You wont be able to read memory contents with it if the chip is locked. You will only be able to program it again after it was unlocked & erased).
+- Erasing and unlocking protected chips such as the nRF52xxx series is possible with sequences.
 - ITM tracing and other advanced features can be unlocked and enabled with sequences.
 
 In short, sequences will enable many new possibilities around different targets that have been difficult until now!
@@ -96,7 +96,7 @@ We have recently merged a great addition by [@Tiwalun](https://github.com/Tiwalu
 You can set it up to test each PR against the devkits you own. This will catch many regressions and errors before we can merge them into master.
 
 To step this one up, we have worked on a [custom hardware rig](https://github.com/probe-rs/hive) which will allow us to do large scale automated testing of each PR on a set of N targets multiplexed against M debug probes.
-A sneak peek of the rigs design can be seen below ;)
+A sneak peek of the rig's design can be seen below ;)
 
 <center><img src="/img/release-0.11.0/hive.jpg" style="max-width:100%"></center>
 
@@ -120,12 +120,11 @@ Alongside more releases I'd like to try to blog a little more about the ongoing 
 ### Sponsoring
 
 We put a lot of work into probe-rs, because we believe in it being an important cornerstone to the embedded development ecosystem.
-All of this is voluntary work and we continue to do so.
-But during times when the life at our dayjob is a little more stressful it can become hard to spend the evening putting in extra work hours, which is why we set up a sponsoring possibility.
+All of this is voluntary work and we continue to work on it voluntarily, but during times when life at our day-job is a little more stressful it can become hard to spend the evening putting in extra work hours, which is why we set up a sponsorship option.
 
 At this point, thanks a lot to all of our sponsors that already contribute a great deal to probe-rs' continued development and support!
 
-If you love probe-rs and want to see it grow and prosper, we would love if you considered [sponsoring] probe-rs' development. Some of us would love to at least work part time on the project to speed up it's development and improve the quality of our tooling. Additionally, as explained above, we have big plans for hardware based testing to ensure the highest possible quality software, which will impose some monetary cost of course.
+If you love probe-rs and want to see it grow and prosper, we would love if you considered [sponsoring] probe-rs development. Some of us would love to at least work part time on the project to speed up its development and improve the quality of our tooling. Additionally, as explained above, we have big plans for hardware based testing to ensure the highest possible quality software, which will impose some monetary cost of course.
 You can do so through [Github](https://github.com/sponsors/probe-rs) or [OpenCollective](https://opencollective.com/probe-rs).
 
 ### probe-rs in Production
