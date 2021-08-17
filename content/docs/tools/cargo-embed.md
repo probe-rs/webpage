@@ -35,7 +35,7 @@ The data from this file is structured in two levels; the outer layer is a config
 
 The available options can be found in the <a href="https://github.com/probe-rs/cargo-embed/blob/master/src/config/default.toml" target="_blank">default.toml</a>. This example uses toml syntax to set each option under the `default` top-level profile key.
 
-<h2 class="guide" id="basics">RTT</h2>
+<h2 class="guide" id="RTT">RTT</h2>
 
 RTT stands for real time transfers and is a mechanism to transfer data between the debug host and the debuggee.<br>
 <br>
