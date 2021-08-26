@@ -20,7 +20,7 @@ text = 'Sponsor us'
 [[extra.badges]]
 html = '<a href="https://github.com/probe-rs/probe-rs" style="color:black" target="_blank"><i class="fab fa-github m-1" style="font-size:1.2em"></i></a>'
 [[extra.badges]]
-html = '<a href="https://crates.io/crates/probe-rs" target="_blank"><img src="https://meritbadge.herokuapp.com/probe-rs" alt="crates.io" class="m-1" /></a>'
+html = '<a href="https://crates.io/crates/probe-rs" target="_blank"><img src="https://img.shields.io/crates/v/probe-rs" alt="crates.io" class="m-1" /></a>'
 [[extra.badges]]
 html = '<a href="https://docs.rs/probe-rs" target="_blank"><img src="https://docs.rs/probe-rs/badge.svg" alt="documentation" class="m-1" /></a>'
 [[extra.badges]]
