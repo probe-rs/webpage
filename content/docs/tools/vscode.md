@@ -111,7 +111,6 @@ The following fully configured examples can be used (with customizations to refl
             "speed": 24000, //!MODIFY
             "probe": "PID:VID:<Serial>", //!MODIFY
             "core_index": 0,
-            "flashing_enabled": true,
             "console_log_level": "Info", //Error, Warn, Info, Debug 
         }
     ]
