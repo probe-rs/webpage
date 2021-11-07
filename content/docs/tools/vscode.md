@@ -78,8 +78,8 @@ The following fully configured examples can be used (with customizations to refl
             "program_binary": "Relative or fully qualified path to your program_binary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
             "connect_under_reset": true,
-            "speed": 24000, //!MODIFY
-            "probe": "PID:VID:<Serial>", //!MODIFY
+            "speed": 24000, //!MODIFY (or remove)
+            "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "runtimeExecutable": "probe-rs-debugger",
             "runtimeArgs": [
                 "debug",
@@ -108,8 +108,8 @@ The following fully configured examples can be used (with customizations to refl
             "cwd": "${workspaceFolder}",
             "program_binary": "Relative or fully qualified path to your program_binary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
-            "speed": 24000, //!MODIFY
-            "probe": "PID:VID:<Serial>", //!MODIFY
+            "speed": 24000, //!MODIFY (or remove)
+            "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "core_index": 0,
             "console_log_level": "Info", //Error, Warn, Info, Debug 
         }
@@ -132,8 +132,8 @@ The following fully configured examples can be used (with customizations to refl
             "cwd": "${workspaceFolder}",
             "program_binary": "Relative or fully qualified path to your program_binary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
-            "speed": 24000, //!MODIFY
-            "probe": "PID:VID:<Serial>", //!MODIFY
+            "speed": 24000, //!MODIFY (or remove)
+            "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "core_index": 0,
             "console_log_level": "Info", //Error, Warn, Info, Debug           
         }
