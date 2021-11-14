@@ -25,9 +25,11 @@ By default, the debug probes are only accessible by users with root privileges o
 It is recommend to use appropriate udev rules to allow users without root privileges 
 access to the debug probes as well.
 
-1. Download the file [99-probe-rs.rules](/files/99-probe-rs.rules) and place it in /etc/udev/rules.d
+1. Download the file [69-probe-rs.rules](/files/69-probe-rs.rules)[^1] and place it in /etc/udev/rules.d. 
 2. Run `udevadm control --reload` to ensure the new rules are used.
 3. Run  `udevadm trigger` to ensure the new rules are applied to already added devices.
+
+[^1]: The file needs to have an initial number lower than 73, otherwise the udev rules do not get applied properly. See [this Github discussion](https://github.com/systemd/systemd/issues/4288#issuecomment-348166161) for more information.
 
 # CMSIS-DAP
 
