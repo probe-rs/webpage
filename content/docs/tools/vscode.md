@@ -55,7 +55,7 @@ A minimum configuration would look something like this (required customizations 
             "type": "probe-rs-debug",
             "request": "launch",
             "name": "probe_rs Executable Test",
-            "program_binary": "Fully qualified path to your program_binary", //!MODIFY
+            "programBinary": "Fully qualified path to your programBinary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
         }
     ]
@@ -75,9 +75,9 @@ The following fully configured examples can be used (with customizations to refl
             "request": "launch",
             "name": "probe_rs Executable launch example",
             "cwd": "${workspaceFolder}",
-            "program_binary": "Relative or fully qualified path to your program_binary", //!MODIFY
+            "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
-            "connect_under_reset": true,
+            "connectUnderReset": true,
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "runtimeExecutable": "probe-rs-debugger",
@@ -85,11 +85,11 @@ The following fully configured examples can be used (with customizations to refl
                 "debug",
                 "--dap"
             ],
-            "core_index": 0,
-            "flashing_enabled": true,
-            "reset_after_flashing": true,
-            "halt_after_reset": true,
-            "console_log_level": "Info", //Error, Warn, Info, Debug 
+            "coreIndex": 0,
+            "flashingEnabled": true,
+            "resetAfterFlashing": true,
+            "haltAfterReset": true,
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug 
         }
     ]
 }
@@ -106,12 +106,12 @@ The following fully configured examples can be used (with customizations to refl
             "request": "attach",
             "name": "probe_rs Executable launch example",
             "cwd": "${workspaceFolder}",
-            "program_binary": "Relative or fully qualified path to your program_binary", //!MODIFY
+            "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
-            "core_index": 0,
-            "console_log_level": "Info", //Error, Warn, Info, Debug 
+            "coreIndex": 0,
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug 
         }
     ]
 }
@@ -130,12 +130,12 @@ The following fully configured examples can be used (with customizations to refl
             "name": "probe_rs Server attach example",
             "server": "127.0.0.1:50001", //!MODIFY ... can be a server that is remote from the VSCode session, but local to the probe 
             "cwd": "${workspaceFolder}",
-            "program_binary": "Relative or fully qualified path to your program_binary", //!MODIFY
+            "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
             "chip": "STM32H745ZITx", //!MODIFY
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
-            "core_index": 0,
-            "console_log_level": "Info", //Error, Warn, Info, Debug           
+            "coreIndex": 0,
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug           
         }
     ]
 }
@@ -159,16 +159,16 @@ In order to capture the RTT output in the VSCode extension, you will need to sup
             "request": "launch",
             "name": "probe_rs rtt-target example",
             // ... <snip> ...
-            "rtt_enabled": true,
-            "rtt_channel_formats": [
+            "rttEnabled": true,
+            "rttChannelFormats": [
                 {
-                    "channel_number": 0,
-                    "data_format": "String", // Format RTT data as String data
-                    "show_timestamps": true  // Include host-side timestamps for every line of data transferred from the target RTT output
+                    "channelNumber": 0,
+                    "dataFormat": "String", // Format RTT data as String data
+                    "showTimestamps": true  // Include host-side timestamps for every line of data transferred from the target RTT output
                 },
                 {
-                    "channel_number": 1,
-                    "data_format": "BinaryLE" // Treat data as raw binary data, and do not format in any way
+                    "channelNumber": 1,
+                    "dataFormat": "BinaryLE" // Treat data as raw binary data, and do not format in any way
                 }
             ]
         }
@@ -189,11 +189,11 @@ When using `defmt`, we can configure the client side based on what is captured i
             "request": "launch",
             "name": "probe_rs rtt-target example",
             // ... <snip> ...
-            "rtt_enabled": true,
-            // "rtt_channel_formats": [ //!OPTIONAL
+            "rttEnabled": true,
+            // "rttChannelFormats": [ //!OPTIONAL
             //     {
-            //         "channel_number": 0,
-            //         "data_format": "Defmt",
+            //         "channelNumber": 0,
+            //         "dataFormat": "Defmt",
             //     }
             // ]
         }
@@ -252,24 +252,4 @@ When using `defmt`, we can configure the client side based on what is captured i
 
 ### Building and Testing the debug extension in VS Code
 
-* Open the project folder in VSCode.
-* Open a terminal and run the `yarn` command, to install VSCode development dependencies
-
-#### To run against a compiled executable of `probe-rs-debugger`
-
-* Modify the `debug-example` entry in '.vscode/launch.json' file to point to your target project.
-* Press `F5` to __build and launch executable__ `probe-rs-debugger`. VSCode will open another VS Code window. In that window,
-  * You will see the `debug-example` project you just configured.
-* Select the debug environment `probe_rs Executable Test`.* Press `F5` to start debugging.
-  
-#### To run against an debuggable instance of `probe-rs-debugger`
-
-* Clone the [probe-rs](https://github.com/probe-rs/probe-rs.git) repository, and open it in VSCode. 
-  * In this `probe-rs` repo, select the debug environment `DAP-Server probe-rs-debugger`
-  * Press `F5` to start `probe-rs-debugger` as a debuggable server.
-* Switch to the VSCode instance of the probe-rs `vscode` repository. 
-  * Modify the `debug-example` entry in '.vscode/launch.json' file to point to your target project.
-  * Press `F5` to __build and attach to the debuggable server instance of__ `probe-rs-debugger`. VSCode will open another VS Code window. In that window:
-  * You will see the `debug-example` project you just configured.
-  * Select the debug environment `probe_rs Server Test`.
-  * Press `F5` to start debugging.
+Please refer to the [repository README.md file](https://github.com/probe-rs/vscode) for the latest instructions on how to build and deploy the extension.
