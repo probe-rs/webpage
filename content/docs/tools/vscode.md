@@ -21,8 +21,8 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
 
 ### Installation
 
-* Install the **probe-rs-debugger** extension in VS Code, by downloading the latest `probe-rs-debugger-0.3.0.vsix` from the [Releases](https://github.com/probe-rs/vscode/releases) page in our repo (we will publish to the Microsoft Extension marketplace when we exit the 'Alpha' phase of this project)
-  * Install the extension by running `code --install-extension probe-rs-debugger-0.3.0.vsix` in the terminal
+* Install the **probe-rs-debugger** extension in VS Code, by downloading the latest `probe-rs-debugger-0.3.1.vsix` from the [Releases](https://github.com/probe-rs/vscode/releases) page in our repo (we will publish to the Microsoft Extension marketplace when we exit the 'Alpha' phase of this project)
+  * Install the extension by running `code --install-extension probe-rs-debugger-0.3.1.vsix` in the terminal
   * Alternatively, 
     * To generate the extension from source code...(if you wish to update the version distributed with this repository), [please follow these instructions](#building-and-testing-the-debug-extension-in-vs-code) 
 
@@ -89,7 +89,7 @@ The following fully configured examples can be used (with customizations to refl
             "flashingEnabled": true,
             "resetAfterFlashing": true,
             "haltAfterReset": true,
-            "consoleLogLevel": "Info", //Error, Warn, Info, Debug 
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace, Trace 
         }
     ]
 }
@@ -111,7 +111,7 @@ The following fully configured examples can be used (with customizations to refl
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "coreIndex": 0,
-            "consoleLogLevel": "Info", //Error, Warn, Info, Debug 
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace, Trace 
         }
     ]
 }
@@ -135,7 +135,7 @@ The following fully configured examples can be used (with customizations to refl
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "coreIndex": 0,
-            "consoleLogLevel": "Info", //Error, Warn, Info, Debug           
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace           
         }
     ]
 }
