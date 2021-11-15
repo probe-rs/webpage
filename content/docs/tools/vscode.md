@@ -89,7 +89,7 @@ The following fully configured examples can be used (with customizations to refl
             "flashingEnabled": true,
             "resetAfterFlashing": true,
             "haltAfterReset": true,
-            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace, Trace 
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace 
         }
     ]
 }
@@ -111,7 +111,7 @@ The following fully configured examples can be used (with customizations to refl
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "coreIndex": 0,
-            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace, Trace 
+            "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace 
         }
     ]
 }
