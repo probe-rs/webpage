@@ -21,8 +21,8 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
 
 ### Installation
 
-* Install the **probe-rs-debugger** extension in VS Code, by downloading the latest `probe-rs-debugger-0.3.2.vsix` from the [Releases](https://github.com/probe-rs/vscode/releases) page in our repo (we will publish to the Microsoft Extension marketplace when we exit the 'Alpha' phase of this project)
-  * Install the extension by running `code --install-extension probe-rs-debugger-0.3.2.vsix` in the terminal
+* Install the **probe-rs-debugger** extension in VS Code, by downloading the *latest available* `probe-rs-debugger-x.x.x.vsix` from the [Releases](https://github.com/probe-rs/vscode/releases) page in our repo (we will publish to the Microsoft Extension marketplace when we exit the 'Alpha' phase of this project)
+  * Install the downloaded extension file from the command line, for example:  `code --install-extension probe-rs-debugger-0.3.3.vsix` in the terminal
   * Alternatively, 
     * To generate the extension from source code...(if you wish to update the version distributed with this repository), [please follow these instructions](#building-and-testing-the-debug-extension-in-vs-code) 
 
