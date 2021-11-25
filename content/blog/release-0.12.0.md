@@ -13,7 +13,7 @@ authors = ["Yatekii"]
 
 Hi everyone!
 
-After [two long weeks](http://127.0.0.1:1111/blog/release-0-11-0/#automatic-releases) we are back with the release of 0.12.0.
+After [two long weeks](/blog/release-0-11-0/#automatic-releases) we are back with the release of 0.12.0.
 
 We have had a lot of development on various fronts on which I intend to give an overview down below.
 
@@ -21,13 +21,13 @@ We have had a lot of development on various fronts on which I intend to give an 
 
 We have two huge new features in probe-rs which do not seem like much from a regular user perspective but actually enable us to implement a lot of additional functionality down the road.
 
-First of all we finally merged [Sequence support](http://127.0.0.1:1111/blog/release-0-11-0/#debug-sequences). There is only one target (namely the LPC55S69) which has custom sequences, but there is a lot more chips that can profit of this to do chip-unlock, multicore, special reset sequences and much more.
+First of all we finally merged [Sequence support](/blog/release-0-11-0/#debug-sequences). There is only one target (namely the LPC55S69) which has custom sequences, but there are a lot more chips which can profit from this to do chip-unlock, multicore, special reset sequences and much more.
 
 The second bigger thing is multicore support and DPv2 support. While multicore is pretty much self explanatory, DPv2 support enables us to select a DebugPort, which enables us to do Multidrop SWD. This is a not so much used functionality, but while it's cool to have anyways, it is required to support the RPi2040, which has one DebugPort for each core instead of one for both, which regular multicore targets do.
 Also, for proper multicore support on all targets, many of them will need to implement sequences to unlock additional cores, which is not implemented for most of them yet.
 A big thank you for this goes to [Dirbaio](https://github.com/Dirbaio) and [diondokter](https://github.com/diondokter).
 
-Appart from that we added various smaller things that make developer life easier; to see what changed, please have a look at the [CHANGELOG.md](https://github.com/probe-rs/probe-rs/blob/master/CHANGELOG.md).
+Apart from that we added various smaller things that make developer life easier; to see what changed, please have a look at the [CHANGELOG.md](https://github.com/probe-rs/probe-rs/blob/master/CHANGELOG.md).
 
 ## VSCode
 
@@ -41,10 +41,10 @@ Behind the scenes, our newest crewmember, [@TeyKey1](https://github.com/TeyKey1)
 
 You can find all the info around the designs in the [repo](https://github.com/probe-rs/hive).
 
-The design has been revamped from last blog's [sneakpeek](http://127.0.0.1:1111/blog/release-0-11-0/#hardware-based-testing) and is now oriented a bit differently. Previously I tried to make the design to fit as many possible targets and probes as possible and due to hardware and monetary constraints, the design disregarded runtime. So in the old design if we actually tested a lot of targets it would result in immense testing times because the design could not multiplex well. Additionally, the old design was not suitable to be built for every dev so they could test at home - even if they'd put less targets on the test.
+The design has been revamped from last blog's [sneakpeek](/blog/release-0-11-0/#hardware-based-testing) and is now oriented a bit differently. Previously I tried to make the design to fit as many possible targets and probes as possible and due to hardware and monetary constraints, the design disregarded runtime. So in the old design if we actually tested a lot of targets it would result in immense testing times because the design could not multiplex well. Additionally, the old design was not suitable to be built for every dev so they could test at home - even if they'd put less targets on the test.
 
 So the new design takes all of this into consideration. It features a compact build with a bit less possible targets and probes: 4 probes and 32 targets can be tested with 4 tests at once being possible - one on each probe. The design features a RaspberryPi 4 as a base and stacks shields with chip daughterboards on top.
-This enables everyone to design a dautherboard which can be manufactured and included in the test-rig. If we need more than 4 probes or more than 32 targets, we can assemble a second rig - all at a very low cost of manufacturing with a very modular design.
+This enables everyone to design a daugtherboard which can be manufactured and included in the test-rig. If we need more than 4 probes or more than 32 targets, we can assemble a second rig - all at a very low cost of manufacturing with a very modular design.
 
 The project itself is split into two parts. The first (this autumn semester) aims at making a testrig with a basic firmware to have the hardware working and tested. At the moment it looks like this will be done in time.
 The next semester will be the second part, where Thierry will work on doing nice integration of the testrig with Github, automate everything to run on new PRs, write tests for the targets and test out all the daughterboards he designed.
