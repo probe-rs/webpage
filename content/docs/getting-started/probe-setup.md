@@ -29,7 +29,7 @@ access to the debug probes as well.
 2. Run `udevadm control --reload` to ensure the new rules are used.
 3. Run  `udevadm trigger` to ensure the new rules are applied to already added devices.
 
-If you're still unable to access the debug probes after following these steps, try adding you user to the plugdev group.
+If you're still unable to access the debug probes after following these steps, try adding your user to the plugdev group.
 
 [^1]: The file needs to have an initial number lower than 73, otherwise the udev rules do not get applied properly. See [this Github discussion](https://github.com/systemd/systemd/issues/4288#issuecomment-348166161) for more information.
 
