@@ -44,7 +44,7 @@ Many of the entries in `launch.json` are optional, and the values for each are d
 
 A minimum configuration would look something like this (required customizations are indicated with //!MODIFY tags )
 
-#### Start a debug session with minimum configufation
+#### Start a debug session with minimum configuration
 
 ```json
 {
