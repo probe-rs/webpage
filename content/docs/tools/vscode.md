@@ -84,8 +84,7 @@ The following fully configured examples can be used (with customizations to refl
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "runtimeExecutable": "probe-rs-debugger",
             "runtimeArgs": [
-                "debug",
-                "--dap"
+                "debug"
             ],
             "coreIndex": 0,
             "flashingEnabled": true,
@@ -120,6 +119,13 @@ The following fully configured examples can be used (with customizations to refl
 ```
 
 #### Using to an existing `probe-rs-debugger` server
+
+To start `probe-rs-debugger` as a standalone server:
+```
+probe-rs-debugger debug --port 50000 # Replace the value 50000 with any available TCP port number
+```
+
+Then use the following `launch.json` to connect to it:
 
 ```json
 {
@@ -244,7 +250,6 @@ When using `defmt`, we can configure the client side based on what is captured i
       - [x] Unions
       - [x] Options & Results
       - [x] Unit types
-      - [x] **NEW:** Function parameters
     - [ ] TODO: Add support for additional types, such as Generics, etc.
     - [x] **NEW:** Use the `Set Variable` command in VSCode to update variable values.
     - [x] **NEW:** Use the `View Binary Data` command in VSCode to perform binary memory edits on the target device. 
