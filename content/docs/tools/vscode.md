@@ -255,6 +255,7 @@ When using `defmt`, we can configure the client side based on what is captured i
     - [x] **NEW:** Use the `View Binary Data` command in VSCode to perform binary memory edits on the target device. 
 - [x] **Call Stack View**
   - [x] Supports a single thread, for a single core of the chip, but will **allow selection of any frames** that are in the current thread
+  - [x] **NEW** Supports the VSCode `Dissambly` view, and `SetInstructionBreakpoints`
   - [ ] TODO: Support multiple threads
   - [ ] TODO: Support chips with multiple cores
 - [x] **NEW:** **Watch View** Monitor values of selected variables.
@@ -280,3 +281,6 @@ Please refer to the [repository README.md file](https://github.com/probe-rs/vsco
 
 <center><img src="/img/vscode/variable_edit_and_watch.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
 
+### Use the `Disassembly` to see the assembly code executed on the target, and set instruction breakpoints in this view
+
+<center><img src="/img/vscode/disassemble_and_instruction_breakpoint.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
