@@ -234,9 +234,11 @@ When using `defmt`, we can configure the client side based on what is captured i
   - [x] Supports `reset-after-flashing`, `full-chip-erase`, and `restore-unwritten-bytes`
   - [x] Supports `halt-after-reset`. This will allow you to set breakpoints in your main() function.
 - [x] Set, clear, disable, enable hardware **Breakpoints**
-- [x] **Step Over** executing code
-  - [x] Step Over works at 'instruction' granularity, so sometimes requires multiple steps per line of code
-  - [ ] Stepping at 'line' level, Step Into, Step Out, does not work yet
+  - [x] In VSCode `Source view`, breakpoints are set at the closest 'valid' target location, i.e. a target address that is not inside a function prologue or epilogue.
+  - [x] In VSCode `Disassembly view`, breakpoints are set at 'instruction level'
+- [x] **UPDATED: Stepping** through executing code during debug:
+  - [x] Stepping at 'statement' level, 'Step Into', 'Step Out', and 'Run to Cursor' - will step to the closest 'valid' target location, i.e. a target address that is not inside a function prologue or epilogue.
+  - [x] While VSCode 'Disassembly view` is open, all stepping automatically happens at 'instruction' granularity, and will allow the user to step to any target location, including instructions in a function prologue or epilogue.
 - [x] **Variables View**
   - [x] View values of core **Registers**, and changes during code execution
   - [x] View values of **Locals** and **Statics** variables, and update values during code execution.
