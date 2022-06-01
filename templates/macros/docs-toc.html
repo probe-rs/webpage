@@ -6,7 +6,7 @@
   			<nav id="TableOfContents">
   					<ul>
   							{% for h1 in page.toc %}
-  							<li><a href="{{ h1.permalink | safe}}">{{ h1.title }}</a></li>
+  							<li><a href="{{ h1.permalink | safe}}">{{ h1.title }}</a>
   							{% if h1.children %}
   									<ul>
   											{% for h2 in h1.children %}
@@ -15,6 +15,7 @@
   									</ul>
   							{% endif %}
   							{% endfor %}
+                            </li>
   					</ul>
   			</nav>
   	</div>
