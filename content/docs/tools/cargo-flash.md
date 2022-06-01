@@ -13,14 +13,17 @@ toc = true
 top = false
 +++
 
-## Basics
-
 **cargo-flash** is a cargo extension and drop in replacement for `cargo run`.
+
+## Installation
 
 We recommend you install it with cargo after installing the [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites).
 ```sh
 cargo install cargo-flash
 ```
+
+## Usage
+
 You can use **cargo-flash** just like 'cargo run', but instead of running on the host,
 **cargo-flash** will download your binary to the target and run.
 
@@ -41,7 +44,7 @@ cargo flash --list-chips
 cargo flash --example <your_example>
 ```
 
-Any config flags that are accepted by 'cargo run' are accepted by <b>cargo-flash</b> too.
+Any config flags that are accepted by 'cargo run' are accepted by **cargo-flash** too.
 If not, hit us with an [issue](https://github.com/probe-rs/cargo-flash/issues/new/choose).
 
 Happy coding!

@@ -15,6 +15,10 @@ title = 'probe-rs'
 highlight_code = true
 highlight_theme = "ayu-light"
 
+# Whether external links are to be opened in a new tab
+# If this is true, a `rel="noopener"` will always automatically be added for security reasons
+external_links_target_blank = true
+
 [extra]
 # Put all your custom variables here
 
@@ -48,4 +52,4 @@ post = 'v0.1.0'
 weight = 20
 
 [extra.footer]
-info = '© 2019 - 2021 the probe-rs developers'
+info = '© 2019 - 2022 the probe-rs developers'
