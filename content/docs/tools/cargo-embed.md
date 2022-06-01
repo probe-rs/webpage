@@ -28,15 +28,54 @@ We recommend installing it via
 
 ## Configuration
 
-cargo-embed can be configured via a `Embed.toml` in the project root.
+cargo-embed can be configured via a `Embed.toml` (or `.embed.toml`) in the project root.
 
-The data from this file is structured in two levels; the outer layer is a configuration profile name, inside each configuration there are then a series of sections with different options. When invoking cargo-embed, a different configuration name can be passed as an argument, which will load the settings under that profile instead of `default`.
+Here's a simple example:
 
-The available options can be found in the [default.toml](https://github.com/probe-rs/cargo-embed/blob/master/src/config/default.toml). This example uses toml syntax to set each option under the `default` top-level profile key.
+```toml
+[default.general]
+chip = "STM32F401CCUx"
+
+[default.rtt]
+enabled = true
+```
+
+All available options can be found in the
+[default.toml](https://github.com/probe-rs/cargo-embed/blob/master/src/config/default.toml). This
+example uses toml syntax to set each option under the `default` top-level profile key.
+
+The `Embed.toml` should be part of the project, for local-only configuration overrides, you can
+create an `Embed.local.toml` (or `.embed.local.toml`) file and add that to your .gitignore.
+The local files take precedence.
+
+### Profiles
+
+The data in the `Embed.toml` is structured in two levels: The outer layer is a configuration profile
+name, inside each profile there are then a series of sections with different options.
+The default profile is called "default" ;)
+When invoking cargo-embed, a different profile name can be passed as an argument with `--config <profile>`, which will load the settings
+under that profile instead of `default`.
+
+For example, in your `Embed.toml`:
+
+```toml
+[default.general]
+chip = "STM32F401CCUx"
+
+# No need to set this again, other profiles inherit from the "default" profile
+#[with_rtt.general]
+#chip = "STM32F401CCUx"
+
+[with_rtt.rtt]
+enabled = true
+```
+
+Now you can run `cargo embed --config with_rtt` to have RTT enabled, while `cargo embed` will use
+the default config "default" without RTT.
 
 ## RTT
 
-RTT stands for real time transfers and is a mechanism to transfer data between the debug host and the debuggee.
+RTT stands for **real time transfers** and is a mechanism to transfer data between the debug host and the debuggee.
 
 In it's essence it provides a configurable amount of ringbuffers, which are read/written by the target and the debug
 host.
@@ -78,9 +117,9 @@ fn main() -> ! {
 
 On the host, just run
 
-    cargo-embed
+    cargo embed
 
-with RTT enabled in the Embed.toml file.
+with RTT enabled in the `Embed.toml` file.
 
 Now you should be able to see all the 'Hello World!'s in a default channel called "Terminal"!
 
