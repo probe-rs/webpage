@@ -13,8 +13,6 @@ toc = true
 top = false
 +++
 
-## Basics
-
 The **probe-rs-debugger VS Code extension** uses the Microsoft Debug Adapter Protocol to implement an interactive debugging experience between VS Code and a probe-rs target.
 
 The extension is currently in pre-production/Alpha stage, with limited functionality. For details of current status and functionality please read this [section](#current-working-functionality-and-known-limitations).
@@ -68,7 +66,7 @@ A minimum configuration would look something like this (required customizations 
 }
 ```
 
-The following fully configured examples can be used (with customizations to reflect your own project and chip) to help you get started.<br>
+The following fully configured examples can be used (with customizations to reflect your own project and chip) to help you get started.
 
 #### Using the `launch` request type
 
@@ -174,7 +172,7 @@ Then use the following `launch.json` to connect to it:
 
 `probe-rs-debugger` and the VS Code extension supports using RTT in your target application.
 
-For more information on how to configure your target application to use RTT, please refer to the instructions under the [cargo-embed](../cargo-embed#RTT)
+For more information on how to configure your target application to use RTT, please refer to the instructions under the [cargo-embed](../cargo-embed#rtt)
 section of this guide.
 
 In order to capture the RTT output in the VSCode extension, you will need to supply additional entries to your applications `launch.json` entry. You can use the following example and modify the channel information to match the `rtt-target` channel configurations in your application.
@@ -210,7 +208,7 @@ In order to capture the RTT output in the VSCode extension, you will need to sup
 }
 ```
 
-In addition to supporting RTT channels with <a href="https://crates.io/crates/rtt-target" target="_blank">rtt-target</a>, we also support using the <a href="https://defmt.ferrous-systems.com" target="_blank">defmt</a> (a highly efficient logging framework that targets resource-constrained devices, and supports complex formatting and RUST_LOG-like logging)<br>
+In addition to supporting RTT channels with [rtt-target](https://crates.io/crates/rtt-target), we also support using the [defmt](https://defmt.ferrous-systems.com) (a highly efficient logging framework that targets resource-constrained devices, and supports complex formatting and RUST_LOG-like logging.)
 
 When using `defmt`, we can configure the client side based on what is captured in your application, and the `launch.json` only requires a single additional entry.
 
