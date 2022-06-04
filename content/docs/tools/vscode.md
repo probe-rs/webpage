@@ -277,10 +277,12 @@ Adding DEFMT_LOG to `launch.json`
 - [x] **Flash** the chip with your own binary. 
   - [x] Supports `reset-after-flashing`, `full-chip-erase`, and `restore-unwritten-bytes`
   - [x] Supports `halt-after-reset`. This will allow you to set breakpoints in your main() function.
-- [x] Set, clear, disable, enable hardware **Breakpoints**. Breakpoint locations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
-- [x] **UPDATED: Step Over** executing code
+- [x] Set, clear, disable, enable hardware **Breakpoints**.
+  - [x] In VSCode `Source view`, breakpoint locations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
+  - [x] In VSCode `Disassembly view`, breakpoints are set at 'instruction level'
+- [x] **UPDATED: Stepping** through executing code during debug:
   - [x] Supports stepping at 'statement' level with `Step Over`, `Step Into`, `Step Out`. Stepping desitnations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
-  - [x] Stepping while in the `Disassembly View` works at 'instruction' granularity, so sometimes requires multiple steps per line of code
+  - [x] While VSCode 'Disassembly view` is open, all stepping automatically happens at 'instruction' granularity, and will allow the user to step to any target location, including instructions in a function prologue or epilogue.
 - [x] **Variables View**
   - [x] View values of core **Registers**, and changes during code execution
   - [x] View values of **Locals** and **Statics** variables, and update values during code execution.
