@@ -34,18 +34,16 @@ let core = session.core(0)?;
 core.halt()?;
 ```
 
-<b>probe-rs</b> can be used to automate your workflow.
+**probe-rs** can be used to automate your workflow.
 
 Want to do
-<ul>
-    <li>hardware-in-the-loop testing?</li>
-    <li>automatic WCET analysis?</li>
-    <li>automatic firmware downloads in your project?</li>
-</ul>
+* hardware-in-the-loop testing?
+* automatic WCET analysis?
+* automatic firmware downloads in your project?
 
-<b>probe-rs</b> was designed with such usecases in mind.<br>
+**probe-rs** was designed with such usecases in mind.
 
-Read more about <a href="/guide/basics#structure">the structure</a>.
+Read more about [the structure](/guide/basics#structure).
 
 ## Reading and writing memory
 
@@ -74,14 +72,14 @@ let buff = [0u8;50];
 core.write_8(0x2000_0000, &buff)?;
 ```
 
-Reading and writing memory is trivial with <b>probe-rs</b>.
+Reading and writing memory is trivial with **probe-rs**.
 
-<b>probe-rs</b> supports different word sizes and block transfers.
+**probe-rs** supports different word sizes and block transfers.
 
 Don't forget to unlock the flash before you write to it!
 
-Read more about <a href="/guide/basics#core">memory operations</a>.
-    
+Read more about [memory operations](/guide/basics#core).
+
 ## Downloading to flash
 
 ```rs
@@ -113,9 +111,9 @@ download_file(
 
 Downloading firmware to your target is as easy.
 
-Of course the flash facility can also report progress.<br>
+Of course the flash facility can also report progress.
 
-Any target that has a CMSIS-Pack can be converted into a <b>probe-rs</b> flash download target with our
-<a href="https://github.com/probe-rs/target-gen" target="_blank">utility</a>
+Any target that has a CMSIS-Pack can be converted into a **probe-rs** flash download target with our
+[utility](https://github.com/probe-rs/target-gen)
 
-Read more about <a href="/guide/downloading">downloading flash</a>.
+Read more about [downloading flash](/guide/downloading).

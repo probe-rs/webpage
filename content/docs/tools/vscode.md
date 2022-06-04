@@ -2,7 +2,7 @@
 title = "VSCode"
 description = "The vscode plugin & DAP server explained."
 date = 2021-05-01T08:00:00+00:00
-updated = 2021-08-16T08:00:00+00:00
+updated = 2022-03-27T08:00:00+00:00
 draft = false
 weight = 30
 sort_by = "weight"
@@ -12,8 +12,6 @@ template = "docs/page.html"
 toc = true
 top = false
 +++
-
-## Basics
 
 The **probe-rs-debugger VS Code extension** uses the Microsoft Debug Adapter Protocol to implement an interactive debugging experience between VS Code and a probe-rs target.
 
@@ -57,14 +55,18 @@ A minimum configuration would look something like this (required customizations 
             "type": "probe-rs-debug",
             "request": "launch",
             "name": "probe_rs Executable Test",
-            "programBinary": "Fully qualified path to your programBinary", //!MODIFY
-            "chip": "STM32H745ZITx", //!MODIFY
+            "coreConfigs": [
+                {
+                    "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
+                    "chip": "STM32H745ZITx", //!MODIFY
+                }
+            ]
         }
     ]
 }
 ```
 
-The following fully configured examples can be used (with customizations to reflect your own project and chip) to help you get started.<br>
+The following fully configured examples can be used (with customizations to reflect your own project and chip) to help you get started.
 
 #### Using the `launch` request type
 
@@ -77,8 +79,6 @@ The following fully configured examples can be used (with customizations to refl
             "request": "launch",
             "name": "probe_rs Executable launch example",
             "cwd": "${workspaceFolder}",
-            "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-            "chip": "STM32H745ZITx", //!MODIFY
             "connectUnderReset": true,
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
@@ -87,9 +87,18 @@ The following fully configured examples can be used (with customizations to refl
                 "debug"
             ],
             "coreIndex": 0,
-            "flashingEnabled": true,
-            "resetAfterFlashing": true,
-            "haltAfterReset": true,
+            "flashingConfig": {
+                "flashingEnabled": true,
+                "resetAfterFlashing": true,
+                "haltAfterReset": true,
+            }
+            "coreConfigs": [
+                {
+                    "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
+                    "chip": "STM32H745ZITx", //!MODIFY
+                    "svdFile": "Relative or fully qualified path to your programBinary", //!MODIFY
+                }
+            ],
             "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace 
         }
     ]
@@ -107,11 +116,16 @@ The following fully configured examples can be used (with customizations to refl
             "request": "attach",
             "name": "probe_rs Executable launch example",
             "cwd": "${workspaceFolder}",
-            "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-            "chip": "STM32H745ZITx", //!MODIFY
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
-            "coreIndex": 0,
+            "coreConfigs": [
+                {
+                    "coreIndex": 0,
+                    "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
+                    "chip": "STM32H745ZITx", //!MODIFY
+                    "svdFile": "Relative or fully qualified path to your programBinary", //!MODIFY
+                }
+            ],
             "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace 
         }
     ]
@@ -138,11 +152,16 @@ Then use the following `launch.json` to connect to it:
             "name": "probe_rs Server attach example",
             "server": "127.0.0.1:50001", //!MODIFY ... can be a server that is remote from the VSCode session, but local to the probe 
             "cwd": "${workspaceFolder}",
-            "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-            "chip": "STM32H745ZITx", //!MODIFY
             "speed": 24000, //!MODIFY (or remove)
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
-            "coreIndex": 0,
+            "coreConfigs": [
+                {
+                    "coreIndex": 0,
+                    "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
+                    "chip": "STM32H745ZITx", //!MODIFY
+                    "svdFile": "Relative or fully qualified path to your programBinary", //!MODIFY
+                }
+            ],
             "consoleLogLevel": "Info", //Error, Warn, Info, Debug, Trace           
         }
     ]
@@ -153,7 +172,7 @@ Then use the following `launch.json` to connect to it:
 
 `probe-rs-debugger` and the VS Code extension supports using RTT in your target application.
 
-For more information on how to configure your target application to use RTT, please refer to the instructions under the [cargo-embed](../cargo-embed#RTT)
+For more information on how to configure your target application to use RTT, please refer to the instructions under the [cargo-embed](../cargo-embed#rtt)
 section of this guide.
 
 In order to capture the RTT output in the VSCode extension, you will need to supply additional entries to your applications `launch.json` entry. You can use the following example and modify the channel information to match the `rtt-target` channel configurations in your application.
@@ -166,25 +185,30 @@ In order to capture the RTT output in the VSCode extension, you will need to sup
             "type": "probe-rs-debug",
             "request": "launch",
             "name": "probe_rs rtt-target example",
-            // ... <snip> ...
-            "rttEnabled": true,
-            "rttChannelFormats": [
+            "coreConfigs": [
                 {
-                    "channelNumber": 0,
-                    "dataFormat": "String", // Format RTT data as String data
-                    "showTimestamps": true  // Include host-side timestamps for every line of data transferred from the target RTT output
-                },
-                {
-                    "channelNumber": 1,
-                    "dataFormat": "BinaryLE" // Treat data as raw binary data, and do not format in any way
+                    "coreIndex": 0,
+                    // ... <snip> ...
+                    "rttEnabled": true,
+                    "rttChannelFormats": [
+                        {
+                            "channelNumber": 0,
+                            "dataFormat": "String", // Format RTT data as String data
+                            "showTimestamps": true  // Include host-side timestamps for every line of data transferred from the target RTT output
+                        },
+                        {
+                            "channelNumber": 1,
+                            "dataFormat": "BinaryLE" // Treat data as raw binary data, and do not format in any way
+                        }
+                    ]
                 }
-            ]
+            ],
         }
     ]
 }
 ```
 
-In addition to supporting RTT channels with <a href="https://crates.io/crates/rtt-target" target="_blank">rtt-target</a>, we also support using the <a href="https://defmt.ferrous-systems.com" target="_blank">defmt</a> (a highly efficient logging framework that targets resource-constrained devices, and supports complex formatting and RUST_LOG-like logging)<br>
+In addition to supporting RTT channels with [rtt-target](https://crates.io/crates/rtt-target), we also support using the [defmt](https://defmt.ferrous-systems.com) (a highly efficient logging framework that targets resource-constrained devices, and supports complex formatting and RUST_LOG-like logging.)
 
 When using `defmt`, we can configure the client side based on what is captured in your application, and the `launch.json` only requires a single additional entry.
 
@@ -214,9 +238,29 @@ When using `defmt`, we can configure the client side based on what is captured i
 **NOTE:** When using `defmt` RTT, please keep the following limitations in mind.
 
 * Due to the way the `defmt` crate works, it is currently not possible to mix `defmt` and `rtt-target` channels in a single application.
-* The `defmt` crate always uses channel number 0 for its output.    
+* The `defmt` crate always uses channel number 0 for its output.
+* The `defmt` crate introduced a new log filter that filters out log statements at **build time**. To ensure your defmt logging is not default filtered to `error` level, you can either add the environment variable in your `.cargo/config` file, or add the `options` setting of your tasks.json (see below), to match your desired logging level on the target.
 
-**TIP:** When using RTT, the data is streamed into a terminal window on a per channel basis. If your application uses multiple RTT channels, you may want to consider using the new [VSCode Terminal tabs](https://code.visualstudio.com/updates/v1_57#_integrated-terminal) setting.  
+Adding DEFMT_LOG to `cargo/config`
+```toml
+[env]
+DEFMT_LOG = "info"
+```
+
+Adding DEFMT_LOG to `launch.json`
+```json
+// ... <snip> ...
+  "options": {
+    "env": {
+      "DEFMT_LOG": "info" //!MODIFY: Remove or use any of the supported DEFMT_LOG options.
+    }
+  },
+  "tasks": [
+// ... <snip> ...
+```
+
+
+**TIP:** When using RTT, the data is streamed into a terminal window on a per channel basis. If your application uses multiple RTT channels, you may want to consider using the new [VSCode Terminal tabs](https://code.visualstudio.com/updates/v1_57#_integrated-terminal) setting.
 
 ### Current working functionality and known limitations
 
@@ -233,11 +277,11 @@ When using `defmt`, we can configure the client side based on what is captured i
 - [x] **Flash** the chip with your own binary. 
   - [x] Supports `reset-after-flashing`, `full-chip-erase`, and `restore-unwritten-bytes`
   - [x] Supports `halt-after-reset`. This will allow you to set breakpoints in your main() function.
-- [x] Set, clear, disable, enable hardware **Breakpoints**
-  - [x] In VSCode `Source view`, breakpoints are set at the closest 'valid' target location, i.e. a target address that is not inside a function prologue or epilogue.
+- [x] Set, clear, disable, enable hardware **Breakpoints**.
+  - [x] In VSCode `Source view`, breakpoint locations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
   - [x] In VSCode `Disassembly view`, breakpoints are set at 'instruction level'
 - [x] **UPDATED: Stepping** through executing code during debug:
-  - [x] Stepping at 'statement' level, 'Step Into', 'Step Out', and 'Run to Cursor' - will step to the closest 'valid' target location, i.e. a target address that is not inside a function prologue or epilogue.
+  - [x] Supports stepping at 'statement' level with `Step Over`, `Step Into`, `Step Out`. Stepping desitnations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
   - [x] While VSCode 'Disassembly view` is open, all stepping automatically happens at 'instruction' granularity, and will allow the user to step to any target location, including instructions in a function prologue or epilogue.
 - [x] **Variables View**
   - [x] View values of core **Registers**, and changes during code execution
@@ -264,6 +308,7 @@ When using `defmt`, we can configure the client side based on what is captured i
 - [x] **RTT** - Configure RTT Channels and capture their output in the `VSCode Integrated Terminal`
   - [x] RTT Channels that support logging data to VSCode Terminal windows
 - [x] **NEW:** Use the REPL command line in the Debug Console evaluate variables
+- [x] **NEW:** Navigate and monitor SVD Peripheral registers 
 
 ### Building and Testing the debug extension in VS Code
 
@@ -286,3 +331,7 @@ Please refer to the [repository README.md file](https://github.com/probe-rs/vsco
 ### Use the `Disassembly` to see the assembly code executed on the target, and set instruction breakpoints in this view
 
 <center><img src="/img/vscode/disassemble_and_instruction_breakpoint.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
+
+### Use CMSIS-SVD definitions to navigate and monitor device peripheral registers
+
+<center><img src="/img/vscode/SVD Peripheral Registers.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
