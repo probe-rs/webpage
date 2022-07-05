@@ -55,10 +55,10 @@ A minimum configuration would look something like this (required customizations 
             "type": "probe-rs-debug",
             "request": "launch",
             "name": "probe_rs Executable Test",
+            "chip": "STM32H745ZITx", //!MODIFY
             "coreConfigs": [
                 {
                     "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-                    "chip": "STM32H745ZITx", //!MODIFY
                 }
             ]
         }
@@ -86,16 +86,16 @@ The following fully configured examples can be used (with customizations to refl
             "runtimeArgs": [
                 "debug"
             ],
-            "coreIndex": 0,
+            "chip": "STM32H745ZITx", //!MODIFY
             "flashingConfig": {
                 "flashingEnabled": true,
                 "resetAfterFlashing": true,
                 "haltAfterReset": true,
-            }
+            },
             "coreConfigs": [
                 {
+                    "coreIndex": 0,
                     "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-                    "chip": "STM32H745ZITx", //!MODIFY
                     "svdFile": "Relative or fully qualified path to your programBinary", //!MODIFY
                 }
             ],
@@ -117,12 +117,12 @@ The following fully configured examples can be used (with customizations to refl
             "name": "probe_rs Executable launch example",
             "cwd": "${workspaceFolder}",
             "speed": 24000, //!MODIFY (or remove)
+            "chip": "STM32H745ZITx", //!MODIFY
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "coreConfigs": [
                 {
                     "coreIndex": 0,
                     "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-                    "chip": "STM32H745ZITx", //!MODIFY
                     "svdFile": "Relative or fully qualified path to your programBinary", //!MODIFY
                 }
             ],
@@ -153,12 +153,12 @@ Then use the following `launch.json` to connect to it:
             "server": "127.0.0.1:50001", //!MODIFY ... can be a server that is remote from the VSCode session, but local to the probe 
             "cwd": "${workspaceFolder}",
             "speed": 24000, //!MODIFY (or remove)
+            "chip": "STM32H745ZITx", //!MODIFY
             "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
             "coreConfigs": [
                 {
                     "coreIndex": 0,
                     "programBinary": "Relative or fully qualified path to your programBinary", //!MODIFY
-                    "chip": "STM32H745ZITx", //!MODIFY
                     "svdFile": "Relative or fully qualified path to your programBinary", //!MODIFY
                 }
             ],
