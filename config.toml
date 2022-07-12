@@ -40,9 +40,9 @@ url = 'https://docs.rs/probe-rs'
 name = 'Sponsor'
 url = 'https://github.com/sponsors/probe-rs'
 
-[[extra.menu.main]]
-name = 'Shop'
-url = 'https://shop.probe.rs'
+# [[extra.menu.main]]
+# name = 'Shop'
+# url = 'https://shop.probe.rs'
 
 [[extra.menu.social]]
 name = 'GitHub'
