@@ -20,7 +20,7 @@ to distribute documentation, flash algorithms, code samples, HALs, etc for an AR
 
 A CMSIS-Pack is supposed to be created by the ARM core manufacturer and can be distributed in decentralized
 fashion via a list of sources. Nevertheless, ARM [hosts](https://developer.arm.com/tools-and-software/embedded/cmsis/cmsis-search) the CMSIS-Packs for pretty much any chip you'd ever want.
-    
+
 CMSIS-Packs are ZIP files and contain arbitrary files. The exact structure is manufacturer defined and is
 described in the .pdsc file being placed at the root level of the ZIP file.
 The .pdsc file is a simple XML file containing all the meta information about the Pack.
@@ -28,7 +28,7 @@ The .pdsc file is a simple XML file containing all the meta information about th
 Also inside the Pack - most of the time (they can be absent if the manufacturer chooses so) - are the flash
 algorithms to flash the chips described by the Pack.
 Those are the .FLM files, which are plain old [ELF binaries](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) adhering to a certain defined structure.
-            
+
 ## Flash Algorithms
 
 A flash algorithm is a simple program that is executed. It consists of a fixed set of (sometimes optional)
@@ -86,7 +86,7 @@ flash_algorithms:
     default: boolean
     # A base 64 encoded ELF binary blob containing
     # all the loadable symbols of the flash algorithm.
-    instructions: base64string                          
+    instructions: base64string
     # The position independent address of the init routine.
     pc_init: number
     # The position independent address of the uninit routine.
@@ -129,6 +129,6 @@ core: string
 Since doing all of this by hand would be madness, we provide a utility called [target-gen](https://github.com/probe-rs/target-gen) which can be used to
 extract a family definition. Including all metadata and the ELF blob.
 
-The utility accepts both an unzipped Pack folder as well as the still zipped .pack file.
-To run it, use `target-gen <pack-file> <output-directory>`.
-The generated file can be loaded as a target by probe-rs.
+The utility accepts both an unzipped Pack folder as well as the still zipped .pack file, and can even download pack files automatically if required.
+Please use `target-gen --help` to see available options.
+The generated file can be loaded as a target by probe-rs or submitted as a PR if you think it belongs in the built-in targets provided by probe-rs.
