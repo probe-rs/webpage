@@ -9,9 +9,7 @@ build_search_index = true
 
 title = 'probe-rs'
 
-taxonomies = [
-    {name = "authors"}
-]
+taxonomies = [{ name = "authors" }]
 
 [markdown]
 # Whether to do syntax highlighting
@@ -56,4 +54,4 @@ post = 'v0.1.0'
 weight = 20
 
 [extra.footer]
-info = '© 2019 - 2022 the probe-rs developers'
+info = '© 2019 - 2023 the probe-rs developers'
