@@ -77,7 +77,7 @@ the default config "default" without RTT.
 
 RTT stands for **real time transfers** and is a mechanism to transfer data between the debug host and the debuggee.
 
-In it's essence it provides a configurable amount of ringbuffers, which are read/written by the target and the debug
+In its essence it provides a configurable amount of ringbuffers, which are read/written by the target and the debug
 host.
 The protocol initially was published by [Segger](https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/) but there is really no magic to it other than ringbuffers being used.
 This mechanism allows us to transfer data from the target to the host and vice versa really fast.
