@@ -82,7 +82,7 @@ The following fully configured examples can be used (with customizations to refl
       "name": "probe_rs Executable launch example",
       "cwd": "${workspaceFolder}",
       "speed": 24000, //!MODIFY (or remove)
-      "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
+      "probe": "VID:PID:<Serial>", //!MODIFY (or remove)
       "runtimeExecutable": "probe-rs-debugger",
       "runtimeArgs": ["debug"],
       "chip": "STM32H745ZITx", //!MODIFY
@@ -121,7 +121,7 @@ The following fully configured examples can be used (with customizations to refl
       "cwd": "${workspaceFolder}",
       "speed": 24000, //!MODIFY (or remove)
       "chip": "STM32H745ZITx", //!MODIFY
-      "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
+      "probe": "VID:PID:<Serial>", //!MODIFY (or remove)
       "coreConfigs": [
         {
           "coreIndex": 0,
@@ -162,7 +162,7 @@ Then use the following `launch.json` to connect to it:
       "cwd": "${workspaceFolder}",
       "speed": 24000, //!MODIFY (or remove)
       "chip": "STM32H745ZITx", //!MODIFY
-      "probe": "PID:VID:<Serial>", //!MODIFY (or remove)
+      "probe": "VID:PID:<Serial>", //!MODIFY (or remove)
       "coreConfigs": [
         {
           "coreIndex": 0,
