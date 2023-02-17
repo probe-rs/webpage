@@ -2,7 +2,7 @@
 title = "VSCode"
 description = "The vscode plugin & DAP server explained."
 date = 2021-05-01T08:00:00+00:00
-updated = 2022-03-27T08:00:00+00:00
+updated = 2023-02-17T08:00:00+00:00
 draft = false
 weight = 30
 sort_by = "weight"
@@ -25,7 +25,9 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
   - Alternatively,
     - To generate the extension from source code...(if you wish to update the version distributed with this repository), [please follow these instructions](#building-and-testing-the-debug-extension-in-vs-code)
 
-- Install the **probe-rs-debugger** server component, from the comand line with: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs-debugger`
+- Install the **probe-rs-debugger** server component, from the comand line with:
+  - Latest release : `cargo install probe-rs-debugger`
+  - Unreleased changes: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs-debugger`
 
 ### Usage and Configuration
 
