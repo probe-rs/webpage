@@ -24,7 +24,7 @@ html = '<a href="https://crates.io/crates/probe-rs" target="_blank"><img src="ht
 [[extra.badges]]
 html = '<a href="https://docs.rs/probe-rs" target="_blank"><img src="https://docs.rs/probe-rs/badge.svg" alt="documentation" class="m-1" /></a>'
 [[extra.badges]]
-html = '<a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"><img src="https://img.shields.io/github/workflow/status/probe-rs/probe-rs/Run%20CI" alt="GH Actions Status" class="m-1" /></a>'
+html = '<a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"><img src="https://img.shields.io/github/actions/workflow/status/probe-rs/probe-rs/ci.yml?branch=master" alt="GH Actions Status" class="m-1" /></a>'
 [[extra.badges]]
 html = '<a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"><img src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1" /></a>'
 
