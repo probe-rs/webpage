@@ -19,15 +19,16 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
 
 ### Installation
 
-- Install the **probe-rs-debugger** extension in VS Code, by downloading the _latest available_ `probe-rs-debugger-x.x.x.vsix` from the [Releases](https://github.com/probe-rs/vscode/releases) page in our repo (we will publish to the Microsoft Extension marketplace when we exit the 'Alpha' phase of this project)
-
-  - Install the downloaded extension file from the command line, for example: `code --install-extension probe-rs-debugger-0.3.3.vsix` in the terminal
-  - Alternatively,
-    - To generate the extension from source code...(if you wish to update the version distributed with this repository), [please follow these instructions](#building-and-testing-the-debug-extension-in-vs-code)
+#### Pre-requisites:
 
 - Install the **probe-rs-debugger** server component, from the comand line with:
   - Latest release : `cargo install probe-rs-debugger`
   - Unreleased changes: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs-debugger`
+- Note: This assumes that you have a functioning Rust toolchain installed, and that you have added the cargo bin directory to your PATH environment variable. Please see [the Rust installation guide](https://www.rust-lang.org/tools/install) for more details.
+
+#### Installing the VSCode extension:
+
+- Install the **probe-rs-debugger** extension in VS Code, by installing the _latest available_ from the Visual Studio [Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger)
 
 ### Usage and Configuration
 
