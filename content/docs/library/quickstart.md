@@ -16,7 +16,8 @@ top = false
 ## Attaching to a target
 
 ```rs
-use probe_rs::Probe;
+use probe_rs::{Permissions, Probe};
+use std::time::Duration;
 
 // Get a list of all available debug probes.
 let probes = Probe::list_all();
@@ -25,13 +26,13 @@ let probes = Probe::list_all();
 let probe = probes[0].open()?;
 
 // Attach to a chip.
-let session = probe.attach("nrf52")?;
+let mut session = probe.attach("nrf52", Permissions::default())?;
 
 // Select a core.
-let core = session.core(0)?;
+let mut core = session.core(0)?;
 
-// Halt the attached core.
-core.halt()?;
+// Ask to halt the attached core, waiting for no longer than 1 second for the request to succeed
+core.halt(Duration::from_secs(1))?;
 ```
 
 **probe-rs** can be used to automate your workflow.
@@ -48,10 +49,10 @@ Read more about [the structure](/guide/basics#structure).
 ## Reading and writing memory
 
 ```rs
-use probe_rs::Core, Session};
+use probe_rs::{MemoryInterface, Permissions, Session};
 
 // Attach to the first connected probe.
-let session = Session::auto_attach("nrf52")?;
+let session = Session::auto_attach("nrf52", Permissions::default())?;
 
 // Select the first core found.
 let mut core = session.core(0);
