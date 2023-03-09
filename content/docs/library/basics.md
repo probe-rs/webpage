@@ -16,7 +16,7 @@ top = false
 ## The Probe struct
 
 The [Probe](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html) struct represents the physical probe in code form.
-It is used to do probe discovery, setting phyiscal parameters of the probe, spawning sessions and last but
+It is used to do probe discovery, set physical parameters of the probe, spawn sessions and last but
 not least use special probe specific features such as SWV tracing, hard reset, etc.
 So if you are looking for non-core-architecture-specific functionality, the `Probe` struct is most likely the
 right place to look.
