@@ -21,7 +21,7 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
 
 #### Pre-requisites:
 
-- Install the **probe-rs-debugger** server component, from the comand line with:
+- Install the **probe-rs-debugger** server component, from the command line with:
   - Latest release : `cargo install probe-rs-debugger`
   - Unreleased changes: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs-debugger`
 - Note: This assumes that you have a functioning Rust toolchain installed, and that you have added the cargo bin directory to your PATH environment variable. Please see [the Rust installation guide](https://www.rust-lang.org/tools/install) for more details.
