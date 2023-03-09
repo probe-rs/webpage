@@ -46,7 +46,7 @@ The functions follow standard ARM EABI calling convention.
 Since the Packs are full of bloat we don't need, we have introduced a slimmed down format for target
 description.
 We chose YAML to represent the target as it is a well known format and allows comments.
-Every YAML file adresses an entire family of chips equivalent to the CMSIS-Packs.
+Every YAML file addresses an entire family of chips equivalent to the CMSIS-Packs.
 
 The yaml format follows the following structure:
 
