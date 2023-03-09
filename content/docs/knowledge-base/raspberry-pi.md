@@ -17,7 +17,7 @@ top = false
 
 **probe-rs** supports JTAG debugging with the [Raspberry Pi 4B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/).  This can be used to debug a custom OS or bootloader, the Linux kernel, or a hypervisor running on the board.
 
-A debug probe that supports JTAG is required.  SWD is not supported on the Raspberry Pi.  The J-Link probe has been extensively tested by any ARM & JTAG capable probe that **probe-rs** supports should work.
+A debug probe that supports JTAG is required.  SWD is not supported on the Raspberry Pi.  The J-Link probe has been extensively tested but any ARM & JTAG capable probe that **probe-rs** supports should work.
 
 Both 32 and 64-bit CPU modes are supported.  **probe-rs** will automatically detect the mode the CPU is operating in and adjust accordingly.
 
