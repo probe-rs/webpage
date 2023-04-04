@@ -233,7 +233,12 @@ When using `defmt`, we can configure the client side based on what is captured i
       "request": "launch",
       "name": "probe_rs rtt-target example",
       // ... <snip> ...
-      "rttEnabled": true,
+      "coreConfigs": [
+        {
+          "coreIndex": 0,
+          "rttEnabled": true
+        }
+      ],
       "env": {
         "DEFMT_LOG": "info" //!MODIFY: Remove or use any of the supported DEFMT_LOG options.
       }
