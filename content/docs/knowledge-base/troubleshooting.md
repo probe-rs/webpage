@@ -1,8 +1,8 @@
 +++
 title = "Troubleshooting"
 description = "Troubleshooting problems that may arrise during use"
-date = 2021-05-01T08:00:00+00:00
-updated = 2021-05-01T08:00:00+00:00
+date = 2023-04-28T08:00:00+00:00
+updated = 2023-04-28T08:00:00+00:00
 draft = false
 weight = 100
 sort_by = "weight"
