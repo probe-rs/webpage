@@ -19,16 +19,36 @@ It can also flash a target just like cargo-flash, but it can also open an RTT te
 
 And there is much more to come in the future!
 
-## Installation
+## Usage
 
-[cargo-embed](https://crates.io/crates/cargo-embed) can be found on crates.io.
-We recommend installing it via
+You can use it like any cargo command would be used
 
-    cargo install cargo-embed
+```bash
+cargo embed <args>
+```
+
+This will do following in sequence:
+
+1. build your binary
+2. detect a probe
+3. (if enabled) upload the contents onto the connected target
+4. (if enabled) reset the target
+5. (if enabled) start RTT host side
+6. (if enabled) start gdb debugging
 
 ## Configuration
 
-cargo-embed can be configured via a `Embed.toml` (or `.embed.toml`) in the project root.
+You can configure `cargo-embed` with a file called `Embed.toml` (or `.embed.toml`) in your project directory.
+
+Config file precedence:
+
+1. `Embed.local.*`
+2. `.embed.local.*`
+3. `Embed.*`
+4. `.embed.*`
+5. Default configuration
+
+Instead of a TOML file, you can also use a JSON or YAML file. Choose what suits you best!
 
 Here's a simple example:
 
@@ -41,10 +61,10 @@ enabled = true
 ```
 
 All available options can be found in the
-[default.toml](https://github.com/probe-rs/probe-rs/blob/master/cargo-embed/src/config/default.toml). This
+[default.toml](https://github.com/probe-rs/probe-rs/blob/master/probe-rs/src/bin/probe-rs/cargo_embed/config/default.toml). This
 example uses toml syntax to set each option under the `default` top-level profile key.
 
-The `Embed.toml` should be part of the project, for local-only configuration overrides, you can
+The `Embed.toml` should be part of the project, i.e. added to Git history. For local-only configuration overrides, you can
 create an `Embed.local.toml` (or `.embed.local.toml`) file and add that to your .gitignore.
 The local files take precedence.
 
@@ -124,6 +144,19 @@ with RTT enabled in the `Embed.toml` file.
 Now you should be able to see all the 'Hello World!'s in a default channel called "Terminal"!
 
 ![Hello World output via RTT](/img/cargo-embed-simple.png)
+
+#### Keyboard shortcuts
+
+| Command       | Action                                         |
+| ------------- | ---------------------------------------------- |
+| `^c`          | Quit                                           |
+| `Fn{n}`       | Switch to tab `n`                              |
+| Any character | Add the character to the pending input         |
+| `Backspace`   | Delete the last character of the pending input |
+| `Enter`       | Send the pending input                         |
+| `PgUp`        | Scroll up                                      |
+| `PgDn`        | Scroll Down                                    |
+| `^l`          | Clear current tab                              |
 
 ### Don't panic!
 

@@ -42,6 +42,12 @@ cargo flash --list-chips
 
 # You can run your examples as usual with
 cargo flash --example <your_example>
+
+# Specifying manually what options should be used
+cargo flash --release --chip nRF52840_xxAA --target thumbv6m-none-eabi --example gpio_hal_blinky
+
+# Using a custom chip definition from a non-builtin file
+cargo flash --release --chip-description-path nRF52840_xxAA.yaml --target thumbv6m-none-eabi --example gpio_hal_blinky
 ```
 
 Any config flags that are accepted by 'cargo run' are accepted by **cargo-flash** too.

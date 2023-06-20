@@ -17,7 +17,7 @@ Even though **probe-rs** can run on most systems, there can be cases where using
 
 In such cases you can Crosscompile **probe-rs** for use in **cargo-flash** or **cargo-embed** on a different architecture, and move the resulting static binary to the target system.
 
-We will use a [**Raspberry pi 400**](https://www.raspberrypi.org/products/raspberry-pi-400/) as the target system as an example, where `cargo install cargo-flash` on a default **Raspberry PI OS** installation is not possible to pass the `rustc` final Linking step for `probe-rs` due to system memory limitations.
+We will use a [**Raspberry pi 400**](https://www.raspberrypi.org/products/raspberry-pi-400/) as the target system as an example, where `cargo install probe-rs` on a default **Raspberry PI OS** installation is not possible to pass the `rustc` final Linking step for `probe-rs` due to system memory limitations.
 
 After defining the target system architecture, in this example being `armv7-unknown-linux-gnueabihf`, here are two different ways to Crosscompile, each with their pros and cons.
 
