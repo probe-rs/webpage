@@ -87,7 +87,7 @@ The following fully configured examples can be used (with customizations to refl
       "speed": 24000, //!MODIFY (or remove)
       "probe": "VID:PID:<Serial>", //!MODIFY (or remove)
       "runtimeExecutable": "probe-rs",
-      "runtimeArgs": ["dap-server", "debug"],
+      "runtimeArgs": ["dap-server"],
       "chip": "STM32H745ZITx", //!MODIFY
       "flashingConfig": {
         "flashingEnabled": true,
@@ -397,8 +397,7 @@ This options available in `launch.json` are based on the configuration options o
       },
       "description": "String array of arguments to provide the startup arguments for the `probe-rs` executable.",
       "default": [
-        "dap-server",
-        "debug"
+        "dap-server"
       ]
     },
     "env": {
@@ -585,8 +584,7 @@ This options available in `launch.json` are based on the configuration options o
       },
       "description": "String array of arguments to provide the startup arguments for the `probe-rs` executable.",
       "default": [
-        "dap-server",
-        "debug"
+        "dap-server"
       ]
     },
     "env": {
