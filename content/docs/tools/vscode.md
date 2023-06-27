@@ -19,15 +19,7 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
 
 ### Installation
 
-#### Pre-requisites:
-
-- Install the **probe-rs dap-server** server component, from the command line with:
-  - Latest release : `cargo install probe-rs --features=cli`
-  - Unreleased changes: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs --features=cli`
-- Note: This assumes that you have a functioning Rust toolchain installed, and that you have added the cargo bin directory to your PATH environment variable. Please see [the Rust installation guide](https://www.rust-lang.org/tools/install) for more details.
-
-#### Installing the VSCode extension:
-
+- Install the **probe-rs** tool, following the instructions at [Installation](@/docs/getting-started/installation.md).
 - Install the **probe-rs** extension in VS Code, by installing the _latest available_ from the Visual Studio [Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger)
 
 ### Usage and Configuration
@@ -147,7 +139,7 @@ The following fully configured examples can be used (with customizations to refl
 To start `probe-rs` as a standalone server:
 
 ```
-probe-rs dap-adapter debug --port 50000 # Replace the value 50000 with any available TCP port number
+probe-rs dap-server --port 50000 # Replace the value 50000 with any available TCP port number
 ```
 
 Then use the following `launch.json` to connect to it:
@@ -367,7 +359,7 @@ This options available in `launch.json` are based on the configuration options o
   "properties": {
     "server": {
       "type": "string",
-      "description": "Optionally connect to an standalone `probe-rs dap-server` session on IP and Port, e.g. '127.0.0.1:50000'",
+      "description": "Optionally connect to a standalone `probe-rs dap-server` session on IP and Port, e.g. '127.0.0.1:50000'",
       "default": "127.0.0.1:50000"
     },
     "consoleLogLevel": {
@@ -554,7 +546,7 @@ This options available in `launch.json` are based on the configuration options o
   "properties": {
     "server": {
       "type": "string",
-      "description": "Optionally onnect to an standalone `probe-rs` session on IP and Port, e.g. '127.0.0.1:50000'",
+      "description": "Optionally connect to a standalone `probe-rs` session on IP and Port, e.g. '127.0.0.1:50000'",
       "default": "127.0.0.1:50000"
     },
     "consoleLogLevel": {

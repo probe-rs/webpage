@@ -15,9 +15,9 @@ top = false
 
 The probe-rs project supports three probes out of the box.
 
-Most of them require little to no setup. For linux, [udev](@/docs/getting-started/probe-setup.md#udev-rules) rules are required for non admin access.
+Most of them require little to no setup. For linux, [udev](#udev-rules) rules are required for non admin access.
 
-The [ST-Link](@/docs/getting-started/probe-setup.md#st-link), to [J-Link](@/docs/getting-started/probe-setup.md#segger-j-link) and [CMSIS-DAP](@/docs/getting-started/probe-setup.md#cmsis-dap) based probes are supported.
+The [ST-Link](#st-link), to [J-Link](#segger-j-link) and [CMSIS-DAP](#cmsis-dap) based probes are supported.
 
 # udev rules
 
@@ -44,7 +44,7 @@ standard are supported by probe-rs.
 
 No additional drivers are required to use CMSIS-DAP based probes on Linux systems. 
 To ensure that users without root privileges can use the debug probe, it is recommended to
-configure udev as described in [udev rules](@/docs/getting-started/probe-setup.md#udev-rules).
+configure udev as described in [udev rules](#udev-rules).
 
 ### Windows
 
@@ -66,7 +66,7 @@ such as the Discovery and Nucleo boards.
 
 No additional drivers are required to use a ST-Link debug probe on Linux systems. 
 To ensure that users without root privileges can use the debug probe, it is recommended to
-configure udev as described in [udev rules](@/docs/getting-started/probe-setup.md#udev-rules).
+configure udev as described in [udev rules](#udev-rules).
 
 ### Windows
 
@@ -104,7 +104,7 @@ Due to the proprietary nature of the J-Link, probe-rs will not achieve the same 
 
 No additional drivers are required to use a J-Link debug probe on Linux systems. 
 To ensure that users without root privileges can use the debug probe, it is recommended to
-configure udev as described in [udev rules](@/docs/getting-started/probe-setup.md#udev-rules).
+configure udev as described in [udev rules](#udev-rules).
 
 ### Windows
 
