@@ -13,7 +13,7 @@ toc = true
 top = false
 +++
 
-The **probe-rs-debugger VS Code extension** uses the Microsoft Debug Adapter Protocol to implement an interactive debugging experience between VS Code and a probe-rs target.
+The **probe-rs VS Code extension** uses the Microsoft Debug Adapter Protocol to implement an interactive debugging experience between VS Code and a probe-rs target.
 
 The extension is currently in pre-production/Alpha stage, with limited functionality. For details of current status and functionality please read this [section](#current-working-functionality-and-known-limitations).
 
@@ -21,20 +21,20 @@ The extension is currently in pre-production/Alpha stage, with limited functiona
 
 #### Pre-requisites:
 
-- Install the **probe-rs-debugger** server component, from the command line with:
-  - Latest release : `cargo install probe-rs-debugger`
-  - Unreleased changes: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs-debugger`
+- Install the **probe-rs dap-server** server component, from the command line with:
+  - Latest release : `cargo install probe-rs --features=cli`
+  - Unreleased changes: `cargo install --git https://github.com/probe-rs/probe-rs --force --branch master probe-rs --features=cli`
 - Note: This assumes that you have a functioning Rust toolchain installed, and that you have added the cargo bin directory to your PATH environment variable. Please see [the Rust installation guide](https://www.rust-lang.org/tools/install) for more details.
 
 #### Installing the VSCode extension:
 
-- Install the **probe-rs-debugger** extension in VS Code, by installing the _latest available_ from the Visual Studio [Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger)
+- Install the **probe-rs** extension in VS Code, by installing the _latest available_ from the Visual Studio [Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger)
 
 ### Usage and Configuration
 
 [Visual Tour](#a-visual-guide-of-implemented-features)
 
-To use the `probe-rs-debugger` extension for VS Code, you will need to configure a `launch.json` entry for your target project.
+To use the `probe-rs` extension for VS Code, you will need to configure a `launch.json` entry for your target project.
 
 We recommend that you familiarize yourself with the [VSCode debug process](https://code.visualstudio.com/docs/editor/debugging), and specifically the section that discusses [the differences](https://code.visualstudio.com/docs/editor/debugging#_launch-versus-attach-configurations) between launch and attach request types.
 
@@ -42,7 +42,7 @@ The configuration choices may differ based on your use case, as demonstrated in 
 
 - Start a debug session, by [launching a new](#using-the-launch-request-type) process on your target device.
 - Start a debug session, by [attaching to an existing](#using-the-attach-request-type) process on your target device.
-- Start a debug session (either form above) against a [remote debug server](#using-to-an-existing-probe-rs-debugger-server) process running on a server on a specific TCP/IP address and port.
+- Start a debug session (either form above) against a [remote debug server](#connecting-to-a-standalone-probe-rs-dap-server-server) process running on a server on a specific TCP/IP address and port.
 - [Using RTT](#configuring-rtt-to-transfer-data) to transfer data (e.g. logs, and println) between VSCode and your target application
 
 Many of the entries in `launch.json` are optional, and the values for each are described in the hover tips - alternatively, you can find the full list of available options in the [Appendix](#appendix-all-supported-configuration-options). When values are restricted, the allowable values are available through VS Code intellisense.
@@ -86,8 +86,8 @@ The following fully configured examples can be used (with customizations to refl
       "cwd": "${workspaceFolder}",
       "speed": 24000, //!MODIFY (or remove)
       "probe": "VID:PID:<Serial>", //!MODIFY (or remove)
-      "runtimeExecutable": "probe-rs-debugger",
-      "runtimeArgs": ["debug"],
+      "runtimeExecutable": "probe-rs",
+      "runtimeArgs": ["dap-server"],
       "chip": "STM32H745ZITx", //!MODIFY
       "flashingConfig": {
         "flashingEnabled": true,
@@ -142,12 +142,12 @@ The following fully configured examples can be used (with customizations to refl
 }
 ```
 
-#### Using to an existing `probe-rs-debugger` server
+#### Connecting to a standalone `probe-rs dap-server` server
 
-To start `probe-rs-debugger` as a standalone server:
+To start `probe-rs` as a standalone server:
 
 ```
-probe-rs-debugger debug --port 50000 # Replace the value 50000 with any available TCP port number
+probe-rs dap-adapter debug --port 50000 # Replace the value 50000 with any available TCP port number
 ```
 
 Then use the following `launch.json` to connect to it:
@@ -173,7 +173,7 @@ Then use the following `launch.json` to connect to it:
           "svdFile": "Relative or fully qualified path to your programBinary" //!MODIFY
         }
       ],
-      "env": {}, //!This won't take effect. Please set environment variables before launching `probe-rs-debugger`.
+      "env": {}, //!This won't take effect. Please set environment variables before launching `probe-rs dap-server`.
       "consoleLogLevel": "Console" //Info, Debug
     }
   ]
@@ -182,7 +182,7 @@ Then use the following `launch.json` to connect to it:
 
 ### Configuring RTT to transfer data
 
-`probe-rs-debugger` and the VS Code extension supports using RTT in your target application.
+`probe-rs` and the VS Code extension supports using RTT in your target application.
 
 For more information on how to configure your target application to use RTT, please refer to the instructions under the [cargo-embed](../cargo-embed#rtt)
 section of this guide.
@@ -281,7 +281,7 @@ Adding DEFMT_LOG to `tasks.json`
 
 - [x] **Launch**: Start a debug session on the target by (optionally) flashing the target firmware.
 - [x] **Attach**:
-- [x] By default, VSCode will manage (start/stop) the `probe-rs-debugger` process to facilite a debug session against a target process. It is also possible for the user to manage the `probe-rs-debugger` as a standalone process, and then use TCIP/IP port to connect to from VSCode.
+- [x] By default, VSCode will manage (start/stop) the `probe-rs dap-server` process to facilite a debug session against a target process. It is also possible for the user to manage the `probe-rs dap-server` as a standalone process, and then use TCIP/IP port to connect to from VSCode.
 - [x] **Connect** to the target with `probe-rs`
   - [x] Supports `connect-under-reset` for select targets.
   - [x] Tested against the following architectures:
@@ -367,7 +367,7 @@ This options available in `launch.json` are based on the configuration options o
   "properties": {
     "server": {
       "type": "string",
-      "description": "Optionally connect to an existing `probe-rs-debugger` session on IP and Port, e.g. '127.0.0.1:50000'",
+      "description": "Optionally connect to an standalone `probe-rs dap-server` session on IP and Port, e.g. '127.0.0.1:50000'",
       "default": "127.0.0.1:50000"
     },
     "consoleLogLevel": {
@@ -387,18 +387,17 @@ This options available in `launch.json` are based on the configuration options o
     },
     "runtimeExecutable": {
       "type": "string",
-      "description": "An OS resolvable path to the Probe-rs debugger executable.",
-      "default": "probe-rs-debugger"
+      "description": "An OS resolvable path to the `probe-rs` executable.",
+      "default": "probe-rs"
     },
     "runtimeArgs": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "description": "String array of arguments to provide the startup arguments for the Probe-rs debugger executable.",
+      "description": "String array of arguments to provide the startup arguments for the `probe-rs` executable.",
       "default": [
-        "debug",
-        "--dap"
+        "dap-server"
       ]
     },
     "env": {
@@ -420,7 +419,7 @@ This options available in `launch.json` are based on the configuration options o
     },
     "chip": {
       "type": "string",
-      "description": "Please specify the appropriate chip from the list of supported chips reported by running `probe-rs-debugger list-chips`."
+      "description": "Please specify the appropriate chip from the list of supported chips reported by running `probe-rs chip list`."
     },
     "connectUnderReset": {
       "type": "boolean",
@@ -555,7 +554,7 @@ This options available in `launch.json` are based on the configuration options o
   "properties": {
     "server": {
       "type": "string",
-      "description": "Optionally onnect to an existing `probe-rs-debugger` session on IP and Port, e.g. '127.0.0.1:50000'",
+      "description": "Optionally onnect to an standalone `probe-rs` session on IP and Port, e.g. '127.0.0.1:50000'",
       "default": "127.0.0.1:50000"
     },
     "consoleLogLevel": {
@@ -575,18 +574,17 @@ This options available in `launch.json` are based on the configuration options o
     },
     "runtimeExecutable": {
       "type": "string",
-      "description": "An OS resolvable path to the Probe-rs debugger executable.",
-      "default": "probe-rs-debugger"
+      "description": "An OS resolvable path to the `probe-rs` executable.",
+      "default": "probe-rs"
     },
     "runtimeArgs": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "description": "String array of arguments to provide the startup arguments for the Probe-rs debugger executable.",
+      "description": "String array of arguments to provide the startup arguments for the `probe-rs` executable.",
       "default": [
-        "debug",
-        "--dap"
+        "dap-server"
       ]
     },
     "env": {
@@ -608,7 +606,7 @@ This options available in `launch.json` are based on the configuration options o
     },
     "chip": {
       "type": "string",
-      "description": "Please specify the appropriate chip from the list of supported chips reported by running `probe-rs-debugger list-chips`."
+      "description": "Please specify the appropriate chip from the list of supported chips reported by running `probe-rs chip list`."
     },
     "connectUnderReset": {
       "type": "boolean",
