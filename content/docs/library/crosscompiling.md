@@ -31,18 +31,18 @@ Its main advantage is to **not be susceptible** on the usual cross compilation i
 
 The downside of this approach is that **you will have to rely on the Cross Project** and **supply the build environment Dockerfile**, making sure that it resembles the system you are building for with **a cross C toolchain installed** as much as possible.
 
-Building `cargo-flash` for the Raspberry Pi 400, on an `x86_64` Linux System happens as follows:
+Building the tools such as `cargo-flash` for the Raspberry Pi 400, on an `x86_64` Linux System, happens as follows:
 
 ```sh
-# Cloning cargo-flash on the system we will build the binary on.
-git clone https://github.com/probe-rs/cargo-flash
+# Cloning probe-rs on the system we will build the binary on.
+git clone https://github.com/probe-rs/probe-rs
 
 # Installing cross
 cargo install cross
 
-# `cd` into the cargo-flash repository
+# `cd` into the probe-rs repository
 # And create a `crossimage` folder
-cd cargo-flash && mkdir crossimage
+cd probe-rs && mkdir crossimage
 
 # Create a Dockerfile resembling the target system,
 # and put it inside the `crossimage` folder.
@@ -50,7 +50,7 @@ cd cargo-flash && mkdir crossimage
 
 We can take an `armv7-unknown-linux-gnueabihf` base system from the `rust-embedded/cross` Docker Hub container registry.
 
-After that, follow the instructions from the `probe-rs`, `cargo-flash` [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites) to prepare the image for the building steps.
+After that, follow the instructions from the `probe-rs` [prerequisites](@/docs/getting-started/installation.md#prerequisites) to prepare the image for the building steps.
 
 You can download the Dockerfile for this example from [here](/files/cross-dockerfile.txt).
 
@@ -71,7 +71,7 @@ Add the following to the `Cross.toml`. Which will define to `cross` which contai
 docker build -t crossimage crossimage/
 
 # Run cross to compile, cross arguments are the same as the `cargo` ones
-cross build --release --target=armv7-unknown-linux-gnueabihf
+cross build --release --target=armv7-unknown-linux-gnueabihf --features cli
 
 # Done
 ```
