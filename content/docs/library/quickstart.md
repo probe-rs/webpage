@@ -115,6 +115,6 @@ Downloading firmware to your target is as easy.
 Of course the flash facility can also report progress.
 
 Any target that has a CMSIS-Pack can be converted into a **probe-rs** flash download target with our
-[utility](https://github.com/probe-rs/target-gen)
+[utility](https://github.com/probe-rs/probe-rs/tree/master/target-gen)
 
 Read more about [downloading flash](/guide/downloading).
