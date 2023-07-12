@@ -25,7 +25,7 @@ Additionally, probe-rs depends on [libusb](https://libusb.info/) and optionally 
 On Debian and derived distros (e.g. Ubuntu), the following packages need to be installed:
 
 ```bash
-sudo apt install -y pkg-config libusb-1.0-0-dev libftdi1-dev libudev-dev
+sudo apt install -y pkg-config libusb-1.0-0-dev libftdi1-dev libudev-dev libssl-dev
 ```
 
 If the libusb v0.1 dev package (`libusb-dev`) is installed when dependant crates are built, you may get link failures at the end of the build.
@@ -39,12 +39,12 @@ sudo apt purge libusb-dev
 ## RPM-based Linux (Fedora, CentOS)
 
 ```
-dnf install systemd-devel libusbx-devel
+dnf install libusbx-devel libftdi-devel libudev-devel openssl-devel
 ```
 
 ## Windows
 
-On Windows you can use [vcpkg](https://github.com/microsoft/vcpkg#quick-start-windows) to install the prerequisites:
+On Windows you can use [vcpkg](https://github.com/microsoft/vcpkg/#quick-start-windows) to install the prerequisites:
 
 ```
 # dynamic linking 64-bit
