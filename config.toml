@@ -21,6 +21,19 @@ highlight_theme = "ayu-light"
 # If this is true, a `rel="noopener"` will always automatically be added for security reasons
 external_links_target_blank = true
 
+[link_checker]
+
+# The link checker seems unable to verify the links to the ST site.
+skip_prefixes = [
+    "https://www.st.com"
+]
+
+# The anchors get rendered in JS, so the link checker cannot verify the anchor.
+skip_anchor_prefixes = [
+    "https://github.com/",
+]
+
+
 [extra]
 # Put all your custom variables here
 
