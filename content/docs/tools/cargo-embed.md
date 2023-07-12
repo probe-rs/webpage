@@ -19,6 +19,11 @@ It can also flash a target just like cargo-flash, but it can also open an RTT te
 
 And there is much more to come in the future!
 
+## Installation
+
+**cargo-embed** is installed as part of the **probe-rs** group of tools, see the
+[Installation](@/docs/getting-started/installation.md) page.
+
 ## Usage
 
 You can use it like any cargo command would be used

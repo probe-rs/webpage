@@ -17,10 +17,8 @@ top = false
 
 ## Installation
 
-We recommend you install it with cargo after installing the [prerequisites](https://github.com/probe-rs/cargo-flash#prerequisites).
-```sh
-cargo install cargo-flash
-```
+**cargo-flash** is installed as part of the **probe-rs** group of tools, see the
+[Installation](@/docs/getting-started/installation.md) page.
 
 ## Usage
 
@@ -31,7 +29,7 @@ Here are the basics
 
 ```sh
 # Installing cargo flash is simple:
-cargo install cargo-flash
+cargo install probe-rs --features cli
 
 # In your cargo project directory, call
 cargo flash --release --chip <chip_name>
@@ -51,6 +49,6 @@ cargo flash --release --chip-description-path nRF52840_xxAA.yaml --target thumbv
 ```
 
 Any config flags that are accepted by 'cargo run' are accepted by **cargo-flash** too.
-If not, hit us with an [issue](https://github.com/probe-rs/cargo-flash/issues/new/choose).
+If not, hit us with an [issue](https://github.com/probe-rs/probe-rs/issues/new?assignees=&labels=bug,component:cargo-flash&projects=&template=bug_report.md&title=).
 
 Happy coding!
