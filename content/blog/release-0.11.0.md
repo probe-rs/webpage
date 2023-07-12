@@ -89,7 +89,10 @@ And another cool thing sequences will enable is automatic target detection! No m
 This is entangled somewhat with debug sequences and will most likely hit together.
 Unlocking and flashing of a nRF5340 (two M33 cores) already works, but we are missing a few changes to the core library which will have to be made to finalize this addition.
 
-Not part of this PR, but closely related and under development as well is SWD v2 Multidrop support. This will enable us to flash chips like the RaspberryPI Pico. While a useable [fork](https://github.com/rp-rs/probe-rs) already exists, some work is still left to integrate this properly into the probe-rs core.
+Not part of this PR, but closely related and under development as well is SWD v2 Multidrop support. This will enable us to flash chips like the RaspberryPI Pico. ~~While a useable fork already exists, some work is still left to integrate this properly into the probe-rs core.~~
+
+Update: The changes for the Raspberry Pi Pico have been merged to probe-rs, and the fork
+is not needed anymore.
 
 ### Hardware Based Testing
 
@@ -109,7 +112,9 @@ To push this project a little further, we have put up a posting for a BSc thesis
 
 We announced the [hs-probe](https://github.com/probe-rs/hs-probe) quite a while ago. Many of you have ordered one already. Unfortunately the manufacturing was hit by the global chip shortages as well. The good news is that manufacturing has concluded today and the probes now go into programming. This means we can start the shipping of the probes soon!
 [Emil](https://github.com/korken89) has been working really hard to make this a possibility and get the probe manufactured even during chip shortages!
-If you have not ordered a probe yet, and would like to get ahold one, you can do so on our [shop](https://shop.probe.rs/).
+~~If you have not ordered a probe yet, and would like to get ahold one, you can do so on our shop~~.
+
+Note: The hs-probe is not available for sale anymore, as all produced units have been sold. We might produce an updated version in the future.
 
 ### Automatic Releases
 

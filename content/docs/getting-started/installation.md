@@ -44,7 +44,7 @@ dnf install libusbx-devel libftdi-devel libudev-devel openssl-devel
 
 ## Windows
 
-On Windows you can use [vcpkg](https://github.com/microsoft/vcpkg#quick-start-windows) to install the prerequisites:
+On Windows you can use [vcpkg](https://github.com/microsoft/vcpkg/#quick-start-windows) to install the prerequisites:
 
 ```
 # dynamic linking 64-bit

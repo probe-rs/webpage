@@ -61,7 +61,7 @@ enabled = true
 ```
 
 All available options can be found in the
-[default.toml](https://github.com/probe-rs/probe-rs/blob/master/probe-rs/src/bin/probe-rs/cargo_embed/config/default.toml). This
+[default.toml](https://github.com/probe-rs/probe-rs/blob/master/probe-rs/src/bin/probe-rs/cmd/cargo_embed/config/default.toml). This
 example uses toml syntax to set each option under the `default` top-level profile key.
 
 The `Embed.toml` should be part of the project, i.e. added to Git history. For local-only configuration overrides, you can
