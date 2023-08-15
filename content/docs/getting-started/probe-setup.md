@@ -108,10 +108,14 @@ configure udev as described in [udev rules](#udev-rules).
 
 ### Windows
 
-Unfortunately, probe-rs doesn't work with the official drivers on Windows. To use probe-rs
-it is necessary to install a generic WinUSB driver. The recommended way of doing this is
-by using [Zadig](https://zadig.akeo.ie/) and selecting WinUSB as the driver for the J-Link probe.
-This will uninstall the official driver,
+The standard J-Link driver does not work with probe-rs. However modern J-Link drivers support
+switching to the device to WinUSB mode. This can be done by following the J-Link instructions
+for switching modes [here](https://wiki.segger.com/J-Link_on_Windows_ARM#Configuration). This
+will still allow your device to work with official Segger tools.
+
+If your device is not officially supported, to use probe-rs it is necessary to install a generic
+WinUSB driver. The recommended way of doing this is by using [Zadig](https://zadig.akeo.ie/)
+and selecting WinUSB as the driver for the J-Link probe. This will uninstall the official driver,
 which means that the official Segger tools will not work anymore after this.
 
 
