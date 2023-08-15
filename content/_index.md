@@ -4,7 +4,7 @@ title = 'probe-rs'
 
 # The homepage contents
 [extra]
-lead = 'a modern, embedded debugging toolkit, written in Rust'
+lead = 'a nice-to-use, embedded debugging toolkit'
 repo_license = 'Open-source Apache 2.0 or MIT License.'
 repo_url = 'https://github.com/probe-rs/probe-rs'
 
@@ -30,7 +30,7 @@ html = '<a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"><img 
 
 [[extra.list]]
 title = 'Flash programming'
-content = 'Downloading a binary to your MCU is easy with probe-rs. We support ELF, ihex and plain binary.'
+content = 'Download binaries to MCUs is easy with probe-rs. We support ELF, ihex and plain binary.'
 color = '#80ADBF'
 img = 'flash.svg'
 
@@ -42,7 +42,7 @@ img = 'multilingual.svg'
 
 [[extra.list]]
 title = 'Cargo integration'
-content = 'With cargo-flash you get everything cargo run gives you, but for embedded targets. No compromises.'
+content = 'With probe-rs you get everything "cargo run" gives you, but for embedded targets.'
 color = '#BF834E'
 img = 'cargo.png'
 url = '/guide/1_tools/cargo-flash'
@@ -56,13 +56,13 @@ url = '/guide#a-probe-rs-library'
 
 [[extra.list]]
 title = 'GDB integration'
-content = 'probe-rs includes a GDB stub to integrate seamlessly into your usual workflow with common tools..'
+content = 'probe-rs includes a GDB stub to integrate seamlessly into your usual workflow.'
 color = '#000000'
 img = 'gdb.svg'
 
 [[extra.list]]
 title = 'VSCode integration'
-content = 'We provide a Microsoft DAP server implementation with probe-rs to debug in VSCode.'
+content = 'We provide a MS-DAP server implementation with probe-rs to debug in VSCode.'
 color = '#4992BF'
 img = 'vscode.svg'
 

@@ -1,53 +1,80 @@
-{% extends "base.html" %}
-
-{% block seo %}
-{{ super() }}
-
-{% if config.title %}
-{% set title = config.title %}
-{% else %}
-{% set title = "" %}
-{% endif %}
-
-{% if config.extra.title_addition and title %}
-{% set title_addition = title_separator ~ config.extra.title_addition %}
-{% elif config.extra.title_addition %}
-{% set title_addition = config.extra.title_addition %}
-{% else %}
-{% set title_addition = "" %}
-{% endif %}
-
-{% set description = config.description %}
-
-{{ macros_head::seo(title=title, title_addition=title_addition, description=description, is_home=true) }}
-{% endblock seo %}
-
-{% block content %}
+{% extends "base.html" %} {% block seo %} {{ super() }} {% if config.title %} {%
+set title = config.title %} {% else %} {% set title = "" %} {% endif %} {% if
+config.extra.title_addition and title %} {% set title_addition = title_separator
+~ config.extra.title_addition %} {% elif config.extra.title_addition %} {% set
+title_addition = config.extra.title_addition %} {% else %} {% set title_addition
+= "" %} {% endif %} {% set description = config.description %} {{
+macros_head::seo(title=title, title_addition=title_addition,
+description=description, is_home=true) }} {% endblock seo %} {% block content %}
 <div class="wrap container" role="document">
   <div class="content">
     <section class="section container-fluid mt-n3 pb-3">
       <div class="row justify-content-center">
         <div class="col-lg-12 text-center">
-          <h1 class="mt-0">{{ section.title | default(value="Modern Documentation Theme") }}</h1>
+          <h1 class="mt-0">
+            {{ section.title | default(value="Modern Documentation Theme") }}
+          </h1>
         </div>
-        <div class="col-lg-9 col-xl-8 text-center">
-          <p class="lead">{{ section.extra.lead | default(value="Please start setting config.toml and adding your
-            content.") | safe }}</p>
-          {% if section.extra.buttons %}
-          {% for button in section.extra.buttons %}
-          <a class="btn btn-primary btn-lg px-4 mb-2"
+        <div class="text-center">
+          <p class="lead">
+            {{ section.extra.lead | default(value="Please start setting
+            config.toml and adding your content.") | safe }}
+          </p>
+          {% if section.extra.buttons %} {% for button in section.extra.buttons
+          %}
+          <a
+            class="btn btn-primary btn-lg px-4 mb-2"
             href="{% if button.path %}{{ get_url(path=button.path | default(value='/')) | safe }}{% else %}{{ button.url | safe }}{% endif%}"
-            role="button">{{ button.text | default(value="Get started") }}</a>
-          {% endfor %}
-          {% endif %}
-          <div class="d-flex align-items-center justify-content-center">
-            {% if section.extra.badges %}
-            {% for badge in section.extra.badges %}
-            {{ badge.html | safe }}
-            {% endfor %}
-            {% endif %}
+            role="button"
+            >{{ button.text | default(value="Get started") }}</a
+          >
+          {% endfor %} {% endif %}
+          <div class="d-flex align-items-center justify-content-center mt-3">
+            {% if section.extra.badges %} {% for badge in section.extra.badges
+            %} {{ badge.html | safe }} {% endfor %} {% endif %}
           </div>
-          <p class="meta">{{ section.extra.repo_license | default(value="MIT")}}</p>
+          <div class="install-command mt-4 mb-5">
+            <div class="d-flex justify-content-between">
+              <ul class="platform-selector">
+                <li class="selected">shell</li>
+                <li>cargo</li>
+                <li>tarball</li>
+                <li>brew</li>
+              </ul>
+              <div class="p-2">
+                <select class="target-selector">
+                  <option value="x86_64-apple-darwin">macOS Intel</option>
+                  <option value="x86_64-unknown-linux-gnu">Linux x64</option>
+                  <option value="aarch64-apple-darwin">
+                    macOS Apple Silicon
+                  </option>
+                  <option value="x86_64-pc-windows-msvc">Windows x64</option>
+                </select>
+              </div>
+            </div>
+            <div class="d-flex">
+              <pre class="install-command-text flex-grow-1 flex-shrink-1 p-3">
+                URL
+              </pre>
+              <div class="install-command-copy d-flex p-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  class="bi bi-clipboard"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"
+                  />
+                  <path
+                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -57,43 +84,77 @@
 <section class="section section-sm">
   <div class="container">
     <div class="row justify-content-center text-center">
-      {% if section.extra.list %}
-      {% for val in section.extra.list %}
+      {% if section.extra.list %} {% for val in section.extra.list %}
       <div class="col-lg-5">
-        {% if val.img %}<img src="/img/{{ val.img }}" style="max-height: 70px;" />{% endif %}
-        <h2 class="h4" {% if val.color %}style="color:{{ val.color }}" {% endif %}>{{ val.title }}</h2>
+        {% if val.img %}<img
+          src="/img/{{ val.img }}"
+          style="max-height: 70px"
+        />{% endif %}
+        <h2
+          class="h4"
+          {%
+          if
+          val.color
+          %}style="color:{{ val.color }}"
+          {%
+          endif
+          %}
+        >
+          {{ val.title }}
+        </h2>
         <p>{{ val.content | safe }}</p>
       </div>
-      {% endfor %}
-      {% else %}
+      {% endfor %} {% else %}
       <div class="col-lg-5">
         <h2 class="h4">Security aware</h2>
-        <p>Get A+ scores on <a href="https://observatory.mozilla.org/analyze/doks.netlify.app">Mozilla Observatory</a>
-          out of the box. Easily change the default Security Headers to suit your needs.</p>
+        <p>
+          Get A+ scores on
+          <a href="https://observatory.mozilla.org/analyze/doks.netlify.app"
+            >Mozilla Observatory</a
+          >
+          out of the box. Easily change the default Security Headers to suit
+          your needs.
+        </p>
       </div>
       <div class="col-lg-5">
         <h2 class="h4">Fast by default ⚡️</h2>
-        <p>Get 100 scores on <a
-            href="https://googlechrome.github.io/lighthouse/viewer/?gist=7731347bb8ce999eff7428a8e763b637">Google
-            Lighthouse</a> by default. Doks removes unused css, prefetches links, and lazy loads images.</p>
+        <p>
+          Get 100 scores on
+          <a
+            href="https://googlechrome.github.io/lighthouse/viewer/?gist=7731347bb8ce999eff7428a8e763b637"
+            >Google Lighthouse</a
+          >
+          by default. Doks removes unused css, prefetches links, and lazy loads
+          images.
+        </p>
       </div>
       <div class="col-lg-5">
         <h2 class="h4">SEO-ready</h2>
-        <p>Use sensible defaults for structured data, open graph, and Twitter cards. Or easily change the SEO settings
-          to your liking.</p>
+        <p>
+          Use sensible defaults for structured data, open graph, and Twitter
+          cards. Or easily change the SEO settings to your liking.
+        </p>
       </div>
       <div class="col-lg-5">
         <h2 class="h4">Full text search</h2>
-        <p>Search your Doks site with FlexSearch. Easily customize index settings and search options to your liking.</p>
+        <p>
+          Search your Doks site with FlexSearch. Easily customize index settings
+          and search options to your liking.
+        </p>
       </div>
       <div class="col-lg-5">
         <h2 class="h4">Page layouts</h2>
-        <p>Build pages with a landing page, blog, or documentation layout. Add custom sections and components to suit
-          your needs.</p>
+        <p>
+          Build pages with a landing page, blog, or documentation layout. Add
+          custom sections and components to suit your needs.
+        </p>
       </div>
       <div class="col-lg-5">
         <h2 class="h4">Dark mode</h2>
-        <p>Switch to a low-light UI with the click of a button. Change colors with variables to match your branding.</p>
+        <p>
+          Switch to a low-light UI with the click of a button. Change colors
+          with variables to match your branding.
+        </p>
       </div>
       {% endif %}
     </div>

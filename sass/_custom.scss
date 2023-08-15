@@ -1,0 +1,58 @@
+div.install-command {
+    width: 80%;
+    margin: 0 auto;
+
+    .light & {
+        border: 1px solid black;
+    }
+
+    .dark & {
+        border: 1px solid #EFEFEF;
+    }
+
+    ul.platform-selector {
+        display: flex;
+        margin-bottom: 0;
+        padding-left: 0;
+    
+        li {
+            list-style: none;
+            padding: 0.5em;
+            padding-left: 1em;
+            padding-right: 1em;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #EFEFEF30;
+            }
+
+            .light &.selected {
+                background-color: black;
+                color: #EFEFEF;
+            }
+
+            .dark &.selected {
+                background-color: #EFEFEF;
+                color: black;
+            }
+        }
+    }
+
+    .install-command-text {
+        background-color: #6c757d;
+        overflow-x: auto;
+        margin: 0;
+        border-radius: 0;
+        color: #EFEFEF;
+    }
+
+    .install-command-copy {
+        background-color: #5d2f86;
+        cursor: pointer;
+        color: #EFEFEF;
+
+        &:hover {
+            background-color: #845da6;
+        }
+    }
+}

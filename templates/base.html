@@ -30,7 +30,7 @@
 {% block math %}{{ macros_math::math() }}{% endblock math %}
 </head>
 {% block body %}{% set page_class="home" %}{% endblock body %}
-<body class="{{ page_class }}">
+<body class="{{ page_class }} light">
   {% block header %}
     {{ macros_header::header(current_section="/") }}
   {% endblock header %}
