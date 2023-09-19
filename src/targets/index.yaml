@@ -1,0 +1,9 @@
+layout: layouts/targets.jsx
+title: targets
+mainMenu: targets
+description: |
+  **probe-rs** ships many in-built targets.
+
+  If a target is not listed,
+  you have the option to <a href="http://localhost:3000/docs/knowledge-base/cmsis-packs/#target-extraction">extract it from CMSIS-Pack</a> or if that
+  does not exist either, <a href="https://github.com/probe-rs/flash-algorithm-template">write a flash algorithm</a> form scratch with our templates.

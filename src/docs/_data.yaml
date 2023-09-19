@@ -1,0 +1,13 @@
+layout: layouts/docs.jsx
+mainMenu: docs
+docsMenu:
+  - title: Overview
+    id: overview
+  - title: Getting started
+    id: getting-started
+  - title: Knowledge Base
+    id: knowledge-base
+  - title: probe-rs as a Library
+    id: library
+  - title: Tools
+    id: tools
