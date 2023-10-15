@@ -1,6 +1,6 @@
 +++
 title = "Troubleshooting"
-description = "Troubleshooting problems that may arrise during use"
+description = "Troubleshooting problems that may arise during use"
 date = 2023-04-28T08:00:00+00:00
 updated = 2023-04-28T08:00:00+00:00
 draft = false
@@ -24,7 +24,7 @@ More info on DEFMT filtering levels [here](https://defmt.ferrous-systems.com/fil
 This can be set multiple ways:
 - If using `cargo run` on a probe-rs based runner:
   - `ENV VAR` at build time: `DEFMT_LOG=trace cargo build ...`
-  - In `.cargo/config.toml` **Note:** there is a bug in cargo that does not automatically recognise changes when rebuilding.
+  - In `.cargo/config.toml` **Note:** there is a bug in cargo that does not automatically recognize changes when rebuilding.
     ```toml
     [env]
     DEFMT_LOG = "trace"
@@ -65,7 +65,7 @@ This can be set multiple ways:
     ``` toml
     runner = "probe-rs-cli run --chip STM32L451RCTx"
     ```
-- If using VSCode plugin in `launch.json` confgurations/chip
+- If using VSCode plugin in `launch.json` configurations/chip
     ```json
     "configurations": [
         {
@@ -88,4 +88,4 @@ use defmt_rtt as _;
 
 **Make sure tooling is up to date:**
 
-As with any set of tools being activly developed and improved, sometimes if one part is updated and there is a breaking change, the other tools must be updated as well in order to function.
+As with any set of tools being actively developed and improved, sometimes if one part is updated and there is a breaking change, the other tools must be updated as well in order to function.

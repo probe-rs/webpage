@@ -292,7 +292,7 @@ figure it when you examine channel two ;)
 
 On the host side it looks like
 
-![Output of chree channels](/img/cargo-embed.png)
+![Output of three channels](/img/cargo-embed.png)
 
 As you can observe, we see all three up channels. You can switch to and from them with the F-keys.
 The down channel will automatically be associated with the corresponding up channel and an input field will
