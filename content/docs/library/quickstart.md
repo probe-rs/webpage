@@ -42,7 +42,7 @@ Want to do
 * automatic WCET analysis?
 * automatic firmware downloads in your project?
 
-**probe-rs** was designed with such usecases in mind.
+**probe-rs** was designed with such use-cases in mind.
 
 Read more about [the structure](/guide/basics#structure).
 

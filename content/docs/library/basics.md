@@ -47,7 +47,7 @@ let session = probes[0].attach("nRF52")?;
 ```
 
 Now we have got our [Session](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html) ready to conduct further business.
-Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html#method.attach) call. Appart from passing a chip name, you can also pass various other arguments for selecting the chip.
+Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html#method.attach) call. Apart from passing a chip name, you can also pass various other arguments for selecting the chip.
 
 ## The Session struct
 
@@ -71,7 +71,7 @@ The [Core](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html) is probably the
 With the core struct you can manipulate the CPU and it's accessible memories.
 
 In the previous sections we have learned how we attach to a core. 
-Someties you want to access the core operations in quick fashion. 
+Sometimes you want to access the core operations in quick fashion. 
 This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for. 
 It lets you attach to the Core without first opening a Probe. 
 It will try to open a connected prbe, and select the Core as best as it can
@@ -137,7 +137,7 @@ core.set_hw_breakpoint(address)?;
 core.clear_hw_breakpoint(address)?;
 ```
 
-Of course manipulating the CPU alone is not enough. Therefore it's also possible to access the memories that are phyiscally accessible by the CPU.
+Of course manipulating the CPU alone is not enough. Therefore it's also possible to access the memories that are physically accessible by the CPU.
 
 ```rs
 // We can read a single word for the convenience of reading registers.
