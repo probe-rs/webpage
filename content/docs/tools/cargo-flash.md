@@ -36,7 +36,7 @@ cargo flash --release --chip <chip_name>
 
 # Don't know if your target is supported
 # by cargo flash and what it's name is?
-probe-rs chip info
+probe-rs chip list
 
 # You can run your examples as usual with
 cargo flash --example <your_example>
