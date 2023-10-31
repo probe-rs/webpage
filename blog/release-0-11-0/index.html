@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+  
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>0.11.0 Released! 🎉 | probe-rs</title>
+<meta name="description" content="0.11.0 Released! 🎉">
+<link rel="canonical" href="https://probe.rs/blog/release-0-11-0/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Blog",
+            "item": "https://probe.rs/blog/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Release 0 11 0",
+            "item": "https://probe.rs/blog/release-0-11-0/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="blog single">
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item blog active">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-12 col-xl-12">
+        <article>
+          <div class="blog-header">
+            <h1>0.11.0 Released! 🎉</h1>
+            
+<p><small>Posted June 23, 2021 by <a class="stretched-link position-relative" href="https://probe.rs/authors/yatekii/">Yatekii</a> and <a class="stretched-link position-relative" href="https://probe.rs/authors/tiwalun/">Tiwalun</a>&nbsp;&hyphen;&nbsp;<strong>9&nbsp;min read</strong></small><p>
+
+          </div>
+          
+          <p>We are happy to announce the huge release of probe-rs 0.11.0 today.
+It has been a long time coming and is possibly our biggest release so far with over 7 months of development since the last one in November 2020!</p>
+<p>This release sports a lot of internal improvements, bugfixes and quality of life additions.</p>
+<h2 id="probe-rs">probe-rs</h2>
+<p>Most notable for probe-rs are:</p>
+<ul>
+<li>Our flash layout algorithm got a huge overhaul and fixed some issues with ihex files and small data chunks.</li>
+<li>A lot of SWD improvements for J-Link to work better and faster!</li>
+<li>Secure access on chips with TrustZone™ is now possible.</li>
+<li>probe-rs now makes use of double buffering in the flash process which gives it a decent speed improvement.</li>
+<li>Many papercut fixes and RISC-V support for the GDB server.</li>
+<li>probe-rs can now perform flash verification after flashing!</li>
+<li>A lot of bugfixes for the ARM Debug Interface.</li>
+</ul>
+<p>On top of that we added support for a multitude of targets!
+Many SAMD, STM32, nRF5x and LPC devices were added or got improvements.</p>
+<p>For a full list, checkout the changelog on the <a rel="noopener" target="_blank" href="https://github.com/probe-rs/probe-rs/releases/tag/v0.11.0">release page</a>.</p>
+<h2 id="cargo-flash">cargo-flash</h2>
+<p>For cargo-flash we improved the error reporting a lot. Before we would display the plain error probe-rs gave us which was not very actionable for the user.
+Now we try to give the user an actionable hint like in the picture below.</p>
+<center><img src="/img/release-0.11.0/cargo-flash-hints.png" style="max-width:100%"></center>
+<br>
+<p>We have a whole error/hint catalogue and try to expand this. This feature can easily be ported to other tools such as cargo-embed and probe-run too to ease the development.</p>
+<h2 id="cargo-embed">cargo-embed</h2>
+<p>cargo-embed got two big quality of life improvements:</p>
+<ul>
+<li>RTT and the GDB server can now run concurrently. Previously this was not possible at all. Now you can enable RTT and GDB at the same time. Make sure to put <code>RUST_LOG=off</code> such that the GDB server does not print into the RTT UI. This is of course a bit suboptimal and we are working better ways to use RTT unhindered.</li>
+<li>Typos or non-existent config flags are now spotted and reported to the user, such that things like <code>enable</code> vs <code>enabled</code> do not cost you hours of debugging anymore.</li>
+</ul>
+<h2 id="ongoing-work-behind-the-scenes">Ongoing Work &amp; Behind the Scenes</h2>
+<h3 id="vscode-plugin">VSCode Plugin</h3>
+<p>For a long time our VSCode plugin has been the little loved child on the sidelines. Recently, <a rel="noopener" target="_blank" href="https://github.com/noppej">@noppej</a> has put in serious work to make it properly useable! Unfortunately the additions barely didn't make it into this release, but will most likely be in one of the next ones around the corner.</p>
+<center><img src="/img/release-0.11.0/probe-rs-debugger.gif" style="max-width:100%"></center>
+<br>
+<p>You can check out the current state in the <a rel="noopener" target="_blank" href="https://github.com/probe-rs/vscode">repo</a> to take a sneak peek.
+While running, halting, breaking and stepping works already, stepping only steps single instructions at the moment, which can be tedious.
+This is being worked on as well as RTT support in the VSCode terminal section! This will be extended in the near future to be a full plugin that also supports RTT down channels as well as an SVD viewer and ITM tracing!</p>
+<p>A proof of concept of the SVD viewer can be seen below.</p>
+<center><img src="/img/release-0.11.0/svd-viewer.jpeg" style="max-width:100%"></center>
+<h3 id="debug-sequences">Debug Sequences</h3>
+<p>Debug sequences are ARM's intended way of performing special procedures on targets which deviate from standards (within reason or even violating the spec) to unlock features of different targets which go beyond simple flashing.</p>
+<p>As many of you might have experienced while using probe-rs, some chips do not work as well as others. Furthermore, some chips do not work at all or lack certain features. Sequences will improve this a lot!
+To illustrate what sequences will bring to probe-rs, here are a few examples:</p>
+<ul>
+<li>Special reset needs of SAMD devices will be enabled by sequences, meaning those chips are less troublesome.</li>
+<li>Flashing secure or otherwise special memory portions such as the network core memory of the nRF5340 will be possible with sequences as it allows us to perform special unlock procedures.</li>
+<li>Erasing and unlocking protected chips such as the nRF52xxx series is possible with sequences.</li>
+<li>ITM tracing and other advanced features can be unlocked and enabled with sequences.</li>
+</ul>
+<p>In short, sequences will enable many new possibilities around different targets that have been difficult until now!</p>
+<p>And another cool thing sequences will enable is automatic target detection! No more passing <code>--chip xyz</code>, possible hints of target/architecture mismatch when flashing a miscompiled binary, etc!</p>
+<h3 id="multicore-support">Multicore Support</h3>
+<p><a rel="noopener" target="_blank" href="https://github.com/Dirbaio">@dirbaio</a> and <a rel="noopener" target="_blank" href="https://github.com/diondokter">@diondokter</a> have been hard at work to make the handling of multicore MCUs possible.
+This is entangled somewhat with debug sequences and will most likely hit together.
+Unlocking and flashing of a nRF5340 (two M33 cores) already works, but we are missing a few changes to the core library which will have to be made to finalize this addition.</p>
+<p>Not part of this PR, but closely related and under development as well is SWD v2 Multidrop support. This will enable us to flash chips like the RaspberryPI Pico. <del>While a useable fork already exists, some work is still left to integrate this properly into the probe-rs core.</del></p>
+<p>Update: The changes for the Raspberry Pi Pico have been merged to probe-rs, and the fork
+is not needed anymore.</p>
+<h3 id="hardware-based-testing">Hardware Based Testing</h3>
+<p>We have recently merged a great addition by <a rel="noopener" target="_blank" href="https://github.com/Tiwalun">@Tiwalun</a> to improve testing of our PRs in the form of a smoke testing tool in the main repository.
+You can set it up to test each PR against the devkits you own. This will catch many regressions and errors before we can merge them into master.</p>
+<p>To step this one up, we have worked on a <a rel="noopener" target="_blank" href="https://github.com/probe-rs/hive">custom hardware rig</a> which will allow us to do large scale automated testing of each PR on a set of N targets multiplexed against M debug probes.
+A sneak peek of the rig's design can be seen below ;)</p>
+<center><img src="/img/release-0.11.0/hive.jpg" style="max-width:100%"></center>
+<p>To push this project a little further, we have put up a posting for a BSc thesis with a local technical university (Switzerland). If you are a BSc student and would like to work on this, feel free to reach out to <a rel="noopener" target="_blank" href="https://github.com/Yatekii">@Yatekii</a> no matter of locality. We cannot promise anything but we will try to figure something out to make this work!</p>
+<h2 id="various">Various</h2>
+<h3 id="hs-probe">hs-probe</h3>
+<p>We announced the <a rel="noopener" target="_blank" href="https://github.com/probe-rs/hs-probe">hs-probe</a> quite a while ago. Many of you have ordered one already. Unfortunately the manufacturing was hit by the global chip shortages as well. The good news is that manufacturing has concluded today and the probes now go into programming. This means we can start the shipping of the probes soon!
+<a rel="noopener" target="_blank" href="https://github.com/korken89">Emil</a> has been working really hard to make this a possibility and get the probe manufactured even during chip shortages!
+<del>If you have not ordered a probe yet, and would like to get ahold one, you can do so on our shop</del>.</p>
+<p>Note: The hs-probe is not available for sale anymore, as all produced units have been sold. We might produce an updated version in the future.</p>
+<h3 id="automatic-releases">Automatic Releases</h3>
+<p>We now have a pipeline set up to automate releases of the probe-rs core library and related crates. This should allow us to release way more often so your own tools do not have to pull from master constantly.
+At the start we are aiming for approximately one release every two weeks. This is an experiment and we will see how it goes. We believe that we should bring new functionality and especially fixes to you as soon as possible.</p>
+<p>Alongside more releases I'd like to try to blog a little more about the ongoing development and curiosities we encounter. Though, to focus more on development and user support we will keep this promise as small as possible for now ;)</p>
+<h3 id="sponsoring">Sponsoring</h3>
+<p>We put a lot of work into probe-rs, because we believe in it being an important cornerstone to the embedded development ecosystem.
+All of this is voluntary work and we continue to work on it voluntarily, but during times when life at our day-job is a little more stressful it can become hard to spend the evening putting in extra work hours, which is why we set up a sponsorship option.</p>
+<p>At this point, thanks a lot to all of our sponsors that already contribute a great deal to probe-rs' continued development and support!</p>
+<p>If you love probe-rs and want to see it grow and prosper, we would love if you considered [sponsoring] probe-rs development. Some of us would love to at least work part time on the project to speed up its development and improve the quality of our tooling. Additionally, as explained above, we have big plans for hardware based testing to ensure the highest possible quality software, which will impose some monetary cost of course.
+You can do so through <a rel="noopener" target="_blank" href="https://github.com/sponsors/probe-rs">Github</a> or <a rel="noopener" target="_blank" href="https://opencollective.com/probe-rs">OpenCollective</a>.</p>
+<h3 id="probe-rs-in-production">probe-rs in Production</h3>
+<p>We have heard of a handful of companies that are using or going to use probe-rs in production to provision their devices. This excites us very much and reassures that we are actually making a change in the embedded ecosystem!</p>
+<h1 id="thank-you">Thank you!</h1>
+<p>Thanks a lot to all of our users &amp; sponsors that show us that our work is appreciated.</p>
+
+        </article>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Probe Setup | probe-rs</title>
+<meta name="description" content="How to set up your debug probe to work with probe-rs.">
+<link rel="canonical" href="https://probe.rs/docs/getting-started/probe-setup/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Getting Started",
+            "item": "https://probe.rs/docs/getting-started/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Probe Setup",
+            "item": "https://probe.rs/docs/getting-started/probe-setup/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/getting-started/probe-setup/#udev-rules">udev rules</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/getting-started/probe-setup/#cmsis-dap">CMSIS-DAP</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/getting-started/probe-setup/#setup">Setup</a></li>
+  											
+  									</ul>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/getting-started/probe-setup/#st-link">ST-Link</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/getting-started/probe-setup/#setup-1">Setup</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/getting-started/probe-setup/#supported-versions">Supported Versions</a></li>
+  											
+  									</ul>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/getting-started/probe-setup/#segger-j-link">SEGGER J-Link</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/getting-started/probe-setup/#setup-2">Setup</a></li>
+  											
+  									</ul>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Probe Setup</h1>
+        
+        <p>The probe-rs project supports three probes out of the box.</p>
+<p>Most of them require little to no setup. For linux, <a href="https://probe.rs/docs/getting-started/probe-setup/#udev-rules">udev</a> rules are required for non admin access.</p>
+<p>The <a href="https://probe.rs/docs/getting-started/probe-setup/#st-link">ST-Link</a>, to <a href="https://probe.rs/docs/getting-started/probe-setup/#segger-j-link">J-Link</a> and <a href="https://probe.rs/docs/getting-started/probe-setup/#cmsis-dap">CMSIS-DAP</a> based probes are supported.</p>
+<h1 id="udev-rules">udev rules</h1>
+<p>By default, the debug probes are only accessible by users with root privileges on Linux based systems.
+It is recommend to use appropriate udev rules to allow users without root privileges
+access to the debug probes as well.</p>
+<ol>
+<li>Download the file <a href="/files/69-probe-rs.rules">69-probe-rs.rules</a><sup class="footnote-reference"><a href="#1">1</a></sup> and place it in /etc/udev/rules.d.</li>
+<li>Run <code>udevadm control --reload</code> to ensure the new rules are used.</li>
+<li>Run  <code>udevadm trigger</code> to ensure the new rules are applied to already added devices.</li>
+</ol>
+<p>If you're still unable to access the debug probes after following these steps, try adding your user to the plugdev group.</p>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>The file needs to have an initial number lower than 73, otherwise the udev rules do not get applied properly. See <a rel="noopener" target="_blank" href="https://github.com/systemd/systemd/issues/4288#issuecomment-348166161">this Github discussion</a> for more information.</p>
+</div>
+<h1 id="cmsis-dap">CMSIS-DAP</h1>
+<p>CMSIS-DAP is a standard for debug probes which is managed by ARM. All probes implementing this
+standard are supported by probe-rs.</p>
+<h2 id="setup">Setup</h2>
+<h3 id="linux">Linux</h3>
+<p>No additional drivers are required to use CMSIS-DAP based probes on Linux systems.
+To ensure that users without root privileges can use the debug probe, it is recommended to
+configure udev as described in <a href="https://probe.rs/docs/getting-started/probe-setup/#udev-rules">udev rules</a>.</p>
+<h3 id="windows">Windows</h3>
+<p>No driver installation required.</p>
+<h3 id="mac-os">Mac OS</h3>
+<p>No driver installation required.</p>
+<h1 id="st-link">ST-Link</h1>
+<p>The ST-Link is a debug probe from ST Microelectronics.
+It is commonly found on their evaluation boards,
+such as the Discovery and Nucleo boards.</p>
+<h2 id="setup-1">Setup</h2>
+<h3 id="linux-1">Linux</h3>
+<p>No additional drivers are required to use a ST-Link debug probe on Linux systems.
+To ensure that users without root privileges can use the debug probe, it is recommended to
+configure udev as described in <a href="https://probe.rs/docs/getting-started/probe-setup/#udev-rules">udev rules</a>.</p>
+<h3 id="windows-1">Windows</h3>
+<p>To use the ST-Link on Windows, you need to install the official drivers, which can be found on
+the <a rel="noopener" target="_blank" href="https://www.st.com/en/development-tools/stsw-link009.html">ST website</a>.</p>
+<h3 id="mac-os-1">Mac OS</h3>
+<p>No driver installation required.</p>
+<h2 id="supported-versions">Supported Versions</h2>
+<p>The following versions of the ST-Link are supported:</p>
+<ul>
+<li>ST-Link V2, Firmware version 2.26 or higher</li>
+<li>ST-Link V3, Firmware version 3.2 or higher</li>
+</ul>
+<p>If you get an error message indicating that the firmware is outdated, please use the
+official ST tools to update the firmware.
+The update tool can be found on
+the <a rel="noopener" target="_blank" href="https://www.st.com/en/development-tools/stsw-link007.html">ST website</a>.</p>
+<h1 id="segger-j-link">SEGGER J-Link</h1>
+<p>The J-Link is a debug probe from <a rel="noopener" target="_blank" href="https://www.segger.com/">Segger</a>. It is available as a stand-alone
+product, but also integrated into evaluation boards directly.</p>
+<p>Due to the proprietary nature of the J-Link, probe-rs will not achieve the same speed as the official J-Link tools.</p>
+<h2 id="setup-2">Setup</h2>
+<h3 id="linux-2">Linux</h3>
+<p>No additional drivers are required to use a J-Link debug probe on Linux systems.
+To ensure that users without root privileges can use the debug probe, it is recommended to
+configure udev as described in <a href="https://probe.rs/docs/getting-started/probe-setup/#udev-rules">udev rules</a>.</p>
+<h3 id="windows-2">Windows</h3>
+<p>The standard J-Link driver does not work with probe-rs. However modern J-Link drivers support
+switching to the device to WinUSB mode. This can be done by following the J-Link instructions
+for switching modes <a rel="noopener" target="_blank" href="https://wiki.segger.com/J-Link_on_Windows_ARM#Configuration">here</a>. This
+will still allow your device to work with official Segger tools.</p>
+<p>If your device is not officially supported, to use probe-rs it is necessary to install a generic
+WinUSB driver. The recommended way of doing this is by using <a rel="noopener" target="_blank" href="https://zadig.akeo.ie/">Zadig</a>
+and selecting WinUSB as the driver for the J-Link probe. This will uninstall the official driver,
+which means that the official Segger tools will not work anymore after this.</p>
+<h3 id="mac-os-2">Mac OS</h3>
+<p>No driver installation required.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+            
+            
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+          
+          
+          <a class="ms-auto" href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;tools&#x2F;cargo-flash&#x2F;">
+            <div class="card my-1">
+              <div class="card-body py-2">
+                cargo-flash &rarr;
+              </div>
+            </div>
+          </a>
+          
+          
+          
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

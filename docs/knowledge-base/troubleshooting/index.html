@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Troubleshooting | probe-rs</title>
+<meta name="description" content="Troubleshooting problems that may arise during use">
+<link rel="canonical" href="https://probe.rs/docs/knowledge-base/troubleshooting/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Knowledge Base",
+            "item": "https://probe.rs/docs/knowledge-base/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Troubleshooting",
+            "item": "https://probe.rs/docs/knowledge-base/troubleshooting/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/knowledge-base/troubleshooting/#no-defmt-output">No DEFMT output</a>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Troubleshooting</h1>
+        
+        <h2 id="no-defmt-output">No DEFMT output</h2>
+<p><strong>Check <code>DEFMT_LOG</code> filter:</strong></p>
+<p>Filter levels in order from lowest to highest severity are: <code>TRACE</code>, <code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code></p>
+<p>More info on DEFMT filtering levels <a rel="noopener" target="_blank" href="https://defmt.ferrous-systems.com/filtering.html">here</a></p>
+<p>This can be set multiple ways:</p>
+<ul>
+<li>If using <code>cargo run</code> on a probe-rs based runner:
+<ul>
+<li><code>ENV VAR</code> at build time: <code>DEFMT_LOG=trace cargo build ...</code></li>
+<li>In <code>.cargo/config.toml</code> <strong>Note:</strong> there is a bug in cargo that does not automatically recognize changes when rebuilding.<pre data-lang="toml" style="background-color:#fafafa;color:#61676c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#399ee6;">env</span><span>]
+</span><span style="color:#399ee6;">DEFMT_LOG </span><span>= </span><span style="color:#86b300;">&quot;trace&quot;
+</span></code></pre>
+</li>
+</ul>
+</li>
+<li>If using <a rel="noopener" target="_blank" href="https://probe.rs/docs/tools/vscode/">VSCode plugin</a>, 
+<ul>
+<li>It should be set in <code>.vscode/launch.json</code> under configurations/coreConfigs/options. </li>
+<li>Also be sure <code>rttEnabled</code> is <code>true</code> and <code>consoleLogLevel</code> is set to appropriate filter level:<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#86b300;">&quot;configurations&quot;</span><span>: [
+</span><span>    {
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;">// SNIP...
+</span><span>    </span><span style="color:#86b300;">&quot;rttEnabled&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true</span><span style="color:#61676ccc;">,
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;">// SNIP...
+</span><span>    </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                    {
+</span><span>                    </span><span style="font-style:italic;color:#abb0b6;">// SNIP ...,
+</span><span>                    </span><span style="color:#86b300;">&quot;options&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                            </span><span style="color:#86b300;">&quot;DEFMT_LOG&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Trace&quot; </span><span style="font-style:italic;color:#abb0b6;">// Trace, Debug, Info, Warn, Error
+</span><span>                            }
+</span><span>                        }</span><span style="color:#61676ccc;">,
+</span><span>                    }
+</span><span>                ]</span><span style="color:#61676ccc;">,
+</span><span>    </span><span style="color:#86b300;">&quot;consoleLogLevel&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Console&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//Console, Info, Debug
+</span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Check <code>memory.x</code> file is correct:</strong></p>
+<ul>
+<li>Make sure origin offsets are correct according to datasheet/ application</li>
+<li>Make sure lengths are correct according to datasheet/application</li>
+<li>Note: Lower values for RAM are OK, but values that exceed the chip's spec will cause a crash and not allow RTT to connect.</li>
+</ul>
+<p><strong>Check correct Chip selected:</strong></p>
+<ul>
+<li><code>.cargo/config.toml</code> under runner. Example:<pre data-lang="toml" style="background-color:#fafafa;color:#61676c;" class="language-toml "><code class="language-toml" data-lang="toml"><span style="color:#399ee6;">runner </span><span>= </span><span style="color:#86b300;">&quot;probe-rs-cli run --chip STM32L451RCTx&quot;
+</span></code></pre>
+</li>
+<li>If using VSCode plugin in <code>launch.json</code> configurations/chip<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#86b300;">&quot;configurations&quot;</span><span>: [
+</span><span>    {
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">// SNIP...
+</span><span>        </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;STM32L451RCTx&quot;</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">// SNIP...
+</span></code></pre>
+</li>
+</ul>
+<p><strong>Check <code>defmt_rtt</code> is being &quot;used&quot; in code:</strong></p>
+<p>If not, it will not be linked during compile. Example: </p>
+<pre data-lang="rust" style="background-color:#fafafa;color:#61676c;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#fa6e32;">use</span><span> defmt_rtt </span><span style="color:#ed9366;">as _</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p><strong>On STM32 series chips, check the state of the <code>BOOT0</code> pin:</strong></p>
+<ul>
+<li>If BOOT0 is HIGH or floating, the core will run from internal bootloader instead of flashed firmware.</li>
+<li>BOOT0 should be pulled LOW for SWD programming, however even if it is HIGH or floating, programming may appear to succeed but firmware will not properly run.</li>
+</ul>
+<p><strong>Make sure tooling is up to date:</strong></p>
+<p>As with any set of tools being actively developed and improved, sometimes if one part is updated and there is a breaking change, the other tools must be updated as well in order to function.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+            
+            
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

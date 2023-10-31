@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Crosscompiling | probe-rs</title>
+<meta name="description" content="Cross-compiling probe-rs">
+<link rel="canonical" href="https://probe.rs/docs/library/crosscompiling/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Library",
+            "item": "https://probe.rs/docs/library/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Crosscompiling",
+            "item": "https://probe.rs/docs/library/crosscompiling/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/library/crosscompiling/#using-cross">Using Cross</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/library/crosscompiling/#using-llvm">Using LLVM</a>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Crosscompiling</h1>
+        
+        <p>Even though <strong>probe-rs</strong> can run on most systems, there can be cases where using <code>cargo install</code> is not possible due to system permissions or resource limitations.</p>
+<p>In such cases you can Crosscompile <strong>probe-rs</strong> for use in <strong>cargo-flash</strong> or <strong>cargo-embed</strong> on a different architecture, and move the resulting static binary to the target system.</p>
+<p>We will use a <a rel="noopener" target="_blank" href="https://www.raspberrypi.org/products/raspberry-pi-400/"><strong>Raspberry pi 400</strong></a> as the target system as an example, where <code>cargo install probe-rs</code> on a default <strong>Raspberry PI OS</strong> installation is not possible to pass the <code>rustc</code> final Linking step for <code>probe-rs</code> due to system memory limitations.</p>
+<p>After defining the target system architecture, in this example being <code>armv7-unknown-linux-gnueabihf</code>, here are two different ways to Crosscompile, each with their pros and cons.</p>
+<h2 id="using-cross">Using Cross</h2>
+<p><a rel="noopener" target="_blank" href="https://github.com/rust-embedded/cross">Cross</a> self defines as:</p>
+<blockquote>
+<p>“Zero setup” cross compilation and “cross testing” of Rust crates</p>
+</blockquote>
+<p>Its main advantage is to <strong>not be susceptible</strong> on the usual cross compilation issues that arise <strong>from using the host machine's shared object libraries</strong>, by using a Docker image to build the static binary.</p>
+<p>The downside of this approach is that <strong>you will have to rely on the Cross Project</strong> and <strong>supply the build environment Dockerfile</strong>, making sure that it resembles the system you are building for with <strong>a cross C toolchain installed</strong> as much as possible.</p>
+<p>Building the tools such as <code>cargo-flash</code> for the Raspberry Pi 400, on an <code>x86_64</code> Linux System, happens as follows:</p>
+<pre data-lang="sh" style="background-color:#fafafa;color:#61676c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="font-style:italic;color:#abb0b6;"># Cloning probe-rs on the system we will build the binary on.
+</span><span style="color:#f29718;">git</span><span> clone https://github.com/probe-rs/probe-rs
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;"># Installing cross
+</span><span style="color:#f29718;">cargo</span><span> install cross
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;"># `cd` into the probe-rs repository
+</span><span style="font-style:italic;color:#abb0b6;"># And create a `crossimage` folder
+</span><span style="color:#f07171;">cd</span><span> probe-rs </span><span style="color:#ed9366;">&amp;&amp; </span><span style="color:#f29718;">mkdir</span><span> crossimage
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;"># Create a Dockerfile resembling the target system,
+</span><span style="font-style:italic;color:#abb0b6;"># and put it inside the `crossimage` folder.
+</span></code></pre>
+<p>We can take an <code>armv7-unknown-linux-gnueabihf</code> base system from the <code>rust-embedded/cross</code> Docker Hub container registry.</p>
+<p>After that, follow the instructions from the <code>probe-rs</code> <a href="https://probe.rs/docs/getting-started/installation/#prerequisites">prerequisites</a> to prepare the image for the building steps.</p>
+<p>You can download the Dockerfile for this example from <a href="/files/cross-dockerfile.txt">here</a>.</p>
+<pre data-lang="sh" style="background-color:#fafafa;color:#61676c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="font-style:italic;color:#abb0b6;"># Create and edit a Cross.toml file in the root of the cloned repo.
+</span><span style="color:#f29718;">vim</span><span> Cross.toml
+</span></code></pre>
+<p>Add the following to the <code>Cross.toml</code>. Which will define to <code>cross</code> which container should be used for the target architecture:</p>
+<pre style="background-color:#fafafa;color:#61676c;"><code><span>```toml
+</span><span>[target.armv7-unknown-linux-gnueabihf]
+</span><span>image = &quot;crossimage&quot;
+</span><span>```
+</span></code></pre>
+<pre data-lang="sh" style="background-color:#fafafa;color:#61676c;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="font-style:italic;color:#abb0b6;"># Build and tag the container image, specifying the name as defined in the `Cross.toml`.
+</span><span style="color:#f29718;">docker</span><span> build</span><span style="color:#ff8f40;"> -t</span><span> crossimage crossimage/
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;"># Run cross to compile, cross arguments are the same as the `cargo` ones
+</span><span style="color:#f29718;">cross</span><span> build</span><span style="color:#ff8f40;"> --release --target</span><span style="color:#ed9366;">=</span><span>armv7-unknown-linux-gnueabihf</span><span style="color:#ff8f40;"> --features</span><span> cli
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;"># Done
+</span></code></pre>
+<p>You now have a statically built <code>cargo-flash</code> binary inside the <code>target/&lt;architecture&gt;/release</code> folder on the root directory of the cloned repo, which you can now move to the <strong>Raspberry Pi 400</strong> <code>cargo bin path</code> folder (usually <code>~/.cargo/bin</code>).</p>
+<h2 id="using-llvm">Using LLVM</h2>
+<p>As using <code>LLVM</code> for crosscompiling can go out of the scope of just generating a <code>cargo-flash</code> binary, please follow the instructions on how to crosscompile in the <strong>LLVM</strong> <a rel="noopener" target="_blank" href="https://www.llvm.org/docs/HowToCrossCompileLLVM.html">guide</a>.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+              
+              <a href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;tools&#x2F;vscode&#x2F;">
+                <div class="card my-1">
+                  <div class="card-body py-2">
+                    &larr; VSCode
+                  </div>
+                </div>
+              </a>
+            
+            
+            
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+          
+          
+          
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

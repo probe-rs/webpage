@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>VSCode | probe-rs</title>
+<meta name="description" content="The vscode plugin &amp; DAP server explained.">
+<link rel="canonical" href="https://probe.rs/docs/tools/vscode/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Tools",
+            "item": "https://probe.rs/docs/tools/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Vscode",
+            "item": "https://probe.rs/docs/tools/vscode/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#installation">Installation</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#usage-and-configuration">Usage and Configuration</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#start-a-debug-session-with-minimum-configuration">Start a debug session with minimum configuration</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#using-the-launch-request-type">Using the launch request type</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#using-the-attach-request-type">Using the attach request type</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#connecting-to-a-standalone-probe-rs-dap-server-server">Connecting to a standalone probe-rs dap-server server</a></li>
+  											
+  									</ul>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#configuring-rtt-to-transfer-data">Configuring RTT to transfer data</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#current-working-functionality-and-known-limitations">Current working functionality and known limitations</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#building-and-testing-the-debug-extension-in-vs-code">Building and Testing the debug extension in VS Code</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#a-visual-guide-of-implemented-features">A visual guide of implemented features</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#the-basics-and-viewing-rtt-data">The Basics, and viewing RTT data</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#use-the-set-variable-command-to-update-variable-values-during-debugging">Use the Set Variable command to update variable values during debugging</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#use-the-view-binary-data-to-view-and-perform-binary-edits-of-target-memroy">Use the View Binary Data to view and perform binary edits of target memroy</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#use-the-disassembly-to-see-the-assembly-code-executed-on-the-target-and-set-instruction-breakpoints-in-this-view">Use the Disassembly to see the assembly code executed on the target, and set instruction breakpoints in this view</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#use-cmsis-svd-definitions-to-navigate-and-monitor-device-peripheral-registers">Use CMSIS-SVD definitions to navigate and monitor device peripheral registers</a></li>
+  											
+  									</ul>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/vscode/#appendix-all-supported-configuration-options">Appendix: All supported configuration options.</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#launch-supported-configuration-options">Launch: Supported configuration options.</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/vscode/#attach-supported-configuration-options">Attach: Supported configuration options.</a></li>
+  											
+  									</ul>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>VSCode</h1>
+        
+        <p>The <strong>probe-rs VS Code extension</strong> uses the Microsoft Debug Adapter Protocol to implement an interactive debugging experience between VS Code and a probe-rs target.</p>
+<p>The extension is currently in pre-production/Alpha stage, with limited functionality. For details of current status and functionality please read this <a href="https://probe.rs/docs/tools/vscode/#current-working-functionality-and-known-limitations">section</a>.</p>
+<h3 id="installation">Installation</h3>
+<ul>
+<li>Install the <strong>probe-rs</strong> tool, following the instructions at <a href="https://probe.rs/docs/getting-started/installation/">Installation</a>.</li>
+<li>Install the <strong>probe-rs</strong> extension in VS Code, by installing the <em>latest available</em> from the Visual Studio <a rel="noopener" target="_blank" href="https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger">Extension Marketplace</a></li>
+</ul>
+<h3 id="usage-and-configuration">Usage and Configuration</h3>
+<p><a href="https://probe.rs/docs/tools/vscode/#a-visual-guide-of-implemented-features">Visual Tour</a></p>
+<p>To use the <code>probe-rs</code> extension for VS Code, you will need to configure a <code>launch.json</code> entry for your target project.</p>
+<p>We recommend that you familiarize yourself with the <a rel="noopener" target="_blank" href="https://code.visualstudio.com/docs/editor/debugging">VSCode debug process</a>, and specifically the section that discusses <a rel="noopener" target="_blank" href="https://code.visualstudio.com/docs/editor/debugging#_launch-versus-attach-configurations">the differences</a> between launch and attach request types.</p>
+<p>The configuration choices may differ based on your use case, as demonstrated in the following examples:</p>
+<ul>
+<li>Start a debug session, by <a href="https://probe.rs/docs/tools/vscode/#using-the-launch-request-type">launching a new</a> process on your target device.</li>
+<li>Start a debug session, by <a href="https://probe.rs/docs/tools/vscode/#using-the-attach-request-type">attaching to an existing</a> process on your target device.</li>
+<li>Start a debug session (either form above) against a <a href="https://probe.rs/docs/tools/vscode/#connecting-to-a-standalone-probe-rs-dap-server-server">remote debug server</a> process running on a server on a specific TCP/IP address and port.</li>
+<li><a href="https://probe.rs/docs/tools/vscode/#configuring-rtt-to-transfer-data">Using RTT</a> to transfer data (e.g. logs, and println) between VSCode and your target application</li>
+</ul>
+<p>Many of the entries in <code>launch.json</code> are optional, and the values for each are described in the hover tips - alternatively, you can find the full list of available options in the <a href="https://probe.rs/docs/tools/vscode/#appendix-all-supported-configuration-options">Appendix</a>. When values are restricted, the allowable values are available through VS Code intellisense.</p>
+<p>A minimum configuration would look something like this (required customizations are indicated with //!MODIFY tags )</p>
+<h4 id="start-a-debug-session-with-minimum-configuration">Start a debug session with minimum configuration</h4>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="color:#86b300;">&quot;version&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;0.2.0&quot;</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;configurations&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>    {
+</span><span>      </span><span style="color:#86b300;">&quot;preLaunchTask&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${defaultBuildTask}&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs-debug&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;request&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;launch&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;name&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe_rs Executable Test&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;STM32H745ZITx&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        {
+</span><span>          </span><span style="color:#86b300;">&quot;programBinary&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>        }
+</span><span>      ]
+</span><span>    }
+</span><span>  ]
+</span><span>}
+</span></code></pre>
+<p>The following fully configured examples can be used (with customizations to reflect your own project and chip) to help you get started.</p>
+<h4 id="using-the-launch-request-type">Using the <code>launch</code> request type</h4>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="color:#86b300;">&quot;version&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;0.2.0&quot;</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;configurations&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>    {
+</span><span>      </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs-debug&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;request&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;launch&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;name&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe_rs Executable launch example&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;cwd&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${workspaceFolder}&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;speed&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">24000</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>      </span><span style="color:#86b300;">&quot;probe&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;VID:PID:&lt;Serial&gt;&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>      </span><span style="color:#86b300;">&quot;runtimeExecutable&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;runtimeArgs&quot;</span><span style="color:#61676ccc;">: </span><span>[</span><span style="color:#86b300;">&quot;dap-server&quot;</span><span>]</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;STM32H745ZITx&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>      </span><span style="color:#86b300;">&quot;flashingConfig&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>        </span><span style="color:#86b300;">&quot;flashingEnabled&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;haltAfterReset&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;formatOptions&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;format&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;elf&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove). Valid values are: &#39;bin&#39;, &#39;hex&#39;, &#39;elf&#39;(default), &#39;idf&#39;
+</span><span>        }
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        {
+</span><span>          </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;programBinary&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>          </span><span style="color:#86b300;">&quot;svdFile&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>        }
+</span><span>      ]</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>        </span><span style="color:#86b300;">&quot;RUST_LOG&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;info&quot; </span><span style="font-style:italic;color:#abb0b6;">// If you set this variable, check the VSCode console log window for the location of the log file.
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;consoleLogLevel&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Console&quot; </span><span style="font-style:italic;color:#abb0b6;">//Info, Debug
+</span><span>    }
+</span><span>  ]
+</span><span>}
+</span></code></pre>
+<h4 id="using-the-attach-request-type">Using the <code>attach</code> request type</h4>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="color:#86b300;">&quot;version&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;0.2.0&quot;</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;configurations&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>    {
+</span><span>      </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs-debug&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;request&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;attach&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;name&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe_rs Executable launch example&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;cwd&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${workspaceFolder}&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;speed&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">24000</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>      </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;STM32H745ZITx&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>      </span><span style="color:#86b300;">&quot;probe&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;VID:PID:&lt;Serial&gt;&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        {
+</span><span>          </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;programBinary&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>          </span><span style="color:#86b300;">&quot;svdFile&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>        }
+</span><span>      ]</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>        </span><span style="color:#86b300;">&quot;RUST_LOG&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;info&quot; </span><span style="font-style:italic;color:#abb0b6;">// If you set this variable, check the VSCode console log window for the location of the log file.
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;consoleLogLevel&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Console&quot; </span><span style="font-style:italic;color:#abb0b6;">//Info, Debug
+</span><span>    }
+</span><span>  ]
+</span><span>}
+</span></code></pre>
+<h4 id="connecting-to-a-standalone-probe-rs-dap-server-server">Connecting to a standalone <code>probe-rs dap-server</code> server</h4>
+<p>To start <code>probe-rs</code> as a standalone server:</p>
+<pre style="background-color:#fafafa;color:#61676c;"><code><span>probe-rs dap-server --port 50000 # Replace the value 50000 with any available TCP port number
+</span></code></pre>
+<p>Then use the following <code>launch.json</code> to connect to it:</p>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="color:#86b300;">&quot;version&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;0.2.0&quot;</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;configurations&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>    {
+</span><span>      </span><span style="color:#86b300;">&quot;preLaunchTask&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${defaultBuildTask}&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//Configure a default build task for &#39;cargo build&#39;
+</span><span>      </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs-debug&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;request&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;launch&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;name&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe_rs Server attach example&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;server&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;127.0.0.1:50001&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY ... can be a server that is remote from the VSCode session, but local to the probe
+</span><span>      </span><span style="color:#86b300;">&quot;cwd&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${workspaceFolder}&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;speed&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">24000</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>      </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;STM32H745ZITx&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>      </span><span style="color:#86b300;">&quot;probe&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;VID:PID:&lt;Serial&gt;&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY (or remove)
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        {
+</span><span>          </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;programBinary&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>          </span><span style="color:#86b300;">&quot;svdFile&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Relative or fully qualified path to your programBinary&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY
+</span><span>        }
+</span><span>      ]</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{}</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">//!This won&#39;t take effect. Please set environment variables before launching `probe-rs dap-server`.
+</span><span>      </span><span style="color:#86b300;">&quot;consoleLogLevel&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Console&quot; </span><span style="font-style:italic;color:#abb0b6;">//Info, Debug
+</span><span>    }
+</span><span>  ]
+</span><span>}
+</span></code></pre>
+<h3 id="configuring-rtt-to-transfer-data">Configuring RTT to transfer data</h3>
+<p><code>probe-rs</code> and the VS Code extension supports using RTT in your target application.</p>
+<p>For more information on how to configure your target application to use RTT, please refer to the instructions under the <a href="../cargo-embed#rtt">cargo-embed</a>
+section of this guide.</p>
+<p>In order to capture the RTT output in the VSCode extension, you will need to supply additional entries to your applications <code>launch.json</code> entry. You can use the following example and modify the channel information to match the <code>rtt-target</code> channel configurations in your application.</p>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="color:#86b300;">&quot;version&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;0.2.0&quot;</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;configurations&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>    {
+</span><span>      </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs-debug&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;request&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;launch&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;name&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe_rs rtt-target example&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        {
+</span><span>          </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="font-style:italic;color:#abb0b6;">// ... &lt;snip&gt; ...
+</span><span>          </span><span style="color:#86b300;">&quot;rttEnabled&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;rttChannelFormats&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>            {
+</span><span>              </span><span style="color:#86b300;">&quot;channelNumber&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;dataFormat&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;String&quot;</span><span style="color:#61676ccc;">, </span><span style="font-style:italic;color:#abb0b6;">// Format RTT data as String data
+</span><span>              </span><span style="color:#86b300;">&quot;showTimestamps&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true </span><span style="font-style:italic;color:#abb0b6;">// Include host-side timestamps for every line of data transferred from the target RTT output
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            {
+</span><span>              </span><span style="color:#86b300;">&quot;channelNumber&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;dataFormat&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;BinaryLE&quot; </span><span style="font-style:italic;color:#abb0b6;">// Treat data as raw binary data, and do not format in any way
+</span><span>            }
+</span><span>          ]
+</span><span>        }
+</span><span>      ]
+</span><span>    }
+</span><span>  ]
+</span><span>}
+</span></code></pre>
+<p>In addition to supporting RTT channels with <a rel="noopener" target="_blank" href="https://crates.io/crates/rtt-target">rtt-target</a>, we also support using the <a rel="noopener" target="_blank" href="https://defmt.ferrous-systems.com">defmt</a> (a highly efficient logging framework that targets resource-constrained devices, and supports complex formatting and RUST_LOG-like logging.)</p>
+<p>When using <code>defmt</code>, we can configure the client side based on what is captured in your application, and the <code>launch.json</code> only requires minimal additional configuration.</p>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  </span><span style="color:#86b300;">&quot;version&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;0.2.0&quot;</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;configurations&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>    {
+</span><span>      </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs-debug&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;request&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;launch&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;name&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe_rs rtt-target example&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;">// ... &lt;snip&gt; ...
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        {
+</span><span>          </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;rttEnabled&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true
+</span><span>        }
+</span><span>      ]</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>        </span><span style="color:#86b300;">&quot;DEFMT_LOG&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;info&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY: Remove or use any of the supported DEFMT_LOG options.
+</span><span>      }
+</span><span>    }
+</span><span>  ]
+</span><span>}
+</span></code></pre>
+<p><strong>NOTE:</strong> Using RTT along with low power modes has <a rel="noopener" target="_blank" href="https://wiki.segger.com/RTT#Low-power_modes">some limitations</a>. Frameworks such as <a rel="noopener" target="_blank" href="https://github.com/embassy-rs/embassy">embassy</a> and <a rel="noopener" target="_blank" href="https://github.com/rtic-rs/cortex-m-rtic">rtic</a> uses low power by default and this can cause RTT to not produce any output on some devices. In some cases, this can be overcome by configuring your device to enable the RCC DMA clock before entering low power.</p>
+<p><strong>NOTE:</strong> When using <code>defmt</code> RTT, please keep the following limitations in mind.</p>
+<ul>
+<li>Due to the way the <code>defmt</code> crate works, it is currently not possible to mix <code>defmt</code> and <code>rtt-target</code> channels in a single application.</li>
+<li>The <code>defmt</code> crate always uses channel number 0 for its output.</li>
+<li>The <code>defmt</code> crate introduced a new log filter that filters out log statements at <strong>build time</strong>. To ensure your defmt logging is not default filtered to <code>error</code> level, you can either add the environment variable in your <code>.cargo/config</code> file, or add the <code>options</code> setting of your tasks.json (see below), to match your desired logging level on the target.</li>
+</ul>
+<p>Adding DEFMT_LOG to <code>cargo/config</code></p>
+<pre data-lang="toml" style="background-color:#fafafa;color:#61676c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#399ee6;">env</span><span>]
+</span><span style="color:#399ee6;">DEFMT_LOG </span><span>= </span><span style="color:#86b300;">&quot;info&quot;
+</span></code></pre>
+<p>Adding DEFMT_LOG to <code>tasks.json</code></p>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span style="font-style:italic;color:#abb0b6;">// ... &lt;snip&gt; ...
+</span><span>  </span><span style="color:#86b300;">&quot;options&quot;</span><span>: {
+</span><span>    </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>      </span><span style="color:#86b300;">&quot;DEFMT_LOG&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;info&quot; </span><span style="font-style:italic;color:#abb0b6;">//!MODIFY: Remove or use any of the supported DEFMT_LOG options.
+</span><span>    }
+</span><span>  },
+</span><span>  </span><span style="color:#86b300;">&quot;tasks&quot;</span><span>: [
+</span><span style="font-style:italic;color:#abb0b6;">// ... &lt;snip&gt; ...
+</span></code></pre>
+<p><strong>TIP:</strong> When using RTT, the data is streamed into a terminal window on a per channel basis. If your application uses multiple RTT channels, you may want to consider using the new <a rel="noopener" target="_blank" href="https://code.visualstudio.com/updates/v1_57#_integrated-terminal">VSCode Terminal tabs</a> setting.</p>
+<h3 id="current-working-functionality-and-known-limitations">Current working functionality and known limitations</h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Launch</strong>: Start a debug session on the target by (optionally) flashing the target firmware.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Attach</strong>:</li>
+<li><input disabled="" type="checkbox" checked=""/>
+By default, VSCode will manage (start/stop) the <code>probe-rs dap-server</code> process to facilitate a debug session against a target process. It is also possible for the user to manage the <code>probe-rs dap-server</code> as a standalone process, and then use TCIP/IP port to connect to from VSCode.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Connect</strong> to the target with <code>probe-rs</code>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports <code>connect-under-reset</code> for select targets.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Tested against the following architectures:
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Cortex-M7 using STM32H745</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Cortex-M4 using nRF52833_xxAA</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Cortex-M0 using Raspberry PICO</li>
+<li><input disabled="" type="checkbox" checked=""/>
+RISC-V using ESP32-C3</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Flash</strong> the chip with your own binary.
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports <code>full-chip-erase</code>, and <code>restore-unwritten-bytes</code></li>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports <code>halt-after-reset</code>. This will allow you to set breakpoints in your main() function.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports flashing the following binary types:
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+<code>bin</code> - &quot;The target binary file contains the contents of the flash 1:1&quot;.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<code>hex</code> - &quot;The target binary file conforms with the <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Intel_HEX">Intel HEX</a> format.&quot;</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<code>elf</code> - &quot;The target binary file conforms with the <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a> format.&quot;</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<code>idf</code> - &quot;The target binary file conforms with the <a rel="noopener" target="_blank" href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/app_image_format.html#app-image-structures">ESP-IDF bootloader</a> format.&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Set, clear, disable, enable hardware <strong>Breakpoints</strong>.
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+In VSCode <code>Source view</code>, breakpoint locations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+In VSCode <code>Disassembly view</code>, breakpoints are set at, and stepping works at, 'instruction level'</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>UPDATED: Stepping</strong> through executing code during debug:
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports stepping at 'statement' level with <code>Step Over</code>, <code>Step Into</code>, <code>Step Out</code>. Stepping destinations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+While VSCode 'Disassembly view` is open, all stepping automatically happens at 'instruction' granularity, and will allow the user to step to any target location, including instructions in a function prologue or epilogue.</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Variables View</strong>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+View values of core <strong>Registers</strong>, and changes during code execution</li>
+<li><input disabled="" type="checkbox" checked=""/>
+View values of <strong>Locals</strong> and <strong>Statics</strong> variables, and update values during code execution.
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Shows data types and values for the following Rust data types.
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Base types, including &amp;str</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Enumerations</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Structures</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Pointers</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Variants</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Arrays</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Unions</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Options &amp; Results</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Unit types</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Formal parameters to functions.</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox"/>
+TODO: Add support for additional types, such as Generics, etc.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use the <code>Set Variable</code> command in VSCode to update variable values.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use the <code>View Binary Data</code> command in VSCode to perform binary memory edits on the target device.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Call Stack View</strong>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports a single thread, for a single core of the chip, but will <strong>allow selection of any frames</strong> that are in the current thread</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Supports the VSCode <code>Disassembly</code> view, and <code>SetInstructionBreakpoints</code></li>
+<li><input disabled="" type="checkbox"/>
+TODO: Support multiple threads</li>
+<li><input disabled="" type="checkbox"/>
+TODO: Support chips with multiple cores</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>Watch View</strong> Monitor values of selected variables.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+<strong>RTT</strong> - Configure RTT Channels and capture their output in the <code>VSCode Integrated Terminal</code>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+RTT Channels that support logging data to VSCode Terminal windows</li>
+</ul>
+</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Use the REPL command line in the Debug Console evaluate variables</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Navigate and monitor SVD Peripheral registers</li>
+</ul>
+<h3 id="building-and-testing-the-debug-extension-in-vs-code">Building and Testing the debug extension in VS Code</h3>
+<p>Please refer to the <a rel="noopener" target="_blank" href="https://github.com/probe-rs/vscode">repository README.md file</a> for the latest instructions on how to build and deploy the extension.</p>
+<h2 id="a-visual-guide-of-implemented-features">A visual guide of implemented features</h2>
+<h3 id="the-basics-and-viewing-rtt-data">The Basics, and viewing RTT data</h3>
+<center><img src="/img/vscode/intro_and_rtt.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;"  /></center>
+<h3 id="use-the-set-variable-command-to-update-variable-values-during-debugging">Use the <code>Set Variable</code> command to update variable values during debugging</h3>
+<center><img src="/img/vscode/variable_set_value.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
+<h3 id="use-the-view-binary-data-to-view-and-perform-binary-edits-of-target-memroy">Use the <code>View Binary Data</code> to view and perform binary edits of target memroy</h3>
+<center><img src="/img/vscode/variable_edit_and_watch.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
+<h3 id="use-the-disassembly-to-see-the-assembly-code-executed-on-the-target-and-set-instruction-breakpoints-in-this-view">Use the <code>Disassembly</code> to see the assembly code executed on the target, and set instruction breakpoints in this view</h3>
+<center><img src="/img/vscode/disassemble_and_instruction_breakpoint.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
+<h3 id="use-cmsis-svd-definitions-to-navigate-and-monitor-device-peripheral-registers">Use CMSIS-SVD definitions to navigate and monitor device peripheral registers</h3>
+<center><img src="/img/vscode/SVD Peripheral Registers.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
+<h2 id="appendix-all-supported-configuration-options">Appendix: All supported configuration options.</h2>
+<p>This options available in <code>launch.json</code> are based on the configuration options of the <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/latest/probe_rs/config/index.html">probe-rs library</a>, with names that are converted to camelCase, in order to be compatible with VSCode requirements. There are slight variations in supported options for <code>launch</code> or <code>attach</code> configurations, and these can be seen below. Please refer to the section &quot;Launching and Attaching&quot; in <a rel="noopener" target="_blank" href="https://microsoft.github.io/debug-adapter-protocol/overview">the official MS DAP documentation</a> for more details.</p>
+<h3 id="launch-supported-configuration-options">Launch: Supported configuration options.</h3>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#86b300;">&quot;launch&quot;</span><span>: {
+</span><span>    </span><span style="color:#86b300;">&quot;required&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>        </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;coreConfigs&quot;
+</span><span>    ]</span><span style="color:#61676ccc;">,
+</span><span>    </span><span style="color:#86b300;">&quot;properties&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>        </span><span style="color:#86b300;">&quot;server&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Optionally connect to an existing `probe-rs-debugger` session on IP and Port, e.g. &#39;127.0.0.1:50000&#39;&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;127.0.0.1:50000&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;consoleLogLevel&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The level of log info printed to the console. This does NOT affect the RUST_LOG defined in the `env` property.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                </span><span style="color:#86b300;">&quot;Console&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;Info&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;Debug&quot;
+</span><span>            ]</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                </span><span style="color:#86b300;">&quot;The console will only contain error messages and process status messages.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;The console log will also contain high level information about interactions between the extension and the debug adapter.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;The console log will also contain detailed information about interactions between the extension and the debug adapter.&quot;
+</span><span>            ]</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Console&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;runtimeExecutable&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;An OS resolvable path to the Probe-rs debugger executable.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;runtimeArgs&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;array&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;String array of arguments to provide the startup arguments for the Probe-rs debugger executable.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                </span><span style="color:#86b300;">&quot;dap-server&quot;
+</span><span>            ]
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;additionalProperties&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span>{}</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Environment variables defined as a key value pair. The &#39;key&#39; is the name of the environment variable, and the &#39;value&#39; is value of the environment variable.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;object&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;cwd&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The working directory of the debugger, typically the RUST crate root&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${workspaceFolder}&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;probe&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Use this flag to select a specific probe in the list. Use &#39;--probe VID:PID&#39; or &#39;--probe VID:PID:Serial&#39; if you have more than one probe with the same VID:PID.&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Please specify the appropriate chip from the list of supported chips reported by running `probe-rs-debugger list-chips`.&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;connectUnderReset&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;This option will result in the target reset pin being held high during the attach operation.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;speed&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Specify the protocol speed in kHz.&quot;
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;wireProtocol&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The correct wire Protocol to use.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                </span><span style="color:#86b300;">&quot;Swd&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;Jtag&quot;
+</span><span>            ]</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                </span><span style="color:#86b300;">&quot;Use the Serial Wire Debug (SWD) protocol.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;Use the Joint Test Action Group (JTAG) protocol.&quot;
+</span><span>            ]
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;allowEraseAll&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Allow the session to erase all memory of the chip or reset it to factory default.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;flashingConfig&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;object&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;These flashing options are applied when flashing one or more core `program_binary` files to the target memory.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;flashingEnabled&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Flash the target before debugging.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;haltAfterReset&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Halt all cores on the target after reset.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;fullChipErase&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Do a full chip erase, versus page-by-page erase.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;restoreUnwrittenBytes&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Restore erased bytes that will not be rewritten from ELF.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false
+</span><span>            }</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;formatOptions&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;object&quot;</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                    </span><span style="color:#86b300;">&quot;format&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;One of the supported binary formats probe-rs uses for flashing the target binary.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                            </span><span style="color:#86b300;">&quot;bin&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;hex&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;elf&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;idf&quot;
+</span><span>                        ]</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                            </span><span style="color:#86b300;">&quot;The target binary file contains the contents of the flash 1:1&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;The target binary file conforms with the [Intel HEX](https://en.wikipedia.org/wiki/Intel_HEX) format.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;The target binary file conforms with the [ELF](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) format.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;The target binary file conforms with the [ESP-IDF bootloader](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/app_image_format.html#app-image-structures) format&quot;
+</span><span>                        ]</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;elf&quot;
+</span><span>                    }</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;baseAddress&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The address in memory where the binary will be flashed to.&quot;
+</span><span>                    }</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;skip&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The number of bytes to skip at the start of the binary file.&quot;
+</span><span>                    }</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;idf_bootloader&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The path (relative to `cwd` or absolute) to the ESP-IDF bootloader.&quot;
+</span><span>                    }</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;idf_partition_table&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The path (relative to `cwd` or absolute) to the ESP-IDF partition table.&quot;
+</span><span>                    }
+</span><span>                }
+</span><span>            }
+</span><span>        }</span><span style="color:#61676ccc;">,
+</span><span>        </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;array&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Each MCU core will have a mandatory `coreIndex`, `programBinary`, and `chip` as well as several other optional properties.&quot;</span><span style="color:#61676ccc;">,
+</span><span>            </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                </span><span style="color:#86b300;">&quot;required&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                    </span><span style="color:#86b300;">&quot;programBinary&quot;
+</span><span>                ]</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                    </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The zero based index of the MCU core for this session&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0
+</span><span>                }</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;programBinary&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                    </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The path (relative to `cwd` or absolute) to the binary for your target firmware&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;./target/thumbv7em-none-eabihf/debug/${workspaceFolderBasename}&quot;
+</span><span>                }</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;svdFile&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                    </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The path (relative to `cwd` or absolute) to the CMCIS-SVD file for your target core&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;./CMSIS.SVD&quot;
+</span><span>                }</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;rttEnabled&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                    </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;If true, the debugger will open an RTT Terminal tab for each of the active channels on the target.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false
+</span><span>                }</span><span style="color:#61676ccc;">,
+</span><span>                </span><span style="color:#86b300;">&quot;rttChannelFormats&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                    </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;array&quot;</span><span style="color:#61676ccc;">,
+</span><span>                    </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                        </span><span style="color:#86b300;">&quot;channelNumber&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The channel number to which this data format applies. If any active channel numbers are omitted, we will assume the default will be `dataFormat=String&#39;, and &#39;showTimestamps=false&#39;.&quot;
+</span><span>                        }</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;dataFormat&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;One of the supported data formats for RTT channels.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                                </span><span style="color:#86b300;">&quot;String&quot;</span><span style="color:#61676ccc;">,
+</span><span>                                </span><span style="color:#86b300;">&quot;BinaryLE&quot;</span><span style="color:#61676ccc;">,
+</span><span>                                </span><span style="color:#86b300;">&quot;Defmt&quot;
+</span><span>                            ]</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                                </span><span style="color:#86b300;">&quot;String (text) format.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                                </span><span style="color:#86b300;">&quot;Binary Little Endian format.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                                </span><span style="color:#86b300;">&quot;Deferred formatting (see: https://defmt.ferrous-systems.com).&quot;
+</span><span>                            ]</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;String&quot;
+</span><span>                        }</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;showTimestamps&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Enable the inclusion of timestamps in the RTT output for `dataFormat=String`.&quot;
+</span><span>                        }</span><span style="color:#61676ccc;">,
+</span><span>                        </span><span style="color:#86b300;">&quot;showLocation&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                            </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true</span><span style="color:#61676ccc;">,
+</span><span>                            </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Enable the inclusion of Defmt location information in the RTT output for `dataFormat=Defmt`.&quot;
+</span><span>                        }
+</span><span>                    }
+</span><span>                }
+</span><span>            }
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h3 id="attach-supported-configuration-options">Attach: Supported configuration options.</h3>
+<pre data-lang="json" style="background-color:#fafafa;color:#61676c;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#86b300;">&quot;attach&quot;</span><span>: {
+</span><span>  </span><span style="color:#86b300;">&quot;required&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>      </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;
+</span><span>  ]</span><span style="color:#61676ccc;">,
+</span><span>  </span><span style="color:#86b300;">&quot;properties&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>      </span><span style="color:#86b300;">&quot;server&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Optionally connect to an existing `probe-rs-debugger` session on IP and Port, e.g. &#39;127.0.0.1:50000&#39;&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;127.0.0.1:50000&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;consoleLogLevel&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The level of log info printed to the console. This does NOT affect the RUST_LOG defined in the `env` property.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>              </span><span style="color:#86b300;">&quot;Console&quot;</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;Info&quot;</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;Debug&quot;
+</span><span>          ]</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>              </span><span style="color:#86b300;">&quot;The console will only contain error messages and process status messages.&quot;</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;The console log will also contain high level information about interactions between the extension and the debug adapter.&quot;</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;The console log will also contain detailed information about interactions between the extension and the debug adapter.&quot;
+</span><span>          ]</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Console&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;runtimeExecutable&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;An OS resolvable path to the Probe-rs debugger executable.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;probe-rs&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;runtimeArgs&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;array&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>              </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;
+</span><span>          }</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;String array of arguments to provide the startup arguments for the Probe-rs debugger executable.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>              </span><span style="color:#86b300;">&quot;dap-server&quot;
+</span><span>          ]
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;env&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;additionalProperties&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>              </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;
+</span><span>          }</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span>{}</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Environment variables defined as a key value pair. The &#39;key&#39; is the name of the environment variable, and the &#39;value&#39; is value of the environment variable.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;object&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;cwd&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The working directory of the debugger, typically the RUST crate root&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;${workspaceFolder}&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;probe&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Use this flag to select a specific probe in the list. Use &#39;--probe VID:PID&#39; or &#39;--probe VID:PID:Serial&#39; if you have more than one probe with the same VID:PID.&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;chip&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Please specify the appropriate chip from the list of supported chips reported by running `probe-rs-debugger list-chips`.&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;connectUnderReset&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;This option will result in the target reset pin being held high during the attach operation.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;speed&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Specify the protocol speed in kHz.&quot;
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;wireProtocol&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The correct wire Protocol to use.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>              </span><span style="color:#86b300;">&quot;Swd&quot;</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;Jtag&quot;
+</span><span>          ]</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>              </span><span style="color:#86b300;">&quot;Use the Serial Wire Debug (SWD) protocol.&quot;</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;Use the Joint Test Action Group (JTAG) protocol.&quot;
+</span><span>          ]
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;allowEraseAll&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Allow the session to erase all memory of the chip or reset it to factory default.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true
+</span><span>      }</span><span style="color:#61676ccc;">,
+</span><span>      </span><span style="color:#86b300;">&quot;coreConfigs&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;array&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Each MCU core will have a mandatory `coreIndex`, `programBinary`, and `chip` as well as several other optional properties.&quot;</span><span style="color:#61676ccc;">,
+</span><span>          </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>              </span><span style="color:#86b300;">&quot;required&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                  </span><span style="color:#86b300;">&quot;programBinary&quot;
+</span><span>              ]</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;coreIndex&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                  </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The zero based index of the MCU core for this session&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">0
+</span><span>              }</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;programBinary&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                  </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The path (relative to `cwd` or absolute) to the binary for your target firmware&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;./target/thumbv7em-none-eabihf/debug/${workspaceFolderBasename}&quot;
+</span><span>              }</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;svdFile&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                  </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The path (relative to `cwd` or absolute) to the CMCIS-SVD file for your target core&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;./CMSIS.SVD&quot;
+</span><span>              }</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;rttEnabled&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                  </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;If true, the debugger will open an RTT Terminal tab for each of the active channels on the target.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false
+</span><span>              }</span><span style="color:#61676ccc;">,
+</span><span>              </span><span style="color:#86b300;">&quot;rttChannelFormats&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                  </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;array&quot;</span><span style="color:#61676ccc;">,
+</span><span>                  </span><span style="color:#86b300;">&quot;items&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                      </span><span style="color:#86b300;">&quot;channelNumber&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;number&quot;</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;The channel number to which this data format applies. If any active channel numbers are omitted, we will assume the default will be `dataFormat=String&#39;, and &#39;showTimestamps=false&#39;.&quot;
+</span><span>                      }</span><span style="color:#61676ccc;">,
+</span><span>                      </span><span style="color:#86b300;">&quot;dataFormat&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;string&quot;</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;One of the supported data formats for RTT channels.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;enum&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                              </span><span style="color:#86b300;">&quot;String&quot;</span><span style="color:#61676ccc;">,
+</span><span>                              </span><span style="color:#86b300;">&quot;BinaryLE&quot;</span><span style="color:#61676ccc;">,
+</span><span>                              </span><span style="color:#86b300;">&quot;Defmt&quot;
+</span><span>                          ]</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;enumDescriptions&quot;</span><span style="color:#61676ccc;">: </span><span>[
+</span><span>                              </span><span style="color:#86b300;">&quot;String (text) format.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                              </span><span style="color:#86b300;">&quot;Binary Little Endian format.&quot;</span><span style="color:#61676ccc;">,
+</span><span>                              </span><span style="color:#86b300;">&quot;Deferred formatting (see: https://defmt.ferrous-systems.com).&quot;
+</span><span>                          ]</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;String&quot;
+</span><span>                      }</span><span style="color:#61676ccc;">,
+</span><span>                      </span><span style="color:#86b300;">&quot;showTimestamps&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">false</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Enable the inclusion of timestamps in the RTT output for `dataFormat=String`.&quot;
+</span><span>                      }</span><span style="color:#61676ccc;">,
+</span><span>                      </span><span style="color:#86b300;">&quot;showLocation&quot;</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                          </span><span style="color:#86b300;">&quot;type&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;boolean&quot;</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;default&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">true</span><span style="color:#61676ccc;">,
+</span><span>                          </span><span style="color:#86b300;">&quot;description&quot;</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Enable the inclusion of Defmt location information in the RTT output for `dataFormat=Defmt`.&quot;
+</span><span>                      }
+</span><span>                  }
+</span><span>              }
+</span><span>          }
+</span><span>      }
+</span><span>  }
+</span><span>}
+</span></code></pre>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+              
+              <a href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;getting-started&#x2F;probe-setup&#x2F;">
+                <div class="card my-1">
+                  <div class="card-body py-2">
+                    &larr; Probe Setup
+                  </div>
+                </div>
+              </a>
+            
+            
+            
+          
+        
+      
+        
+        
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+          
+          
+          <a class="ms-auto" href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;library&#x2F;quickstart&#x2F;">
+            <div class="card my-1">
+              <div class="card-body py-2">
+                Quickstart &rarr;
+              </div>
+            </div>
+          </a>
+          
+          
+          
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

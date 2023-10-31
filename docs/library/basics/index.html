@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Basic Usage | probe-rs</title>
+<meta name="description" content="The very basics of using probe-rs.">
+<link rel="canonical" href="https://probe.rs/docs/library/basics/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Library",
+            "item": "https://probe.rs/docs/library/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Basics",
+            "item": "https://probe.rs/docs/library/basics/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/library/basics/#the-probe-struct">The Probe struct</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/library/basics/#the-session-struct">The Session struct</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/library/basics/#the-core-struct">The Core struct</a>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Basic Usage</h1>
+        
+        <h2 id="the-probe-struct">The Probe struct</h2>
+<p>The <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html">Probe</a> struct represents the physical probe in code form.
+It is used to do probe discovery, set physical parameters of the probe, spawn sessions and last but
+not least use special probe specific features such as SWV tracing, hard reset, etc.
+So if you are looking for non-core-architecture-specific functionality, the <code>Probe</code> struct is most likely the
+right place to look.</p>
+<p>While it is possible to open a probe from a boxed trait this is most likely not really helpful for a user. As a dev this is needed if you implement your own probe. More about this in the <a href="/guide/basics#probe">chapter about implementing your own probe</a>.</p>
+<p>Best is to list the connected probes and open the one you like. Most likely there is one only anyways.</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="font-style:italic;color:#abb0b6;">// Get a list of all available debug probes.
+</span><span style="color:#fa6e32;">let</span><span> probes </span><span style="color:#ed9366;">= </span><span>Probe</span><span style="color:#ed9366;">::</span><span>list_all()</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// Use the first probe found.
+</span><span style="color:#fa6e32;">let</span><span> probe </span><span style="color:#ed9366;">=</span><span> probes[</span><span style="color:#ff8f40;">0</span><span>]</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">open</span><span>()</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>Now you can access all the functionality a probe can offer. Not all probes offer the same functionality, which is why some calls may return a negative <code>Result</code>.</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="font-style:italic;color:#abb0b6;">// Perform a hard reset of the connected target via the probe.
+</span><span>probe</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">target_reset</span><span>()</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// Select the debug protocol. Default is SWD.
+</span><span>probe</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">select_protocol</span><span>(WireProtocol</span><span style="color:#ed9366;">::</span><span>Swd)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// Attach to a chosen target.
+</span><span style="color:#fa6e32;">let</span><span> session </span><span style="color:#ed9366;">=</span><span> probes[</span><span style="color:#ff8f40;">0</span><span>]</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">attach</span><span>(</span><span style="color:#86b300;">&quot;nRF52&quot;</span><span>)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>Now we have got our <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Session.html">Session</a> ready to conduct further business.
+Take a closer look at the <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html#method.attach">::attach()</a> call. Apart from passing a chip name, you can also pass various other arguments for selecting the chip.</p>
+<h2 id="the-session-struct">The Session struct</h2>
+<p>The <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Session.html">Session</a> construct is an established connection of a Probe to a Chip.
+The session can be used to list cores and attach to a core.
+It can also read properties of the target and is used to facilitate some internal things.
+Most likely the only thing you'll ever use a Session for is attaching to a core.</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="font-style:italic;color:#abb0b6;">/// List and print all cores.
+</span><span style="color:#fa6e32;">let</span><span> cores </span><span style="color:#ed9366;">=</span><span> session</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">list_cores</span><span>()</span><span style="color:#61676ccc;">;
+</span><span style="color:#f07171;">println!</span><span>(</span><span style="color:#86b300;">&quot;</span><span style="color:#ff8f40;">{:?}</span><span style="color:#86b300;">&quot;</span><span style="color:#61676ccc;">,</span><span> cores)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">/// Attach to a core.
+</span><span style="color:#fa6e32;">let</span><span> core </span><span style="color:#ed9366;">=</span><span> session</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">core</span><span>(</span><span style="color:#ff8f40;">0</span><span>)</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<h2 id="the-core-struct">The Core struct</h2>
+<p>The <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Core.html">Core</a> is probably the struct you will interact most with.
+With the core struct you can manipulate the CPU and it's accessible memories.</p>
+<p>In the previous sections we have learned how we attach to a core. 
+Sometimes you want to access the core operations in quick fashion. 
+This is what <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach">Session::auto_attach()</a> is for. 
+It lets you attach to the Core without first opening a Probe. 
+It will try to open a connected prbe, and select the Core as best as it can</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#fa6e32;">let</span><span> session </span><span style="color:#ed9366;">= </span><span>Session</span><span style="color:#ed9366;">::</span><span>auto_attach(</span><span style="color:#86b300;">&quot;chip_name&quot;</span><span>)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">let</span><span> core </span><span style="color:#ed9366;">=</span><span> session</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">core</span><span>(</span><span style="color:#ff8f40;">0</span><span>)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>Once you have attached to the Core, you are able to halt the Core at any point in time.</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">halt</span><span>()</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>The <a rel="noopener" target="_blank" href="https://docs.rs/probe-rs/*/probe_rs/struct.Core.html#method.halt">Core::halt()</a> call does not ensure the Core will actually halt.
+So you might want to ask the core whether it has halted</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#fa6e32;">while let </span><span style="font-style:italic;color:#55b4d4;">Ok</span><span>(halted) </span><span style="color:#ed9366;">=</span><span> core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">core_halted</span><span>()</span><span style="color:#ed9366;">? </span><span>{
+</span><span>    </span><span style="color:#fa6e32;">if</span><span> halted {
+</span><span>        </span><span style="color:#fa6e32;">break</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>We can single step the CPU on a per instruction basis</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">step</span><span>()</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>or just let the core run</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">run</span><span>()</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>And of course we can reset the core</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">reset</span><span>()</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>Keep in mind it sometimes has to run for the reset to work.
+This is a soft reset and might come with kinks and quirks.
+Check the Probe struct for a hard reset.</p>
+<p>Of course it's also possible to manipulate the CPU registers</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#fa6e32;">let</span><span> reg </span><span style="color:#ed9366;">=</span><span> core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">read_core_reg</span><span>(</span><span style="color:#ff8f40;">0x00</span><span>)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">read_core_reg</span><span>(</span><span style="color:#ff8f40;">0x00</span><span style="color:#61676ccc;">,</span><span> reg </span><span style="color:#ed9366;">| </span><span style="color:#ff8f40;">0x42</span><span>)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>We can also use hardware breakpoints</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="font-style:italic;color:#abb0b6;">// More often than not you will want to set a breakpoint.
+</span><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">set_hw_breakpoint</span><span>(address)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// But of course you can also remove the breakpoint.
+</span><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">clear_hw_breakpoint</span><span>(address)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>Of course manipulating the CPU alone is not enough. Therefore it's also possible to access the memories that are physically accessible by the CPU.</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="font-style:italic;color:#abb0b6;">// We can read a single word for the convenience of reading registers.
+</span><span style="color:#fa6e32;">let</span><span> value </span><span style="color:#ed9366;">=</span><span> core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">read_word_32</span><span>(address)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// For reading flash contents you&#39;ll most likely want a block memory access.
+</span><span style="color:#fa6e32;">let mut</span><span> buffer </span><span style="color:#ed9366;">= </span><span>[</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">; </span><span style="color:#ff8f40;">1337</span><span>]</span><span style="color:#61676ccc;">;
+</span><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">read_32</span><span>(address</span><span style="color:#61676ccc;">, </span><span style="color:#ed9366;">&amp;</span><span style="color:#fa6e32;">mut</span><span> buffer)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// Since reading alone is no fun, we can also write data.
+</span><span style="color:#fa6e32;">let</span><span> value </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">42</span><span style="color:#61676ccc;">;
+</span><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">write_word_32</span><span>(address</span><span style="color:#61676ccc;">,</span><span> value)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;">// And again, block-access.
+</span><span style="color:#fa6e32;">let</span><span> buffer </span><span style="color:#ed9366;">= </span><span>[</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">; </span><span style="color:#ff8f40;">42</span><span>]</span><span style="color:#61676ccc;">;
+</span><span>core</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">write_32</span><span>(address</span><span style="color:#61676ccc;">, </span><span style="color:#ed9366;">&amp;</span><span>buffer)</span><span style="color:#ed9366;">?</span><span style="color:#61676ccc;">;
+</span></code></pre>
+<p>probe-rs handles batching for bigger memory requests and should optimize for maximum speed.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+              
+              <a href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;tools&#x2F;vscode&#x2F;">
+                <div class="card my-1">
+                  <div class="card-body py-2">
+                    &larr; VSCode
+                  </div>
+                </div>
+              </a>
+            
+            
+            
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+          
+          
+          
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

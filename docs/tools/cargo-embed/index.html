@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>cargo-embed | probe-rs</title>
+<meta name="description" content="The cargo-embed utility explained.">
+<link rel="canonical" href="https://probe.rs/docs/tools/cargo-embed/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Tools",
+            "item": "https://probe.rs/docs/tools/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Cargo Embed",
+            "item": "https://probe.rs/docs/tools/cargo-embed/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/tools/cargo-embed/#installation">Installation</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/cargo-embed/#usage">Usage</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/cargo-embed/#configuration">Configuration</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/tools/cargo-embed/#profiles">Profiles</a></li>
+  											
+  									</ul>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/tools/cargo-embed/#rtt">RTT</a>
+  							
+  									<ul>
+  											
+  											<li><a href="https://probe.rs/docs/tools/cargo-embed/#target">Target</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/cargo-embed/#host">Host</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/cargo-embed/#don-t-panic">Don&#x27;t panic!</a></li>
+  											
+  											<li><a href="https://probe.rs/docs/tools/cargo-embed/#all-the-channels">All the channels!</a></li>
+  											
+  									</ul>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>cargo-embed</h1>
+        
+        <p><strong>cargo-embed</strong> is the big brother of cargo-flash.</p>
+<p>It can also flash a target just like cargo-flash, but it can also open an RTT terminal as well as a GDB server.</p>
+<p>And there is much more to come in the future!</p>
+<h2 id="installation">Installation</h2>
+<p><strong>cargo-embed</strong> is installed as part of the <strong>probe-rs</strong> group of tools, see the
+<a href="https://probe.rs/docs/getting-started/installation/">Installation</a> page.</p>
+<h2 id="usage">Usage</h2>
+<p>You can use it like any cargo command would be used</p>
+<pre data-lang="bash" style="background-color:#fafafa;color:#61676c;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#f29718;">cargo</span><span> embed </span><span style="color:#ed9366;">&lt;</span><span>args</span><span style="color:#ed9366;">&gt;
+</span></code></pre>
+<p>This will do following in sequence:</p>
+<ol>
+<li>build your binary</li>
+<li>detect a probe</li>
+<li>(if enabled) upload the contents onto the connected target</li>
+<li>(if enabled) reset the target</li>
+<li>(if enabled) start RTT host side</li>
+<li>(if enabled) start gdb debugging</li>
+</ol>
+<h2 id="configuration">Configuration</h2>
+<p>You can configure <code>cargo-embed</code> with a file called <code>Embed.toml</code> (or <code>.embed.toml</code>) in your project directory.</p>
+<p>Config file precedence:</p>
+<ol>
+<li><code>Embed.local.*</code></li>
+<li><code>.embed.local.*</code></li>
+<li><code>Embed.*</code></li>
+<li><code>.embed.*</code></li>
+<li>Default configuration</li>
+</ol>
+<p>Instead of a TOML file, you can also use a JSON or YAML file. Choose what suits you best!</p>
+<p>Here's a simple example:</p>
+<pre data-lang="toml" style="background-color:#fafafa;color:#61676c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#399ee6;">default</span><span style="color:#61676ccc;">.</span><span style="color:#399ee6;">general</span><span>]
+</span><span style="color:#399ee6;">chip </span><span>= </span><span style="color:#86b300;">&quot;STM32F401CCUx&quot;
+</span><span>
+</span><span>[</span><span style="color:#399ee6;">default</span><span style="color:#61676ccc;">.</span><span style="color:#399ee6;">rtt</span><span>]
+</span><span style="color:#399ee6;">enabled </span><span>= </span><span style="color:#ff8f40;">true
+</span></code></pre>
+<p>All available options can be found in the
+<a rel="noopener" target="_blank" href="https://github.com/probe-rs/probe-rs/blob/master/probe-rs/src/bin/probe-rs/cmd/cargo_embed/config/default.toml">default.toml</a>. This
+example uses toml syntax to set each option under the <code>default</code> top-level profile key.</p>
+<p>The <code>Embed.toml</code> should be part of the project, i.e. added to Git history. For local-only configuration overrides, you can
+create an <code>Embed.local.toml</code> (or <code>.embed.local.toml</code>) file and add that to your .gitignore.
+The local files take precedence.</p>
+<h3 id="profiles">Profiles</h3>
+<p>The data in the <code>Embed.toml</code> is structured in two levels: The outer layer is a configuration profile
+name, inside each profile there are then a series of sections with different options.
+The default profile is called &quot;default&quot; ;)
+When invoking cargo-embed, a different profile name can be passed as an argument with <code>--config &lt;profile&gt;</code>, which will load the settings
+under that profile instead of <code>default</code>.</p>
+<p>For example, in your <code>Embed.toml</code>:</p>
+<pre data-lang="toml" style="background-color:#fafafa;color:#61676c;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#399ee6;">default</span><span style="color:#61676ccc;">.</span><span style="color:#399ee6;">general</span><span>]
+</span><span style="color:#399ee6;">chip </span><span>= </span><span style="color:#86b300;">&quot;STM32F401CCUx&quot;
+</span><span>
+</span><span style="font-style:italic;color:#abb0b6;"># No need to set this again, other profiles inherit from the &quot;default&quot; profile
+</span><span style="font-style:italic;color:#abb0b6;">#[with_rtt.general]
+</span><span style="font-style:italic;color:#abb0b6;">#chip = &quot;STM32F401CCUx&quot;
+</span><span>
+</span><span>[</span><span style="color:#399ee6;">with_rtt</span><span style="color:#61676ccc;">.</span><span style="color:#399ee6;">rtt</span><span>]
+</span><span style="color:#399ee6;">enabled </span><span>= </span><span style="color:#ff8f40;">true
+</span></code></pre>
+<p>Now you can run <code>cargo embed --config with_rtt</code> to have RTT enabled, while <code>cargo embed</code> will use
+the default config &quot;default&quot; without RTT.</p>
+<h2 id="rtt">RTT</h2>
+<p>RTT stands for <strong>real time transfers</strong> and is a mechanism to transfer data between the debug host and the debuggee.</p>
+<p>In its essence it provides a configurable amount of ringbuffers, which are read/written by the target and the debug
+host.
+The protocol initially was published by <a rel="noopener" target="_blank" href="https://www.segger.com/products/debug-probes/j-link/technology/about-real-time-transfer/">Segger</a> but there is really no magic to it other than ringbuffers being used.
+This mechanism allows us to transfer data from the target to the host and vice versa really fast.</p>
+<p>RTT features:</p>
+<ul>
+<li>Fast duplex data transfers</li>
+<li>A configurable amount of channels(buffers)</li>
+<li>Channels can be blocking and non blocking - your choice</li>
+</ul>
+<p>This guide should get you going in no time to speed up your development with probe-rs.</p>
+<h3 id="target">Target</h3>
+<p>For the target side, we offer <a rel="noopener" target="_blank" href="https://crates.io/crates/rtt-target">rtt-target</a>, a small lib
+to set up the RTT structures in the target memory and read/write data from/to them.</p>
+<p>A minimal example of a host firmware would be</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#61676ccc;">#!</span><span>[</span><span style="color:#f29718;">no_std</span><span>]
+</span><span style="color:#61676ccc;">#!</span><span>[</span><span style="color:#f29718;">no_main</span><span>]
+</span><span>
+</span><span style="color:#fa6e32;">use</span><span> microbit </span><span style="color:#ed9366;">as _</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">use</span><span> panic_halt </span><span style="color:#ed9366;">as _</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">use </span><span>rtt_target</span><span style="color:#ed9366;">::</span><span>{rprintln</span><span style="color:#61676ccc;">,</span><span> rtt_init_print}</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="color:#61676ccc;">#</span><span>[</span><span style="color:#f29718;">cortex_m_rt</span><span>::</span><span style="color:#f29718;">entry</span><span>]
+</span><span style="color:#fa6e32;">fn </span><span style="color:#f29718;">main</span><span>() </span><span style="color:#61676ccc;">-&gt; </span><span style="color:#ed9366;">! </span><span>{
+</span><span>    </span><span style="color:#f07171;">rtt_init_print!</span><span>()</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">loop </span><span>{
+</span><span>        </span><span style="color:#f07171;">rprintln!</span><span>(</span><span style="color:#86b300;">&quot;Hello, world!&quot;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h3 id="host">Host</h3>
+<p>On the host, just run</p>
+<pre style="background-color:#fafafa;color:#61676c;"><code><span>cargo embed
+</span></code></pre>
+<p>with RTT enabled in the <code>Embed.toml</code> file.</p>
+<p>Now you should be able to see all the 'Hello World!'s in a default channel called &quot;Terminal&quot;!</p>
+<p><img src="/img/cargo-embed-simple.png" alt="Hello World output via RTT" /></p>
+<h4 id="keyboard-shortcuts">Keyboard shortcuts</h4>
+<table><thead><tr><th>Command</th><th>Action</th></tr></thead><tbody>
+<tr><td><code>^c</code></td><td>Quit</td></tr>
+<tr><td><code>Fn{n}</code></td><td>Switch to tab <code>n</code></td></tr>
+<tr><td>Any character</td><td>Add the character to the pending input</td></tr>
+<tr><td><code>Backspace</code></td><td>Delete the last character of the pending input</td></tr>
+<tr><td><code>Enter</code></td><td>Send the pending input</td></tr>
+<tr><td><code>PgUp</code></td><td>Scroll up</td></tr>
+<tr><td><code>PgDn</code></td><td>Scroll Down</td></tr>
+<tr><td><code>^l</code></td><td>Clear current tab</td></tr>
+</tbody></table>
+<h3 id="don-t-panic">Don't panic!</h3>
+<p>Of course it is easy to log all panics via RTT! Here is a most simple example of a panic handler:</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#61676ccc;">#!</span><span>[</span><span style="color:#f29718;">no_std</span><span>]
+</span><span style="color:#61676ccc;">#!</span><span>[</span><span style="color:#f29718;">no_main</span><span>]
+</span><span>
+</span><span style="color:#fa6e32;">use </span><span>core</span><span style="color:#ed9366;">::</span><span>panic</span><span style="color:#ed9366;">::</span><span>PanicInfo</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">use</span><span> microbit </span><span style="color:#ed9366;">as _</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">use </span><span>rtt_target</span><span style="color:#ed9366;">::</span><span>{rprintln</span><span style="color:#61676ccc;">,</span><span> rtt_init_print}</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="color:#61676ccc;">#</span><span>[</span><span style="color:#f29718;">cortex_m_rt</span><span>::</span><span style="color:#f29718;">entry</span><span>]
+</span><span style="color:#fa6e32;">fn </span><span style="color:#f29718;">main</span><span>() </span><span style="color:#61676ccc;">-&gt; </span><span style="color:#ed9366;">! </span><span>{
+</span><span>    </span><span style="color:#f07171;">rtt_init_print!</span><span>()</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">loop </span><span>{
+</span><span>        </span><span style="color:#f07171;">rprintln!</span><span>(</span><span style="color:#86b300;">&quot;Hello, world!&quot;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>        </span><span style="color:#fa6e32;">for </span><span style="color:#ed9366;">_ in </span><span style="color:#ff8f40;">0</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">1_000_000 </span><span>{
+</span><span>            cortex_m</span><span style="color:#ed9366;">::</span><span>asm</span><span style="color:#ed9366;">::</span><span>nop()</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#f07171;">panic!</span><span>(</span><span style="color:#86b300;">&quot;This is an intentional panic.&quot;</span><span>)</span><span style="color:#61676ccc;">;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#61676ccc;">#</span><span>[</span><span style="color:#f29718;">inline</span><span>(never)]
+</span><span style="color:#61676ccc;">#</span><span>[</span><span style="color:#f29718;">panic_handler</span><span>]
+</span><span style="color:#fa6e32;">fn </span><span style="color:#f29718;">panic</span><span>(</span><span style="color:#ff8f40;">info</span><span style="color:#61676ccc;">: </span><span style="color:#ed9366;">&amp;</span><span>PanicInfo) </span><span style="color:#61676ccc;">-&gt; </span><span style="color:#ed9366;">! </span><span>{
+</span><span>    </span><span style="color:#f07171;">rprintln!</span><span>(</span><span style="color:#86b300;">&quot;{}&quot;</span><span style="color:#61676ccc;">,</span><span> info)</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">loop </span><span>{} </span><span style="font-style:italic;color:#abb0b6;">// You might need a compiler fence in here.
+</span><span>}
+</span></code></pre>
+<p>And in the open rttui view you should see the panic.</p>
+<p><img src="/img/cargo-embed-panic.png" alt="Example panic logged to your channel" /></p>
+<p>We intentionally ship no default panic handler, so that you may choose the channel of your choice to log the panic
+to.</p>
+<p>So how do I get more channels, you might ask. Read on!</p>
+<h3 id="all-the-channels">All the channels!</h3>
+<p>You can define multiple channels via a provided macro as seen in this snippet</p>
+<pre data-lang="rs" style="background-color:#fafafa;color:#61676c;" class="language-rs "><code class="language-rs" data-lang="rs"><span style="color:#61676ccc;">#!</span><span>[</span><span style="color:#f29718;">no_main</span><span>]
+</span><span style="color:#61676ccc;">#!</span><span>[</span><span style="color:#f29718;">no_std</span><span>]
+</span><span>
+</span><span style="color:#fa6e32;">use</span><span> microbit </span><span style="color:#ed9366;">as _</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">use</span><span> panic_halt </span><span style="color:#ed9366;">as _</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="color:#fa6e32;">use </span><span>core</span><span style="color:#ed9366;">::</span><span>fmt</span><span style="color:#ed9366;">::</span><span>Write</span><span style="color:#61676ccc;">;
+</span><span style="color:#fa6e32;">use </span><span>cortex_m_rt</span><span style="color:#ed9366;">::</span><span>entry</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="color:#fa6e32;">use </span><span>rtt_target</span><span style="color:#ed9366;">::</span><span>rtt_init</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span style="color:#61676ccc;">#</span><span>[</span><span style="color:#f29718;">entry</span><span>]
+</span><span style="color:#fa6e32;">fn </span><span style="color:#f29718;">main</span><span>() </span><span style="color:#61676ccc;">-&gt; </span><span style="color:#ed9366;">! </span><span>{
+</span><span>    </span><span style="color:#fa6e32;">let</span><span> channels </span><span style="color:#ed9366;">= </span><span style="color:#f07171;">rtt_init! </span><span>{
+</span><span>        up</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                size</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">512
+</span><span>                mode</span><span style="color:#61676ccc;">:</span><span> BlockIfFull
+</span><span>                name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Up zero&quot;
+</span><span>            }
+</span><span>            </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                size</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">128
+</span><span>                name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Up one&quot;
+</span><span>            }
+</span><span>            </span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                size</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">128
+</span><span>                name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Up two&quot;
+</span><span>            }
+</span><span>        }
+</span><span>        down</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>            </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">: </span><span>{
+</span><span>                size</span><span style="color:#61676ccc;">: </span><span style="color:#ff8f40;">512
+</span><span>                mode</span><span style="color:#61676ccc;">:</span><span> BlockIfFull
+</span><span>                name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">&quot;Down zero&quot;
+</span><span>            }
+</span><span>        }
+</span><span>    }</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">let mut</span><span> output2 </span><span style="color:#ed9366;">=</span><span> channels</span><span style="color:#ed9366;">.</span><span>up</span><span style="color:#ed9366;">.</span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#f07171;">writeln!</span><span>(
+</span><span>        output2,
+</span><span>        </span><span style="color:#86b300;">&quot;Hi! I will turn anything you type on channel 0 into upper case.&quot;
+</span><span>    )
+</span><span>    </span><span style="color:#ed9366;">.</span><span style="color:#f07171;">ok</span><span>()</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">let mut</span><span> output </span><span style="color:#ed9366;">=</span><span> channels</span><span style="color:#ed9366;">.</span><span>up</span><span style="color:#ed9366;">.</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">let mut</span><span> log </span><span style="color:#ed9366;">=</span><span> channels</span><span style="color:#ed9366;">.</span><span>up</span><span style="color:#ed9366;">.</span><span style="color:#ff8f40;">2</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">let mut</span><span> input </span><span style="color:#ed9366;">=</span><span> channels</span><span style="color:#ed9366;">.</span><span>down</span><span style="color:#ed9366;">.</span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">let mut</span><span> buf </span><span style="color:#ed9366;">= </span><span>[</span><span style="color:#ff8f40;">0</span><span style="color:#fa6e32;">u8</span><span style="color:#61676ccc;">; </span><span style="color:#ff8f40;">512</span><span>]</span><span style="color:#61676ccc;">;
+</span><span>    </span><span style="color:#fa6e32;">let mut</span><span> count</span><span style="color:#61676ccc;">: </span><span style="color:#fa6e32;">u8 </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>    </span><span style="color:#fa6e32;">loop </span><span>{
+</span><span>        </span><span style="color:#fa6e32;">let</span><span> bytes </span><span style="color:#ed9366;">=</span><span> input</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">read</span><span>(</span><span style="color:#ed9366;">&amp;</span><span style="color:#fa6e32;">mut</span><span> buf[</span><span style="color:#ed9366;">..</span><span>])</span><span style="color:#61676ccc;">;
+</span><span>        </span><span style="color:#fa6e32;">if</span><span> bytes </span><span style="color:#ed9366;">&gt; </span><span style="color:#ff8f40;">0 </span><span>{
+</span><span>            </span><span style="color:#fa6e32;">for</span><span> c </span><span style="color:#ed9366;">in</span><span> buf</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">iter_mut</span><span>() {
+</span><span>                c</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">make_ascii_uppercase</span><span>()</span><span style="color:#61676ccc;">;
+</span><span>            }
+</span><span>
+</span><span>            </span><span style="color:#fa6e32;">let mut</span><span> p </span><span style="color:#ed9366;">= </span><span style="color:#ff8f40;">0</span><span style="color:#61676ccc;">;
+</span><span>            </span><span style="color:#fa6e32;">while</span><span> p </span><span style="color:#ed9366;">&lt;</span><span> bytes {
+</span><span>                p </span><span style="color:#ed9366;">+=</span><span> output</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">write</span><span>(</span><span style="color:#ed9366;">&amp;</span><span>buf[p</span><span style="color:#ed9366;">..</span><span>bytes])</span><span style="color:#61676ccc;">;
+</span><span>            }
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#f07171;">writeln!</span><span>(log, </span><span style="color:#86b300;">&quot;Messsge no. </span><span style="color:#ff8f40;">{}</span><span style="color:#86b300;">/</span><span style="color:#ff8f40;">{}</span><span style="color:#86b300;">&quot;</span><span style="color:#61676ccc;">,</span><span> count</span><span style="color:#61676ccc;">,</span><span> bytes)</span><span style="color:#ed9366;">.</span><span style="color:#f07171;">ok</span><span>()</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>        count </span><span style="color:#ed9366;">+= </span><span style="color:#ff8f40;">1</span><span style="color:#61676ccc;">;
+</span><span>
+</span><span>        </span><span style="color:#fa6e32;">for </span><span style="color:#ed9366;">_ in </span><span style="color:#ff8f40;">0</span><span style="color:#ed9366;">..</span><span style="color:#ff8f40;">1_000_000 </span><span>{
+</span><span>            cortex_m</span><span style="color:#ed9366;">::</span><span>asm</span><span style="color:#ed9366;">::</span><span>nop()</span><span style="color:#61676ccc;">;
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>In this example we define three up channels and one down channel.
+The third up channel continuously logs, the second prints just a single info message and what the first one does, you'll
+figure it when you examine channel two ;)</p>
+<p>On the host side it looks like</p>
+<p><img src="/img/cargo-embed.png" alt="Output of three channels" /></p>
+<p>As you can observe, we see all three up channels. You can switch to and from them with the F-keys.
+The down channel will automatically be associated with the corresponding up channel and an input field will
+automatically be displayed for channels with a corresponding down channel. This is done via the channel number, which
+must be the same for the up and down channels. This is the default rttui behavior and can be configured. RTT itself can handle any up/down
+numbers combination.</p>
+<p>Now you should be able to debug conveniently. Happy coding!</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+              
+              <a href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;getting-started&#x2F;probe-setup&#x2F;">
+                <div class="card my-1">
+                  <div class="card-body py-2">
+                    &larr; Probe Setup
+                  </div>
+                </div>
+              </a>
+            
+            
+            
+          
+        
+      
+        
+        
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+          
+          
+          <a class="ms-auto" href="https:&#x2F;&#x2F;probe.rs&#x2F;docs&#x2F;library&#x2F;quickstart&#x2F;">
+            <div class="card my-1">
+              <div class="card-body py-2">
+                Quickstart &rarr;
+              </div>
+            </div>
+          </a>
+          
+          
+          
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>

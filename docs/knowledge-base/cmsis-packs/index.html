@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://probe.rs/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://probe.rs/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>CMSIS Packs | probe-rs</title>
+<meta name="description" content="The CMSIS Pack standard and how probe-rs uses it.">
+<link rel="canonical" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://probe.rs/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://probe.rs/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Knowledge Base",
+            "item": "https://probe.rs/docs/knowledge-base/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Cmsis Packs",
+            "item": "https://probe.rs/docs/knowledge-base/cmsis-packs/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://probe.rs/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://probe.rs/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://probe.rs/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://probe.rs/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://probe.rs">probe-rs</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+					class="feather feather-moon">
+					<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+				</svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+					viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					stroke-linejoin="round" class="feather feather-sun">
+					<circle cx="12" cy="12" r="5"></circle>
+					<line x1="12" y1="1" x2="12" y2="3"></line>
+					<line x1="12" y1="21" x2="12" y2="23"></line>
+					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+					<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+					<line x1="1" y1="12" x2="3" y2="12"></line>
+					<line x1="21" y1="12" x2="23" y2="12"></line>
+					<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+					<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+				</svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+			
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/probe-rs/probe-rs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span
+						class="ms-2 visually-hidden">GitHub</span></a>
+			</li>
+			
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+				
+				
+				<li class="nav-item docs active">
+					<a class="nav-link" href="https://probe.rs/docs/getting-started/installation/">Docs</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://probe.rs/blog/">Blog</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://docs.rs/probe-rs" style="white-space: nowrap;">
+						API
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/sponsors/probe-rs" style="white-space: nowrap;">
+						Sponsor
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 24 24" fill="none"
+							 stroke="currentColor" stroke-width="2"
+							 stroke-linecap="round" stroke-linejoin="round"
+							 class="feather feather-external-link"
+							 style="margin-top: -5px">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15 3 21 3 21 9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</li>
+				
+				
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+			<form class="navbar-form flex-grow-1 order-7 order-md-3">
+				<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+					aria-label="Search docs..." autocomplete="off">
+				<div id="suggestions" class="shadow bg-white rounded"></div>
+			</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+					
+					
+					
+							<h3>Getting Started</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/installation/">Installation</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/getting-started/probe-setup/">Probe Setup</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Tools</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-flash/">cargo-flash</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/cargo-embed/">cargo-embed</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/tools/vscode/">VSCode</a></li>
+							
+					</ul>
+					
+					
+					
+					
+							<h3>The Library</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/quickstart/">Quickstart</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/basics/">Basic Usage</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/library/crosscompiling/">Crosscompiling</a></li>
+							
+					</ul>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+							<h3>Knowledge Base</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link active" href="https://probe.rs/docs/knowledge-base/cmsis-packs/">CMSIS Packs</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/raspberry-pi/">Raspberry Pi</a></li>
+							                           
+									<li><a class="docs-link" href="https://probe.rs/docs/knowledge-base/troubleshooting/">Troubleshooting</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://probe.rs/docs/knowledge-base/cmsis-packs/#basics">Basics</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/knowledge-base/cmsis-packs/#flash-algorithms">Flash Algorithms</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/knowledge-base/cmsis-packs/#yaml-format">YAML format</a>
+  							
+  							
+  							<li><a href="https://probe.rs/docs/knowledge-base/cmsis-packs/#target-extraction">Target extraction</a>
+  							
+  							
+                            </li>
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>CMSIS Packs</h1>
+        
+        <h2 id="basics">Basics</h2>
+<p>CMSIS-Packs are an ARM mechanism and loose <a rel="noopener" target="_blank" href="https://arm-software.github.io/CMSIS_5/Pack/html/cp_Packs.html">specification</a>
+to distribute documentation, flash algorithms, code samples, HALs, etc for an ARM core.</p>
+<p>A CMSIS-Pack is supposed to be created by the ARM core manufacturer and can be distributed in decentralized
+fashion via a list of sources. Nevertheless, ARM <a rel="noopener" target="_blank" href="https://developer.arm.com/tools-and-software/embedded/cmsis/cmsis-search">hosts</a> the CMSIS-Packs for pretty much any chip you'd ever want.</p>
+<p>CMSIS-Packs are ZIP files and contain arbitrary files. The exact structure is manufacturer defined and is
+described in the .pdsc file being placed at the root level of the ZIP file.
+The .pdsc file is a simple XML file containing all the meta information about the Pack.</p>
+<p>Also inside the Pack - most of the time (they can be absent if the manufacturer chooses so) - are the flash
+algorithms to flash the chips described by the Pack.
+Those are the .FLM files, which are plain old <a rel="noopener" target="_blank" href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF binaries</a> adhering to a certain defined structure.</p>
+<h2 id="flash-algorithms">Flash Algorithms</h2>
+<p>A flash algorithm is a simple program that is executed. It consists of a fixed set of (sometimes optional)
+functions which get loaded into RAM and are executed by the flash downloader.
+Those functions are described <a rel="noopener" target="_blank" href="https://arm-software.github.io/CMSIS_5/Pack/html/flashAlgorithm.html">here</a>.
+The same specification also describes the metadata that is stored inside the
+ELF binary itself as a debug symbol and inside the .pdsc file.</p>
+<p>Both, the loadable ELF symbols, as well as the metadata are required to assemble a fully functional flash
+algorithm. This is the job of the flash downloader.
+The functions follow standard ARM EABI calling convention.</p>
+<h2 id="yaml-format">YAML format</h2>
+<p>Since the Packs are full of bloat we don't need, we have introduced a slimmed down format for target
+description.
+We chose YAML to represent the target as it is a well known format and allows comments.
+Every YAML file addresses an entire family of chips equivalent to the CMSIS-Packs.</p>
+<p>The yaml format follows the following structure:</p>
+<pre data-lang="yaml" style="background-color:#fafafa;color:#61676c;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>---
+</span><span style="font-style:italic;color:#abb0b6;"># The name of the chip family.
+</span><span style="color:#399ee6;">name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">string
+</span><span style="font-style:italic;color:#abb0b6;"># A list of all the chips in the family.
+</span><span style="color:#399ee6;">variants</span><span style="color:#61676ccc;">:
+</span><span>  </span><span style="font-style:italic;color:#abb0b6;"># The name of the chip.
+</span><span>  - </span><span style="color:#399ee6;">name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">string
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># A list of all the available memories and their properties.
+</span><span>    </span><span style="color:#399ee6;">memory_map</span><span style="color:#61676ccc;">:
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># The type of the memory. Possible are [Ram, Flash].
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># There needs to be at least one of each present.
+</span><span>      - </span><span style="color:#399ee6;">Ram</span><span style="color:#61676ccc;">:
+</span><span>          </span><span style="color:#399ee6;">range</span><span style="color:#61676ccc;">:
+</span><span>            </span><span style="font-style:italic;color:#abb0b6;"># The start address of the memory (inclusive).
+</span><span>            </span><span style="color:#399ee6;">start</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>            </span><span style="font-style:italic;color:#abb0b6;"># The end address of the memory (inclusive).
+</span><span>            </span><span style="color:#399ee6;">end</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>          </span><span style="font-style:italic;color:#abb0b6;"># Marks the memory as the memory which the chip boots from.
+</span><span>          </span><span style="color:#399ee6;">is_boot_memory</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">boolean
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># A list of all the used flash algorithms.
+</span><span>    </span><span style="color:#399ee6;">flash_algorithms</span><span style="color:#61676ccc;">:
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># The name of the flash algorithm.
+</span><span>      - </span><span style="color:#86b300;">string
+</span><span style="font-style:italic;color:#abb0b6;"># A hashmap of all the available flash algorithms.
+</span><span style="color:#399ee6;">flash_algorithms</span><span style="color:#61676ccc;">:
+</span><span>  </span><span style="font-style:italic;color:#abb0b6;"># The name of the flash algorithm.
+</span><span>  </span><span style="color:#399ee6;">name</span><span style="color:#61676ccc;">:
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The name of the flash algorithm.
+</span><span>    </span><span style="color:#399ee6;">name</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">string
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># A description of the flash algorithm.
+</span><span>    </span><span style="color:#399ee6;">description</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">string
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># Marks the algorithm to be used as the default algorithm.
+</span><span>    </span><span style="color:#399ee6;">default</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">boolean
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># A base 64 encoded ELF binary blob containing
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># all the loadable symbols of the flash algorithm.
+</span><span>    </span><span style="color:#399ee6;">instructions</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">base64string
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The position independent address of the init routine.
+</span><span>    </span><span style="color:#399ee6;">pc_init</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The position independent address of the uninit routine.
+</span><span>    </span><span style="color:#399ee6;">pc_uninit</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The position independent address of the program page routine.
+</span><span>    </span><span style="color:#399ee6;">pc_program_page</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The position independent address of the erase sector routine.
+</span><span>    </span><span style="color:#399ee6;">pc_erase_sector</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The position independent address of the erase all routine.
+</span><span>    </span><span style="color:#399ee6;">pc_erase_all</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>    </span><span style="font-style:italic;color:#abb0b6;"># The offset where the data section of the ELF binary starts.
+</span><span>    </span><span style="color:#399ee6;">data_section_offset</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>    </span><span style="color:#399ee6;">flash_properties</span><span style="color:#61676ccc;">:
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># The address range for which this flash algorithm is to be used.
+</span><span>      </span><span style="color:#399ee6;">address_range</span><span style="color:#61676ccc;">:
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;"># The start address (inclusive).
+</span><span>        </span><span style="color:#399ee6;">start</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;"># The start address (inclusive).
+</span><span>        </span><span style="color:#399ee6;">end</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># The programmable block size. This is the unit size that can be written to flash.
+</span><span>      </span><span style="color:#399ee6;">page_size</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># The erased value of a byte in flash.
+</span><span>      </span><span style="color:#399ee6;">erased_byte_value</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># How long a page program procedure can take.
+</span><span>      </span><span style="color:#399ee6;">program_page_timeout</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># How long a sector erase procedure can take.
+</span><span>      </span><span style="color:#399ee6;">erase_sector_timeout</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>      </span><span style="font-style:italic;color:#abb0b6;"># The sectors this piece of flash consists of. A sector is the erasable unit.
+</span><span>      </span><span style="color:#399ee6;">sectors</span><span style="color:#61676ccc;">:
+</span><span>        </span><span style="font-style:italic;color:#abb0b6;"># The size of the sectors starting form the address below.
+</span><span>        - </span><span style="color:#399ee6;">size</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span>          </span><span style="font-style:italic;color:#abb0b6;"># The address from on which the new sector size is applicable.
+</span><span>          </span><span style="color:#399ee6;">address</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">number
+</span><span style="font-style:italic;color:#abb0b6;"># The core type. Currently valid are [M4, M3, M33, M0, RISCV]
+</span><span style="color:#399ee6;">core</span><span style="color:#61676ccc;">: </span><span style="color:#86b300;">string
+</span></code></pre>
+<h2 id="target-extraction">Target extraction</h2>
+<p>Since doing all of this by hand would be madness, we provide a utility called <a rel="noopener" target="_blank" href="https://github.com/probe-rs/target-gen">target-gen</a> which can be used to
+extract a family definition. Including all metadata and the ELF blob.</p>
+<p>The utility accepts both an unzipped Pack folder as well as the still zipped .pack file, and can even download pack files automatically if required.
+Please use <code>target-gen --help</code> to see available options.
+The generated file can be loaded as a target by probe-rs or submitted as a PR if you think it belongs in the built-in targets provided by probe-rs.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+          
+        
+      
+        
+        
+          
+            
+            
+            
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+        
+        
+          
+        
+      
+    
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">© 2019 - 2023 the probe-rs developers</li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://probe.rs/js/main.js" defer></script>
+
+  <script src="https://probe.rs/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://probe.rs/search_index.en.js" defer></script>
+  <script src="https://probe.rs/js/search.js" defer></script>
+
+  
+</body>
+</html>
