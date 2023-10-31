@@ -5,7 +5,7 @@
 # This rules are based on the udev rules from the OpenOCD project, with unsupported probes removed.
 # See http://openocd.org/ for more details.
 #
-# This file is available under the GNU General Public License v2.0 
+# This file is available under the GNU General Public License v2.0
 
 ACTION!="add|change", GOTO="probe_rs_rules_end"
 
@@ -120,7 +120,8 @@ ATTRS{idVendor}=="1366", ATTRS{idProduct}=="106d", MODE="660", GROUP="plugdev", 
 ATTRS{idVendor}=="1366", ATTRS{idProduct}=="106e", MODE="660", GROUP="plugdev", TAG+="uaccess"
 ATTRS{idVendor}=="1366", ATTRS{idProduct}=="106f", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
-
+# Espressif dev kit FTDI
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="660", GROUP="plugdev", TAG+="uaccess"
 # Espressif USB JTAG/serial debug unit
 ATTRS{idVendor}=="303a", ATTRS{idProduct}=="1001", MODE="660", GROUP="plugdev", TAG+="uaccess"
 # Espressif USB Bridge
