@@ -38,6 +38,15 @@
   justify-content: center;
   column-gap: 5px;
   row-gap: 5px;
+
+  & .selector-wrapper {
+    & h3 {
+      color: var(--color-foreground-1);
+      margin: 0;
+      margin-bottom: 10;
+      padding: 5px;
+    }
+  }
 }
 
 .targets-list {

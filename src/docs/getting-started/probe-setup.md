@@ -9,7 +9,7 @@ The probe-rs project supports three probes out of the box.
 Most of them require little to no setup. For linux, [udev](#udev-rules) rules
 are required for non admin access.
 
-The [ST-Link](#st-link), to [J-Link](#segger-j-link) and [CMSIS-DAP](#cmsis-dap)
+The [ST-Link](#st-link), [J-Link](#segger-j-link) and [CMSIS-DAP](#cmsis-dap)
 based probes are supported.
 
 ## udev rules
@@ -18,7 +18,7 @@ By default, the debug probes are only accessible by users with root privileges
 on Linux based systems. It is recommend to use appropriate udev rules to allow
 users without root privileges access to the debug probes as well.
 
-1. Download the file [69-probe-rs.rules](/files/69-probe-rs.rules)[^1] and place
+1. Download the <a href="/files/69-probe-rs.rules" download>rules file</a> and place
    it in /etc/udev/rules.d.
 2. Run `udevadm control --reload` to ensure the new rules are used.
 3. Run `udevadm trigger` to ensure the new rules are applied to already added

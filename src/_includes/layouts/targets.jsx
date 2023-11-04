@@ -20,14 +20,28 @@ export default async (
 
         <probe-rs-filter>
           <form className="targets-filter">
-            <select name="manufacturer" className="selector">
-              <option value="SHOW_ALL_MANUFACTURERS">Show All</option>
-              {manufacturers.map((name) => <option value={name}>{name}</option>)}
-            </select>
-            <select name="family" className="selector">
-              <option value="SHOW_ALL_FAMILIES">Show All</option>
-              {families.map(([name, manufacturer]) => <option value={name} data-manufacturer={manufacturer}>{name}</option>)}
-            </select>
+            <div className="selector-wrapper">
+              <h3>
+                Manufacturer
+              </h3>
+              <select name="manufacturer" className="selector">
+                <option value="SHOW_ALL_MANUFACTURERS">Show All</option>
+                {manufacturers.map((name) => (
+                  <option value={name}>{name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="selector-wrapper">
+              <h3>Family</h3>
+              <select name="family" className="selector">
+                <option value="SHOW_ALL_FAMILIES">Show All</option>
+                {families.map(([name, manufacturer]) => (
+                  <option value={name} data-manufacturer={manufacturer}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </form>
 
           <ul className="targets-list">
