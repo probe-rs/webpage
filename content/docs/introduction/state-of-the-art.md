@@ -22,7 +22,7 @@ To understand why we need another tool, we describe existing tools in the next p
 
 **Positive**
 
-+ Supports an extreme amount of targes.
++ Supports an extreme amount of targets.
 + Includes a lot of features and gets new chip additions frequently.
 + The tools are very stable.
 + Integrated into many IDEs and manufacturer tooling.
@@ -34,13 +34,13 @@ To understand why we need another tool, we describe existing tools in the next p
 - The J-Link is quite expensive (200$+) for non-educational purposes though you can get a lesser version for 50$ if you use it for educational purposes.
 - GDB based tooling; more on why this is bad, see [GDB](/guide/introduction/state-of-the-art/#gdb).
 - Tooling has nineties UI and UX.
-- The libary is not free to use.
+- The library is not free to use.
 
 ## OpenOCD
 
 **Positive**
 
-+ Supports an extreme amount of targes.
++ Supports an extreme amount of targets.
 + Supports a lot of probes.
 + Integrated into many IDEs and manufacturer tooling.
 + Exists for a long time and has a lot of contributors.

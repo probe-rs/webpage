@@ -275,7 +275,7 @@ Adding DEFMT_LOG to `tasks.json`
 
 - [x] **Launch**: Start a debug session on the target by (optionally) flashing the target firmware.
 - [x] **Attach**:
-- [x] By default, VSCode will manage (start/stop) the `probe-rs dap-server` process to facilite a debug session against a target process. It is also possible for the user to manage the `probe-rs dap-server` as a standalone process, and then use TCIP/IP port to connect to from VSCode.
+- [x] By default, VSCode will manage (start/stop) the `probe-rs dap-server` process to facilitate a debug session against a target process. It is also possible for the user to manage the `probe-rs dap-server` as a standalone process, and then use TCIP/IP port to connect to from VSCode.
 - [x] **Connect** to the target with `probe-rs`
   - [x] Supports `connect-under-reset` for select targets.
   - [x] Tested against the following architectures:
@@ -295,12 +295,12 @@ Adding DEFMT_LOG to `tasks.json`
   - [x] In VSCode `Source view`, breakpoint locations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
   - [x] In VSCode `Disassembly view`, breakpoints are set at, and stepping works at, 'instruction level'
 - [x] **UPDATED: Stepping** through executing code during debug:
-  - [x] Supports stepping at 'statement' level with `Step Over`, `Step Into`, `Step Out`. Stepping desitnations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
+  - [x] Supports stepping at 'statement' level with `Step Over`, `Step Into`, `Step Out`. Stepping destinations will automatically be adjusted to code boundaries that lie safely between function prologues and epilogues.
   - [x] While VSCode 'Disassembly view` is open, all stepping automatically happens at 'instruction' granularity, and will allow the user to step to any target location, including instructions in a function prologue or epilogue.
 - [x] **Variables View**
   - [x] View values of core **Registers**, and changes during code execution
   - [x] View values of **Locals** and **Statics** variables, and update values during code execution.
-    - [x] Shows datatypes and values for the following Rust datatypes.
+    - [x] Shows data types and values for the following Rust datatypes.
       - [x] Base types, including &str
       - [x] Enumerations
       - [x] Structures
@@ -316,7 +316,7 @@ Adding DEFMT_LOG to `tasks.json`
     - [x] Use the `View Binary Data` command in VSCode to perform binary memory edits on the target device.
 - [x] **Call Stack View**
   - [x] Supports a single thread, for a single core of the chip, but will **allow selection of any frames** that are in the current thread
-  - [x] Supports the VSCode `Dissambly` view, and `SetInstructionBreakpoints`
+  - [x] Supports the VSCode `Disassembly` view, and `SetInstructionBreakpoints`
   - [ ] TODO: Support multiple threads
   - [ ] TODO: Support chips with multiple cores
 - [x] **Watch View** Monitor values of selected variables.
@@ -501,9 +501,9 @@ This options available in `launch.json` are based on the configuration options o
                         "type": "string",
                         "description": "The path (relative to `cwd` or absolute) to the ESP-IDF bootloader."
                     },
-                    "idf_partion_table": {
+                    "idf_partition_table": {
                         "type": "string",
-                        "description": "The path (relative to `cwd` or absolute) to the ESP-IDF partion table."
+                        "description": "The path (relative to `cwd` or absolute) to the ESP-IDF partition table."
                     }
                 }
             }
@@ -586,7 +586,7 @@ This options available in `launch.json` are based on the configuration options o
   "properties": {
       "server": {
           "type": "string",
-          "description": "Optionally onnect to an existing `probe-rs-debugger` session on IP and Port, e.g. '127.0.0.1:50000'",
+          "description": "Optionally connect to an existing `probe-rs-debugger` session on IP and Port, e.g. '127.0.0.1:50000'",
           "default": "127.0.0.1:50000"
       },
       "consoleLogLevel": {
