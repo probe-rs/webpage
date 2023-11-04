@@ -71,4 +71,4 @@ You now have a statically built `cargo-flash` binary inside the `target/<archite
 
 ## Using LLVM
 
-As using `LLVM` for cosscompiling can go out of the scope of just generating a `cargo-flash` binary, please follow the instructions on how to crosscompile in the **LLVM** [guide](https://www.llvm.org/docs/HowToCrossCompileLLVM.html).
+As using `LLVM` for crosscompiling can go out of the scope of just generating a `cargo-flash` binary, please follow the instructions on how to crosscompile in the **LLVM** [guide](https://www.llvm.org/docs/HowToCrossCompileLLVM.html).

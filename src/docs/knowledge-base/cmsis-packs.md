@@ -105,7 +105,7 @@ flash_algorithms:
       program_page_timeout: number
       # How long a sector erase procedure can take.
       erase_sector_timeout: number
-      # The sectors this piece of flash consists of. A sector is the eraseable unit.
+      # The sectors this piece of flash consists of. A sector is the erasable unit.
       sectors:
         # The size of the sectors starting form the address below.
         - size: number

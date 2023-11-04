@@ -603,9 +603,9 @@ for more details.
                         "type": "string",
                         "description": "The path (relative to `cwd` or absolute) to the ESP-IDF bootloader."
                     },
-                    "idf_partion_table": {
+                    "idf_partition_table": {
                         "type": "string",
-                        "description": "The path (relative to `cwd` or absolute) to the ESP-IDF partion table."
+                        "description": "The path (relative to `cwd` or absolute) to the ESP-IDF partition table."
                     }
                 }
             }
@@ -688,7 +688,7 @@ for more details.
   "properties": {
       "server": {
           "type": "string",
-          "description": "Optionally onnect to an existing `probe-rs-debugger` session on IP and Port, e.g. '127.0.0.1:50000'",
+          "description": "Optionally connect to an existing `probe-rs-debugger` session on IP and Port, e.g. '127.0.0.1:50000'",
           "default": "127.0.0.1:50000"
       },
       "consoleLogLevel": {
