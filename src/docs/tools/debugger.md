@@ -1,6 +1,6 @@
 ---
-title: "VSCode"
-description: "The vscode plugin & DAP server explained."
+title: "Debugger"
+description: "Easy debugging in your code editor."
 order: 20
 ---
 
@@ -834,3 +834,9 @@ for more details.
   }
 }
 ```
+
+# Other editors
+
+VSCode not your cup of tea? No problem!
+
+probe-rs implements the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/overview), so you can use other [editors, IDEs, and visual debuggers](https://microsoft.github.io/debug-adapter-protocol/implementors/tools/), such as [Vimspector](https://github.com/puremourning/vimspector#readme)...
