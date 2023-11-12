@@ -24,6 +24,11 @@ export default ({ title, children, mainMenu }) => {
             </a>
           </li>
           <li>
+            <a href="https://shop.probe.rs">
+              Shop
+            </a>
+          </li>
+          <li>
             <a href="https://github.com/probe-rs/probe-rs">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
