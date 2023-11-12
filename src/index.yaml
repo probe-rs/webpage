@@ -19,7 +19,7 @@ usage:
     description: |
       Run a program on your microchip with the ease of a native application.
 
-      Easily print to STDOUT via <a href="https://github.com/probe-rs/rtt-target">RTT</a> and <a href="https://github.com/knurling-rs/defmt">defmt</a> encoding.
+      Easily print to STDOUT via <a href="https://github.com/probe-rs/rtt-target">RTT</a> and <a href="https://github.com/knurling-rs/defmt">defmt</a> encoding when using `probe-rs run`.
 
       <a href="/docs/tools/cargo-flash/">cargo-flash</a> can be used to just flash a target and <a href="/docs/tools/cargo-embed/">cargo-embed</a>
       can be used to get a full RTT terminal to also send commands to the target and view multiple channels
