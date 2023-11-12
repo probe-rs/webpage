@@ -8,7 +8,7 @@ import { getJep106Manufacturer } from "../_includes/jep106.js";
 
 export const layout = "layouts/plugins.jsx";
 export const mainMenu = "plugins";
-const REPO_PATH = "probe-rs-repo";
+const REPO_PATH = "./probe-rs-repo";
 
 const auth = Deno.env.get("GITHUB_TOKEN");
 const octokit = new Octokit({
