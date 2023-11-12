@@ -3,7 +3,7 @@ import { parse } from "https://deno.land/std@0.194.0/yaml/mod.ts";
 import { Schema } from "https://deno.land/std@0.194.0/yaml/schema.ts";
 import { def } from "https://deno.land/std@0.194.0/yaml/schema/default.ts";
 import { Type } from "https://deno.land/std@0.194.0/yaml/type.ts";
-import { exists } from "https://deno.land/std@0.205.0/fs/mod.ts";
+import { existsSync } from "https://deno.land/std@0.206.0/fs/exists.ts";
 import { getJep106Manufacturer } from "../_includes/jep106.js";
 
 export const layout = "layouts/plugins.jsx";
@@ -32,7 +32,7 @@ const octokit = new Octokit({
 
 /// Loads the newest probe-rs repo state from Github
 const loadRepo = async (url) => {
-  const repoFound = exists(REPO_PATH);
+  const repoFound = existsSync(REPO_PATH);
   let cmd;
   if (repoFound) {
     console.log("Repository found - pulling changes");
