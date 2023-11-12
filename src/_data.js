@@ -1,4 +1,4 @@
-import { Octokit } from "https://esm.sh/octokit@3.1.0?dts";
+import { Octokit } from "https://esm.sh/v133/octokit@3.1.0?dts";
 
 const auth = Deno.env.get("GITHUB_TOKEN");
 const octokit = new Octokit({
@@ -13,7 +13,7 @@ const response = await octokit.request(
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
     },
-  },
+  }
 );
 
 export const latestRelease = response.data;
