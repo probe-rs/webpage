@@ -1,7 +1,7 @@
 ---
 title: "VSCode"
 description: "The vscode plugin & DAP server explained."
-order: 30
+order: 20
 ---
 
 The **probe-rs VS Code extension** uses the Microsoft Debug Adapter Protocol to

@@ -1,17 +1,14 @@
-import { Octokit } from "https://esm.sh/octokit@3.1.0?dts";
+import { Octokit } from "https://esm.sh/v133/octokit@3.1.0?dts";
 import { parse } from "https://deno.land/std@0.194.0/yaml/mod.ts";
 import { Schema } from "https://deno.land/std@0.194.0/yaml/schema.ts";
 import { def } from "https://deno.land/std@0.194.0/yaml/schema/default.ts";
 import { Type } from "https://deno.land/std@0.194.0/yaml/type.ts";
-import {
-  BlobReader,
-  TextWriter,
-  ZipReader,
-} from "https://deno.land/x/zipjs/index.js";
+import { exists } from "https://deno.land/std@0.205.0/fs/mod.ts";
 import { getJep106Manufacturer } from "../_includes/jep106.js";
 
 export const layout = "layouts/plugins.jsx";
 export const mainMenu = "plugins";
+const REPO_PATH = "probe-rs-repo";
 
 const auth = Deno.env.get("GITHUB_TOKEN");
 const octokit = new Octokit({
@@ -33,73 +30,85 @@ const octokit = new Octokit({
 //     )
 // );
 
-const loadZip = async (url) => {
-  const fileObj = await fetch(url ?? 'https://github.com/probe-rs/probe-rs/archive/refs/heads/master.zip');
-  const reader = new BlobReader(await fileObj.blob());
-
-  const zipReader = new ZipReader(reader);
-  const entries = await zipReader.getEntries();
-  const filteredEntries = entries.filter((e) =>
-    e.filename.includes("/targets/") &&
-    e.filename.split("/").length === 4 &&
-    !e.filename.endsWith("/")
-  );
-  return filteredEntries;
+/// Loads the newest probe-rs repo state from Github
+const loadRepo = async (url) => {
+  const repoFound = exists(REPO_PATH);
+  let cmd;
+  if (repoFound) {
+    console.log("Repository found - pulling changes");
+    cmd = new Deno.Command("git", {
+      args: `-C ${REPO_PATH} pull`.split(" "),
+    });
+  } else {
+    console.log("No repository found - cloning fresh");
+    cmd = new Deno.Command("git", {
+      args: `clone ${url} ${REPO_PATH}`.split(" "),
+    });
+  }
+  let { stdout, stderr } = await cmd.output();
+  console.log(new TextDecoder().decode(stdout));
+  console.log(new TextDecoder().decode(stderr));
 };
 
-export const loadTargets = async (latestRelease) => {
-  // const ts = await loadZip(latestRelease.zipball_url);
-  const ts = await loadZip();
+/// Checks out a specific state of the repository.
+const checkoutRepoState = async (ref) => {
+  console.log(`Checking out ${ref} in ${REPO_PATH}`);
+  let cmd = new Deno.Command("git", {
+    args: `-C ${REPO_PATH} checkout ${ref}`.split(" "),
+  });
+  let { stdout, stderr } = await cmd.output();
+  console.log(new TextDecoder().decode(stdout));
+  console.log(new TextDecoder().decode(stderr));
+};
+
+export const loadTargets = async (ref) => {
+  await loadRepo("https://github.com/probe-rs/probe-rs.git");
+  await checkoutRepoState(ref);
 
   const targets = [];
   const families = [];
   let manufacturers = {};
   const cache = {};
-  for (const target of ts) {
-    const writer = new TextWriter();
+  const path = `${REPO_PATH}/probe-rs/targets`;
+  for await (const dirEntry of Deno.readDir(path)) {
+    if (dirEntry.name.endsWith(".yaml")) {
+      const decoder = new TextDecoder("utf-8");
+      const data = await Deno.readFile(`${path}/${dirEntry.name}`);
+      const yaml = decoder.decode(data);
 
-    const data = await target.getData(writer);
-    const targetDescription = await openTarget(data);
+      const targetDescription = await openTarget(yaml);
 
-    const variants = targetDescription.variants;
-    const jep = targetDescription.manufacturer
-      ? getJep106Manufacturer(
-        targetDescription.manufacturer.cc,
-        targetDescription.manufacturer.id,
-      )
-      : undefined;
+      const variants = targetDescription.variants;
+      const jep = targetDescription.manufacturer
+        ? getJep106Manufacturer(
+            targetDescription.manufacturer.cc,
+            targetDescription.manufacturer.id
+          )
+        : undefined;
 
-    for (const variant of variants) {
-      variant.family = targetDescription.name;
-      variant.manufacturer = jep;
+      for (const variant of variants) {
+        variant.family = targetDescription.name;
+        variant.manufacturer = jep;
 
-      if (!cache[variant.name]) {
-        cache[variant.name] = JSON.stringify(variant);
-        targets.push(variant);
+        if (!cache[variant.name]) {
+          cache[variant.name] = JSON.stringify(variant);
+          targets.push(variant);
+        }
       }
-    }
 
-    families.push([targetDescription.name, jep]);
-    if (jep) {
-      if (manufacturers[
-        jep
-      ]) {
-        manufacturers[
-          jep
-        ].push(targetDescription.name)
-      } else {
-        manufacturers[
-          jep
-        ] = [targetDescription.name]
+      families.push([targetDescription.name, jep]);
+      if (jep) {
+        if (manufacturers[jep]) {
+          manufacturers[jep].push(targetDescription.name);
+        } else {
+          manufacturers[jep] = [targetDescription.name];
+        }
       }
-    } else {
-      console.log(targetDescription.name);
     }
   }
   targets.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
   families.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
 
-  console.log(manufacturers);
   manufacturers = Object.keys(manufacturers);
   manufacturers.sort();
   return { targets, families, manufacturers };

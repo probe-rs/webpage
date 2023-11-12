@@ -1,7 +1,7 @@
 ---
 title: "cargo-flash"
 description: "The cargo-flash utility explained."
-order: 10
+order: 30
 ---
 
 **cargo-flash** is a cargo extension and drop in replacement for `cargo run`.

@@ -1,7 +1,7 @@
 ---
 title: "cargo-embed"
 description: "The cargo-embed utility explained."
-order: 20
+order: 40
 ---
 
 **cargo-embed** is the big brother of cargo-flash.

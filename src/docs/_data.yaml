@@ -5,9 +5,9 @@ docsMenu:
     id: overview
   - title: Getting started
     id: getting-started
-  - title: Knowledge Base
-    id: knowledge-base
-  - title: probe-rs as a Library
-    id: library
   - title: Tools
     id: tools
+  - title: Knowledge Base
+    id: knowledge-base
+  - title: Library guide
+    id: library
