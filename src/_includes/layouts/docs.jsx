@@ -44,7 +44,7 @@ export default (
 
           <footer className="doc-footer">
             <ul className="doc-pagination">
-              {previousPost &&
+              {previousPost && previousPost.data.url != "/docs/" &&
                 (
                   <li className="is-prev">
                     <a href={previousPost.data.url} rel="prev">
