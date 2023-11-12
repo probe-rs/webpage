@@ -7,7 +7,7 @@ docsMenu:
     id: getting-started
   - title: Tools
     id: tools
-  - title: Knowledge Base
-    id: knowledge-base
   - title: Library guide
     id: library
+  - title: Knowledge Base
+    id: knowledge-base
