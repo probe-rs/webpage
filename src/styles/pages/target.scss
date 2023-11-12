@@ -30,16 +30,16 @@
     border-bottom: solid 1px var(--color-background-2);
     padding: 20px;
 
-    & .body {
+    &>.body {
       width: 100%;
       display: flex;
       flex-direction: row;
       justify-content: start;
 
-      & .column {
+      &>.column {
         width: 50%;
 
-        & .data {
+        &>.data {
           width: 100%;
           display: flex;
           flex-direction: row;
@@ -47,7 +47,7 @@
           flex-wrap: wrap;
           gap: 5px;
 
-          & .item {
+          &>.item {
             width: 160px;
             height: 160px;
             padding: 20px;
@@ -57,8 +57,32 @@
               background-color: var(--color-background-1);
             }
 
-            & pre {
+            &>pre {
               margin-top: 5px;
+            }
+          }
+        }
+      }
+
+      &>.container {
+        width: 100%;
+
+        & .data {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          flex-wrap: wrap;
+          gap: 5px;
+
+          & .svd {
+            width: 100%;
+
+            & .peripheral {
+              width: calc(100% - 2 * 2 * 10px);
+              padding: 10px;
+              margin: 10px;
+              border: solid 1px var(--color-background-2);
             }
           }
         }

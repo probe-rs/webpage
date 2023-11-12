@@ -5,7 +5,7 @@ export default async function* ({ loadTargets, latestRelease }) {
   const { targets: targetsLatest } = await loadTargets(latestReleasedVersion);
   const { targets: targetsMaster } = await loadTargets("master");
   for (const target of targetsLatest) {
-    if (target.name.includes("nRF52")) {
+    if (filter(target) || Deno.env.get("GITHUB_ACTIONS")) {
       yield {
         url: `/targets/${latestReleasedVersion}/${target.name}.html`,
         title: target.name,
@@ -14,4 +14,8 @@ export default async function* ({ loadTargets, latestRelease }) {
       };
     }
   }
+}
+
+function filter(target) {
+  return target.name.includes("nRF52");
 }

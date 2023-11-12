@@ -10,7 +10,7 @@ export default (
   return (
     <Base pageCss="posts.css" title={title}>
       <section className="posts">
-        {search.pages("type=post", "date=desc", 3)
+        {search.pages("type=post", "date=asc", 3)
           .map((post) => (
             <article>
               <header>
