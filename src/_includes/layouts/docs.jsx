@@ -11,6 +11,7 @@ export default (
     "url^=/docs/",
     "section_order order title",
   );
+  console.log(previousPost);
   const nextPost = search.nextPage(
     url,
     "url^=/docs/",

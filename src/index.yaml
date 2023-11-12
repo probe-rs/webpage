@@ -5,7 +5,7 @@ header:
   title: The <span>user-friendly & flexible</span> embedded toolkit <span> that works </span>
 
 install:
-  title: "Run the following or follow the [instructions](./docs/overview/installation.md) for different installation methods"
+  title: "Run the following or follow the [instructions](./docs/getting-started/installation) for different installation methods"
   url: /docs/overview/about-probe-rs/
 
 badges:
