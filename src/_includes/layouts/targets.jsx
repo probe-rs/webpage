@@ -6,8 +6,9 @@ export default async (
   filters,
 ) => {
   const latestReleasedVersion = latestRelease.tag_name;
+  const usedVersion = "master";
   const { targets, families, manufacturers } = await loadTargets(
-    latestReleasedVersion,
+    usedVersion,
   );
   return (
     <Base pageCss="targets.css" title={title}>
@@ -55,7 +56,7 @@ export default async (
                   data-family={chip.family}
                   data-manufacturer={chip.manufacturer}
                 >
-                  <a href={`/targets/${latestReleasedVersion}/${chip.name}`}>
+                  <a href={`/targets/${usedVersion}/${chip.name}`}>
                     <div className="border rounded m-2 p-2 border-secondary">
                       <h4>{chip.name}</h4>
                       <div>

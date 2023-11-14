@@ -14,6 +14,16 @@ export default async function* ({ loadTargets, latestRelease }) {
       };
     }
   }
+  for (const target of targetsMaster) {
+    if (filter(target) || Deno.env.get("GITHUB_ACTIONS")) {
+      yield {
+        url: `/targets/master/${target.name}.html`,
+        title: target.name,
+        target,
+        body: "-",
+      };
+    }
+  }
 }
 
 function filter(target) {
