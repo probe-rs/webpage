@@ -2,7 +2,7 @@ name: Publish on GitHub Pages
 
 on:
   push:
-    branches: [ new-page ]
+    branches: [ master ]
 
 permissions:
   contents: read
