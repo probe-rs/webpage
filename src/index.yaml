@@ -101,7 +101,7 @@ usage:
       
       Run the target, set breakpoints, halt on break point, inspect the stackframe and manipulate variables.
 
-      <a href="https://github.com/probe-rs/rtt-target">RTT</a> is fully integrated and GDB-like expressions can be evaluated in the built in <a href="/docs/tools/vscode/">REPL</a>.
+      <a href="https://github.com/probe-rs/rtt-target">RTT</a> is fully integrated and GDB-like expressions can be evaluated in the built in <a href="/docs/tools/debugger/">REPL</a>.
 
       VSCode not your cup of tea? No problem! probe-rs implements the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/overview), so you can use other [editors, IDEs, and visual debuggers](https://microsoft.github.io/debug-adapter-protocol/implementors/tools/), such as [Vimspector](https://github.com/puremourning/vimspector#readme)...
     images:
