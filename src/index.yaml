@@ -97,7 +97,7 @@ usage:
 
   - title: Easy debugging in VSCode
     description: |
-      Use <a href="/docs/tools/vscode/">VSCode's</a> awesome debug capabilities with our native debug plugin.
+      Use <a href="/docs/tools/debugger/">VSCode's</a> awesome debug capabilities with our native debug plugin.
       
       Run the target, set breakpoints, halt on break point, inspect the stackframe and manipulate variables.
 
