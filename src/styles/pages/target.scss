@@ -1,0 +1,129 @@
+.target {
+  border-radius: var(--border-radius);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  column-gap: 10px;
+
+  & a {
+    text-decoration: none;
+  }
+
+  & h4 {
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
+
+  & h3 {
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
+
+  &>div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  & section {
+    border-bottom: solid 1px var(--color-background-2);
+    padding: 20px;
+
+    &>.body {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+
+      &>.column {
+        width: 50%;
+
+        &>.data {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          flex-wrap: wrap;
+          gap: 5px;
+
+          &>.item {
+            width: 160px;
+            height: 160px;
+            padding: 20px;
+            border: solid 1px var(--color-background-2);
+
+            &:hover {
+              background-color: var(--color-background-1);
+            }
+
+            &>pre {
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+
+      &>.container {
+        width: 100%;
+
+        & .data {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: start;
+          flex-wrap: wrap;
+          gap: 5px;
+
+          & .svd {
+            width: 100%;
+
+            & .peripheral {
+              width: calc(100% - 2 * 2 * 10px);
+              padding: 10px;
+              margin: 10px;
+              border: solid 1px var(--color-background-2);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.tag {
+  --color: black;
+
+  /* Colors */
+  &.is-color-lemonchiffon {
+    --background: lemonchiffon;
+  }
+
+  &.is-color-tomato {
+    --background: tomato;
+  }
+
+  &.is-color-violet {
+    --background: violet;
+  }
+
+  &.is-color-gold {
+    --background: gold;
+  }
+
+  &.is-color-lightskyblue {
+    --background: lightskyblue;
+  }
+
+  &.is-color-lightgreen {
+    --background: lightgreen;
+  }
+
+  &.is-color-pink {
+    --background: pink;
+  }
+
+  &.is-color-lightgray {
+    --background: lightgray;
+  }
+}

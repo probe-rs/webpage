@@ -1,0 +1,197 @@
+layout: layouts/landing.jsx
+title: the embedded toolkit
+description: Support for multiple file formats like Markdown, YAML, JavaScript, TypeScript, JSX, Nunjucks etc.
+header:
+  title: The <span>user-friendly & flexible</span> embedded toolkit <span> that works </span>
+
+install:
+  title: "Run the following or follow the [instructions](./docs/getting-started/installation) for different installation methods"
+  url: /docs/overview/about-probe-rs/
+
+badges:
+  - html: '<a href="https://crates.io/crates/probe-rs" target="_blank"><img src="https://img.shields.io/crates/v/probe-rs" alt="crates.io" class="m-1" /></a>'
+  - html: '<a href="https://docs.rs/probe-rs" target="_blank"><img src="https://docs.rs/probe-rs/badge.svg" alt="documentation" class="m-1" /></a>'
+  - html: '<a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"><img src="https://img.shields.io/github/actions/workflow/status/probe-rs/probe-rs/ci.yml?branch=master" alt="GH Actions Status" class="m-1" /></a>'
+  - html: '<a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"><img src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen" alt="chat" class="m-1" /></a>'
+
+usage:
+  - title: Embedded programming made easy
+    description: |
+      Run a program on your microchip with the ease of a native application.
+
+      Easily print to STDOUT via <a href="https://github.com/probe-rs/rtt-target">RTT</a> and <a href="https://github.com/knurling-rs/defmt">defmt</a> encoding when using `probe-rs run`.
+
+      <a href="/docs/tools/cargo-flash/">cargo-flash</a> can be used to just flash a target and <a href="/docs/tools/cargo-embed/">cargo-embed</a>
+      can be used to get a full RTT terminal to also send commands to the target and view multiple channels
+      at one.
+    code: |
+      <probe-rs-code>
+
+      ```shell { title="Rust" }
+      $ cargo run --release
+        Compiling microbit v0.1.0 (/microbit/)
+          Finished release [optimized + debuginfo] target(s) in 0.17s
+          Running `probe-rs run --chip nRF51822_xxAA target/thumbv6m-none-eabi/release/microbit`
+          Erasing sectors ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 8.09 KiB/s (eta 0s )
+      Programming pages   ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 5.29 KiB/s (eta 0s )
+
+      Hello from the microbit!
+      Going to udf to print a stacktrace on the host ...
+      
+      Frame 0: exp_u128 @ 0x00000fa2
+      Frame 1: __udf @ 0x000000f2 inline
+            /.cargo/registry/src/index.crates.io-6f17d22bba15001f/cortex-m-0.7.7/src/../asm/inline.rs:181:5
+      Frame 2: udf @ 0x00000000000000f2 inline
+            /.cargo/registry/src/index.crates.io-6f17d22bba15001f/cortex-m-0.7.7/src/call_asm.rs:11:43
+      Frame 3: panic @ 0x00000000000000f2
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:36:9
+      Frame 4: exp_u128 @ 0x000006be
+            /rustc/5680fa18feaa87f3ff04063800aec256c3d4b4be/library/core/src/ptr/const_ptr.rs:921:18
+      Frame 5: exp_u128 @ 0x000006ec
+            /rustc/5680fa18feaa87f3ff04063800aec256c3d4b4be/library/core/src/num/bignum.rs:299:60
+      Frame 6: b @ 0x0000015e inline
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:45:5
+      Frame 7: a @ 0x0000000000000154 inline
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:41:5
+      Frame 8: __cortex_m_rt_main @ 0x0000000000000154
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:16:5
+      Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:10:1
+      Frame 10: <unknown function @ 0x000000ce> @ 0x000000ce inline
+      Frame 11: <unknown function @ 0x20004000> @ 0x20004000
+      ```
+
+      ```shell { title="C" }
+      $ make release
+      $ probe-rs run --chip nRF51822_xxAA build/microbit.elf
+          Erasing sectors ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 8.09 KiB/s (eta 0s )
+      Programming pages   ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 5.29 KiB/s (eta 0s )
+      
+      Hello from the microbit!
+      Going to udf to print a stacktrace on the host ...
+      
+      Frame 0: exp_u128 @ 0x00000fa2
+      Frame 1: __udf @ 0x000000f2 inline
+            /.cargo/registry/src/index.crates.io-6f17d22bba15001f/cortex-m-0.7.7/src/../asm/inline.rs:181:5
+      Frame 2: udf @ 0x00000000000000f2 inline
+            /.cargo/registry/src/index.crates.io-6f17d22bba15001f/cortex-m-0.7.7/src/call_asm.rs:11:43
+      Frame 3: panic @ 0x00000000000000f2
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:36:9
+      Frame 4: exp_u128 @ 0x000006be
+            /rustc/5680fa18feaa87f3ff04063800aec256c3d4b4be/library/core/src/ptr/const_ptr.rs:921:18
+      Frame 5: exp_u128 @ 0x000006ec
+            /rustc/5680fa18feaa87f3ff04063800aec256c3d4b4be/library/core/src/num/bignum.rs:299:60
+      Frame 6: b @ 0x0000015e inline
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:45:5
+      Frame 7: a @ 0x0000000000000154 inline
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:41:5
+      Frame 8: __cortex_m_rt_main @ 0x0000000000000154
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:16:5
+      Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
+            /repos/microbit/examples/gpio-hal-blinky/src/main.rs:10:1
+      Frame 10: <unknown function @ 0x000000ce> @ 0x000000ce inline
+      Frame 11: <unknown function @ 0x20004000> @ 0x20004000
+      ```
+
+      </probe-rs-code>
+
+  - title: Easy debugging in VSCode
+    description: |
+      Use <a href="/docs/tools/debugger/">VSCode's</a> awesome debug capabilities with our native debug plugin.
+      
+      Run the target, set breakpoints, halt on break point, inspect the stackframe and manipulate variables.
+
+      <a href="https://github.com/probe-rs/rtt-target">RTT</a> is fully integrated and GDB-like expressions can be evaluated in the built in <a href="/docs/tools/vscode/">REPL</a>.
+
+      VSCode not your cup of tea? No problem! probe-rs implements the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/overview), so you can use other [editors, IDEs, and visual debuggers](https://microsoft.github.io/debug-adapter-protocol/implementors/tools/), such as [Vimspector](https://github.com/puremourning/vimspector#readme)...
+    images:
+      - images/landing/probe-rs-debugger.png
+
+  - title: A clean and intuitive API
+    description: |
+      Manipulate your target from the host - read and write memory, set breakpoints, run, halt.
+      
+      Build production utilities or awesome HITL setups. The sky is the limit!
+    code: |
+      <probe-rs-code>
+
+      ```rust { title="main.rs" }
+      use probe_rs::{MemoryInterface, Permissions, Session};
+
+      // Attach to the first connected probe.
+      let session = Session::auto_attach("nrf52", Permissions::default())?;
+
+      // Select the first core found.
+      let mut core = session.core(0);
+
+      // Read a block of 50 32 bit words.
+      let mut data = [0u32;50];
+      core.read_32(0x2000_0000, &mut data)?;
+
+      // Read a single 32 bit word.
+      let word = core.read_word_32(0x2000_0000)?;
+
+      // Writing is just as simple.
+      let data = [0u32;50];
+      core.write_32(0x2000_0000, &data)?;
+
+      // of course we can also write 8bit words.
+      let data = [0u8;50];
+      core.write_8(0x2000_0000, &data)?;
+      ```
+
+      </probe-rs-code>
+
+  - title: Every ARM or RISC-V target
+    description: |
+      Hundreds of targets are shipped with probe-rs. You found a missing one?
+
+      <a href="/docs/knowledge-base/cmsis-packs/#target-extraction">Generate</a> your own target description from an existing CMSIS-Pack in 2 minutes.
+
+      No CMSIS-Pack? <a href="https://github.com/probe-rs/flash-algorithm-template">Write your own flash algorithm</a> in 2 hours with the help of our templates with automatic tests.
+    images:
+      - images/landing/manufacturers/arm.webp
+      - images/landing/manufacturers/nordic.svg
+      - images/landing/manufacturers/st.png
+      - images/landing/manufacturers/nxp.svg
+      - images/landing/manufacturers/espressif.svg
+      - images/landing/manufacturers/raspberrypi.png
+      - images/landing/manufacturers/risc-v.png
+
+  - title: Supports many debug probes
+    description: |
+      Debug targets via CMSIS-DAP, JLink, ST-Link and FTDI or add your own probe easily.
+
+      We even have our own open-source probe to <a href="https://github.com/probe-rs/rusty-probe">build</a> or <a href="#" disabled>buy</a> (coming soon).
+    images:
+      - images/landing/probes/cmsis-dap.webp
+      - images/landing/probes/jlink.svg
+      - images/landing/probes/stlink.png
+      - images/landing/probes/ftdi.png
+
+features:
+  # - title: It's Deno!
+  #   img: /icons/deno.svg
+  #   description: Forget about managing thousands of packages in node_modules or complex bundlers. Lume only installs what you need. Clean, fast and secure.
+
+  # - title: Zero runtime overhead
+  #   img: /icons/stack.svg
+  #   description: Lume only exports your code. It doesn't generate any extra client-side JavaScript code.
+
+  # - title: Deploy anywhere
+  #   img: /icons/deploy.svg
+  #   description: Static sites can be hosted (for free) anywhere GitHub/GitLab Pages, Deno Deploy, Vercel, Netlify… [Explore ways to deploy](/docs/advanced/deployment.md)
+
+  # - title: Easy to extend
+  #   img: /icons/extend.svg
+  #   description: Want to use a new template engine or use a new JavaScript compiler? Lume allows you to use whatever you want. [Explore the official plugins](/plugins/)
+
+support:
+  contribute:
+    title: How to contribute?
+    description: |
+      - Star the [repo on GitHub](https://github.com/probe-rs/probe-rs).
+      - Support this project by [sponsoring it](https://github.com/sponsors/probe-rs).
+      - Fork the repo and [contribute](https://github.com/probe-rs/probe-rs) fixing bugs, adding docs or tackling new features.
+      - Help to [improve the docs](https://docs.rs/probe-rs).
+      - Get help and discuss [on Matrix](https://matrix.to/#/#probe-rs:matrix.org).
