@@ -21,13 +21,13 @@ To use the runner in your project, add it to your `.cargo/config.toml`
 <probe-rs-code>
 
 ```rust { title=".cargo/config.toml" }
-[target.<architecture-tripple>]
-runner = 'probe-run --chip <chip-name>'
+[target.<architecture-triple>]
+runner = 'probe-rs run --chip <chip-name>'
 ```
 
 Now you can execute `cargo run` in your project as you would for any native binaries and you will receive **RTT** and **defmt** logs in that very same console as if you wrote to standard out.
 
-To use [RTT](https://docs.rs/rtt-target/latest/rtt_target/) and [defmt](https://docs.rs/defmt/0.3.5/defmt/), follow the instructions in the repsective crates to integrate it in your firmware.
+To use [RTT](https://docs.rs/rtt-target/latest/rtt_target/) or [defmt](https://docs.rs/defmt/0.3.5/defmt/), follow the instructions in the respective crates to integrate them into your firmware.
 
 ## attach
 
