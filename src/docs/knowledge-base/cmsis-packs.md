@@ -111,7 +111,7 @@ flash_algorithms:
         - size: number
           # The address from on which the new sector size is applicable.
           address: number
-# The core type. Currently valid are [M4, M3, M33, M0, RISCV]
+# The core type. Currently valid are [M4, M3, M33, M0, RISCV, Xtensa]
 core: string
 ```
 

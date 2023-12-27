@@ -1,10 +1,7 @@
 import Base from "./base.jsx";
 import humanFileSize from "./../helpers.js";
 
-export default async (
-  { target, title },
-  filters,
-) => {
+export default async ({ target, title }, filters) => {
   let svd = undefined;
   if (target.svd) {
     const decoder = new TextDecoder("utf-8");
@@ -26,10 +23,7 @@ export default async (
   );
 };
 
-const Memory = (
-  { target: { cores, memory_map } },
-  filters,
-) => {
+const Memory = ({ target: { cores, memory_map } }, filters) => {
   const TOTAL_HEIGHT = 600;
   const WIDTH = 300;
   const TEXT_HEIGHT = 10;
@@ -56,13 +50,14 @@ const Memory = (
           <div className="data">
             {cores.map((core) => {
               const { borderColor, type } = {
-                "armv6m": { borderColor: "#ffd700", type: "ARMv6-M" },
-                "armv7m": { borderColor: "#ffb14e", type: "ARMv7-M" },
-                "armv7em": { borderColor: "#fa8775", type: "ARMv7-EM" },
-                "armv7a": { borderColor: "#ea5f94", type: "ARMv7-A" },
-                "armv8m": { borderColor: "#cd34b5", type: "ARMv8-M" },
-                "armv8a": { borderColor: "#9d02d7", type: "ARMv7-A" },
-                "riscv": { borderColor: "#0000ff", type: "RiSC-V" },
+                armv6m: { borderColor: "#ffd700", type: "ARMv6-M" },
+                armv7m: { borderColor: "#ffb14e", type: "ARMv7-M" },
+                armv7em: { borderColor: "#fa8775", type: "ARMv7-EM" },
+                armv7a: { borderColor: "#ea5f94", type: "ARMv7-A" },
+                armv8m: { borderColor: "#cd34b5", type: "ARMv8-M" },
+                armv8a: { borderColor: "#9d02d7", type: "ARMv7-A" },
+                riscv: { borderColor: "#0000ff", type: "RiSC-V" },
+                xtensa: { borderColor: "#ff0000", type: "Xtensa" },
               }[core.type];
 
               return (
@@ -82,26 +77,26 @@ const Memory = (
               const info = Object.values(region)[0];
               const borderColor = region.Ram
                 ? RAM_COLOR
-                : (region.Nvm || region.Flash
-                  ? NVM_COLOR
-                  : (region.Generic ? GENERIC_COLOR : UNKNOWN_COLOR));
+                : region.Nvm || region.Flash
+                ? NVM_COLOR
+                : region.Generic
+                ? GENERIC_COLOR
+                : UNKNOWN_COLOR;
               return (
                 <div className="item" style={{ borderColor }}>
                   <h3>{type}</h3>
                   {region.name}
                   <pre>
                     &nbsp; 0x{info.range.start.toString(16)}
-                    <br />
-                    - 0x{info.range.end.toString(16)}
+                    <br />- 0x{info.range.end.toString(16)}
                     <br />
                     {humanFileSize(info.range.end - info.range.start)}
                   </pre>
-                  {cores.length > 1 &&
-                    (
-                      <p>
-                        <h4>Access from cores</h4> [{info.cores.join(",")}]
-                      </p>
-                    )}
+                  {cores.length > 1 && (
+                    <p>
+                      <h4>Access from cores</h4> [{info.cores.join(",")}]
+                    </p>
+                  )}
                 </div>
               );
             })}
@@ -112,10 +107,7 @@ const Memory = (
   );
 };
 
-const SVD = (
-  { svd },
-  filters,
-) => {
+const SVD = ({ svd }, filters) => {
   if (!svd) {
     return <></>;
   }
@@ -126,9 +118,7 @@ const SVD = (
           <div className="data">
             <div className="svd" style={{ borderColor: "#ffb14e" }}>
               {svd.peripherals.map((peripheral) => (
-                <Peripheral
-                  peripheral={peripheral}
-                />
+                <Peripheral peripheral={peripheral} />
               ))}
             </div>
           </div>
@@ -138,10 +128,7 @@ const SVD = (
   );
 };
 
-const Peripheral = (
-  { peripheral },
-  filters,
-) => {
+const Peripheral = ({ peripheral }, filters) => {
   return (
     <div className="peripheral">
       <div

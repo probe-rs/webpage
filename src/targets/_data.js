@@ -137,6 +137,13 @@ function schema() {
     kind: "mapping",
   });
 
+  const xtensa = new Type("!Xtensa", {
+    construct(data) {
+      return data !== null ? { Xtensa: data } : {};
+    },
+    kind: "mapping",
+  });
+
   const ram = new Type("!Ram", {
     construct(data) {
       return data !== null ? { Ram: data } : {};
@@ -166,7 +173,7 @@ function schema() {
   });
 
   const extended = new Schema({
-    explicit: [arm, riscv, ram, nvm, flash, generic],
+    explicit: [arm, riscv, xtensa, ram, nvm, flash, generic],
     include: [def],
   });
 
