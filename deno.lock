@@ -265,6 +265,7 @@
     "https://deno.land/std@0.205.0/path/windows/to_file_url.ts": "8e9ea9e1ff364aa06fa72999204229952d0a279dbb876b7b838b2b2fea55cce3",
     "https://deno.land/std@0.205.0/path/windows/to_namespaced_path.ts": "e0f4d4a5e77f28a5708c1a33ff24360f35637ba6d8f103d19661255ef7bfd50d",
     "https://deno.land/std@0.206.0/fs/exists.ts": "cb59a853d84871d87acab0e7936a4dac11282957f8e195102c5a7acb42546bb8",
+    "https://deno.land/std@0.35.0/fmt/sprintf.ts": "821c47dd8a6e99a5f742a52d9d783dd366d50b0bcd9a28f734f0d599f8393465",
     "https://deno.land/x/cliffy@v0.25.7/_utils/distance.ts": "02af166952c7c358ac83beae397aa2fbca4ad630aecfcd38d92edb1ea429f004",
     "https://deno.land/x/cliffy@v0.25.7/ansi/ansi.ts": "7f43d07d31dd7c24b721bb434c39cbb5132029fa4be3dd8938873065f65e5810",
     "https://deno.land/x/cliffy@v0.25.7/ansi/ansi_escapes.ts": "885f61f343223f27b8ec69cc138a54bea30542924eacd0f290cd84edcf691387",

@@ -1,10 +1,8 @@
 import Base from "./base.jsx";
 import humanFileSize from "./../helpers.js";
+import { sprintf } from "https://deno.land/std@0.35.0/fmt/sprintf.ts";
 
-export default async (
-  { target, title },
-  filters,
-) => {
+export default async ({ target, title }, filters) => {
   let svd = undefined;
   if (target.svd) {
     const decoder = new TextDecoder("utf-8");
@@ -26,10 +24,7 @@ export default async (
   );
 };
 
-const Memory = (
-  { target: { cores, memory_map } },
-  filters,
-) => {
+const Memory = ({ target: { cores, memory_map } }, filters) => {
   const TOTAL_HEIGHT = 600;
   const WIDTH = 300;
   const TEXT_HEIGHT = 10;
@@ -56,13 +51,13 @@ const Memory = (
           <div className="data">
             {cores.map((core) => {
               const { borderColor, type } = {
-                "armv6m": { borderColor: "#ffd700", type: "ARMv6-M" },
-                "armv7m": { borderColor: "#ffb14e", type: "ARMv7-M" },
-                "armv7em": { borderColor: "#fa8775", type: "ARMv7-EM" },
-                "armv7a": { borderColor: "#ea5f94", type: "ARMv7-A" },
-                "armv8m": { borderColor: "#cd34b5", type: "ARMv8-M" },
-                "armv8a": { borderColor: "#9d02d7", type: "ARMv7-A" },
-                "riscv": { borderColor: "#0000ff", type: "RiSC-V" },
+                armv6m: { borderColor: "#ffd700", type: "ARMv6-M" },
+                armv7m: { borderColor: "#ffb14e", type: "ARMv7-M" },
+                armv7em: { borderColor: "#fa8775", type: "ARMv7-EM" },
+                armv7a: { borderColor: "#ea5f94", type: "ARMv7-A" },
+                armv8m: { borderColor: "#cd34b5", type: "ARMv8-M" },
+                armv8a: { borderColor: "#9d02d7", type: "ARMv7-A" },
+                riscv: { borderColor: "#0000ff", type: "RiSC-V" },
               }[core.type];
 
               return (
@@ -82,26 +77,26 @@ const Memory = (
               const info = Object.values(region)[0];
               const borderColor = region.Ram
                 ? RAM_COLOR
-                : (region.Nvm || region.Flash
-                  ? NVM_COLOR
-                  : (region.Generic ? GENERIC_COLOR : UNKNOWN_COLOR));
+                : region.Nvm || region.Flash
+                ? NVM_COLOR
+                : region.Generic
+                ? GENERIC_COLOR
+                : UNKNOWN_COLOR;
               return (
                 <div className="item" style={{ borderColor }}>
                   <h3>{type}</h3>
                   {region.name}
                   <pre>
                     &nbsp; 0x{info.range.start.toString(16)}
-                    <br />
-                    - 0x{info.range.end.toString(16)}
+                    <br />- 0x{info.range.end.toString(16)}
                     <br />
                     {humanFileSize(info.range.end - info.range.start)}
                   </pre>
-                  {cores.length > 1 &&
-                    (
-                      <p>
-                        <h4>Access from cores</h4> [{info.cores.join(",")}]
-                      </p>
-                    )}
+                  {cores.length > 1 && (
+                    <p>
+                      <h4>Access from cores</h4> [{info.cores.join(",")}]
+                    </p>
+                  )}
                 </div>
               );
             })}
@@ -112,10 +107,7 @@ const Memory = (
   );
 };
 
-const SVD = (
-  { svd },
-  filters,
-) => {
+const SVD = ({ svd }, filters) => {
   if (!svd) {
     return <></>;
   }
@@ -126,9 +118,7 @@ const SVD = (
           <div className="data">
             <div className="svd" style={{ borderColor: "#ffb14e" }}>
               {svd.peripherals.map((peripheral) => (
-                <Peripheral
-                  peripheral={peripheral}
-                />
+                <Peripheral peripheral={peripheral} />
               ))}
             </div>
           </div>
@@ -138,10 +128,7 @@ const SVD = (
   );
 };
 
-const Peripheral = (
-  { peripheral },
-  filters,
-) => {
+const Peripheral = ({ peripheral }, filters) => {
   return (
     <div className="peripheral">
       <div
@@ -155,20 +142,91 @@ const Peripheral = (
           {peripheral.name} @ 0x{peripheral.baseAddress.toString(16)} -{" "}
           {peripheral.description}
         </h3>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 256 256"
-          height="16"
-          width="16"
-          style={{ display: "inline", paddingTop: "2.5px" }}
-        >
-          <rect width="256" height="256" fill="none" />
-          <path
-            d="M181.66,122.34l-80-80A8,8,0,0,0,88,48V208a8,8,0,0,0,13.66,5.66l80-80A8,8,0,0,0,181.66,122.34Z"
-            fill="white"
-          />
-        </svg>
+        <Caret open={true} />
+      </div>
+      {peripheral.registers &&
+        peripheral.registers.flatMap((register) => {
+          if (register.register) {
+            return dimension(peripheral.baseAddress, register);
+          }
+          if (register.cluster) {
+            register.cluster.children.flatMap((child) =>
+              dimension(
+                peripheral.baseAddress + register.cluster.addressOffset,
+                child
+              )
+            );
+          }
+        })}
+    </div>
+  );
+};
+
+const dimension = (baseAddress, register) => {
+  let registers = [];
+  for (let i = 0; i < register.register.dim; i++) {
+    const index = register.register.dimIncrement * i;
+    registers.push(
+      <Register
+        register={{
+          ...register.register,
+          address: baseAddress + register.register.addressOffset,
+          name: sprintf(register.register.name, "" + index),
+          type: "register",
+        }}
+      />
+    );
+  }
+  return registers;
+};
+
+const Register = ({ register }, filters) => {
+  return (
+    <div className="register">
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <h3>
+          {register.name} @ 0x{register.address.toString(16)} -{" "}
+          {register.description}
+        </h3>
+        <Caret />
       </div>
     </div>
+  );
+};
+
+const Caret = ({ open }, filters) => {
+  return open ? (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      height="16"
+      width="16"
+      style={{ display: "inline", paddingTop: "2.5px" }}
+    >
+      <path
+        d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,48,88H208a8,8,0,0,1,5.66,13.66Z"
+        fill="white"
+      ></path>
+    </svg>
+  ) : (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 256 256"
+      height="16"
+      width="16"
+      style={{ display: "inline", paddingTop: "2.5px" }}
+    >
+      <rect width="256" height="256" fill="none" />
+      <path
+        d="M181.66,122.34l-80-80A8,8,0,0,0,88,48V208a8,8,0,0,0,13.66,5.66l80-80A8,8,0,0,0,181.66,122.34Z"
+        fill="white"
+      />
+    </svg>
   );
 };
