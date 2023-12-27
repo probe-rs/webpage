@@ -2,3 +2,4 @@
 /_cache
 .DS_Store
 /probe-rs-repo
+/svd-json/target
