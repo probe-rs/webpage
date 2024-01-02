@@ -49,11 +49,19 @@ name: string
 variants:
   # The name of the chip.
   - name: string
+    # Descriptions of the CPU cores.
+    cores:
+        # The name of the core.
+      - name: string
+        # Architecture
+        type: armv6m | armv7a | armv7m | armv7em | armv8a | armv8m | riscv | xtensa
+        # Core-specific options. Can be one of: `!Arm {}`, `!Riscv {}`, `!Xtensa {}`
+        core_access_options: object
     # A list of all the available memories and their properties.
     memory_map:
-      # The type of the memory. Possible are [Ram, Flash].
-      # There needs to be at least one of each present.
-      - Ram:
+      # The type of the memory. Possible are [!Ram, !Nvm, !Generic].
+      # There needs to be at least one of !Ram and !Nvm present.
+      - !Ram:
           range:
             # The start address of the memory (inclusive).
             start: number
@@ -61,16 +69,37 @@ variants:
             end: number
           # Marks the memory as the memory which the chip boots from.
           is_boot_memory: boolean
+          # List of cores that can access this region
+          cores:
+            - core name
+      - !Nvm:
+          range:
+            # The start address of the memory (inclusive).
+            start: number
+            # The end address of the memory (inclusive).
+            end: number
+          # Marks the memory as the memory which the chip boots from.
+          is_boot_memory: boolean
+          # List of cores that can access this region
+          cores:
+            - core name
+      - !Generic:
+          range:
+            # The start address of the memory (inclusive).
+            start: number
+            # The end address of the memory (inclusive).
+            end: number
+          # List of cores that can access this region
+          cores:
+            - core name
     # A list of all the used flash algorithms.
     flash_algorithms:
       # The name of the flash algorithm.
       - string
-# A hashmap of all the available flash algorithms.
+# A list of all the available flash algorithms.
 flash_algorithms:
-  # The name of the flash algorithm.
-  name:
     # The name of the flash algorithm.
-    name: string
+  - name: string
     # A description of the flash algorithm.
     description: string
     # Marks the algorithm to be used as the default algorithm.
@@ -90,6 +119,8 @@ flash_algorithms:
     pc_erase_all: number
     # The offset where the data section of the ELF binary starts.
     data_section_offset: number
+    # Encoding (and compression algorithm) supported by the flash algorithm.
+    transfer_encoding: raw | miniz
     flash_properties:
       # The address range for which this flash algorithm is to be used.
       address_range:
@@ -111,8 +142,9 @@ flash_algorithms:
         - size: number
           # The address from on which the new sector size is applicable.
           address: number
-# The core type. Currently valid are [M4, M3, M33, M0, RISCV, Xtensa]
-core: string
+      # List of cores that can use this algorithm
+      cores:
+        - core name
 ```
 
 ## Target extraction
