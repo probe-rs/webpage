@@ -25,7 +25,7 @@ fits in. You can skip it if you are familiar with embedded debugging.{.tip}
 
 In most programming fields the software can be written on a computer system akin
 to the system the software is finally executed on. It hosts an OS, which has
-processes, network acess and most likely even GUI.
+processes, network access and most likely even GUI.
 
 For embedded systems, this is different. The software run on a target that is
 severely limited in its capabilities. It does not run an operating system and
@@ -56,5 +56,5 @@ probe-rs is a library that implements the protocols of debug probes from various
 manufacturers and the protocols of different chip architectures. It furthermore
 is able to flash many targets and download software onto them.
 
-While probe-rs was originally targetted at the Rust community, it can freely be
+While probe-rs was originally targeted at the Rust community, it can freely be
 used for programming in C as well.
