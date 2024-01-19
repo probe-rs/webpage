@@ -241,6 +241,7 @@ the following example and modify the channel information to match the
       "type": "probe-rs-debug",
       "request": "launch",
       "name": "probe_rs rtt-target example",
+      // ... <snip> ...
       "coreConfigs": [
         {
           "coreIndex": 0,
