@@ -2,11 +2,8 @@ import Base from "./base.jsx";
 
 export default (
   { title, header, install, badges, usage, support, latestRelease },
-  filters,
+  filters
 ) => {
-  const assets = latestRelease.assets;
-  const installerUrl =
-    assets.find((a) => a.name == "probe-rs-installer.sh").browser_download_url;
   return (
     <Base pageCss="landing.css" title={title}>
       <div className="landing">
@@ -23,7 +20,13 @@ export default (
             />
 
             <div className="landing-install-code">
-              <pre><code>{ `curl -LsSf ${installerUrl} | sh` }</code></pre>
+              <pre>
+                <code>
+                  curl --proto '=https' --tlsv1.2 -LsSf
+                  https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.sh
+                  | sh
+                </code>
+              </pre>
               <a
                 className="landing-install-cta"
                 href={install.url}
@@ -52,28 +55,26 @@ export default (
                   }}
                 />
               </div>
-              {block.code &&
-                (
-                  <div
-                    className="landing-usage-code"
-                    dangerouslySetInnerHTML={{
-                      __html: filters.md(block.code),
-                    }}
-                  />
-                )}
-              {block.images &&
-                (
-                  <div className="landing-usage-image">
-                    <div>
-                      {block.images.map((image) => (
-                        <img
-                          src={image}
-                          className={block.images.length > 1 ? "small" : ""}
-                        />
-                      ))}
-                    </div>
+              {block.code && (
+                <div
+                  className="landing-usage-code"
+                  dangerouslySetInnerHTML={{
+                    __html: filters.md(block.code),
+                  }}
+                />
+              )}
+              {block.images && (
+                <div className="landing-usage-image">
+                  <div>
+                    {block.images.map((image) => (
+                      <img
+                        src={image}
+                        className={block.images.length > 1 ? "small" : ""}
+                      />
+                    ))}
                   </div>
-                )}
+                </div>
+              )}
             </>
           ))}
         </section>
