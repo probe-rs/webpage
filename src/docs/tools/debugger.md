@@ -437,7 +437,7 @@ instructions on how to build and deploy the extension.
 
 <center><img src="/images/vscode/variable_set_value.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
 
-### Use the `View Binary Data` to view and perform binary edits of target memroy
+### Use the `View Binary Data` to view and perform binary edits of target memory
 
 <center><img src="/images/vscode/variable_edit_and_watch.gif" style="margin-top: 1em; margin-bottom: 1em; max-width:100%; max-height:100%; width: auto; height: auto;" /></center>
 
