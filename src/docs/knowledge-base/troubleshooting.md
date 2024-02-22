@@ -20,24 +20,26 @@ This can be set multiple ways:
     [env]
     DEFMT_LOG = "trace"
     ```
-- If using [VSCode plugin](https://probe.rs/docs/tools/vscode/), 
-  - It should be set in `.vscode/launch.json` under configurations/coreConfigs/options. 
+- If using [VSCode plugin](https://probe.rs/docs/tools/vscode/),
+  - It should be set in `.vscode/launch.json` under configurations/coreConfigs/options.
   - Also be sure `rttEnabled` is `true` and `consoleLogLevel` is set to appropriate filter level:
     ```json
-    "configurations": [{
-    // SNIP...
-    "rttEnabled": true,
-    // SNIP...
-    "coreConfigs": [{
-        // SNIP ...,
-        "options": {
-            "env": {
-                "DEFMT_LOG": "Trace" // Trace, Debug, Info, Warn, Error
-                }
-            },
-        }
-    ],
-    "consoleLogLevel": "Console", //Console, Info, Debug
+    {
+        "version": "0.2.0",
+        "configurations": [{
+            // SNIP...
+            "coreConfigs": [{
+                // SNIP ...,
+                "rttEnabled": true,
+                "options": {
+                    "env": {
+                        "DEFMT_LOG": "Trace" // Trace, Debug, Info, Warn, Error
+                    }
+                },
+            }],
+            "consoleLogLevel": "Console", //Console, Info, Debug
+        }],
+    }
     ```
 
 
@@ -56,16 +58,20 @@ This can be set multiple ways:
     ```
 - If using VSCode plugin in `launch.json` configurations/chip
     ```json
-    "configurations": [{
-        // SNIP...
-        "chip": "STM32L451RCTx",
-        // SNIP...
+    {
+        "version": "0.2.0",
+        "configurations": [{
+            // SNIP...
+            "chip": "STM32L451RCTx",
+            // SNIP...
+        }],
+    }
     ```
 
 **Check `defmt_rtt` is being "used" in code:**
 
-If not, it will not be linked during compile. Example: 
-```rust 
+If not, it will not be linked during compile. Example:
+```rust
 use defmt_rtt as _;
 ```
 
