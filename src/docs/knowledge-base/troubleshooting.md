@@ -26,17 +26,15 @@ This can be set multiple ways:
     ```json
     "configurations": [{
     // SNIP...
-    "rttEnabled": true,
-    // SNIP...
     "coreConfigs": [{
         // SNIP ...,
+        "rttEnabled": true,
         "options": {
             "env": {
                 "DEFMT_LOG": "Trace" // Trace, Debug, Info, Warn, Error
-                }
-            },
-        }
-    ],
+            }
+        },
+    }],
     "consoleLogLevel": "Console", //Console, Info, Debug
     ```
 
@@ -64,8 +62,8 @@ This can be set multiple ways:
 
 **Check `defmt_rtt` is being "used" in code:**
 
-If not, it will not be linked during compile. Example: 
-```rust 
+If not, it will not be linked during compile. Example:
+```rust
 use defmt_rtt as _;
 ```
 
