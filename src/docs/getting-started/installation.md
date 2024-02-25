@@ -8,16 +8,16 @@ order: 20
 
 Run the setup command specific to your system:
 
-## Linux
+## Linux, macOS
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.sh | sh
 ```
 
-## [homebrew](https://brew.sh/)
+## Windows (PowerShell)
 
-```
-brew install probe-rs
+```sh
+irm https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.ps1 | iex
 ```
 
 ## [`cargo binstall`](https://crates.io/crates/cargo-binstall)
