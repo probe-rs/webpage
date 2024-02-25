@@ -4,12 +4,14 @@ description: "How to set up your debug probe to work with probe-rs."
 order: 20
 ---
 
+## Platform specifics
+
 probe-rs supports multiple probes out of the box.
 
-Most of them require little to no setup. For linux, [udev](#udev-rules) rules
+Most of them require little to no setup. For linux, [udev](#linux%3A-udev-rules) rules
 are required for non admin access.
 
-## udev rules
+### Linux: udev rules
 
 By default, the debug probes are only accessible by users with root privileges
 on Linux based systems. It is recommend to use appropriate udev rules to allow
@@ -29,6 +31,14 @@ rules do not get applied properly. See
 [this Github discussion](https://github.com/systemd/systemd/issues/4288#issuecomment-348166161)
 for more information.
 
+### Windows: WinUSB drivers
+
+Some of the probe implementations are implemented using [nusb](https://crates.io/crates/nusb) which
+uses the WinUSB drivers on Windows. For these devices you will need to download
+[Zadig](https://zadig.akeo.ie/) and select WinUSB as the driver for your probe. This will uninstall
+any official drivers, which means that the official tools will most likely not work anymore after
+this.
+
 ## CMSIS-DAP
 
 CMSIS-DAP is a standard for debug probes which is managed by ARM. All probes
@@ -40,13 +50,9 @@ implementing this standard are supported by probe-rs.
 
 No additional drivers are required to use CMSIS-DAP based probes on Linux
 systems. To ensure that users without root privileges can use the debug probe,
-it is recommended to configure udev as described in [udev rules](#udev-rules).
+it is recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
 
-#### Windows
-
-No driver installation required.
-
-#### Mac OS
+#### Windows, macOS
 
 No driver installation required.
 
@@ -54,24 +60,6 @@ No driver installation required.
 
 The ST-Link is a debug probe from ST Microelectronics. It is commonly found on
 their evaluation boards, such as the Discovery and Nucleo boards.
-
-### Setup
-
-#### Linux
-
-No additional drivers are required to use a ST-Link debug probe on Linux
-systems. To ensure that users without root privileges can use the debug probe,
-it is recommended to configure udev as described in [udev rules](#udev-rules).
-
-#### Windows
-
-To use the ST-Link on Windows, you need to install the official drivers, which
-can be found on the
-[ST website](https://www.st.com/en/development-tools/stsw-link009.html).
-
-#### Mac OS
-
-No driver installation required.
 
 ### Supported Versions
 
@@ -84,10 +72,28 @@ If you get an error message indicating that the firmware is outdated, please use
 the official ST tools to update the firmware. The update tool can be found on
 the [ST website](https://www.st.com/en/development-tools/stsw-link007.html).
 
+### Setup
+
+#### Linux
+
+No additional drivers are required to use a ST-Link debug probe on Linux
+systems. To ensure that users without root privileges can use the debug probe,
+it is recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
+
+#### Windows
+
+To use the ST-Link on Windows, you need to install the official drivers, which
+can be found on the
+[ST website](https://www.st.com/en/development-tools/stsw-link009.html).
+
+#### macOS
+
+No driver installation required.
+
 ## SEGGER J-Link
 
 The J-Link is a debug probe from [Segger](https://www.segger.com/). It is
-available as a stand-alone product, but also integrated into evaluation boards
+available as a stand-alone product, but also integrated into some evaluation boards
 directly.
 
 Due to the proprietary nature of the J-Link, probe-rs will not achieve the same
@@ -99,18 +105,15 @@ speed as the official J-Link tools.
 
 No additional drivers are required to use a J-Link debug probe on Linux systems.
 To ensure that users without root privileges can use the debug probe, it is
-recommended to configure udev as described in [udev rules](#udev-rules).
+recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
 
 #### Windows
 
 Unfortunately, probe-rs doesn't work with the official drivers on Windows. To
 use probe-rs it is necessary to install a generic WinUSB driver. The recommended
-way of doing this is by using [Zadig](https://zadig.akeo.ie/) and selecting
-WinUSB as the driver for the J-Link probe. This will uninstall the official
-driver, which means that the official Segger tools will not work anymore after
-this.
+way of doing this is by using [Zadig](#windows%3A-winusb-drivers).
 
-#### Mac OS
+#### macOS
 
 No driver installation required.
 
@@ -144,18 +147,15 @@ The following devices are known to work with probe-rs:
 
 No additional drivers are required to use a FTDI-based debug probe on Linux systems.
 To ensure that users without root privileges can use the debug probe, it is
-recommended to configure udev as described in [udev rules](#udev-rules).
+recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
 
 #### Windows
 
 Unfortunately, probe-rs doesn't work with the official (VCP or D2xx) drivers on Windows. To
 use probe-rs it is necessary to install a generic WinUSB driver. The recommended
-way of doing this is by using [Zadig](https://zadig.akeo.ie/) and selecting
-WinUSB as the driver for the FTDI probe. This will uninstall the official
-driver, which means that the official FTDI tools will not work anymore after
-this.
+way of doing this is by using [Zadig](#windows%3A-winusb-drivers).
 
-#### Mac OS
+#### macOS
 
 No driver installation required.
 
@@ -171,8 +171,8 @@ there's a good chance the one marked as `USB` can act as a debug probe.
 
 No additional drivers are required to use an ESP32 built-in debug interface on Linux systems.
 To ensure that users without root privileges can use the debug probe, it is
-recommended to configure udev as described in [udev rules](#udev-rules).
+recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
 
-#### Windows, Mac OS
+#### Windows, macOS
 
 No driver installation required.
