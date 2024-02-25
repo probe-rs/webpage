@@ -116,3 +116,48 @@ this.
 #### Mac OS
 
 No driver installation required.
+
+## FTDI
+
+FTDI refers to a family of debug probes built using USB-JTAG bridges from
+[FTDI](https://ftdichip.com/). probe-rs supports the following chips:
+
+- FT232H
+- FT2232C, FT2232D, FT2232H
+- FT4232H
+
+Due to the configurable nature of these chips, not every probe may be picked up by probe-rs. If you
+have a probe that you know contains an FTDI chip, but probe-rs does not recognise it, please open
+a ticket on [GitHub](https://github.com/probe-rs/probe-rs/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md&title=)!
+
+The following devices are known to work with probe-rs:
+
+- [esp-prog](https://docs.espressif.com/projects/espressif-esp-dev-kits/en/latest/other/esp-prog/user_guide.html)
+- The debug interface of [ESP32-Ethernet-Kit V1.2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-ethernet-kit.html)
+- [Adafruit FT232H Breakout](https://learn.adafruit.com/adafruit-ft232h-breakout)
+- Olimex ARM-USB devices:
+   - [ARM-USB-OCD](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-OCD/)
+   - [ARM-USB-OCD-H](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-OCD-H/)
+   - [ARM-USB-TINY](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY/)
+   - [ARM-USB-TINY-H](https://www.olimex.com/Products/ARM/JTAG/ARM-USB-TINY-H/)
+
+### Setup
+
+#### Linux
+
+No additional drivers are required to use a FTDI-based debug probe on Linux systems.
+To ensure that users without root privileges can use the debug probe, it is
+recommended to configure udev as described in [udev rules](#udev-rules).
+
+#### Windows
+
+Unfortunately, probe-rs doesn't work with the official (VCP or D2xx) drivers on Windows. To
+use probe-rs it is necessary to install a generic WinUSB driver. The recommended
+way of doing this is by using [Zadig](https://zadig.akeo.ie/) and selecting
+WinUSB as the driver for the FTDI probe. This will uninstall the official
+driver, which means that the official FTDI tools will not work anymore after
+this.
+
+#### Mac OS
+
+No driver installation required.
