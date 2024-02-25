@@ -37,7 +37,7 @@ usage:
 
       Hello from the microbit!
       Going to udf to print a stacktrace on the host ...
-      
+
       Frame 0: exp_u128 @ 0x00000fa2
       Frame 1: __udf @ 0x000000f2 inline
             /.cargo/registry/src/index.crates.io-6f17d22bba15001f/cortex-m-0.7.7/src/../asm/inline.rs:181:5
@@ -66,10 +66,10 @@ usage:
       $ probe-rs run --chip nRF51822_xxAA build/microbit.elf
           Erasing sectors ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 8.09 KiB/s (eta 0s )
       Programming pages   ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 5.29 KiB/s (eta 0s )
-      
+
       Hello from the microbit!
       Going to udf to print a stacktrace on the host ...
-      
+
       Frame 0: exp_u128 @ 0x00000fa2
       Frame 1: __udf @ 0x000000f2 inline
             /.cargo/registry/src/index.crates.io-6f17d22bba15001f/cortex-m-0.7.7/src/../asm/inline.rs:181:5
@@ -98,7 +98,7 @@ usage:
   - title: Easy debugging in VSCode
     description: |
       Use <a href="/docs/tools/debugger/">VSCode's</a> awesome debug capabilities with our native debug plugin.
-      
+
       Run the target, set breakpoints, halt on break point, inspect the stackframe and manipulate variables.
 
       <a href="https://github.com/probe-rs/rtt-target">RTT</a> is fully integrated and GDB-like expressions can be evaluated in the built in <a href="/docs/tools/debugger/">REPL</a>.
@@ -110,7 +110,7 @@ usage:
   - title: A clean and intuitive API
     description: |
       Manipulate your target from the host - read and write memory, set breakpoints, run, halt.
-      
+
       Build production utilities or awesome HITL setups. The sky is the limit!
     code: |
       <probe-rs-code>
