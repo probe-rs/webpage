@@ -4,13 +4,10 @@ description: "How to set up your debug probe to work with probe-rs."
 order: 20
 ---
 
-The probe-rs project supports three probes out of the box.
+probe-rs supports multiple probes out of the box.
 
 Most of them require little to no setup. For linux, [udev](#udev-rules) rules
 are required for non admin access.
-
-The [ST-Link](#st-link), [J-Link](#segger-j-link) and [CMSIS-DAP](#cmsis-dap)
-based probes are supported.
 
 ## udev rules
 
@@ -159,5 +156,23 @@ driver, which means that the official FTDI tools will not work anymore after
 this.
 
 #### Mac OS
+
+No driver installation required.
+
+## ESP32 devices with built-in USB-JTAG interface
+
+Some ESP32 devices come with built-in debug probes. The availability of this interface varies,
+but usually, if your device includes two USB ports, one labelled `USB`, the other `UART`, then
+there's a good chance the one marked as `USB` can act as a debug probe.
+
+### Setup
+
+#### Linux
+
+No additional drivers are required to use an ESP32 built-in debug interface on Linux systems.
+To ensure that users without root privileges can use the debug probe, it is
+recommended to configure udev as described in [udev rules](#udev-rules).
+
+#### Windows, Mac OS
 
 No driver installation required.
