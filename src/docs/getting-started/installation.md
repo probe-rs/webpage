@@ -14,7 +14,7 @@ Run the setup command specific to your system:
 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.sh | sh
 ```
 
-## Mac OS ([homebrew](https://brew.sh/))
+## [homebrew](https://brew.sh/)
 
 ```
 brew install probe-rs
