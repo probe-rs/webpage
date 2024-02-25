@@ -46,6 +46,10 @@ sudo apt install -y pkg-config libudev-dev
 dnf install libusbx-devel libudev-devel
 ```
 
+### macOS, Windows
+
+No additional setup is required.
+
 ## Installation
 
 Install with `cargo install`. This will install the `probe-rs`, `cargo-flash` and `cargo-embed` binaries and put them in `$PATH`.
