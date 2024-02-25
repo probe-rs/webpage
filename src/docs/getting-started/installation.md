@@ -4,15 +4,27 @@ description: "How to install probe-rs."
 order: 20
 ---
 
-# Installing a precompiled binary (`cargo binstall`)
+# Quickly
 
-## Prerequisites
+Run the setup command specific to your system:
 
-First, set up `cargo-binstall`. You can find setup instructions [`here`](https://crates.io/crates/cargo-binstall).
+## Linux
 
-## Installation
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.sh | sh
+```
 
-`cargo binstall probe-rs`
+## Mac OS ([homebrew](https://brew.sh/))
+
+```
+brew install probe-rs
+```
+
+## [`cargo binstall`](https://crates.io/crates/cargo-binstall)
+
+```
+cargo binstall probe-rs
+```
 
 # Installing from source (`cargo install`)
 
