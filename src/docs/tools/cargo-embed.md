@@ -325,7 +325,7 @@ channels = [
     { up = 1, down = 1, name = "sensor-data", up_mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12345" },
     { up = 2, down = 2, name = "battery-level", up_mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12346" },
 ]
-``````
+```
 
 This screenshot shows how it can be used with a single socket. The logger is configured to redirect `log::trace!()` to channel 1, which is then sent to the real time plotting app.
 
