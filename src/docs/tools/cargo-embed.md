@@ -308,4 +308,31 @@ which must be the same for the up and down channels. This is the default rttui
 behavior and can be configured. RTT itself can handle any up/down numbers
 combination.
 
+### External front-end via tcp socket
+
+You can configure a TCP socket per channel to easily get the data available outside of Cargo Embed.
+This is done via the `rtt.channels` configuration.
+
+For example we can configure regular logs via Defmt on `channel 0` while we stream sensordata from `channel 1` via TCP to a real time plotting app. And maybe we can send the battery voltage on `channel 2` as well (to a different socket). Of course you need to match these channels in your firmware as shown in the previous section.
+
+```toml
+[default.rtt]
+# Whether or not an RTTUI should be opened after flashing.
+enabled = true
+show_timestamps = true
+channels = [
+    { up = 0, down = 0, name = "Log", up_mode = "BlockIfFull", format = "Defmt" },
+    { up = 1, down = 1, name = "sensor-data", up_mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12345" },
+    { up = 2, down = 2, name = "battery-level", up_mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12346" },
+]
+```
+
+This screenshot shows how it can be used with a single socket. The logger is configured to redirect `log::trace!()` to channel 1, which is then sent to the real time plotting app.
+
+![Real time plotting rtt data via tcp](/images/cargo-embed-tcp-socket.png)
+
+Note that the raw bytes are send over the socket, so no timestamps are added, nor any parsing or line splitting is done. You have all the flexibility to do this yourself in the tcp endpoint.
+
+---
+
 Now you should be able to debug conveniently. Happy coding!
