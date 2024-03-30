@@ -4,35 +4,42 @@ description: "How to install probe-rs."
 order: 20
 ---
 
-# Quickly
+## Using install scripts
 
-Run the setup command specific to your system:
-
-## Linux, macOS
+### Linux, macOS
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.sh | sh
 ```
 
-## Windows (PowerShell)
+### Windows
 
-```sh
+```ps
 irm https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.ps1 | iex
 ```
 
-## [`cargo binstall`](https://crates.io/crates/cargo-binstall)
+## From package managers
 
+### [homebrew](https://brew.sh/)
+
+```bash
+brew tap probe-rs/probe-rs
+brew install probe-rs
 ```
+
+### [cargo binstall](https://crates.io/crates/cargo-binstall)
+
+```bash
 cargo binstall probe-rs
 ```
 
-# Installing from source (`cargo install`)
+## Installing from source (`cargo install`)
 
-## Prerequisites
+### Prerequisites
 
 To build probe-rs from source, you will need a working Rust toolchain. The easiest way is to follow the [rustup installation instructions](https://rustup.rs).
 
-### Debian-based Linux
+#### Debian-based Linux
 
 On Debian and derived distros (e.g. Ubuntu), the following packages need to be installed:
 
@@ -40,17 +47,17 @@ On Debian and derived distros (e.g. Ubuntu), the following packages need to be i
 sudo apt install -y pkg-config libudev-dev
 ```
 
-### RPM-based Linux (Fedora, CentOS)
+#### RPM-based Linux (Fedora, CentOS)
 
 ```bash
 dnf install libusbx-devel libudev-devel
 ```
 
-### macOS, Windows
+#### macOS, Windows
 
 No additional setup is required.
 
-## Installation
+### Installation
 
 Install with `cargo install`. This will install the `probe-rs`, `cargo-flash` and `cargo-embed` binaries and put them in `$PATH`.
 
