@@ -54,7 +54,7 @@ This can be set multiple ways:
 
 - `.cargo/config.toml` under runner. Example:
     ``` toml
-    runner = "probe-rs-cli run --chip STM32L451RCTx"
+    runner = "probe-rs run --chip STM32L451RCTx"
     ```
 - If using VSCode plugin in `launch.json` configurations/chip
     ```json
