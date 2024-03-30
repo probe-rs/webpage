@@ -41,5 +41,5 @@ At a minimum TDO, TCK, TDI, TMS, and a ground pin must be connected to your prob
 
 The chip name to use with **probe-rs** is `RaspberryPi4B`.  When connecting make sure the protocol is explicitly specified as JTAG or connection errors may occur.  For example, to use the gdb server:
 
-`probe-rs-cli gdb --protocol jtag --chip RaspberryPi4B`
+`probe-rs gdb --protocol jtag --chip RaspberryPi4B`
 
