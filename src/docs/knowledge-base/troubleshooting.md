@@ -20,7 +20,7 @@ This can be set multiple ways:
     [env]
     DEFMT_LOG = "trace"
     ```
-- If using [VSCode plugin](https://probe.rs/docs/tools/vscode/),
+- If using [VSCode plugin](https://probe.rs/docs/tools/debugger/),
   - It should be set in `.vscode/launch.json` under configurations/coreConfigs/options.
   - Also be sure `rttEnabled` is `true` and `consoleLogLevel` is set to appropriate filter level:
     ```json
