@@ -62,5 +62,5 @@ No additional setup is required.
 Install with `cargo install`. This will install the `probe-rs`, `cargo-flash` and `cargo-embed` binaries and put them in `$PATH`.
 
 ```bash
-cargo install probe-rs --features cli
+cargo install probe-rs-tools
 ```

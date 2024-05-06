@@ -20,7 +20,7 @@ Here are the basics
 
 ```sh
 # Installing cargo flash is simple:
-cargo install probe-rs --features cli
+cargo install probe-rs-tools
 
 # In your cargo project directory, call
 cargo flash --release --chip <chip_name>

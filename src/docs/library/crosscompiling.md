@@ -62,7 +62,7 @@ Add the following to the `Cross.toml`. Which will define to `cross` which contai
 docker build -t crossimage crossimage/
 
 # Run cross to compile, cross arguments are the same as the `cargo` ones
-cross build --release --target=armv7-unknown-linux-gnueabihf --features cli
+cross build --release --target=armv7-unknown-linux-gnueabihf
 
 # Done
 ```
