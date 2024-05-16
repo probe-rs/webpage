@@ -41,9 +41,9 @@ with something like:
 ```
 
 When doing heavy development, you might end in the need to provide a GitHub API
-(for fetching the probe-rs repository in the background). See
+Token (for fetching the probe-rs repository in the background). See
 [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-for hot to get yours, save it to a file like `~/.probe-rs-github-token` and
+for how to get yours, save it to a file like `~/.probe-rs-github-token` and
 provide it to deno via the environment variable `GITHUB_TOKEN` as follows:
 
 ```
