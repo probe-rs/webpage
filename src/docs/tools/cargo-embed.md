@@ -60,7 +60,7 @@ enabled = true
 ```
 
 All available options can be found in the
-[default.toml](https://github.com/probe-rs/probe-rs/blob/master/probe-rs-tools/src/bin/probe-rs/cmd/cargo_embed/config/default.toml.toml).
+[default.toml](https://github.com/probe-rs/probe-rs/blob/master/probe-rs-tools/src/bin/probe-rs/cmd/cargo_embed/config/default.toml).
 This example uses toml syntax to set each option under the `default` top-level
 profile key.
 
