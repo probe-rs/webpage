@@ -17,7 +17,6 @@ import sass from "lume/plugins/sass.ts";
 import source_maps from "lume/plugins/source_maps.ts";
 import svgo from "lume/plugins/svgo.ts";
 import toc from "https://deno.land/x/lume_markdown_plugins@v0.1.0/toc/mod.ts";
-import readingTime from "https://raw.githubusercontent.com/lumeland/experimental-plugins/main/reading_time/mod.ts";
 import { Page } from "lume/core.ts";
 
 const markdown = {
@@ -56,7 +55,6 @@ site.use(imagick());
 site.use(sass());
 site.use(source_maps());
 site.use(svgo());
-site.use(readingTime());
 site
   .scopedUpdates((path) => path.endsWith(".png") || path.endsWith(".jpg"))
   .filter("slice", (arr, length) => arr.slice(0, length))
@@ -109,7 +107,7 @@ site
   })
   .preprocess([".md"], (page: Page) => {
     page.data.excerpt ??= (page.data.content as string).split(
-      /<!--\s*more\s*-->/i,
+      /<!--\s*more\s*-->/i
     )[0];
   });
 
