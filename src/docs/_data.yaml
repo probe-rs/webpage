@@ -11,3 +11,5 @@ docsMenu:
     id: library
   - title: Knowledge Base
     id: knowledge-base
+  - title: FAQ
+    id: faq
