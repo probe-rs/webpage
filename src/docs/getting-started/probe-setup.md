@@ -111,7 +111,21 @@ recommended to configure udev as described in [udev rules](#linux%3A-udev-rules)
 
 Unfortunately, probe-rs doesn't work with the official drivers on Windows. To
 use probe-rs it is necessary to install a generic WinUSB driver. The recommended
-way of doing this is by using [Zadig](#windows%3A-winusb-drivers).
+way of doing this is by using the 
+[J-Link Configurator](https://www.segger.com/products/debug-probes/j-link/tools/j-link-configurator/)
+tool. To install the generic WinUSB driver with the J-Link Configurator tool:
+
+- Download the J-Link Configurator tool
+- Connect the J-Link probe you wish to update
+- Start the J-Link Configurator tool
+- Right click the entry in the overview where your probe is listed, and select
+**Configure**
+- Under **USB Driver (Windows)** select **WinUSB**
+- Click **OK**
+
+Some J-Link probes will have the option to select WinUSB in the configuration
+dialog disabled. In this case, use [Zadig](#windows%3A-winusb-drivers) to
+install the generic WinUSB driver for your probe.
 
 #### macOS
 
