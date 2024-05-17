@@ -21,6 +21,31 @@
 [Install](https://deno.land/manual@v1.36.3/getting_started/installation) deno
 which is the JS runtime to generate all webpage docs.
 
-You need a GitHub API token with repository read access to circumvent API rate
-limiting. Store it in the `GITHUB_TOKEN` environment variable for the deno
-process to pick up. Run `deno task serve` in this repository root.
+Then locally serve the documentation from the root of this repository. Be
+patient, it may take a while on the first run.
+
+```
+$ deno task serve
+```
+
+When the documentation preview is ready and gets served, you will be greeted
+with something like:
+
+```
+🍾 Site built into ./target
+  129 files generated in 62.64 seconds
+
+  Server started at:
+  http://localhost:3000/ (local)
+  http://192.0.2.3:3000/ (network)
+```
+
+When doing heavy development, you might end in the need to provide a GitHub API
+Token (for fetching the probe-rs repository in the background). See
+[here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+for how to get yours, save it to a file like `~/.probe-rs-github-token` and
+provide it to deno via the environment variable `GITHUB_TOKEN` as follows:
+
+```
+$ export GITHUB_TOKEN=$(cat ~/.probe-rs-github-token)
+```
