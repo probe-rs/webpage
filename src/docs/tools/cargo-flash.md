@@ -18,7 +18,7 @@ You can use **cargo-flash** just like 'cargo run', but instead of running on the
 
 Here are the basics
 
-**cargo-embed** is installed as part of the **probe-rs** group of tools, see the
+**cargo-flash** is installed as part of the **probe-rs** group of tools, see the
 [Installation](/docs/getting-started/installation) page.
 
 ```sh
