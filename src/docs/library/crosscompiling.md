@@ -6,9 +6,9 @@ order: 100
 
 Even though **probe-rs** can run on most systems, there can be cases where using `cargo install` is not possible due to system permissions or resource limitations.
 
-In such cases you can Crosscompile **probe-rs** for use in **cargo-flash** or **cargo-embed** on a different architecture, and move the resulting static binary to the target system.
+In such cases you can cross-compile **probe-rs** for use in **cargo-flash** or **cargo-embed** on a different architecture, and move the resulting static binary to the target system.
 
-We will use a [**Raspberry pi 400**](https://www.raspberrypi.org/products/raspberry-pi-400/) as the target system as an example, where `cargo install probe-rs` on a default **Raspberry PI OS** installation is not possible to pass the `rustc` final Linking step for `probe-rs` due to system memory limitations.
+We will use a [**Raspberry pi 400**](https://www.raspberrypi.org/products/raspberry-pi-400/) as the target system as an example, where `cargo install` on a default **Raspberry PI OS** installation can not pass the `rustc` final Linking step due to system memory limitations.
 
 After defining the target system architecture, in this example being `armv7-unknown-linux-gnueabihf`, here are two different ways to Crosscompile, each with their pros and cons.
 
@@ -52,17 +52,17 @@ vim Cross.toml
 
 Add the following to the `Cross.toml`. Which will define to `cross` which container should be used for the target architecture:
 
-    ```toml
-    [target.armv7-unknown-linux-gnueabihf]
-    image = "crossimage"
-    ```
+```toml
+[target.armv7-unknown-linux-gnueabihf]
+image = "crossimage"
+```
 
 ```sh
 # Build and tag the container image, specifying the name as defined in the `Cross.toml`.
 docker build -t crossimage crossimage/
 
 # Run cross to compile, cross arguments are the same as the `cargo` ones
-cross build --release --target=armv7-unknown-linux-gnueabihf --features cli
+cross build --path probe-rs-tools --release --target=armv7-unknown-linux-gnueabihf
 
 # Done
 ```

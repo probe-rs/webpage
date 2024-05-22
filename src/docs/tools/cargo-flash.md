@@ -18,10 +18,10 @@ You can use **cargo-flash** just like 'cargo run', but instead of running on the
 
 Here are the basics
 
-```sh
-# Installing cargo flash is simple:
-cargo install probe-rs --features cli
+**cargo-flash** is installed as part of the **probe-rs** group of tools, see the
+[Installation](/docs/getting-started/installation) page.
 
+```sh
 # In your cargo project directory, call
 cargo flash --release --chip <chip_name>
 
