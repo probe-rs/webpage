@@ -59,8 +59,10 @@ No additional setup is required.
 
 ### Installation
 
-Install with `cargo install`. This will install the `probe-rs`, `cargo-flash` and `cargo-embed` binaries and put them in `$PATH`.
+Install with `cargo install`. This will download the latest **development** sources, compile them, install the `probe-rs`, `cargo-flash` and `cargo-embed` binaries and put them in `$PATH`.
 
 ```bash
-cargo install probe-rs-tools
+cargo install probe-rs-tools --git https://github.com/probe-rs/probe-rs --locked
 ```
+
+See the [Cargo book](https://doc.rust-lang.org/cargo/commands/cargo-install.html) for details.
