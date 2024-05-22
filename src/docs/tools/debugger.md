@@ -14,11 +14,10 @@ functionality. For details of current status and functionality please read this
 
 ### Installation
 
-- Install the **probe-rs** tool, following the instructions at
-  [Installation](/docs/getting-started/installation).
-- Install the **probe-rs** extension in VS Code, by installing the _latest
-  available_ from the Visual Studio
-  [Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger)
+Install the **probe-rs** extension in VS Code, by installing the _latest available_
+from the Visual Studio [Extension Marketplace](https://marketplace.visualstudio.com/items?itemName=probe-rs.probe-rs-debugger).
+The extension will ask to install the **probe-rs** tools for you if it can't find them on your
+system.
 
 ### Usage and Configuration
 
