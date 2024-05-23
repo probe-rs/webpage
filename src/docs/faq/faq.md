@@ -28,3 +28,28 @@ Make sure your firmware does not crash very early. This is a very common reason 
 ## How do I add a new target?
 
 Please see the documentation on [CMSIS-Packs](/docs/knowledge-base/cmsis-packs)
+
+## probe-rs gives me an error, what should I do?
+
+If you encounter an error that you think is a bug in probe-rs, you should report it to us!
+
+In case your issue reproduces in a reliable way (i.e., when running the same command you get the same error), you can generate a report that includes some important information in a zip file!
+You can generate a report by appending `--report` to the failing command.
+
+For example, if you encounter an error running `probe-rs run --chip atsamd51p19a path_to_elf`, you can generate a report by running the following:
+
+`probe-rs run --chip atsamd51p19a path_to_elf --report`
+
+The command will create `report.zip` in your current folder, and it will also print a link to open a GitHub issue pre-filled with a summary of the report.
+
+> If you feel uncomfortable clicking weird links, you don't have to! It's just a shortcut to a new issue in the probe-rs GitHub repository!
+
+Please add anything you might find relevant to the issue description! Additionally, please upload it along with your issue ticket!
+
+### What does the zip contain?
+
+The generated `report.zip` contains the following files:
+
+- If applicable, the firmware image you're working with. Be aware that this might contain personal or otherwise sensitive information.
+- Logs generated during execution.
+- probe-rs version information.
