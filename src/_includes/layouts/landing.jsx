@@ -2,7 +2,7 @@ import Base from "./base.jsx";
 
 export default (
   { title, header, install, badges, usage, support, latestRelease },
-  filters
+  filters,
 ) => {
   return (
     <Base pageCss="landing.css" title={title}>
@@ -23,7 +23,7 @@ export default (
               <pre>
                 <code>
                   curl --proto '=https' --tlsv1.2 -LsSf
-                  https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-installer.sh
+                  https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh
                   | sh
                 </code>
               </pre>
