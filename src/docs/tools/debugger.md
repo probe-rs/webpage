@@ -109,7 +109,7 @@ reflect your own project and chip) to help you get started.
         "haltAfterReset": false,
         "formatOptions": {
           //!MODIFY (or remove). Valid values are: 'bin', 'hex', 'elf'(default), 'idf'
-          "format": "elf"
+          "binaryFormat": "elf"
         }
       },
       "coreConfigs": [
@@ -578,7 +578,7 @@ for more details.
                 "formatOptions": {
                     "type": "object",
                     "properties": {
-                        "format": {
+                        "binaryFormat": {
                             "type": "string",
                             "description": "One of the supported binary formats probe-rs uses for flashing the target binary.",
                             "enum": [
