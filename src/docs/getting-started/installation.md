@@ -30,7 +30,7 @@ brew install probe-rs
 ### [cargo binstall](https://crates.io/crates/cargo-binstall)
 
 ```bash
-cargo binstall probe-rs
+cargo binstall probe-rs-tools
 ```
 
 ## Installing from source (`cargo install`)
