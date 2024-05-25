@@ -67,3 +67,14 @@ You have multiple options, the two most interesting are:
 - To try the latest development version (a.k.a the `master` branch) with experimental and unreleased changes, run `cargo install probe-rs-tools --git https://github.com/probe-rs/probe-rs --locked`
 
 See the [Cargo book](https://doc.rust-lang.org/cargo/commands/cargo-install.html) for details.
+
+
+## Shell completion
+
+You likely want to install shell completion support along with the probe-rs binaries. Just run:
+
+```bash
+probe-rs complete install
+```
+
+If your shell is not supported out of the box, please follow the instructions given by this command.
