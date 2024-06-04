@@ -474,6 +474,14 @@ for more details.
             "description": "Optionally connect to an existing `probe-rs dap-server` session on IP and Port, e.g. '127.0.0.1:50000'",
             "default": "127.0.0.1:50000"
         },
+        "logFile": {
+            "type": "string",
+            "description": "The path to the log file. This option is ignored if either the `server` or `runtimeArgs` is specified. If no location is specified, the behaviour depends on `--log-to-folder"
+        },
+        "logToFolder": {
+            "type": "boolean",
+            "description": "Enable logging to the default folder. This option is ignored if either the `logFile` or `runtimeArgs` is specified.`"
+        },
         "consoleLogLevel": {
             "type": "string",
             "description": "The level of log info printed to the console. This does NOT affect the RUST_LOG defined in the `env` property.",
@@ -525,6 +533,10 @@ for more details.
             "type": "string",
             "description": "Please specify the appropriate chip from the list of supported chips reported by running `probe-rs chip list`."
         },
+        "chipDescriptionPath": {
+            "type": "string",
+            "description": "Use this option to add custom target chips from a file."
+        },
         "connectUnderReset": {
             "type": "boolean",
             "description": "This option will result in the target reset pin being held high during the attach operation.",
@@ -553,6 +565,7 @@ for more details.
         },
         "flashingConfig": {
             "type": "object",
+            "additionalProperties": false,
             "description": "These options are applied when flashing one or more `program_binary` files to the target memory.",
             "properties": {
                 "flashingEnabled": {
@@ -577,6 +590,7 @@ for more details.
                 },
                 "formatOptions": {
                     "type": "object",
+                    "additionalProperties": false,
                     "properties": {
                         "binaryFormat": {
                             "type": "string",
@@ -620,6 +634,7 @@ for more details.
             "description": "Each MCU core has a mandatory `programBinary` as well as several other optional properties.",
             "items": {
                 "type": "object",
+                "additionalProperties": false,
                 "required": [
                     "programBinary"
                 ],
@@ -635,7 +650,7 @@ for more details.
                     },
                     "svdFile": {
                         "type": "string",
-                        "description": "The path (relative to `cwd` or absolute) to the CMCIS-SVD file for your target core"
+                        "description": "The path (relative to `cwd` or absolute) to the CMSIS-SVD file for your target core"
                     },
                     "rttEnabled": {
                         "type": "boolean",
@@ -644,12 +659,16 @@ for more details.
                     },
                     "rttChannelFormats": {
                         "type": "array",
+                        "description": "RTT channel configuration. Unlisted active channels will be configured with `dataFormat=String', and 'showTimestamps=true'.",
                         "items": {
                             "type": "object",
+                            "required": [
+                                "channelNumber"
+                            ],
                             "properties": {
                                 "channelNumber": {
                                     "type": "number",
-                                    "description": "The channel number to which this data format applies. If any active channel numbers are omitted, we will assume the default will be `dataFormat=String', and 'showTimestamps=false'."
+                                    "description": "The channel number to which this data format applies."
                                 },
                                 "dataFormat": {
                                     "type": "string",
@@ -662,19 +681,35 @@ for more details.
                                     "enumDescriptions": [
                                         "String (text) format.",
                                         "Binary Little Endian format.",
-                                        "Deferred formatting (see: https://defmt.ferrous-systems.com)."
+                                        "defmt (see: https://defmt.ferrous-systems.com)."
                                     ],
                                     "default": "String"
                                 },
+                                "mode": {
+                                    "type": "string",
+                                    "description": "RTT operating mode.",
+                                    "enum": [
+                                        "NoBlockSkip",
+                                        "NoBlockTrim",
+                                        "BlockIfFull"
+                                    ],
+                                    "enumDescriptions": [
+                                        "The target will add data to the channel only if it fits completely, otherwise it will skip the data.",
+                                        "The target will add as much data to the channel as possible, without blocking.",
+                                        "The target will block until there is enough space in the channel to add the data."
+                                    ]
+                                },
                                 "showTimestamps": {
                                     "type": "boolean",
-                                    "default": false,
                                     "description": "Enable the inclusion of timestamps in the RTT output for `dataFormat=String`."
                                 },
                                 "showLocation": {
                                     "type": "boolean",
-                                    "default": true,
-                                    "description": "Enable the inclusion of Defmt location information in the RTT output for `dataFormat=Defmt`."
+                                    "description": "Enable the inclusion of defmt location information in the RTT output for `dataFormat=Defmt`."
+                                },
+                                "logFormat": {
+                                    "type": "string",
+                                    "description": "The default format string to use for decoding defmt logs."
                                 }
                             }
                         }
@@ -699,6 +734,14 @@ for more details.
             "type": "string",
             "description": "Optionally connect to an existing `probe-rs dap-server` session on IP and Port, e.g. '127.0.0.1:50000'",
             "default": "127.0.0.1:50000"
+        },
+        "logFile": {
+            "type": "string",
+            "description": "The path to the log file. This option is ignored if either the `server` or `runtimeArgs` is specified. If no location is specified, the behaviour depends on `--log-to-folder"
+        },
+        "logToFolder": {
+            "type": "boolean",
+            "description": "Enable logging to the default folder. This option is ignored if either the `logFile` or `runtimeArgs` is specified.`"
         },
         "consoleLogLevel": {
             "type": "string",
@@ -751,6 +794,10 @@ for more details.
             "type": "string",
             "description": "Please specify the appropriate chip from the list of supported chips reported by running `probe-rs chip list`."
         },
+        "chipDescriptionPath": {
+            "type": "string",
+            "description": "Use this option to add custom target chips from a file."
+        },
         "connectUnderReset": {
             "type": "boolean",
             "description": "This option will result in the target reset pin being held high during the attach operation.",
@@ -782,6 +829,7 @@ for more details.
             "description": "Each MCU core has a mandatory `programBinary` as well as several other optional properties.",
             "items": {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                     "required": [
                         "programBinary"
@@ -797,7 +845,7 @@ for more details.
                     },
                     "svdFile": {
                         "type": "string",
-                        "description": "The path (relative to `cwd` or absolute) to the CMCIS-SVD file for your target core"
+                        "description": "The path (relative to `cwd` or absolute) to the CMSIS-SVD file for your target core"
                     },
                     "rttEnabled": {
                         "type": "boolean",
@@ -806,12 +854,17 @@ for more details.
                     },
                     "rttChannelFormats": {
                         "type": "array",
+                        "description": "RTT channel configuration. Unlisted active channels will be configured with `dataFormat=String', and 'showTimestamps=true'.",
                         "items": {
                             "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "channelNumber"
+                            ],
                             "properties": {
                                 "channelNumber": {
                                     "type": "number",
-                                    "description": "The channel number to which this data format applies. If any active channel numbers are omitted, we will assume the default will be `dataFormat=String', and 'showTimestamps=false'."
+                                    "description": "The channel number to which this data format applies."
                                 },
                                 "dataFormat": {
                                     "type": "string",
@@ -824,19 +877,35 @@ for more details.
                                     "enumDescriptions": [
                                         "String (text) format.",
                                         "Binary Little Endian format.",
-                                        "Deferred formatting (see: https://defmt.ferrous-systems.com)."
+                                        "defmt (see: https://defmt.ferrous-systems.com)."
                                     ],
                                     "default": "String"
                                 },
+                                "mode": {
+                                    "type": "string",
+                                    "description": "RTT operating mode.",
+                                    "enum": [
+                                        "NoBlockSkip",
+                                        "NoBlockTrim",
+                                        "BlockIfFull"
+                                    ],
+                                    "enumDescriptions": [
+                                        "The target will add data to the channel only if it fits completely, otherwise it will skip the data.",
+                                        "The target will add as much data to the channel as possible, without blocking.",
+                                        "The target will block until there is enough space in the channel to add the data."
+                                    ]
+                                },
                                 "showTimestamps": {
                                     "type": "boolean",
-                                    "default": false,
                                     "description": "Enable the inclusion of timestamps in the RTT output for `dataFormat=String`."
                                 },
                                 "showLocation": {
                                     "type": "boolean",
-                                    "default": true,
-                                    "description": "Enable the inclusion of Defmt location information in the RTT output for `dataFormat=Defmt`."
+                                    "description": "Enable the inclusion of defmt location information in the RTT output for `dataFormat=Defmt`."
+                                },
+                                "logFormat": {
+                                    "type": "string",
+                                    "description": "The default format string to use for decoding defmt logs."
                                 }
                             }
                         }
