@@ -924,7 +924,7 @@ VSCode not your cup of tea? No problem!
 probe-rs implements the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/overview), so you can use other [editors, IDEs, and visual debuggers](https://microsoft.github.io/debug-adapter-protocol/implementors/tools/), such as [Vimspector](https://github.com/puremourning/vimspector#readme)...
 
 ## NVIM via nvim-dap
-nvim-dap is a popular nvim plugin to work with dap debuggers. Setting up nvim-dap for probe-rs is in principle straight forward, and many things work with minimal config. RTT messages and other messages from probe-rs are implemented over dap events like "probe-rs-show-messages", "probe-rs-rtt-data", and "probe-rs-rtt-channel-config". The last one is requiring a response to enable the RTT data.
+nvim-dap is a popular nvim plugin to work with dap debuggers. Setting up nvim-dap for probe-rs is in principle straight forward, and many things work with minimal config. RTT messages and other messages from probe-rs are implemented over DAP events like "probe-rs-show-messages", "probe-rs-rtt-data", and "probe-rs-rtt-channel-config". The last one is requiring a response to enable the RTT data.
 
 You can find a config snippet in the nvim-dap [wiki](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#probe-rs) which supports the handshake to get those messages, print them in the dap-repl, and additionally log them to a file in the cwd. You can change this to your liking. If you found better solutions, like printing to the dapui-console, please expand the wiki.
 
