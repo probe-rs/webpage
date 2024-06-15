@@ -922,3 +922,76 @@ for more details.
 VSCode not your cup of tea? No problem!
 
 probe-rs implements the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/overview), so you can use other [editors, IDEs, and visual debuggers](https://microsoft.github.io/debug-adapter-protocol/implementors/tools/), such as [Vimspector](https://github.com/puremourning/vimspector#readme)...
+
+## NVIM via nvim-dap
+nvim-dap is a popular nvim plugin to work with dap debuggers. Setting up nvim-dap for probe-rs is in principle straight forward, and many things work with minimal config. RTT messages and other messages from probe-rs are implemented over DAP events like "probe-rs-show-messages", "probe-rs-rtt-data", and "probe-rs-rtt-channel-config". The last one is requiring a response to enable the RTT data.
+
+You can find a config snippet in the nvim-dap [wiki](https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#probe-rs) which supports the handshake to get those messages, print them in the dap-repl, and additionally log them to a file in the cwd. You can change this to your liking. If you found better solutions, like printing to the dapui-console, please expand the wiki.
+
+nvim-dap supports reading of .vscode/launch.json. Since the configuration will strongly vary from project to project the config snippet does not contain a configuration. You need to import the launch.json in your project. If you use a nvim distribution like astronvim automatic import of launch.json is preconfigured. Otherwise you need to configure it yourself or run `:lua require('dap.ext.vscode').load_launchjs()`. The linkage of the adapter to rust is already setup in the config snippet.
+
+If you are using lazy.nvim as plugin manager, setup can be done by adding the following lua module:
+
+/path/to/your/lua/plugins/nvim-dap-probe-rs.lua
+```lua
+return {
+  "mfussenegger/nvim-dap",
+  opts = function()
+    local dap = require "dap"
+    if not dap.adapters then dap.adapters = {} end
+    dap.adapters["probe-rs-debug"] = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = vim.fn.expand "$HOME/.cargo/bin/probe-rs",
+        args = { "dap-server", "--port", "${port}" },
+      },
+    }
+    -- Connect the probe-rs-debug with rust files. Configuration of the debugger is done via project_folder/.vscode/launch.json
+    require("dap.ext.vscode").type_to_filetypes["probe-rs-debug"] = { "rust" }
+    -- Set up of handlers for RTT and probe-rs messages.
+    -- In addition to nvim-dap-ui I write messages to a probe-rs.log in project folder
+    -- If RTT is enabled, probe-rs sends an event after init of a channel. This has to be confirmed or otherwise probe-rs wont sent the rtt data.
+    dap.listeners.before["event_probe-rs-rtt-channel-config"]["plugins.nvim-dap-probe-rs"] = function(session, body)
+      local utils = require "dap.utils"
+      utils.notify(
+        string.format('probe-rs: Opening RTT channel %d with name "%s"!', body.channelNumber, body.channelName)
+      )
+      local file = io.open("probe-rs.log", "a")
+      if file then
+        file:write(
+          string.format(
+            '%s: Opening RTT channel %d with name "%s"!\n',
+            os.date "%Y-%m-%d-T%H:%M:%S",
+            body.channelNumber,
+            body.channelName
+          )
+        )
+      end
+      if file then file:close() end
+      session:request("rttWindowOpened", { body.channelNumber, true })
+    end
+    -- After confirming RTT window is open, we will get rtt-data-events.
+    -- I print them to the dap-repl, which is one way and not separated.
+    -- If you have better ideas, let me know.
+    dap.listeners.before["event_probe-rs-rtt-data"]["plugins.nvim-dap-probe-rs"] = function(_, body)
+      local message =
+        string.format("%s: RTT-Channel %d - Message: %s", os.date "%Y-%m-%d-T%H:%M:%S", body.channelNumber, body.data)
+      local repl = require "dap.repl"
+      repl.append(message)
+      local file = io.open("probe-rs.log", "a")
+      if file then file:write(message) end
+      if file then file:close() end
+    end
+    -- Probe-rs can send messages, which are handled with this listener.
+    dap.listeners.before["event_probe-rs-show-message"]["plugins.nvim-dap-probe-rs"] = function(_, body)
+      local message = string.format("%s: probe-rs message: %s", os.date "%Y-%m-%d-T%H:%M:%S", body.message)
+      local repl = require "dap.repl"
+      repl.append(message)
+      local file = io.open("probe-rs.log", "a")
+      if file then file:write(message) end
+      if file then file:close() end
+    end
+  end,
+}
+```
