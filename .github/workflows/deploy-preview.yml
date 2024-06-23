@@ -54,7 +54,6 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
-            console.log(comments.data[0].user);
 
             let previousComment = comments.data.find((i) => i.user.login === "probe-rs-bot");
 
@@ -63,7 +62,7 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: '#[Preview](${{ steps.deploy-preview.outputs.alias }})'
+                body: '# [Preview](${{ steps.deploy-preview.outputs.alias }})'
               })
             } else {
               await github.rest.issues.updateComment({
@@ -71,7 +70,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: previousComment.id,
-                body: '#[Preview](${{ steps.deploy-preview.outputs.alias }})'
+                body: '# [Preview](${{ steps.deploy-preview.outputs.alias }})'
               })
             }
   
