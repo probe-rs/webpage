@@ -54,9 +54,9 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
-            console.log(comments);
+            console.log(comments.data[0].user);
 
-            let previousComment = comments.find((i) => i.login === "probe-rs-bot");
+            let previousComment = comments.data.find((i) => i.user.login === "probe-rs-bot");
 
             if(!previousComment) {
               await github.rest.issues.createComment({
