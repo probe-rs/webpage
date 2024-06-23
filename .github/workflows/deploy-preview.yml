@@ -40,7 +40,7 @@ jobs:
         with:
           apiToken: ${{ env.API_TOKEN }}
           accountId: ${{ env.ACCOUNT_ID }}
-          command: pages deploy 'target' --project-name=${{ github.event.repository.name }} --branch=${{ BRANCH_NAME }}
+          command: pages deploy 'target' --project-name=${{ github.event.repository.name }} --branch=${{ env.BRANCH_NAME }}
 
       - name: Report preview environment in PR
         uses: actions/github-script@v6
