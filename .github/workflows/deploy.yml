@@ -47,6 +47,6 @@ jobs:
         with:
           apiToken: ${{ env.API_TOKEN }}
           accountId: ${{ env.ACCOUNT_ID }}
-          projectName: probe-rs
+          projectName: ${{ github.event.repository.name }}
           directory: 'target'
           gitHubToken: ${{ env.GITHUB_TOKEN }}
