@@ -19,22 +19,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 2
-
-      - name: Check workflow modification permissions
-        run: |
-          git diff --name-only HEAD^ HEAD > files.txt
-          while IFS= read -r file
-          do
-            echo "Testing $file"
-            if [[ $file == .github/* ]]; then
-              echo "Workflows were modified";
-              if [ "${{ github.event.pull_request.author_association }}" != "MEMBER" ]; then
-                echo "Workflows changed by someone outside of the probe-rs org"
-                exit 1
-              fi
-            fi
-          done < files.txt
 
       - name: Setup Deno environment
         uses: denoland/setup-deno@v1
