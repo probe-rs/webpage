@@ -1,4 +1,4 @@
-name: Publish on GitHub Pages
+name: Publish preview on CF Pages
 
 on:
   pull_request:
@@ -7,6 +7,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  issues: write
 
 jobs:
   build:
