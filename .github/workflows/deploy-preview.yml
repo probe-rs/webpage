@@ -55,14 +55,14 @@ jobs:
               repo: context.repo.repo,
             });
 
-            let previousComment = comments.find((i) => i.login = "probe-rs-bot");
+            let previousComment = comments.find((i) => i.login === "probe-rs-bot");
 
             if(!previousComment) {
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: '#[Preview](${{ steps.deploy-preview.outputs.alias }}')
+                body: '#[Preview](${{ steps.deploy-preview.outputs.alias }})'
               })
             } else {
               github.rest.issues.updateComment({
@@ -70,7 +70,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 comment_id: previousComment.id,
-                body: '#[Preview](${{ steps.deploy-preview.outputs.alias }}')
+                body: '#[Preview](${{ steps.deploy-preview.outputs.alias }})'
               })
             }
   
