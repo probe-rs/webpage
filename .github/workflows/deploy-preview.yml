@@ -17,22 +17,27 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-
-      - name: Modified files
-        run: |
-          git fetch origin main:main
-          git diff --name-only --diff-filter=d main~ main
-
-      - name: Check access
-        if: ${{ github.event.pull_request.author_association != 'COLLABORATOR' && github.event.pull_request.author_association != 'OWNER' }}
-        run: |
-          echo "Event not triggered by a collaborator."
-          exit 1
-
-      - name: Checkout code
-        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Check workflow modification permissions
+        run: |
+          git diff --name-only HEAD^ HEAD > files.txt
+          while IFS= read -r file
+          do
+            echo "Testing $file"
+            if [[ $file == .github/* ]]; then
+              echo "Workflows were modified";
+              if [ "${{ github.event.pull_request.author_association }}" != "COLLABORATOR" ]
+                echo "Modifier is not a collaborator";
+                if [ "${{ github.event.pull_request.author_association }}" != "OWNER" ]
+                  echo "Modifier is not an owner";
+                  echo "Workflows changed by non-collaborator"
+                  exit 1
+                fi
+              fi
+            fi
+          done < files.txt
 
       - name: Setup Deno environment
         uses: denoland/setup-deno@v1
