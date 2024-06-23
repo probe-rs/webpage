@@ -54,6 +54,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             });
+            console.log(comments);
 
             let previousComment = comments.find((i) => i.login === "probe-rs-bot");
 
