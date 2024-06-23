@@ -32,17 +32,16 @@ jobs:
       
       - name: Deploy to CF Pages
         id: deploy-preview
-        uses: cloudflare/pages-action@main
+        uses: cloudflare/wrangler-action@v3
         env:
           API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         with:
           apiToken: ${{ env.API_TOKEN }}
           accountId: ${{ env.ACCOUNT_ID }}
-          projectName: ${{ github.event.repository.name }}
-          directory: 'target'
-          gitHubToken: ${{ env.GITHUB_TOKEN }}
+          command: pages deploy 'target' --project-name=${{ github.event.repository.name }} --branch=${{ BRANCH_NAME }}
 
       - name: Report preview environment in PR
         uses: actions/github-script@v6
