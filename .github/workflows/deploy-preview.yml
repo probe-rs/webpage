@@ -44,7 +44,6 @@ jobs:
           projectName: ${{ github.event.repository.name }}
           directory: 'target'
           gitHubToken: ${{ env.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH_NAME }}
 
       - name: Report preview environment in PR
         uses: actions/github-script@v6
