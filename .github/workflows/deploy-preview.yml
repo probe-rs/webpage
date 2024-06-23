@@ -29,9 +29,9 @@ jobs:
             echo "Testing $file"
             if [[ $file == .github/* ]]; then
               echo "Workflows were modified";
-              if [ "${{ github.event.pull_request.author_association }}" != "COLLABORATOR" ]
+              if [ "${{ github.event.pull_request.author_association }}" != "COLLABORATOR" ]; then
                 echo "Modifier is not a collaborator";
-                if [ "${{ github.event.pull_request.author_association }}" != "OWNER" ]
+                if [ "${{ github.event.pull_request.author_association }}" != "OWNER" ]; then
                   echo "Modifier is not an owner";
                   echo "Workflows changed by non-collaborator"
                   exit 1
