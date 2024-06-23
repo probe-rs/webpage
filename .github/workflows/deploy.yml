@@ -38,3 +38,16 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+
+      - name: Publish
+        uses: cloudflare/pages-action@v1
+        env:
+          API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          apiToken: ${{ env.API_TOKEN }}
+          accountId: ${{ env.ACCOUNT_ID }}
+          projectName: probe-rs
+          directory: 'target'
+          gitHubToken: ${{ env.GITHUB_TOKEN }}
