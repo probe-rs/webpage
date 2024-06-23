@@ -13,6 +13,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    environment:
+      name: webpage (Production)
+      url: https://probe.rs
+
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -38,3 +42,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+
