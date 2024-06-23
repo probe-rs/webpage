@@ -34,7 +34,7 @@ jobs:
         env:
           API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         with:
           apiToken: ${{ env.API_TOKEN }}
