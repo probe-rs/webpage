@@ -57,6 +57,8 @@ jobs:
 
             let previousComment = comments.data.find((i) => i.user.login === "probe-rs-bot");
 
+            console.log(${{ steps.deploy-preview.outputs }})
+
             if(!previousComment) {
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
