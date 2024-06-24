@@ -1,3 +1,7 @@
+# This workflow always runs from the state on `master`.
+# If you want to test changes to the workflow, you need to open a second PR against the branch of the PR with the workflow changes.
+# This is a security feature so one cannot meddle with secrets.
+
 name: Publish preview on CF Pages
 
 on:
