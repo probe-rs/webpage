@@ -44,6 +44,8 @@ jobs:
 
       - name: Report preview environment in PR
         uses: actions/github-script@v6
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
@@ -55,20 +57,10 @@ jobs:
 
             let previousComment = comments.data.find((i) => i.user.login === "probe-rs-bot");
 
-            if(!previousComment) {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: '# [Preview](${{ steps.deploy-preview.outputs.alias }})'
-              })
-            } else {
-              await github.rest.issues.updateComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: previousComment.id,
-                body: '# [Preview](${{ steps.deploy-preview.outputs.alias }})'
-              })
-            }
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '# [Preview](https://${{ env.BRANCH_NAME }}.webpage-5t5.pages.dev/)'
+            })
   
