@@ -2,7 +2,7 @@ name: Publish on GitHub Pages
 
 on:
   push:
-    branches: [ master ]
+    branches: [ 'master' ]
 
 permissions:
   contents: read
@@ -10,8 +10,12 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
+    environment:
+      name: webpage (Production)
+      url: https://probe.rs
 
     steps:
       - name: Clone repository
@@ -38,3 +42,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+
