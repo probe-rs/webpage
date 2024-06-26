@@ -31,6 +31,15 @@ rules do not get applied properly. See
 [this Github discussion](https://github.com/systemd/systemd/issues/4288#issuecomment-348166161)
 for more information.
 
+> If you are using WSL, you may need to enable the `udev` service. To check if the service is
+> running, run `service udev status`. If the service is not started, edit `/etc/wsl.conf`
+> (with sudo) and make sure the following is included:
+
+```
+[boot]
+command="service udev start"
+```
+
 ### Windows: WinUSB drivers
 
 Some of the probe implementations are implemented using [nusb](https://crates.io/crates/nusb) which
