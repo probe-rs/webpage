@@ -81,9 +81,9 @@ export const loadTargets = async (ref) => {
       const variants = targetDescription.variants;
       const jep = targetDescription.manufacturer
         ? getJep106Manufacturer(
-            targetDescription.manufacturer.cc,
-            targetDescription.manufacturer.id
-          )
+          targetDescription.manufacturer.cc,
+          targetDescription.manufacturer.id
+        )
         : undefined;
 
       for (const variant of variants) {
@@ -172,8 +172,36 @@ function schema() {
     kind: "mapping",
   });
 
+  const espressif = new Type("!Espressif", {
+    construct(data) {
+      return data !== null ? { Espressif: data } : {};
+    },
+    kind: "mapping",
+  });
+
+  const atsam_dsu = new Type("!AtsamDsu", {
+    construct(data) {
+      return data !== null ? { AtsamDsu: data } : {};
+    },
+    kind: "mapping",
+  });
+
+  const nordic_configid = new Type("!NordicConfigId", {
+    construct(data) {
+      return data !== null ? { NordicConfigId: data } : {};
+    },
+    kind: "mapping",
+  });
+
+  const nordic_ficr_info = new Type("!NordicFicrInfo", {
+    construct(data) {
+      return data !== null ? { NordicFicrInfo: data } : {};
+    },
+    kind: "mapping",
+  });
+
   const extended = new Schema({
-    explicit: [arm, riscv, xtensa, ram, nvm, flash, generic],
+    explicit: [arm, riscv, xtensa, ram, nvm, flash, generic, espressif, atsam_dsu, nordic_configid, nordic_ficr_info],
     include: [def],
   });
 
