@@ -319,11 +319,16 @@ For example we can configure regular logs via Defmt on `channel 0` while we stre
 [default.rtt]
 # Whether or not an RTTUI should be opened after flashing.
 enabled = true
-show_timestamps = true
-channels = [
-    { up = 0, down = 0, name = "Log", up_mode = "BlockIfFull", format = "Defmt" },
-    { up = 1, down = 1, name = "sensor-data", up_mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12345" },
-    { up = 2, down = 2, name = "battery-level", up_mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12346" },
+up_channels = [
+    { channel = 0, mode = "BlockIfFull", format = "Defmt" },
+    { channel = 1, mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12345" },
+    { channel = 2, mode = "BlockIfFull", format = "String", socket = "127.0.0.1:12346" },
+]
+# The UI configuration:
+tabs = [
+    { up_channel = 0, name = "Log" },
+    { up_channel = 1, name = "sensor-data", hide = true },
+    { up_channel = 2, name = "battery-level", hide = true },
 ]
 ```
 
