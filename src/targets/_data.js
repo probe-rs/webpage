@@ -200,8 +200,15 @@ function schema() {
     kind: "mapping",
   });
 
+  const infineon_scu = new Type("!InfineonScu", {
+    construct(data) {
+      return data !== null ? { InfineonScu: data } : {};
+    },
+    kind: "mapping",
+  });
+
   const extended = new Schema({
-    explicit: [arm, riscv, xtensa, ram, nvm, flash, generic, espressif, atsam_dsu, nordic_configid, nordic_ficr_info],
+    explicit: [arm, riscv, xtensa, ram, nvm, flash, generic, espressif, atsam_dsu, nordic_configid, nordic_ficr_info, infineon_scu],
     include: [def],
   });
 
