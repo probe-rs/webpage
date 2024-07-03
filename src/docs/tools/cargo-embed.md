@@ -161,11 +161,16 @@ called "Terminal"!
 | ------------- | ---------------------------------------------- |
 | `^c`          | Quit                                           |
 | `Fn{n}`       | Switch to tab `n`                              |
+| `^{n}`        | Switch to tab `n`                              |
+| `Tab`         | Switch to the next tab                         |
+| `Shift+Tab`   | Switch to the previous tab                     |
 | Any character | Add the character to the pending input         |
 | `Backspace`   | Delete the last character of the pending input |
 | `Enter`       | Send the pending input                         |
-| `PgUp`        | Scroll up                                      |
-| `PgDn`        | Scroll Down                                    |
+| `PgUp`        | Scroll up half a screen                        |
+| `UpArrow`     | Scroll up                                      |
+| `PgDn`        | Scroll down half a screen                      |
+| `DownArrow`   | Scroll down                                    |
 | `^l`          | Clear current tab                              |
 
 ### Don't panic!
