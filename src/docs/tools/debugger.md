@@ -118,7 +118,7 @@ reflect your own project and chip) to help you get started.
           //!MODIFY
           "programBinary": "Relative or fully qualified path to your programBinary",
           //!MODIFY
-          "svdFile": "Relative or fully qualified path to your programBinary"
+          "svdFile": "Relative or fully qualified path to the CMSIS-SVD file for your target core"
         }
       ],
       "env": {
@@ -156,7 +156,7 @@ reflect your own project and chip) to help you get started.
           //!MODIFY
           "programBinary": "Relative or fully qualified path to your programBinary",
           //!MODIFY
-          "svdFile": "Relative or fully qualified path to your programBinary"
+          "svdFile": "Relative or fully qualified path to the CMSIS-SVD file for your target core"
         }
       ],
       "env": {
@@ -206,7 +206,7 @@ Then use the following `launch.json` to connect to it:
           //!MODIFY
           "programBinary": "Relative or fully qualified path to your programBinary",
           //!MODIFY
-          "svdFile": "Relative or fully qualified path to your programBinary"
+          "svdFile": "Relative or fully qualified path to the CMSIS-SVD file for your target core"
         }
       ],
       //!This won't take effect. Please set environment variables before launching `probe-rs dap-server`.
