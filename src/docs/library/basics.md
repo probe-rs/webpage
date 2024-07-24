@@ -40,7 +40,7 @@ let session = probes[0].attach("nRF52")?;
 ```
 
 Now we have got our [Session](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html) ready to conduct further business.
-Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html#method.attach) call. Apart from passing a chip name, you can also pass various other arguments for selecting the chip.
+Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/probe/struct.Probe.html#method.attach) call. Apart from passing a chip name, you can also pass various other arguments for selecting the chip.
 
 ## The Session struct
 
