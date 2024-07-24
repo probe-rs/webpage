@@ -1,13 +1,13 @@
 ---
 title: "Basic Usage"
-description: "The very basics of using probe-rs."
+description: "The very basics of using the probe-rs library."
 order: 20
 ---
 
 ## The Probe struct
 
-The [Probe](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html) struct represents the physical probe in code form.
-It is used to do probe discovery, set physical parameters of the probe, spawn sessions and last but
+The [Probe](https://docs.rs/probe-rs/*/probe_rs/probe/struct.Probe.html) struct represents the physical probe in code form. To list available probes, use the [Lister](https://docs.rs/probe-rs/latest/probe_rs/probe/list/struct.Lister.html) struct.
+It is used to set physical parameters of the probe, spawn sessions and last but
 not least use special probe specific features such as SWV tracing, hard reset, etc.
 So if you are looking for non-core-architecture-specific functionality, the `Probe` struct is most likely the
 right place to look.
@@ -18,7 +18,9 @@ Best is to list the connected probes and open the one you like. Most likely ther
 
 ```rs
 // Get a list of all available debug probes.
-let probes = Probe::list_all();
+let lister = Lister::new();
+
+let probes = lister.list_all();
 
 // Use the first probe found.
 let probe = probes[0].open()?;
@@ -61,10 +63,10 @@ let core = session.core(0);
 The [Core](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html) is probably the struct you will interact most with.
 With the core struct you can manipulate the CPU and it's accessible memories.
 
-In the previous sections we have learned how we attach to a core. 
-Sometimes you want to access the core operations in quick fashion. 
-This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for. 
-It lets you attach to the Core without first opening a Probe. 
+In the previous sections we have learned how we attach to a core.
+Sometimes you want to access the core operations in quick fashion.
+This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for.
+It lets you attach to the Core without first opening a Probe.
 It will try to open a connected prbe, and select the Core as best as it can
 
 ```rs
