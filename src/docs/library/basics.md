@@ -12,7 +12,7 @@ not least use special probe specific features such as SWV tracing, hard reset, e
 So if you are looking for non-core-architecture-specific functionality, the `Probe` struct is most likely the
 right place to look.
 
-While it is possible to open a probe from a boxed trait this is most likely not really helpful for a user. As a dev this is needed if you implement your own probe. More about this in the [chapter about implementing your own probe](/guide/basics#probe).
+While it is possible to open a probe from a boxed trait this is most likely not really helpful for a user. As a dev this is needed if you implement your own probe.
 
 Best is to list the connected probes and open the one you like. Most likely there is one only anyways.
 
