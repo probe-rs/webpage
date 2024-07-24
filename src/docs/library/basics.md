@@ -74,21 +74,19 @@ let session = Session::auto_attach("chip_name")?;
 let core = session.core(0)?;
 ```
 
-Once you have attached to the Core, you are able to halt the Core at any point in time.
+Once you have attached to the Core, you are able to halt the Core at any point in time. The
+[Core::halt()](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html#method.halt) function
+will wait for the core to halt, and you will need to provide the maximum allowed waiting time.
 
 ```rs
-core.halt()?;
+core.halt(Duration::from_ms(100))?;
 ```
 
-The [Core::halt()](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html#method.halt) call does not ensure the Core will actually halt.
-So you might want to ask the core whether it has halted
+You can also manually check whether the core is halted. This is useful because `halt` and `run` may
+not be safe to call in the unexpected state. So you might want to ask the core whether it has halted
 
 ```rs
-while let Ok(halted) = core.core_halted()? {
-    if halted {
-        break;
-    }
-}
+let is_halted = core.core_halted()?;
 ```
 
 We can single step the CPU on a per instruction basis
