@@ -41,7 +41,7 @@ Want to do
 
 **probe-rs** was designed with such use-cases in mind.
 
-Read more about [the structure](/library/basics#structure).
+Read more about [the structure](/docs/library/basics#structure).
 
 ## Reading and writing memory
 
@@ -76,7 +76,7 @@ Reading and writing memory is trivial with **probe-rs**.
 
 Don't forget to unlock the flash before you write to it!
 
-Read more about [memory operations](/library/basics#core).
+Read more about [memory operations](/docs/library/basics#core).
 
 ## Downloading to flash
 
@@ -113,5 +113,3 @@ Of course the flash facility can also report progress.
 
 Any target that has a CMSIS-Pack can be converted into a **probe-rs** flash download target with our
 [utility](https://github.com/probe-rs/probe-rs/tree/master/target-gen)
-
-Read more about [downloading flash](/library/downloading).
