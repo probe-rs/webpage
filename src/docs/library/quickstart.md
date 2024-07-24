@@ -4,6 +4,10 @@ description: "A quick example how to use the probe-rs library."
 order: 10
 ---
 
+The following are illustratory examples to demonstrate the basics. Please check out
+[the documentation](https://docs.rs/probe-rs/latest/probe_rs/index.html) for more
+detailed information and all available APIs.
+
 ## Attaching to a target
 
 ```rs
