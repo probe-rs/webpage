@@ -291,11 +291,7 @@ configuration.
           "coreIndex": 0,
           "rttEnabled": true
         }
-      ],
-      "env": {
-        //!MODIFY: Remove or use any of the supported DEFMT_LOG options.
-        "DEFMT_LOG": "info"
-      }
+      ]
     }
   ]
 }
@@ -317,17 +313,17 @@ before entering low power.
 - The `defmt` crate introduced a new log filter that filters out log statements
   at **build time**. To ensure your defmt logging is not default filtered to
   `error` level, you can either add the environment variable in your
-  `.cargo/config` file, or add the `options` setting of your tasks.json (see
+  `.cargo/config` file, or add the `options` setting of your `tasks.json` (see
   below), to match your desired logging level on the target.
 
-Adding DEFMT_LOG to `cargo/config`
+Adding `DEFMT_LOG` to `.cargo/config.toml`
 
 ```toml
 [env]
 DEFMT_LOG = "info"
 ```
 
-Adding DEFMT_LOG to `tasks.json`
+Adding `DEFMT_LOG` to `tasks.json`
 
 ```json
 // ... <snip> ...
