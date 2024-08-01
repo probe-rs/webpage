@@ -1,24 +1,26 @@
 ---
 title: "Basic Usage"
-description: "The very basics of using probe-rs."
+description: "The very basics of using the probe-rs library."
 order: 20
 ---
 
 ## The Probe struct
 
-The [Probe](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html) struct represents the physical probe in code form.
-It is used to do probe discovery, set physical parameters of the probe, spawn sessions and last but
+The [Probe](https://docs.rs/probe-rs/*/probe_rs/probe/struct.Probe.html) struct represents the physical probe in code form. To list available probes, use the [Lister](https://docs.rs/probe-rs/latest/probe_rs/probe/list/struct.Lister.html) struct.
+It is used to set physical parameters of the probe, spawn sessions and last but
 not least use special probe specific features such as SWV tracing, hard reset, etc.
 So if you are looking for non-core-architecture-specific functionality, the `Probe` struct is most likely the
 right place to look.
 
-While it is possible to open a probe from a boxed trait this is most likely not really helpful for a user. As a dev this is needed if you implement your own probe. More about this in the [chapter about implementing your own probe](/guide/basics#probe).
+While it is possible to open a probe from a boxed trait this is most likely not really helpful for a user. As a dev this is needed if you implement your own probe.
 
 Best is to list the connected probes and open the one you like. Most likely there is one only anyways.
 
 ```rs
 // Get a list of all available debug probes.
-let probes = Probe::list_all();
+let lister = Lister::new();
+
+let probes = lister.list_all();
 
 // Use the first probe found.
 let probe = probes[0].open()?;
@@ -38,7 +40,7 @@ let session = probes[0].attach("nRF52")?;
 ```
 
 Now we have got our [Session](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html) ready to conduct further business.
-Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Probe.html#method.attach) call. Apart from passing a chip name, you can also pass various other arguments for selecting the chip.
+Take a closer look at the [::attach()](https://docs.rs/probe-rs/*/probe_rs/probe/struct.Probe.html#method.attach) call. Apart from passing a chip name, you can also pass various other arguments for selecting the chip.
 
 ## The Session struct
 
@@ -61,10 +63,10 @@ let core = session.core(0);
 The [Core](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html) is probably the struct you will interact most with.
 With the core struct you can manipulate the CPU and it's accessible memories.
 
-In the previous sections we have learned how we attach to a core. 
-Sometimes you want to access the core operations in quick fashion. 
-This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for. 
-It lets you attach to the Core without first opening a Probe. 
+In the previous sections we have learned how we attach to a core.
+Sometimes you want to access the core operations in quick fashion.
+This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for.
+It lets you attach to the Core without first opening a Probe.
 It will try to open a connected prbe, and select the Core as best as it can
 
 ```rs
@@ -72,21 +74,19 @@ let session = Session::auto_attach("chip_name")?;
 let core = session.core(0)?;
 ```
 
-Once you have attached to the Core, you are able to halt the Core at any point in time.
+Once you have attached to the Core, you are able to halt the Core at any point in time. The
+[Core::halt()](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html#method.halt) function
+will wait for the core to halt, and you will need to provide the maximum allowed waiting time.
 
 ```rs
-core.halt()?;
+core.halt(Duration::from_ms(100))?;
 ```
 
-The [Core::halt()](https://docs.rs/probe-rs/*/probe_rs/struct.Core.html#method.halt) call does not ensure the Core will actually halt.
-So you might want to ask the core whether it has halted
+You can also manually check whether the core is halted. This is useful because `halt` and `run` may
+not be safe to call in the unexpected state. So you might want to ask the core whether it has halted
 
 ```rs
-while let Ok(halted) = core.core_halted()? {
-    if halted {
-        break;
-    }
-}
+let is_halted = core.core_halted()?;
 ```
 
 We can single step the CPU on a per instruction basis
