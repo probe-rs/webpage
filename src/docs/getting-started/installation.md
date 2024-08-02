@@ -44,13 +44,13 @@ To build probe-rs from source, you will need a working Rust toolchain. The easie
 On Debian and derived distros (e.g. Ubuntu), the following packages need to be installed:
 
 ```bash
-sudo apt install -y pkg-config libudev-dev cmake
+sudo apt install -y pkg-config libudev-dev cmake git
 ```
 
 #### RPM-based Linux (Fedora, CentOS)
 
 ```bash
-dnf install libusbx-devel libudev-devel cmake
+dnf install libusbx-devel libudev-devel cmake git
 ```
 
 #### macOS
