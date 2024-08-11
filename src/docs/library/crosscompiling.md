@@ -14,7 +14,7 @@ After defining the target system architecture, in this example being `armv7-unkn
 
 ## Using Cross
 
-[Cross](https://github.com/rust-embedded/cross) self defines as:
+[Cross](https://github.com/cross-rs/cross) self defines as:
 
 > “Zero setup” cross compilation and “cross testing” of Rust crates
 
