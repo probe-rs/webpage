@@ -67,7 +67,7 @@ Download and install [`cmake`](https://cmake.org/download/). Make sure it's adde
 
 You have multiple options, the two most interesting are:
 
-- To install the latest release, run `cargo install probe-rs-tools`
+- To install the latest release, run `cargo install probe-rs-tools --locked`
 - To try the latest development version (a.k.a the `master` branch) with experimental and unreleased changes, run `cargo install probe-rs-tools --git https://github.com/probe-rs/probe-rs --locked`
 
 See the [Cargo book](https://doc.rust-lang.org/cargo/commands/cargo-install.html) for details.

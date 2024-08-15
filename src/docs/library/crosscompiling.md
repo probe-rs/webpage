@@ -62,7 +62,7 @@ image = "crossimage"
 docker build -t crossimage crossimage/
 
 # Run cross to compile, cross arguments are the same as the `cargo` ones
-cross build --path probe-rs-tools --release --target=armv7-unknown-linux-gnueabihf
+cross build -p probe-rs-tools --release --target=armv7-unknown-linux-gnueabihf
 
 # Done
 ```
