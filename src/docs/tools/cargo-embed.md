@@ -334,7 +334,7 @@ tabs = [
 
 This screenshot shows how it can be used with a single socket. The logger is configured to redirect `log::trace!()` to channel 1, which is then sent to the real time plotting app.
 
-![Real time plotting rtt data via tcp](/images/cargo-embed-tcp-socket.png)
+![Real time plotting rtt data via tcp](/images/cargo-embed-tcp-socket.png){: width="100%" }
 
 Note that the raw bytes are send over the socket, so no timestamps are added, nor any parsing or line splitting is done. You have all the flexibility to do this yourself in the tcp endpoint.
 
