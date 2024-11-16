@@ -1,0 +1,72 @@
+.landingHeader {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+
+  & h1 {
+    font: var(--text-display);
+    text-align: center;
+
+    & span {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.landingHeaderLogo {
+  margin: 0;
+  margin-bottom: 1em;
+  padding: 0;
+
+  @media (min-width: 1000px) {
+    font-size: min(2.5vw, 30px);
+  }
+}
+
+.landingInstall {
+  margin: 0;
+  margin-top: 2em;
+  font: var(--text-caption);
+  color: var(--color-foreground-1);
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+
+  & h3 {
+    margin: 0;
+    margin-bottom: 0.8em;
+    padding: 0;
+  }
+
+  & p {
+    margin: 0;
+    display: inline-block;
+  }
+
+  & img {
+    vertical-align: middle;
+    margin-right: .5em;
+  }
+}
+
+.landingInstallCode {
+  display: flex;
+  margin: 1px 0;
+
+  & pre {
+    font-size: 0.75em;
+    width: 100%;
+    background: var(--color-black-140);
+    color: var(--color-white);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .1);
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

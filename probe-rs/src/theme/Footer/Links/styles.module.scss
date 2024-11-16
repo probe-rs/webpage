@@ -1,0 +1,12 @@
+.footerLinks {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.linkSeparator {
+  margin: 0 var(--ifm-footer-link-horizontal-spacing);
+}

@@ -1,0 +1,6 @@
+img.small {
+  max-height: calc(105px - 20px);
+  margin: 8px;
+  background-color: white;
+  padding: 10px;
+}
