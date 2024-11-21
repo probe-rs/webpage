@@ -65,10 +65,11 @@ variants:
           range:
             # The start address of the memory (inclusive).
             start: number
-            # The end address of the memory (inclusive).
+            # The end address of the memory (exclusive).
             end: number
           # Marks the memory as the memory which the chip boots from.
-          is_boot_memory: boolean
+          access:
+            boot: boolean
           # List of cores that can access this region
           cores:
             - core name
@@ -76,10 +77,11 @@ variants:
           range:
             # The start address of the memory (inclusive).
             start: number
-            # The end address of the memory (inclusive).
+            # The end address of the memory (exclusive).
             end: number
           # Marks the memory as the memory which the chip boots from.
-          is_boot_memory: boolean
+          access:
+            boot: boolean
           # List of cores that can access this region
           cores:
             - core name
@@ -87,7 +89,7 @@ variants:
           range:
             # The start address of the memory (inclusive).
             start: number
-            # The end address of the memory (inclusive).
+            # The end address of the memory (exclusive).
             end: number
           # List of cores that can access this region
           cores:
@@ -126,7 +128,7 @@ flash_algorithms:
       address_range:
         # The start address (inclusive).
         start: number
-        # The start address (inclusive).
+        # The end address (exclusive).
         end: number
       # The programmable block size. This is the unit size that can be written to flash.
       page_size: number
