@@ -24,13 +24,13 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Setup Deno environment
-        uses: denoland/setup-deno@v1
+      - uses: actions/setup-node@v4
         with:
-          deno-version: v1.x
+          node-version: 22
 
       - name: Build site
-        run: deno task build
+        run: npm build
+        working-directory: ./probe-rs
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
       

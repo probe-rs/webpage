@@ -1,0 +1,27 @@
+.iconLink {
+  color: var(--ifm-footer-link-color);
+
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--border-radius-small);
+  color: currentColor;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.iconLink:hover {
+  color: var(--color-foreground);
+  background: var(--color-background-2);
+
+  text-decoration: none;
+}
+
+.iconLink svg {
+  width: 13.5px;
+  height: 13.5px;
+  display: inline-block;
+  fill: currentColor;
+}
+  

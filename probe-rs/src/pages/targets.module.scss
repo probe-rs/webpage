@@ -1,0 +1,29 @@
+.targets {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 3em;
+
+  flex-direction: column;
+  align-items: center;
+
+  &>.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &>h1 {
+      font-size: 5em;
+    }
+
+    &>div {
+      font-size: 1.5em;
+      text-align: center;
+
+      margin-top: 1em;
+      max-width: 600px;
+      ;
+    }
+  }
+}

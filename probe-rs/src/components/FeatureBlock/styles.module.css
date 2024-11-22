@@ -1,0 +1,39 @@
+.landingUsage {
+  display: grid;
+  grid-template-columns: 275px minmax(0, 800px);
+  justify-content: space-between;
+  row-gap: var(--row-gap-2);
+  column-gap: var(--column-gap-2);
+}
+
+.landingUsageText {
+  font: var(--text-caption);
+  color: var(--color-foreground-1);
+  max-width: 30em;
+}
+
+.landingUsageText h2 {
+  font: var(--text-title);
+  color: var(--color-foreground);
+  letter-spacing: var(--text-title-spacing);
+  margin: 0;
+}
+
+.landingUsageImage div {
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  min-height: 100px;
+}
+
+.landingUsageImage img {
+  max-width: 100%;
+  border-radius: 7px;
+}
+
+.landingUsageImage img.small {
+  max-height: calc(105px - 20px);
+  margin: 8px;
+  background-color: white;
+  padding: 10px;
+}
