@@ -31,7 +31,6 @@ jobs:
 
       - name: Build site
         run: |
-          deno cache --reload
           deno task build
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
