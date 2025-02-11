@@ -25,15 +25,17 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup Deno environment
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x
+          deno-version: v2.x
 
       - name: Build site
-        run: deno task build
+        run: |
+          deno cache --reload
+          deno task build
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-      
+
       - name: Deploy to CF Pages
         id: deploy-preview
         uses: cloudflare/wrangler-action@v3
@@ -47,7 +49,7 @@ jobs:
           command: pages deploy target --project-name=${{ github.event.repository.name }} --branch=${{ env.BRANCH_NAME }}
 
       - name: Report preview environment in PR
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         with:
@@ -67,4 +69,3 @@ jobs:
               repo: context.repo.repo,
               body: '# [Preview](https://${{ env.BRANCH_NAME }}.webpage-5t5.pages.dev/)'
             })
-  
