@@ -81,9 +81,9 @@ export const loadTargets = async (ref) => {
       const variants = targetDescription.variants;
       const jep = targetDescription.manufacturer
         ? getJep106Manufacturer(
-          targetDescription.manufacturer.cc,
-          targetDescription.manufacturer.id
-        )
+            targetDescription.manufacturer.cc,
+            targetDescription.manufacturer.id
+          )
         : undefined;
 
       for (const variant of variants) {
@@ -123,6 +123,20 @@ async function openTarget(target) {
 }
 
 function schema() {
+  const apv1 = new Type("!v1", {
+    construct(data) {
+      return data !== null ? { v1: data } : {};
+    },
+    kind: "scalar",
+  });
+
+  const apv2 = new Type("!v2", {
+    construct(data) {
+      return data !== null ? { v2: data } : {};
+    },
+    kind: "scalar",
+  });
+
   const arm = new Type("!Arm", {
     construct(data) {
       return data !== null ? { Arm: data } : {};
@@ -208,7 +222,22 @@ function schema() {
   });
 
   const extended = new Schema({
-    explicit: [arm, riscv, xtensa, ram, nvm, flash, generic, espressif, atsam_dsu, nordic_configid, nordic_ficr_info, infineon_scu],
+    explicit: [
+      apv1,
+      apv2,
+      arm,
+      riscv,
+      xtensa,
+      ram,
+      nvm,
+      flash,
+      generic,
+      espressif,
+      atsam_dsu,
+      nordic_configid,
+      nordic_ficr_info,
+      infineon_scu,
+    ],
     include: [def],
   });
 
