@@ -57,7 +57,7 @@ with something like:
 10:04:56 watching for file changes...
 ```
 
-## Building Static Site
+## Building & Testing Static Site
 
 To build the site, into the `dist/` folder:
 
@@ -65,12 +65,11 @@ To build the site, into the `dist/` folder:
 npm run build
 ```
 
-Note: it goes into a subfolder if astro.config.mjs' `BASE` is set!
-
-You can start a local static server with [`static-web-server`](https://static-web-server.net/):
+And start a local static server with the contents of `dist/`,
+served at your configured base path:
 
 ```sh
-static-web-server --port 3000 --root dist
+npm run preview
 ```
 
 And visit it, _with_ your base path if set:

@@ -4,12 +4,6 @@
         # Run Astro
         nodejs_23
 
-        # For locally testing the static site
-        static-web-server
-
-        # For publicly testing the static site
-        wrangler
-
         # For generating favicon.ico (to support old browsers?)
         # nix-shell
         # cp src/icons/banner.svg public/favicon.svg
