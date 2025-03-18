@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Html from "./Html.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import { Icon } from "astro-icon/components";
+import { SITE_TITLE } from "../consts";
+
+type Props = CollectionEntry<"blog">["data"];
+
+const { title, description, date, authors } = Astro.props;
+---
+
+<Html
+  title={`${title} | ${SITE_TITLE}`}
+  description={description}
+>
+  <main class="prose">
+    <article>
+      <h2>{title}</h2>
+      <p class="italic">
+        by {authors.join(', ')} |
+        <FormattedDate date={date} />
+      </p>
+      <slot />
+    </article>
+  </main>
+</Html>

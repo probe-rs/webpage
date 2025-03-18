@@ -1,0 +1,57 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Doc from "../../layouts/Doc.astro";
+import { render } from "astro:content";
+import Link from "../../components/Link.astro";
+
+import { docs, docFolders } from "../../utils";
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const docsInFolder of Object.values(docs)) {
+    for (const doc of docsInFolder) {
+      paths.push({
+        params: {slug: doc.id},
+        props: doc,
+      });
+    }
+  }
+
+
+  // Add root docs path (/docs/) as first doc of first folder.
+  paths.push({
+    params: {slug: '/'},
+    props: {
+      redirect: docs[docFolders[0].id][0].id
+    },
+  })
+
+  // Add folder paths (e.g. /docs/library/) with the first doc in each folder.
+  for (const folder of docFolders) {
+    paths.push({
+      params: {slug: folder.id},
+      props: {
+        redirect: docs[folder.id][0].id,
+      },
+    })
+  }
+
+  return paths;
+}
+
+
+type Props = CollectionEntry<"docs"> & {redirect: string};
+const doc = Astro.props;
+
+// Handle naked folder paths.
+if (doc.redirect) {
+  return Astro.rewrite('/docs/' + doc.redirect);
+}
+
+const { Content } = await render(doc);
+---
+
+<Doc {...doc}>
+  <Content components={{ a: Link }} />
+</Doc>
