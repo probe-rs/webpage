@@ -1,5 +1,0 @@
-type: post
-layout: layouts/blog/post.jsx
-
-metas:
-  title: "=title"

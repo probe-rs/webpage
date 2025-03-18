@@ -24,16 +24,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Setup Deno environment
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
-      - name: Build site
-        run: |
-          deno task build
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      - name: Install & build with Astro
+        uses: withastro/action@v3
 
       - name: Deploy to CF Pages
         id: deploy-preview
@@ -45,7 +37,7 @@ jobs:
         with:
           apiToken: ${{ env.API_TOKEN }}
           accountId: ${{ env.ACCOUNT_ID }}
-          command: pages deploy target --project-name=${{ github.event.repository.name }} --branch=${{ env.BRANCH_NAME }}
+          command: pages deploy dist --project-name=${{ github.event.repository.name }} --branch=${{ env.BRANCH_NAME }}
 
       - name: Report preview environment in PR
         uses: actions/github-script@v7

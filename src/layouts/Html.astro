@@ -1,0 +1,62 @@
+---
+import Head from "../components/Head.astro";
+import HeaderLink from "../components/HeaderLink.astro";
+import Socials from "../components/Socials.astro";
+import { SITE_TITLE } from "../consts";
+import { Icon } from 'astro-icon/components'
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <Head title={title} description={description} image={image} />
+
+  <body>
+    <div class="border-b border-gray-400">
+      <header>
+        <nav class="flex flex-col md:flex-row justify-around place-items-center max-w-4xl mx-auto">
+          <a href={import.meta.env.BASE_URL} class="">
+            <h1 class="text-4xl w-max font-semibold font-[Inter] p-4 transition">
+              <Icon name="banner" class="inline text-6xl mr-5" />
+              {SITE_TITLE}
+            </h1>
+          </a>
+
+          <div class="p-1 grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2 w-full">
+            <HeaderLink href="/targets">Targets</HeaderLink>
+            <HeaderLink href="/docs">Documentation</HeaderLink>
+            <HeaderLink href="/blog">Blog</HeaderLink>
+            <HeaderLink href="https://shop.probe.rs/" target="_blank">Shop <Icon name="line-md--external-link" class="inline"/></HeaderLink>
+          </div>
+        </nav>
+      </header>
+    </div>
+
+
+    <main class="max-w-4xl mx-auto p-3 prose">
+      <slot />
+    </main>
+
+    <footer class="text-gray-500 px-3 text-center max-w-4xl mx-auto my-20">
+      <p>by the probe-rs contributors</p>
+
+      <Socials class="mx-auto py-3" />
+
+      <p class="text-sm my-30">
+        Built with
+        <a href="https://astro.build/" target="_blank">
+          Astro<Icon name="lineicons--astro" class="inline text-3xl"/>
+        </a>,
+        <a href="https://tailwindcss.com/" target="_blank">
+          Tailwind CSS<Icon name="mdi--tailwind" class="inline text-3xl"/>
+        </a>,
+        and icons from
+        <a href="https://iconify.design/" target="_blank">
+          iconify.design<Icon name="line-md--iconify2-static" class="inline text-3xl"/>
+        </a>
+      </p>
+    </footer>
+  </body>
+</html>
+

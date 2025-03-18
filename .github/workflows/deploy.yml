@@ -1,6 +1,10 @@
 name: Publish on GitHub Pages
+run-name: "Publish GH Pages: '${{ github.event.head_commit.message }}'"
+
+# From https://docs.astro.build/en/guides/deploy/github/
 
 on:
+  workflow_dispatch:  # Enable manual runs.
   push:
     branches: ["master"]
 
@@ -10,7 +14,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     environment:
@@ -21,25 +25,16 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
-      - name: Setup Deno environment
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
+      - name: Install & build with Astro
+        uses: withastro/action@v3
 
-      - name: Build site
-        run: |
-          deno task build
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "target"
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

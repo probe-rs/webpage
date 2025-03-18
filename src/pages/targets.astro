@@ -1,0 +1,42 @@
+---
+import Html from "../layouts/Html.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import FormattedDate from "../components/FormattedDate.astro";
+import { posts } from "../utils";
+import { getCollection } from "astro:content";
+import { targets } from "../utils";
+import TargetsView from "../components/TargetsView";
+
+const textResponse = await fetch(
+  "https://raw.githubusercontent.com/Yatekii/jep106/master/src/codes.rs"
+);
+const textData = (await textResponse.text()).split("\n");
+const manufacturers = [];
+for (let line of textData) {
+  line = line.trim();
+  if (line.startsWith("None")) {
+    manufacturers.push("");
+  } else if (line.startsWith("Some")) {
+    manufacturers.push(line.split('"')[1]);
+  }
+}
+---
+
+<Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
+
+  <div class="text-center py-20 max-w-md mx-auto">
+    <h1 class="text-5xl">Targets</h1>
+    <span class="font-bold">probe-rs</span> ships many built-in targets.
+    <p>
+      If a target is not listed, you have the option to <a
+        href="/docs/knowledge-base/cmsis-packs/#target-extraction"
+        >extract it from a CMSIS-Pack</a
+      > or if that does not exist either, <a
+        href="https://github.com/probe-rs/flash-algorithm-template"
+        >write a flash algorithm</a
+      > from scratch with our templates.
+    </p>
+  </div>
+
+  <TargetsView targets={targets} manufacturers={manufacturers} client:load />
+</Html>

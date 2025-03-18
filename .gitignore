@@ -1,4 +1,13 @@
-/target
+/dist
 /_cache
 .DS_Store
 /probe-rs-repo
+
+# Node dependencies
+node_modules/
+
+# Astro's generated types
+.astro/
+
+# Cloudflare CLI
+.wrangler

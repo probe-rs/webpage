@@ -1,0 +1,26 @@
+name: Update probe-rs dep
+run-name: "Update probe-rs dep: '${{ github.event.client_payload.event.head_commit.message }}'"
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [update_probe_rs_dep]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 23
+      - run: npm update probe.rs-data
+      - run: npm run build
+      - name: git commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Update probe-rs dep: '${{ github.event.client_payload.event.head_commit.message }}'"
+          git push
