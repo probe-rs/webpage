@@ -76,9 +76,9 @@ And visit it, _with_ your base path if set:
 
 http://localhost:3000/probe.rs-astro/
 
-## Targets Data Dependency
+## Targets & Manufacturers Data Dependency
 
-This repo currently pulls in targets data from https://github.com/julianguide/probe.rs-data using
+This repo currently pulls in targets & manufacturer data from https://github.com/julianguide/probe.rs-data using
 NPM:
 
 ```sh

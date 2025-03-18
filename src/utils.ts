@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import type { ImageMetadata } from "astro";
+import { readFileSync } from "node:fs";
 
 export const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -28,3 +29,17 @@ for (const [folder, docsInFolder] of Object.entries(docs)) {
 }
 
 export const targets = await getCollection('targets');
+
+export const manufacturers = readFileSync("node_modules/probe.rs-data/src/codes.rs")
+  .toString()
+  .split("\n")
+  .map((line) => line.trim())
+  .flatMap((line) => {
+    if (line.startsWith("None")) {
+      return "";
+    } else if (line.startsWith("Some")) {
+      return line.split('"')[1];
+    }
+
+    return [];
+  });
