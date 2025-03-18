@@ -6,20 +6,8 @@ import { posts } from "../utils";
 import { getCollection } from "astro:content";
 import { targets } from "../utils";
 import TargetsView from "../components/TargetsView";
+import { manufacturers } from "../utils";
 
-const textResponse = await fetch(
-  "https://raw.githubusercontent.com/Yatekii/jep106/master/src/codes.rs"
-);
-const textData = (await textResponse.text()).split("\n");
-const manufacturers = [];
-for (let line of textData) {
-  line = line.trim();
-  if (line.startsWith("None")) {
-    manufacturers.push("");
-  } else if (line.startsWith("Some")) {
-    manufacturers.push(line.split('"')[1]);
-  }
-}
 ---
 
 <Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
