@@ -6,37 +6,45 @@ const { class: className, ...props } = Astro.props;
 const socials = [
   {
     title: "Matrix Chat",
-    icon: 'ph--matrix-logo-bold',
+    icon: "ph--matrix-logo-bold",
     href: "https://matrix.to/#/#probe-rs:matrix.org",
   },
   {
     title: "GitHub",
-    icon: 'line-md--github',
+    icon: "line-md--github",
     href: "https://github.com/probe-rs/probe-rs",
   },
   {
     title: "Open Collective",
-    icon: 'bi--opencollective',
+    icon: "bi--opencollective",
     href: "https://opencollective.com/probe-rs",
   },
   {
     title: "GitHub Sponsors",
-    icon: 'github-sponsors',
+    icon: "github-sponsors",
     href: "https://github.com/sponsors/probe-rs",
   },
   {
     title: "RSS",
-    icon: 'line-md--rss',
+    icon: "line-md--rss",
     href: "/rss.xml",
   },
 ];
 ---
 
-<div class:list={[className, 'grid grid-cols-2 gap-y-3 md:flex justify-center gap-3']}>
-  {socials.map(s => <a
-      href={s.href} title={s.title} target="_blank">
-    <div class="py-1 m-1 rounded-xl h-full align-middle">
-      <span class="underline underline-offset-4 decoration-2">{s.title}</span> <Icon name={s.icon} class="inline" />
-    </div>
-  </a>)}
+<div
+  class:list={[
+    className,
+    "grid grid-cols-2 gap-y-2 md:flex justify-center gap-3",
+  ]}
+>
+  {
+    socials.map((s) => (
+      <a href={s.href} title={s.title} target="_blank">
+        <div class="py-1 px-2 m-1 rounded-sm align-middle hover:bg-slate-200">
+          {s.title} <Icon name={s.icon} class="inline" />
+        </div>
+      </a>
+    ))
+  }
 </div>
