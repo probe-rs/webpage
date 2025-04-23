@@ -41,7 +41,7 @@ div.expressive-code {
 }
 
 pre.astro-code, pre.shiki {
-	@apply mt-0 mb-0 rounded-none rounded-b-md border-[1px] border-slate-200 bg-slate-100
+	@apply mt-0 mb-0 rounded-md border-[1px] border-slate-200 bg-slate-100
 }
 
 @media (prefers-color-scheme: dark) {

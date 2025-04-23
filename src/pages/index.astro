@@ -23,62 +23,65 @@ import { Icon } from "astro-icon/components";
 ---
 
 <Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <div class="notprose md:flex gap-5 md:w-xl mx-auto py-20">
-    <h1 class="text-5xl font-bold text-left">
-      <span>The </span><br />
+  <div class="flex flex-col justify-center mt-32 mb-32">
+    <h1 class="text-7xl not-prose-headings font-bold text-center mt-0 mb-0">
+      <span>The </span>
       <span class="text-green">user-friendly</span> &<br />
       <span class="text-green">flexible</span> embedded toolkit<br />
-      <span class="text-green">that works</span>
+      that <span class="text-green">just works</span>
     </h1>
-    <img src={banner.src} alt="probe-rs logo" class="mx-auto" />
+    <div class="flex gap-1 justify-center">
+      <p>
+        <a href="https://crates.io/crates/probe-rs" target="_blank"
+          ><img
+            src="https://img.shields.io/crates/v/probe-rs"
+            alt="crates.io"
+            class="m-1 mt-0 mb-0"
+          /></a
+        >
+      </p><p>
+        <a href="https://docs.rs/probe-rs" target="_blank"
+          ><img
+            src="https://docs.rs/probe-rs/badge.svg"
+            alt="documentation"
+            class="m-1 mt-0 mb-0"
+          /></a
+        >
+      </p><p>
+        <a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"
+          ><img
+            src="https://img.shields.io/github/actions/workflow/status/probe-rs/probe-rs/ci.yml?branch=master"
+            alt="GH Actions Status"
+            class="m-1 mt-0 mb-0"
+          /></a
+        >
+      </p><p>
+        <a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"
+          ><img
+            src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen"
+            alt="chat"
+            class="m-1 mt-0 mb-0"
+          /></a
+        >
+      </p>
+    </div>
+
+    <!-- <img src={banner.src} alt="probe-rs logo" class="mx-auto" /> -->
   </div>
 
-  Run the following, or follow the
-  <a
-    href={import.meta.env.BASE_URL + "/docs/getting-started/installation"}
-    class="text-[#15846f] underline">instructions</a
+  Installing is easy:
+  <Code
+    code={`curl -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh | sh `}
+    lang="shell"
+    theme="min-light"
+    class="w-auto bg-slate-100"
+  />
+  More <a
+    href={import.meta.env.BASE_URL + "docs/getting-started/installation"}
+    class="text-[#15846f] underline">info</a
   >
-  for different installation methods: ```sh wrap curl --proto '=https' --tlsv1.2
-  -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh
-  | sh ```
 
-  <div class="flex gap-2 justify-center">
-    <p>
-      <a href="https://crates.io/crates/probe-rs" target="_blank"
-        ><img
-          src="https://img.shields.io/crates/v/probe-rs"
-          alt="crates.io"
-          class="m-1"
-        /></a
-      >
-    </p><p>
-      <a href="https://docs.rs/probe-rs" target="_blank"
-        ><img
-          src="https://docs.rs/probe-rs/badge.svg"
-          alt="documentation"
-          class="m-1"
-        /></a
-      >
-    </p><p>
-      <a href="https://github.com/probe-rs/probe-rs/actions" target="_blank"
-        ><img
-          src="https://img.shields.io/github/actions/workflow/status/probe-rs/probe-rs/ci.yml?branch=master"
-          alt="GH Actions Status"
-          class="m-1"
-        /></a
-      >
-    </p><p>
-      <a href="https://matrix.to/#/#probe-rs:matrix.org" target="_blank"
-        ><img
-          src="https://img.shields.io/badge/chat-probe--rs%3Amatrix.org-brightgreen"
-          alt="chat"
-          class="m-1"
-        /></a
-      >
-    </p>
-  </div>
-
-  <div class="grid grid-cols-3 gap-28 w-full">
+  <div class="grid grid-cols-3 gap-28 w-full mt-32">
     <div>
       <h2 class="text-2lg mt-0 mb-2">Embedded programming made easy</h2>
       <p>
