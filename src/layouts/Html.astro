@@ -7,20 +7,23 @@ import { Icon } from "astro-icon/components";
 
 const { title, description, image } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
   <Head title={title} description={description} image={image} />
 
   <body>
-    <div class="border-b-[1px] border-gray-400">
+    <div class="border-b-[1px] border-slate-200 sticky top-0 bg-white">
       <header class="h-full">
         <nav
           class="h-16 flex flex-col md:flex-row justify-around place-items-center max-w-4xl mx-auto"
         >
           <a href={import.meta.env.BASE_URL} class="">
             <h1 class="text-lg w-max font-semibold font-[Inter] transition">
-              <Icon name="banner" class="inline text-4xl mr-5" />
-              {SITE_TITLE}
+              <Icon name="banner" class="inline text-4xl mr-3" />
+              <span class="inline-block text-xl" style={{ color: "black" }}
+                >{SITE_TITLE}</span
+              >
             </h1>
           </a>
 
