@@ -18,9 +18,12 @@
     "astro-expressive-code": "^0.40.2",
     "astro-icon": "^1.1.5",
     "clsx": "^2.1.1",
+    "hast-util-to-jsx-runtime": "^2.3.6",
     "js-yaml": "^4.1.0",
     "preact": "^10.26.4",
     "probe.rs-data": "github:julianguide/probe.rs-data",
+    "react-shiki": "^0.5.3",
+    "shiki": "^3.3.0",
     "tailwindcss": "^4.0.12"
   },
   "devDependencies": {

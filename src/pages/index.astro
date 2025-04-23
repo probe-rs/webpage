@@ -98,7 +98,7 @@ import CodeSnippet from "../components/CodeSnippet.tsx";
     </div>
     <div class="col-span-2">
       <CodeSnippet
-        client:load
+        client:only
         snippets={[
           {
             title: "Rust",
@@ -217,8 +217,13 @@ Frame 11: <unknown function @ 0x20004000> @ 0x20004000`,
       </p>
     </div>
     <div class="col-span-2">
-      <Code
-        code={`use probe_rs::{MemoryInterface, Permissions, Session};
+      <CodeSnippet
+        client:only
+        snippets={[
+          {
+            title: "Rust",
+            lang: "rust",
+            code: `use probe_rs::{MemoryInterface, Permissions, Session};
 
 // Attach to the first connected probe.
 let session = Session::auto_attach("nrf52", Permissions::default())?;
@@ -239,9 +244,9 @@ core.write_32(0x2000_0000, &data)?;
 
 // of course we can also write 8bit words.
 let data = [0u8;50];
-core.write_8(0x2000_0000, &data)?;
-      `}
-        lang="rust"
+core.write_8(0x2000_0000, &data)?;`,
+          },
+        ]}
       />
     </div>
     <div>
