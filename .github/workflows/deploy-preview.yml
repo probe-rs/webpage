@@ -5,7 +5,7 @@
 name: Publish preview on CF Pages
 
 on:
-  pull_request_target:
+  pull_request:
 
 permissions:
   contents: read
