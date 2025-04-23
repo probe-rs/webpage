@@ -14,7 +14,7 @@ const site = 'https://julianguide.github.io';
 
 // UPDATE this if serving from a different base path.
 // E.g., 'my-repo' for a site at my-git.github.io/my-repo/, or '' for 'probe.rs/'.
-const base = 'probe.rs-astro';
+const base = '';
 
 // https://astro.build/config
 export default defineConfig({
