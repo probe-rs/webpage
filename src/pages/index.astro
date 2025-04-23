@@ -19,6 +19,7 @@ import stlink from "../images/landing/probes/stlink.png";
 import ftdi from "../images/landing/probes/ftdi.png";
 import probe_rs_debugger from "../images/landing/probe-rs-debugger.png";
 import CodeSnippet from "../components/CodeSnippet.tsx";
+import { Icon } from "astro-icon/components";
 ---
 
 <Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
@@ -77,7 +78,7 @@ import CodeSnippet from "../components/CodeSnippet.tsx";
     </p>
   </div>
 
-  <div class="grid grid-cols-3 gap-32">
+  <div class="grid grid-cols-3 gap-28 w-full">
     <div>
       <h2 class="text-2lg mt-0 mb-2">Embedded programming made easy</h2>
       <p>
@@ -267,41 +268,41 @@ core.write_8(0x2000_0000, &data)?;`,
       </p>
     </div>
     <div class="col-span-2">
-      <div class="flex flex-wrap min-h-[100px]">
+      <div class="flex flex-wrap min-h-[100px] max-w-full">
         <Image
           src={arm}
           alt="arm"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={nordic}
           alt="nordic"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={st}
           alt="st"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={nxp}
           alt="nxp"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={espressif}
           alt="espressif"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={raspberrypi}
           alt="raspberrypi"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={riscv}
           alt="risc-v"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
       </div>
     </div>
@@ -314,7 +315,7 @@ core.write_8(0x2000_0000, &data)?;`,
       <p>
         We even have our own open-source probe to <a
           href="https://github.com/probe-rs/rusty-probe">build</a
-        > or <a href="#" disabled>buy</a> (coming soon)
+        > or <a href="https://shop.probe.rs">buy</a> (coming soon)
       </p>
     </div>
     <div class="col-span-2">
@@ -322,33 +323,93 @@ core.write_8(0x2000_0000, &data)?;`,
         <Image
           src={cmsis}
           alt="cmsis"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={jlink}
           alt="jlink"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={stlink}
           alt="stlink"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
         <Image
           src={ftdi}
           alt="ftdi"
-          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[85px] w-auto"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto"
         />
       </div>
     </div>
 
-    <h2 class="text-2lg mt-0 mb-2">How to contribute</h2>
-
-    Star the [repo on GitHub](https://github.com/probe-rs/probe-rs). Support
-    this project by [sponsoring it](https://github.com/sponsors/probe-rs). Fork
-    the repo and [contribute](https://github.com/probe-rs/probe-rs) fixing bugs,
-    adding docs or tackling new features. Help to [improve the
-    docs](https://docs.rs/probe-rs). Get help and discuss [on
-    Matrix](https://matrix.to/#/#probe-rs:matrix.org).
+    <div class="col-span-2">
+      <h2 class="text-2lg mt-0 mb-2">How to contribute</h2>
+      <ul class="list-none ml-0 pl-0">
+        {
+          [
+            {
+              i: "gh-star",
+              n: (
+                <>
+                  Star the{" "}
+                  <a href="https://github.com/probe-rs/probe-rs">
+                    repo on GitHub
+                  </a>
+                  .
+                </>
+              ),
+            },
+            {
+              i: "gh-sponsors",
+              n: (
+                <>
+                  Support this project by
+                  <a href="https://github.com/sponsors/probe-rs">
+                    sponsoring it
+                  </a>
+                  .
+                </>
+              ),
+            },
+            {
+              i: "icon-park-outline--fork",
+              n: (
+                <>
+                  Fork the repo and{" "}
+                  <a href="https://github.com/probe-rs/probe-rs">contribute</a>{" "}
+                  fixing bugs, adding docs or tackling new features.
+                </>
+              ),
+            },
+            {
+              i: "material-symbols--docs-outline",
+              n: (
+                <>
+                  Help to{" "}
+                  <a href="https://docs.rs/probe-rs">improve the docs</a>.
+                </>
+              ),
+            },
+            {
+              i: "chat",
+              n: (
+                <>
+                  Get help and discuss
+                  <a href="https://matrix.to/#/#probe-rs:matrix.org">
+                    on Matrix
+                  </a>
+                  .
+                </>
+              ),
+            },
+          ].map(({ i, n }) => (
+            <li class="pl-0">
+              <Icon name={i} class="inline -mt-0.5 mr-2 text-green" /> {n}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </Html>
