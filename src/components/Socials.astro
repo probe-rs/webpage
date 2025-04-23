@@ -6,7 +6,7 @@ const { class: className, ...props } = Astro.props;
 const socials = [
   {
     title: "Matrix Chat",
-    icon: "ph--matrix-logo-bold",
+    icon: "chat",
     href: "https://matrix.to/#/#probe-rs:matrix.org",
   },
   {
@@ -21,7 +21,7 @@ const socials = [
   },
   {
     title: "GitHub Sponsors",
-    icon: "github-sponsors",
+    icon: "gh-sponsors",
     href: "https://github.com/sponsors/probe-rs",
   },
   {
@@ -42,7 +42,7 @@ const socials = [
     socials.map((s) => (
       <a href={s.href} title={s.title} target="_blank">
         <div class="py-1 px-2 m-1 rounded-sm align-middle hover:bg-slate-200">
-          {s.title} <Icon name={s.icon} class="inline" />
+          {s.title} <Icon name={s.icon} class="inline -mt-1" />
         </div>
       </a>
     ))
