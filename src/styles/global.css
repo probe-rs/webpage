@@ -2,15 +2,23 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-  --font-sans: 'Inter', sans-serif;
+	--font-sans: 'Inter', sans-serif;
 	--color-green: #15846f;
 	--color-lightgreen: #15846f22;
 	--color-lightergreen: #15846f11;
 	--color-graytransparent: #55555555;
 }
 
+a {
+	@apply text-green no-underline
+}
+
 @layer components {
-	a:hover,a:active {
+	a {
+		@apply text-green no-underline
+	}
+
+	a:hover, a:active {
 		@apply text-green transition ease-out;
 	}
 }
@@ -30,4 +38,8 @@ th {
 /* Prose styling */
 div.expressive-code {
 	@apply mb-10
+}
+
+pre.astro-code {
+	@apply mt-0 mb-0 rounded-none rounded-b-md
 }
