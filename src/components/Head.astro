@@ -15,19 +15,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 import duckImage from "/src/images/ducks.jpg";
 const { title, description, image = duckImage.src } = Astro.props;
 
-const fontCss = FONTS.map(font => `
+const fontCss = FONTS.map(
+  (font) => `
 @font-face {
   font-family: ${font.name};
-  src: url('${import.meta.env.BASE_URL + '/fonts/' + font.file}') format("truetype");
+  src: url('${import.meta.env.BASE_URL + "fonts/" + font.file}') format("truetype");
 }  
-`).join('\n');
+`,
+).join("\n");
 ---
 
 <head>
   <!-- Global Metadata -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="icon" href={import.meta.env.BASE_URL + "/favicon.svg"} type="image/svg+xml" />
+  <link
+    rel="icon"
+    href={import.meta.env.BASE_URL + "favicon.svg"}
+    type="image/svg+xml"
+  />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link
     rel="alternate"
@@ -38,17 +44,18 @@ const fontCss = FONTS.map(font => `
   <meta name="generator" content={Astro.generator} />
 
   <!-- Font preloads & CSS -->
-  {FONTS.map(font => 
-    <link
-      rel="preload"
-      href={import.meta.env.BASE_URL + '/fonts/' + font.file}
-      as="font"
-      type="font/ttf"
-      crossorigin
-    />
-   )}
+  {
+    FONTS.map((font) => (
+      <link
+        rel="preload"
+        href={import.meta.env.BASE_URL + "fonts/" + font.file}
+        as="font"
+        type="font/ttf"
+        crossorigin
+      />
+    ))
+  }
   <style is:inline set:html={fontCss}></style>
-
 
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />

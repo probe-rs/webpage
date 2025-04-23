@@ -18,7 +18,12 @@ const finalHref = href?.toString().startsWith("http")
     { "hover:border-b-green": isActive, "border-white": !isActive },
   ]}
 >
-  <a href={finalHref} class:list={[className, "hover:text-green"]} {...props}>
+  <a
+    href={finalHref}
+    class:list={[className, "hover:text-green"]}
+    style={{ color: "black" }}
+    {...props}
+  >
     <slot />
   </a>
 </li>
