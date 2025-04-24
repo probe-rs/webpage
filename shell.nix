@@ -12,5 +12,7 @@
         # icotool -c -o public/favicon.ico /tmp/favicon_32x32.png /tmp/favicon_64x64.png
         icoutils
         imagemagick
+
+        python3
     ];
 }

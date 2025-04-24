@@ -21,7 +21,7 @@ export default defineConfig({
   site,
   base,
   integrations: [
-    expressiveCode(),  // Must go before mdx() to add code blocks
+    expressiveCode({ themes: ['vitesse-light', 'vitesse-dark'] }),  // Must go before mdx() to add code blocks
     mdx(),
     sitemap(),
     icon({ iconDir: 'src/icons' }),
