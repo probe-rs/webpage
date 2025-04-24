@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { toJsxRuntime } from "hast-util-to-jsx-runtime";
 import { useLayoutEffect, useState } from "preact/hooks";
 import { Fragment, jsx, jsxs, type JSX } from "preact/jsx-runtime";
-import { codeToHast, type BundledLanguage } from "shiki";
+import { codeToHast, type BundledLanguage } from "shiki/bundle/full";
 
 type Props = {
     snippets: { code: string, lang: BundledLanguage, title: string }[],
