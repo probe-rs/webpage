@@ -16,12 +16,12 @@ export const docFolders = (await getCollection("docsFolderYaml")).sort((a, b) =>
 
 // Docs, grouped by their containing folder.
 export const docs = (await getCollection("docs")).reduce(
-  (folderMap: {[key: string]: CollectionEntry<'docs'>[]}, doc) => {
-  const folder = doc.id.split("/").slice(0, -1).join("/");
-  if (!folderMap[folder]) folderMap[folder] = [];
-  folderMap[folder].push(doc);
-  return folderMap;
-}, {});
+  (folderMap: { [key: string]: CollectionEntry<'docs'>[] }, doc) => {
+    const folder = doc.id.split("/").slice(0, -1).join("/");
+    if (!folderMap[folder]) folderMap[folder] = [];
+    folderMap[folder].push(doc);
+    return folderMap;
+  }, {});
 
 // Sort docs within each folder.
 for (const [folder, docsInFolder] of Object.entries(docs)) {
