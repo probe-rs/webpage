@@ -29,7 +29,6 @@ export function installInstructions(): [string, BundledLanguage] {
     const userAgent = window.navigator.userAgent;
     const platform =
         window.navigator?.platform || window.navigator.platform;
-    console.log(platform);
     const macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"];
     const windowsPlatforms = ["Win32", "Win64", "Windows", "WinCE"];
     const iosPlatforms = ["iPhone", "iPad", "iPod"];
