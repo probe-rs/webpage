@@ -6,22 +6,6 @@ import { codeToHast, type BundledLanguage, type BundledTheme, type StringLiteral
 
 type Theme = ThemeRegistrationAny | StringLiteralUnion<BundledTheme, string> | undefined;
 
-export async function highlight(code: string, lang: BundledLanguage, theme?: Theme) {
-    const out = await codeToHast(code, {
-        lang,
-        themes: {
-            light: theme ?? 'vitesse-light',
-            dark: theme ?? 'vitesse-dark',
-        }
-    })
-
-    return toJsxRuntime(out, {
-        Fragment,
-        jsx,
-        jsxs,
-    }) as JSX.Element
-}
-
 export function CodeBlock({ code, lang }: { code: string, lang: BundledLanguage, theme?: Theme }) {
     const [nodes, setNodes] = useState(undefined as JSX.Element | undefined)
 
@@ -30,4 +14,21 @@ export function CodeBlock({ code, lang }: { code: string, lang: BundledLanguage,
     }, [code, lang])
 
     return nodes ?? <p>Loading...</p>
+}
+
+export async function highlight(code: string, lang: BundledLanguage, theme?: Theme) {
+    const out = await codeToHast(code, {
+        lang,
+        themes: {
+            light: theme ?? 'vitesse-light',
+            dark: theme ?? 'vitesse-dark',
+        },
+        defaultColor: 'light'
+    })
+
+    return toJsxRuntime(out, {
+        Fragment,
+        jsx,
+        jsxs,
+    }) as JSX.Element
 }
