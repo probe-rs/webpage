@@ -1,8 +1,7 @@
 import clsx from "clsx";
-import { toJsxRuntime } from "hast-util-to-jsx-runtime";
-import { useLayoutEffect, useState } from "preact/hooks";
-import { Fragment, jsx, jsxs, type JSX } from "preact/jsx-runtime";
-import { codeToHast, type BundledLanguage } from "shiki/bundle/full";
+import { useState } from "preact/hooks";
+import { type BundledLanguage } from "shiki/bundle/full";
+import { CodeBlock } from "./CodeBlock";
 
 type Props = {
     snippets: { code: string, lang: BundledLanguage, title: string }[],
@@ -22,7 +21,7 @@ export default function CodeSnippet({ snippets }: Props) {
         `}</style>
         <ul
             aria-label="Code Tabs"
-            class="flex list-none p-0 m-0 mt-0 mb-0 h-full probe-rs-code-menu bg-slate-200 rounded-t-md overflow-hidden before bg-[]"
+            class="flex list-none p-0 m-0 mt-0 mb-0 h-full probe-rs-code-menu bg-slate-200 rounded-t-md overflow-hidden"
         >
             <li class={"code-tabs-decorator mt-0 mb-0"}></li>
             {
@@ -43,30 +42,4 @@ export default function CodeSnippet({ snippets }: Props) {
         </ul>
         <CodeBlock {...snippet} />
     </div>
-}
-
-export async function highlight(code: string, lang: BundledLanguage) {
-    const out = await codeToHast(code, {
-        lang,
-        themes: {
-            light: 'min-light',
-            dark: 'nord',
-        }
-    })
-
-    return toJsxRuntime(out, {
-        Fragment,
-        jsx,
-        jsxs,
-    }) as JSX.Element
-}
-
-export function CodeBlock({ code, lang }: { code: string, lang: BundledLanguage, title: string }) {
-    const [nodes, setNodes] = useState(undefined as JSX.Element | undefined)
-
-    useLayoutEffect(() => {
-        void highlight(code, lang).then(setNodes)
-    }, [code, lang])
-
-    return nodes ?? <p>Loading...</p>
 }
