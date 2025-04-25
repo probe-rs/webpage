@@ -1,12 +1,21 @@
 import type { BundledLanguage } from "shiki/bundle/full";
 import { CodeBlock } from "../CodeBlock";
+import { useEffect, useState } from "preact/hooks";
 
 type Props = {
 
 };
 
+const shell = `curl -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh | sh`;
+
 export default function TargetsView({ }: Props) {
-    const [command, lang] = installInstructions();
+    const [instructions, setInstructions] = useState([shell, 'shell'] as [string, BundledLanguage]);
+    useEffect(() => {
+        const [command, lang] = installInstructions();
+        setInstructions([command, lang]);
+    });
+
+    const [command, lang] = instructions;
     return <div class="flex flex-col items-center w-full">
         <h2 class="text-xl">Installing is easy</h2>
         <CodeBlock
@@ -28,12 +37,10 @@ export default function TargetsView({ }: Props) {
 export function installInstructions(): [string, BundledLanguage] {
     const userAgent = window.navigator.userAgent;
     const platform =
-        window.navigator?.platform || window.navigator.platform;
+        window?.navigator?.platform ?? "Linux";
     const macosPlatforms = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"];
     const windowsPlatforms = ["Win32", "Win64", "Windows", "WinCE"];
     const iosPlatforms = ["iPhone", "iPad", "iPod"];
-
-    const shell = `curl -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh | sh`;
 
     if (macosPlatforms.indexOf(platform) !== -1) {
         return [`brew install probe-rs/probe-rs/probe-rs`, 'shell'];

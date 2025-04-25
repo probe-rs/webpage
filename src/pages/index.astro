@@ -35,7 +35,7 @@ import Install from "../components/index/Install";
     <!-- <img src={banner.src} alt="probe-rs logo" class="mx-auto" /> -->
   </div>
 
-  <Install client:only />
+  <Install client:load />
 
   <div class="grid grid-cols-3 gap-28 w-full mt-32">
     <div>
@@ -58,7 +58,7 @@ import Install from "../components/index/Install";
     </div>
     <div class="col-span-2">
       <CodeSnippet
-        client:only
+        client:load
         snippets={[
           {
             title: "Rust",
@@ -154,7 +154,7 @@ Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
     </div>
     <div class="col-span-2">
       <CodeSnippet
-        client:only
+        client:load
         snippets={[
           {
             title: "Rust",
