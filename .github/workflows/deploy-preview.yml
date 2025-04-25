@@ -25,7 +25,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install & build with Astro
-        uses: withastro/action@v3
+        uses: withastro/action@v4
 
       - name: Deploy to CF Pages
         id: deploy-preview
