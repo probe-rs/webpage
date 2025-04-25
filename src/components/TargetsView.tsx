@@ -48,17 +48,17 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 	return <>
 		<p class="text-center">Showing {targetsToShow.length} {targetsToShow.length == 1 ? 'target' : 'targets'}.</p>
 
-		<div class="sticky top-2 bg-graytransparent rounded-lg p-2">
-			<div class="flex flex-col md:flex-row justify-center">
+		<div class="sticky top-18 bg-slate-200 p-2">
+			<div class="flex flex-col md:flex-row gap-2">
 				<label>
-					<h3 class="mt-0 text-center">Manufacturer</h3>
+					<h3 class="mt-0">Manufacturer</h3>
 					<select onChange={onChangeManufacturer} class="w-full bg-gray-100 p-1">
 						{[SHOW_ALL, ...manufacturersToShow].map(m => <option value={m}>{m}</option>)}
 					</select>
 				</label>
 
 				<label>
-					<h3 class="mt-0 text-center">Family</h3>
+					<h3 class="mt-0">Family</h3>
 					<select onChange={e => setSelectedFamily((e.target as HTMLSelectElement).value)} class="w-full bg-gray-100 p-1">
 						{[SHOW_ALL, ...familiesToShow].map(f => <option value={f} selected={f == selectedFamily}>{f}</option>)}
 					</select>
@@ -66,15 +66,15 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 			</div>
 		</div>
 
-		<table>
+		<table class="overflow-scroll max-h-svh">
 			<thead>
 				<tr class="grid md:table-row grid-cols-2">
-					<th>Manufacturer</th>
-					<th>Family</th>
-					<th>Variant</th>
-					<th>Cores</th>
-					<th>Flash</th>
-					<th>RAM</th>
+					<th class="p-0">Manufacturer</th>
+					<th class="p-0">Family</th>
+					<th class="p-0">Variant</th>
+					<th class="p-0">Cores</th>
+					<th class="p-0">Flash</th>
+					<th class="p-0">RAM</th>
 				</tr>
 			</thead>
 			<tbody>

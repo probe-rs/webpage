@@ -43,22 +43,22 @@ import { readdirSync, readFileSync } from "node:fs";
 
 // prettier-ignore
 const targetYamlSchema = yaml.DEFAULT_SCHEMA.extend([
-  new yaml.Type("!Arm", { kind: "mapping", construct: d => ({arm: d})}),
-  new yaml.Type("!AtsamDsu", { kind: "mapping", construct: d => ({atsamDsu: d})}),
-  new yaml.Type("!Espressif", { kind: "mapping", construct: d => ({espressif: d})}),
-  new yaml.Type("!Flash", { kind: "mapping", construct: d => ({flash: d})}),
-  new yaml.Type("!Generic", { kind: "mapping", construct: d => ({generic: d})}),
-  new yaml.Type("!InfineonScu", { kind: "mapping", construct: d => ({infineonScu: d})}),
-  new yaml.Type("!InfineonXmcScu", { kind: "mapping", construct: d => ({infineonXmcScu: d})}),
-  new yaml.Type("!InfineonPsocSiid", { kind: "mapping", construct: d => ({infineonPsocSiid: d})}),
-  new yaml.Type("!NordicConfigId", { kind: "mapping", construct: d => ({nordicConfigId: d})}),
-  new yaml.Type("!NordicFicrInfo", { kind: "mapping", construct: d => ({nordicFicrInfo: d})}),
-  new yaml.Type("!Nvm", { kind: "mapping", construct: d => ({nvm: d})}),
-  new yaml.Type("!Ram", { kind: "mapping", construct: d => ({ram: d})}),
-  new yaml.Type("!Riscv", { kind: 'mapping', construct: d => ({riscv: d})}),
-  new yaml.Type("!v1", { kind: "scalar", construct: d => ({v1: d})}),
-  new yaml.Type("!v2", { kind: "scalar", construct: d => ({v2: d})}),
-  new yaml.Type("!Xtensa", { kind: "mapping", construct: d => ({xtensa: d})}),
+  new yaml.Type("!Arm", { kind: "mapping", construct: d => ({ arm: d }) }),
+  new yaml.Type("!AtsamDsu", { kind: "mapping", construct: d => ({ atsamDsu: d }) }),
+  new yaml.Type("!Espressif", { kind: "mapping", construct: d => ({ espressif: d }) }),
+  new yaml.Type("!Flash", { kind: "mapping", construct: d => ({ flash: d }) }),
+  new yaml.Type("!Generic", { kind: "mapping", construct: d => ({ generic: d }) }),
+  new yaml.Type("!InfineonScu", { kind: "mapping", construct: d => ({ infineonScu: d }) }),
+  new yaml.Type("!InfineonXmcScu", { kind: "mapping", construct: d => ({ infineonXmcScu: d }) }),
+  new yaml.Type("!InfineonPsocSiid", { kind: "mapping", construct: d => ({ infineonPsocSiid: d }) }),
+  new yaml.Type("!NordicConfigId", { kind: "mapping", construct: d => ({ nordicConfigId: d }) }),
+  new yaml.Type("!NordicFicrInfo", { kind: "mapping", construct: d => ({ nordicFicrInfo: d }) }),
+  new yaml.Type("!Nvm", { kind: "mapping", construct: d => ({ nvm: d }) }),
+  new yaml.Type("!Ram", { kind: "mapping", construct: d => ({ ram: d }) }),
+  new yaml.Type("!Riscv", { kind: 'mapping', construct: d => ({ riscv: d }) }),
+  new yaml.Type("!v1", { kind: "scalar", construct: d => ({ v1: d }) }),
+  new yaml.Type("!v2", { kind: "scalar", construct: d => ({ v2: d }) }),
+  new yaml.Type("!Xtensa", { kind: "mapping", construct: d => ({ xtensa: d }) }),
 ]);
 
 const targetSchema = z.object({
@@ -78,13 +78,71 @@ const targetSchema = z.object({
           name: z.string(),
           type: z.string(),
           core_access_options: z.object({
-            // TODO: Validate custom types
-          }),
+            arm: z.object({
+              ap: z.object({
+                v1: z.string().optional(),
+                v2: z.string().optional(),
+              }).optional(),
+              targetsel: z.number().optional(),
+              debug_base: z.number().optional(),
+              cti_base: z.number().optional(),
+              jtag_tap: z.object({
+                v1: z.string().optional(),
+                v2: z.string().optional(),
+              }).optional()
+            }).optional().nullable(),
+            riscv: z.object({
+              hart_id: z.number().optional(),
+              jtag_tap: z.object({
+                v1: z.string().optional(),
+                v2: z.string().optional(),
+              }).optional()
+            }).optional().nullable(),
+            xtensa: z.object({
+              jtag_tap: z.object({
+                v1: z.string().optional(),
+                v2: z.string().optional(),
+              }).optional()
+            }).optional().nullable()
+          }).optional(),
         })
       ),
       memory_map: z.array(
         z.object({
-          // TODO: Validate custom types
+          nvm: z.object({
+            name: z.string().optional(),
+            range: z.object({ start: z.number(), end: z.number() }),
+            cores: z.array(z.string()),
+            access: z.object({
+              read: z.boolean().optional().default(true),
+              write: z.boolean().optional().default(true),
+              execute: z.boolean().optional().default(true),
+              boot: z.boolean().optional().default(false),
+            }).optional(),
+            is_alias: z.boolean().optional().default(false)
+          }).optional(),
+          ram: z.object({
+            name: z.string().optional(),
+            range: z.object({ start: z.number(), end: z.number() }),
+            cores: z.array(z.string()),
+            access: z.object({
+              read: z.boolean().optional().default(true),
+              write: z.boolean().optional().default(true),
+              execute: z.boolean().optional().default(true),
+              boot: z.boolean().optional().default(false),
+            }).optional()
+          }).optional(),
+          generic: z.object({
+            name: z.string().optional(),
+            range: z.object({ start: z.number(), end: z.number() }),
+            cores: z.array(z.string()),
+            access: z.object({
+              read: z.boolean().optional().default(true),
+              write: z.boolean().optional().default(true),
+              execute: z.boolean().optional().default(true),
+              boot: z.boolean().optional().default(false),
+            }).optional()
+          }).optional()
         })
       ),
     })
