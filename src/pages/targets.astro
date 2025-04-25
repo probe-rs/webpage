@@ -1,17 +1,12 @@
 ---
 import Html from "../layouts/Html.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import FormattedDate from "../components/FormattedDate.astro";
-import { posts } from "../utils";
-import { getCollection } from "astro:content";
 import { targets } from "../utils";
 import TargetsView from "../components/TargetsView";
 import { manufacturers } from "../utils";
-
 ---
 
-<Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
-
+<Html title={SITE_TITLE} description={SITE_DESCRIPTION} fluid={true}>
   <div class="text-center py-20 max-w-md mx-auto">
     <h1 class="text-5xl">Targets</h1>
     <span class="font-bold">probe-rs</span> ships many built-in targets.
