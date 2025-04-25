@@ -48,7 +48,7 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 	return <>
 		<p class="text-center">Showing {targetsToShow.length} {targetsToShow.length == 1 ? 'target' : 'targets'}.</p>
 
-		<div class="sticky top-18 bg-slate-200 p-2">
+		<div class="sticky top-16 bg-slate-200 p-2">
 			<div class="flex flex-col md:flex-row gap-2">
 				<label>
 					<h3 class="mt-0">Manufacturer</h3>
@@ -74,7 +74,7 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 					<th class="p-0">Variant</th>
 					<th class="p-0">Cores</th>
 					<th class="p-0">Flash</th>
-					<th class="p-0">RAM</th>
+					<th class="paaw3-0">RAM</th>
 				</tr>
 			</thead>
 			<tbody>
