@@ -18,6 +18,7 @@
     "astro-expressive-code": "^0.40.2",
     "astro-icon": "^1.1.5",
     "clsx": "^2.1.1",
+    "fuse.js": "^7.1.0",
     "hast-util-to-jsx-runtime": "^2.3.6",
     "js-yaml": "^4.1.0",
     "preact": "^10.26.4",
