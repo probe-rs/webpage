@@ -1,10 +1,20 @@
 import { useState } from "preact/hooks";
 import type { CollectionEntry } from "astro:content";
 import type { TargetedEvent } from "preact/compat";
+import Fuse, { type FuseResult } from "fuse.js";
 
 type Props = {
 	targets: CollectionEntry<'targets'>[],
 	manufacturers: string[],
+};
+
+type Entry = {
+	manufacturer: string;
+	family: string;
+	variant: string;
+	cores: string;
+	nvm: string[];
+	ram: string[];
 };
 
 export default function TargetsView({ targets, manufacturers }: Props) {
@@ -18,50 +28,32 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 		}
 	};
 
-	const SHOW_ALL = 'Show All';
-	const [selectedManufacturer, setSelectedManufacturer] = useState(SHOW_ALL);
-	const [selectedFamily, setSelectedFamily] = useState(SHOW_ALL);
+	const [search, setSearch] = useState('');
 
-	const manufacturersToShow = [...new Set(targets.map(getJep106))].sort();
-	const targetsFromManufacturer = targets
-		.filter(t => selectedManufacturer == SHOW_ALL || selectedManufacturer == getJep106(t));
-	const familiesToShow = targetsFromManufacturer
-		.map(t => t.data.name)
-		.sort();
-	const targetsToShow = targetsFromManufacturer
-		.filter(t => selectedFamily == SHOW_ALL || selectedFamily == t.data.name)
-		.sort((a, b) => {
-			if (getJep106(a) > getJep106(b)) {
-				return 1;
-			} else if (getJep106(a) == getJep106(b)) {
-				return a.data.name > b.data.name ? 1 : -1;
-			} else {
-				return -1;
-			}
-		});
 
-	function onChangeManufacturer({ target }: TargetedEvent<HTMLSelectElement, Event>) {
-		setSelectedManufacturer((target as HTMLSelectElement).value);
-		setSelectedFamily(SHOW_ALL);
-	}
+	const data = targets.flatMap(t => t.data.variants.map(v => ({
+		'manufacturer': getJep106(t), 'family': t.data.name, 'variant': v.name, 'cores': v.cores.map(c => c.type).join(', '),
+		'nvm': v.memory_map.filter((m) => m.nvm).map(m => m.nvm!).map((m) => `${m.name ? m.name + '' : ''} 0x${m.range.start.toString(16).toUpperCase()} - 0x${m.range.end.toString(16).toUpperCase()}`),
+		'ram': v.memory_map.filter((m) => m.ram).map(m => m.ram!).map((m) => `${m.name ? m.name + ' ' : ''} 0x${m.range.start.toString(16).toUpperCase()} - 0x${m.range.end.toString(16).toUpperCase()}`)
+	})));
+
+	const fuse = new Fuse(data, {
+		keys: ['manufacturer', 'family', 'variant', 'cores'],
+		ignoreDiacritics: true,
+		includeScore: true,
+		includeMatches: true,
+		threshold: 0.2
+	});
+
+	const results = fuse.search(search);
 
 	return <>
-		<p class="text-center">Showing {targetsToShow.length} {targetsToShow.length == 1 ? 'target' : 'targets'}.</p>
+		<p class="text-center">Showing {data.length} {data.length == 1 ? 'target' : 'targets'}.</p>
 
-		<div class="sticky top-16 bg-slate-200 p-2">
+		<div class="sticky top-16 bg-slate-200 p-5">
 			<div class="flex flex-col md:flex-row gap-2">
 				<label>
-					<h3 class="mt-0">Manufacturer</h3>
-					<select onChange={onChangeManufacturer} class="w-full bg-gray-100 p-1">
-						{[SHOW_ALL, ...manufacturersToShow].map(m => <option value={m}>{m}</option>)}
-					</select>
-				</label>
-
-				<label>
-					<h3 class="mt-0">Family</h3>
-					<select onChange={e => setSelectedFamily((e.target as HTMLSelectElement).value)} class="w-full bg-gray-100 p-1">
-						{[SHOW_ALL, ...familiesToShow].map(f => <option value={f} selected={f == selectedFamily}>{f}</option>)}
-					</select>
+					<input onChange={e => setSearch((e.target as HTMLSelectElement).value)} class="w-full bg-gray-100 p-2 rounded-md" placeholder="Search" />
 				</label>
 			</div>
 		</div>
@@ -69,28 +61,47 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 		<table class="overflow-scroll max-h-svh">
 			<thead>
 				<tr class="grid md:table-row grid-cols-2">
-					<th class="p-0">Manufacturer</th>
-					<th class="p-0">Family</th>
-					<th class="p-0">Variant</th>
-					<th class="p-0">Cores</th>
-					<th class="p-0">Flash</th>
-					<th class="paaw3-0">RAM</th>
+					<th class="p-2">Manufacturer</th>
+					<th class="p-2">Family</th>
+					<th class="p-2">Variant</th>
+					<th class="p-2">Cores</th>
+					<th class="p-2">Memories</th>
 				</tr>
 			</thead>
 			<tbody>
-				{targetsToShow.flatMap(t => t.data.variants.map(v => <tr class="grid md:table-row grid-cols-2">
-					<td>{getJep106(t)}</td>
-					<td>{t.data.name}</td>
-					<td>{v.name}</td>
-					<td>
-						{v.cores.length
-							+ (v.cores.length == 1 ? ' core (' : ' cores (')
-							+ v.cores.map(c => c.type).join(', ') + ')'}
+				{search ? results.map(r => <tr class="grid md:table-row grid-cols-2">
+					<td class="p-2 pt-0 pb-0" dangerouslySetInnerHTML={{ __html: span(r, data, 'manufacturer') }}></td>
+					<td class="p-2 pt-0 pb-0" dangerouslySetInnerHTML={{ __html: span(r, data, 'family') }}></td>
+					<td class="p-2 pt-0 pb-0" dangerouslySetInnerHTML={{ __html: span(r, data, 'variant') }}></td>
+					<td class="p-2 pt-0 pb-0" dangerouslySetInnerHTML={{ __html: span(r, data, 'cores') }}></td>
+					<td class="p-2 pt-0 pb-0">
+						{data[r.refIndex].nvm.map((m) => <p class="mb-0.5 mt-0.5">{m}</p>)}
+						{data[r.refIndex].ram.map((m) => <p class="mb-0.5 mt-0.5">{m}</p>)}
 					</td>
-					<td>{JSON.stringify(v.memory_map)}</td>
-					<td>{v.cores.length}</td>
-				</tr>))}
+				</tr>) : data.map(v => <tr class="grid md:table-row grid-cols-2">
+					<td class="p-2 pt-0 pb-0">{v.manufacturer}</td>
+					<td class="p-2 pt-0 pb-0">{v.family}</td>
+					<td class="p-2 pt-0 pb-0">{v.variant}</td>
+					<td class="p-2 pt-0 pb-0">
+						[{v.cores}]
+					</td>
+					<td class="p-2 pt-0 pb-0">
+						{v.nvm.map((m) => <p class="mb-0.5 mt-0.5">{m}</p>)}
+						{v.ram.map((m) => <p class="mb-0.5 mt-0.5">{m}</p>)}
+					</td>
+				</tr>)}
 			</tbody>
 		</table>
 	</>;
+}
+
+function span(result: FuseResult<Entry>, data: Entry[], key: string) {
+	for (const match of result.matches!) {
+		if (match.key == key) {
+			const item = match.value!.substring(match.indices[0][0], match.indices[0][1] + 1);
+			return match.value!.replace(item, "<span class='bg-amber-400'>" + item + "</span>")
+		}
+	}
+
+	return (data[result.refIndex] as any)[key];
 }
