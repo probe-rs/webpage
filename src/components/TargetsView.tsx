@@ -50,7 +50,7 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 	return <>
 		<p class="text-center">Showing {data.length} {data.length == 1 ? 'target' : 'targets'}.</p>
 
-		<div class="sticky top-16 bg-slate-200 p-5">
+		<div class="sticky top-0 bg-slate-200 p-5">
 			<div class="flex flex-col md:flex-row gap-2">
 				<label>
 					<input onChange={e => setSearch((e.target as HTMLSelectElement).value)} class="w-full bg-gray-100 p-2 rounded-md" placeholder="Search" />
@@ -58,7 +58,7 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 			</div>
 		</div>
 
-		<table class="overflow-scroll max-h-svh">
+		<table class="overflow-scroll max-h-svh mb-0">
 			<thead>
 				<tr class="grid md:table-row grid-cols-2">
 					<th class="p-2">Manufacturer</th>
