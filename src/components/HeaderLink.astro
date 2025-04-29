@@ -6,7 +6,8 @@ type Props = HTMLAttributes<"a">;
 const { href, class: className, ...props } = Astro.props;
 const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
 const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === "/" + (subpath?.[0] || "");
+const isActive =
+  pathname.startsWith(href!) || href === "/" + (subpath?.[0] || "");
 const finalHref = href?.toString().startsWith("http")
   ? href
   : import.meta.env.BASE_URL + href;
@@ -14,14 +15,14 @@ const finalHref = href?.toString().startsWith("http")
 
 <li
   class:list={[
-    "flex items-center content-center mx-2 border-b-2 font-bold active:mx-2",
-    { "hover:border-b-green": isActive, "border-white": !isActive },
+    "flex items-center content-center mx-2 border-b-2 font-bold active:mx-2 hover:border-b-green",
+    { "border-b-green": isActive, "border-white": !isActive },
   ]}
 >
   <a
     href={finalHref}
     class:list={[className, "hover:text-green"]}
-    style={{ color: "black" }}
+    style={{ color: isActive ? "#15846f" : "black" }}
     {...props}
   >
     <slot />
