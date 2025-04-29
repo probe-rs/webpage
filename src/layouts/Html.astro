@@ -14,12 +14,14 @@ const { title, description, image, fluid } = Astro.props;
 
   <body class="h-svh w-full">
     <div class="border-b-[1px] border-slate-200 bg-white">
-      <header class="h-full">
+      <header class="h-full px-16">
         <nav
-          class="h-16 flex flex-col md:flex-row justify-around place-items-center max-w-7xl mx-auto"
+          class="h-28 md:h-16 flex flex-col md:flex-row justify-around place-items-center max-w-7xl mx-auto"
         >
           <a href={import.meta.env.BASE_URL} class="">
-            <h1 class="text-lg w-max font-semibold font-[Inter] transition">
+            <h1
+              class="py-5 text-lg w-max font-semibold font-[Inter] transition"
+            >
               <Icon name="banner" class="inline text-4xl mr-3" />
               <span class="inline-block text-xl" style={{ color: "black" }}
                 >{SITE_TITLE}</span
@@ -28,7 +30,7 @@ const { title, description, image, fluid } = Astro.props;
           </a>
 
           <ul
-            class="h-full flex flex-row justify-center align-middle space-x-1 md:space-x-2 ml-auto"
+            class="h-full flex flex-row justify-center align-middle space-x-1 md:space-x-2 md:ml-auto"
           >
             <HeaderLink href="targets">Targets</HeaderLink>
             <HeaderLink href="docs">Documentation</HeaderLink>
