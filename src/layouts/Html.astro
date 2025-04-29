@@ -12,8 +12,8 @@ const { title, description, image, fluid } = Astro.props;
 <html lang="en">
   <Head title={title} description={description} image={image} />
 
-  <body class="w-full">
-    <div class="border-b-[1px] border-slate-200 sticky top-0 bg-white">
+  <body class="h-svh w-full">
+    <div class="border-b-[1px] border-slate-200 bg-white">
       <header class="h-full">
         <nav
           class="h-16 flex flex-col md:flex-row justify-around place-items-center max-w-7xl mx-auto"
@@ -44,30 +44,32 @@ const { title, description, image, fluid } = Astro.props;
       </header>
     </div>
 
-    <main
-      class:list={[
-        "mx-auto pb-15 prose",
-        { "max-w-7xl p-3": !fluid, "w-full max-w-full": fluid },
-      ]}
-    >
-      <slot />
-    </main>
+    <div class="overflow-y-auto h-[calc(100vh-65px)] min-h-[calc(100vh-65px)]">
+      <main
+        class:list={[
+          "mx-auto prose min-h-[calc(100vh-64px-154px)]",
+          { "max-w-7xl p-3": !fluid, "w-full max-w-full": fluid },
+        ]}
+      >
+        <slot />
+      </main>
 
-    <footer class="bg-slate-100 py-5">
-      <div class="text-gray-500 text-center max-w-4xl mx-auto">
-        <Socials class="mx-auto py-3" />
-        <div class="w-full h-[1px] bg-slate-200"></div>
-        <p class="py-3">
-          by the <a
-            class="hover:underline underline-offset-2"
-            href="https://github.com/probe-rs/probe-rs/graphs/contributors"
-            >probe-rs contributors</a
-          > &mdash; <a
-            class="border-[1px] border-slate-200 rounded-sm px-2 py-1 cursor-pointer"
-            href="#">Light theme</a
-          >
-        </p>
-      </div>
-    </footer>
+      <footer class="bg-slate-100 py-5">
+        <div class="text-gray-500 text-center max-w-4xl mx-auto">
+          <Socials class="mx-auto py-3" />
+          <div class="w-full h-[1px] bg-slate-200"></div>
+          <p class="py-3">
+            by the <a
+              class="hover:underline underline-offset-2"
+              href="https://github.com/probe-rs/probe-rs/graphs/contributors"
+              >probe-rs contributors</a
+            > &mdash; <a
+              class="border-[1px] border-slate-200 rounded-sm px-2 py-1 cursor-pointer"
+              href="#">Light theme</a
+            >
+          </p>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

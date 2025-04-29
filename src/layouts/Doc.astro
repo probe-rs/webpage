@@ -13,28 +13,34 @@ const {
 ---
 
 <script>
-  document.querySelector('#outside-menu')!.addEventListener('click', () => {
-    document.querySelector('input')!.checked = false;
+  document.querySelector("#outside-menu")!.addEventListener("click", () => {
+    document.querySelector("input")!.checked = false;
   });
 </script>
 
-<Html title={`${title} | ${SITE_TITLE}`} description={description}>
+<Html title={`${title} | ${SITE_TITLE}`} description={description} fluid>
   <div class="flex flex-col md:flex-row">
     <label
       class="sticky top-4 peer z-1 md:hidden -mt-10 w-max ml-auto not-prose"
     >
-      <Icon name="carbon--table-of-contents" class="text-[#459087] text-4xl bg-gray-200 p-1 opacity-80" />
+      <Icon
+        name="carbon--table-of-contents"
+        class="text-[#459087] text-4xl bg-gray-200 p-1 opacity-80"
+      />
       <input type="checkbox" class="hidden" />
     </label>
     <nav
-      class="fixed md:sticky max-h-screen min-w-3xs md:left-[initial] md:overflow-auto overflow-scroll top-0 mr-10 font-[Inter] bg-gray-100 rounded-2xl px-5 left-[-100%] transition-[left_1s_ease_out] peer-has-checked:left-0 not-prose"
+      class="fixed top-0 md:sticky min-w-3xs pb-10 md:left-[initial] md:overflow-auto mr-10 font-[Inter] border-r-[1px] border-slate-200 px-5 left-[-100%] transition-[left_1s_ease_out] peer-has-checked:left-0 not-prose"
     >
       {
         docFolders.map((folder) => (
           <div>
             <h3 class="font-bold my-3">{folder.data.title}</h3>
             {docs[folder.id].map((doc) => (
-              <a href={import.meta.env.BASE_URL + '/docs/' + doc.id} title={doc.data.description}>
+              <a
+                href={import.meta.env.BASE_URL + "docs/" + doc.id}
+                title={doc.data.description}
+              >
                 <p
                   class:list={[
                     "hover:bg-gray-300 px-3 py-1 rounded-md transition",
@@ -49,8 +55,8 @@ const {
         ))
       }
     </nav>
-    <div id="outside-menu">
-      <h3 class="text-4xl font-extrabold mb-3 font-[Inter] tracking-wide">
+    <div id="outside-menu" class="pb-10">
+      <h3 class="text-4xl font-extrabold mb-3 mt-10 font-[Inter] tracking-wide">
         {title}
       </h3>
       <article class="prose">
