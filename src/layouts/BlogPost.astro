@@ -10,15 +10,12 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, description, date, authors } = Astro.props;
 ---
 
-<Html
-  title={`${title} | ${SITE_TITLE}`}
-  description={description}
->
+<Html title={`${title} | ${SITE_TITLE}`} description={description}>
   <main class="prose">
     <article>
-      <h2>{title}</h2>
+      <h2 class="text-4xl">{title}</h2>
       <p class="italic">
-        by {authors.join(', ')} |
+        by {authors.join(", ")} |
         <FormattedDate date={date} />
       </p>
       <slot />
