@@ -25,7 +25,9 @@ import Install from "../components/index/Install";
 
 <Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <div class="flex flex-col justify-center mt-32 mb-16">
-    <h1 class="text-7xl not-prose-headings font-bold text-center mt-0 mb-0">
+    <h1
+      class="text-3xl sm:text-5xl md:text-7xl not-prose-headings font-bold text-center mt-0 mb-0"
+    >
       <span>The </span>
       <span class="text-green">user-friendly</span> &<br />
       <span class="text-green">flexible</span> embedded toolkit<br />
@@ -37,7 +39,9 @@ import Install from "../components/index/Install";
 
   <Install client:load />
 
-  <div class="grid grid-cols-3 gap-28 w-full mt-32 mb-16">
+  <div
+    class="grid grid-cols-1 lg:grid-cols-3 gap-7 md:gap-14 lg:gap-28 w-full mt-32 mb-16"
+  >
     <div>
       <h2 class="text-2lg mt-0 mb-2">Embedded programming made easy</h2>
       <p>
@@ -56,7 +60,7 @@ import Install from "../components/index/Install";
         </p>
       </p>
     </div>
-    <div class="col-span-2">
+    <div class="lg:col-span-2">
       <CodeSnippet
         client:load
         snippets={[
@@ -135,7 +139,7 @@ Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
         >...
       </p>
     </div>
-    <div class="col-span-2">
+    <div class="lg:col-span-2">
       <Image
         src={probe_rs_debugger}
         class="mt-0 mb-0 rounded-md"
@@ -152,7 +156,7 @@ Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
         Build production utilities or awesome HITL setups. The sky is the limit!
       </p>
     </div>
-    <div class="col-span-2">
+    <div class="lg:col-span-2">
       <CodeSnippet
         client:load
         snippets={[
@@ -194,7 +198,7 @@ core.write_32(0x2000_0000, &data)?;`,
         > in 2 hours with the help of our templates with automatic tests.
       </p>
     </div>
-    <div class="col-span-2">
+    <div class="lg:col-span-2">
       <div class="flex flex-wrap min-h-[100px] max-w-full">
         <Image
           src={arm}
@@ -245,7 +249,7 @@ core.write_32(0x2000_0000, &data)?;`,
         > or <a href="https://shop.probe.rs">buy</a> (coming soon)
       </p>
     </div>
-    <div class="col-span-2">
+    <div class="lg:col-span-2">
       <div class="flex flex-wrap min-h-[100px]">
         <Image
           src={cmsis}
@@ -270,7 +274,7 @@ core.write_32(0x2000_0000, &data)?;`,
       </div>
     </div>
 
-    <div class="col-span-2">
+    <div class="lg:col-span-2">
       <h2 class="text-2lg mt-0 mb-2">How to contribute</h2>
       <ul class="list-none ml-0 pl-0">
         {
