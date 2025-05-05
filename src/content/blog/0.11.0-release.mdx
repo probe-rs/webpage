@@ -6,6 +6,7 @@ date: 2021-06-23
 authors: ["Yatekii", "Tiwalun"]
 
 ---
+import { Image } from 'astro:assets';
 
 We are happy to announce the huge release of probe-rs 0.11.0 today. It has been
 a long time coming and is possibly our biggest release so far with over 7 months
@@ -42,7 +43,12 @@ For cargo-flash we improved the error reporting a lot. Before we would display
 the plain error probe-rs gave us which was not very actionable for the user. Now
 we try to give the user an actionable hint like in the picture below.
 
-<center><img src="/images/release-0.11.0/cargo-flash-hints.png" style="max-width:100%" /></center>
+import cargo_flash_hints from '../../images/release-0.11.0/cargo-flash-hints.png';
+
+<center>
+  <Image src={cargo_flash_hints} alt="the newly added cargo flash hints" style="max-width:100%" />
+  <figcaption>The newly added cargo flash hints for errors</figcaption>
+</center>
 
 We have a whole error/hint catalogue and try to expand this. This feature can
 easily be ported to other tools such as cargo-embed and probe-run too to ease
@@ -71,7 +77,12 @@ work to make it properly useable! Unfortunately the additions barely didn't make
 it into this release, but will most likely be in one of the next ones around the
 corner.
 
-<center><img src="/images/release-0.11.0/probe-rs-debugger.gif" style="max-width:100%" /></center>
+import probe_rs_debugger from '../../images/release-0.11.0/probe-rs-debugger.gif';
+
+<figure>
+  <Image src={probe_rs_debugger} alt="the completely overhauled vscode plugin" />
+  <figcaption>The completely overhauled VSCode plugin for probe-rs</figcaption>
+</figure>
 
 You can check out the current state in the
 [repo](https://github.com/probe-rs/vscode) to take a sneak peek. While running,
@@ -83,7 +94,12 @@ an SVD viewer and ITM tracing!
 
 A proof of concept of the SVD viewer can be seen below.
 
-<center><img src="/images/release-0.11.0/svd-viewer.jpeg" style="max-width:100%" /></center>
+import svd_viewer from '../../images/release-0.11.0/svd-viewer.jpeg';
+
+<figure>
+  <Image src={svd_viewer} alt="the upcoming svd viewer" />
+  <figcaption>A POC for an SVD viewer based on probe-rs</figcaption>
+</figure>
 
 ### Debug Sequences
 
@@ -143,7 +159,12 @@ To step this one up, we have worked on a
 do large scale automated testing of each PR on a set of N targets multiplexed
 against M debug probes. A sneak peek of the rig's design can be seen below ;)
 
-<center><img src="/images/release-0.11.0/hive.jpg" style="max-width:100%" /></center>
+import hive from '../../images/release-0.11.0/hive.jpg';
+
+<figure>
+  <Image src={hive} alt="the hive testrack for probe-rs" />
+  <figcaption>a concept for a HIL (hardware in the loop) test rack for probe-rs</figcaption>
+</figure>
 
 To push this project a little further, we have put up a posting for a BSc thesis
 with a local technical university (Switzerland). If you are a BSc student and

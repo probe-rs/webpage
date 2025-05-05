@@ -53,7 +53,6 @@ figure {
 }
 
 @media (prefers-color-scheme: dark) {
-
 	.shiki,
 	.shiki span {
 		color: var(--shiki-dark) !important;
