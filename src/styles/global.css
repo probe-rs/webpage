@@ -48,6 +48,10 @@ pre.astro-code, pre.shiki {
 	@apply rounded-t-none
 }
 
+figure {
+	@apply flex flex-col items-center
+}
+
 @media (prefers-color-scheme: dark) {
 
 	.shiki,
