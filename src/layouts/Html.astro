@@ -61,7 +61,7 @@ const { title, description, image, fluid } = Astro.props;
     <div class="overflow-y-auto h-[calc(100vh-65px)] min-h-[calc(100vh-65px)]">
       <main
         class:list={[
-          "prose dark:prose-invert prose-code:before:content-none prose-code:after:content-none prose-code:bg-slate-500/50 prose-code:border-[1px] prose-code:border-slate-500/50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded-sm mx-auto min-h-[calc(100vh-64px-154px)]",
+          "prose dark:prose-invert format-code",
           { "max-w-7xl p-10": !fluid, "w-full max-w-full": fluid },
         ]}
       >
