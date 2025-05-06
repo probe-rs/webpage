@@ -8,8 +8,6 @@ if (!href.includes(domain) && !href.startsWith("/") && !href.startsWith("#")) {
   attr.rel = "noopener";
 }
 
-console.log(import.meta.env.BASE_URL);
-
 // Rewrite path links
 if (href.startsWith("/")) {
   href = import.meta.env.BASE_URL.replace(/\/$/, "") + href;
