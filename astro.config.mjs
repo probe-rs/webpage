@@ -8,6 +8,7 @@ import icon from "astro-icon";
 import expressiveCode from "astro-expressive-code";
 
 import preact from "@astrojs/preact";
+import pagefind from "astro-pagefind";
 
 // UPDATE these if deploying somewhere new!
 const site = "https://probe.rs";
@@ -20,12 +21,16 @@ const base = "";
 export default defineConfig({
   site,
   base,
+  build: {
+    format: "file",
+  },
   integrations: [
     expressiveCode({ themes: ["vitesse-light", "vitesse-dark"] }), // Must go before mdx() to add code blocks
     mdx(),
     sitemap(),
     icon({ iconDir: "src/icons" }),
     preact(),
+    pagefind(),
   ],
 
   vite: {
