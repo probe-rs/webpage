@@ -1,18 +1,19 @@
 ---
-let {href} = Astro.props
-const domain = import.meta.env.SITE
-let attr = {target: '', rel: ''}
+let { href } = Astro.props;
+const domain = import.meta.env.SITE;
+let attr = { target: "", rel: "" };
 
 if (!href.includes(domain) && !href.startsWith("/") && !href.startsWith("#")) {
-  attr.target = '_blank';
-  attr.rel = 'noopener';
+  attr.target = "_blank";
+  attr.rel = "noopener";
 }
+
+console.log(import.meta.env.BASE_URL);
 
 // Rewrite path links
-if (href.startsWith('/')) {
-  href = import.meta.env.BASE_URL + href;
+if (href.startsWith("/")) {
+  href = import.meta.env.BASE_URL.replace(/\/$/, "") + href;
 }
-
 ---
 
 <a href={href} {...attr}><slot /></a>
