@@ -62,7 +62,7 @@ const { title, description, image, fluid } = Astro.props;
       <main
         class:list={[
           "prose dark:prose-invert format-code",
-          { "max-w-7xl p-10": !fluid, "w-full max-w-full": fluid },
+          { "max-w-7xl p-10 mx-auto": !fluid, "w-full max-w-full": fluid },
         ]}
       >
         <slot />
