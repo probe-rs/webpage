@@ -16,15 +16,13 @@ const finalHref = href?.toString().startsWith("http")
 <li
   class:list={[
     "flex items-center content-center mx-2 border-b-2 font-bold active:mx-2 hover:border-b-green text-sm md:text-md",
-    { "border-b-green": isActive, "border-white": !isActive },
+    {
+      "border-b-green": isActive,
+      "border-white dark:border-gray-800": !isActive,
+    },
   ]}
 >
-  <a
-    href={finalHref}
-    class:list={[className, "hover:text-green"]}
-    style={{ color: isActive ? "#15846f" : "black" }}
-    {...props}
-  >
+  <a href={finalHref} class:list={[className, "hover:text-green"]} {...props}>
     <slot />
   </a>
 </li>
