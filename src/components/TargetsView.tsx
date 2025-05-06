@@ -103,12 +103,12 @@ export default function TargetsView({ targets, manufacturers }: Props) {
 
   return (
     <>
-      <div class="sticky top-0 bg-slate-100 border-b-[1px] border-slate-200 p-5">
+      <div class="sticky top-0 bg-slate-100 dark:bg-slate-700 border-b-[1px] border-slate-200 dark:border-slate-800 p-5">
         <div class="flex flex-col md:flex-row items-center justify-between gap-2">
           <label>
             <input
               onChange={(e) => setSearch((e.target as HTMLSelectElement).value)}
-              class="w-full bg-gray-100 p-2 py-1 border-slate-300 border-2 rounded-md"
+              class="w-full bg-slate-100 dark:bg-slate-700 p-2 py-1 border-slate-300 dark:border-slate-400 border-2 rounded-md"
               placeholder="Search"
             />
           </label>
@@ -193,24 +193,23 @@ function Paginate({
       {pages.map((page) => {
         if (page === current + 1) {
           return (
-            <li className="px-4 pt-3 mt-0 mb-0 text-green border-t-2 border-green">
+            <li className="px-4 pt-3 mt-0 mb-0 text-green border-t-2 border-green cursor-default">
               {page}
             </li>
           );
         } else if (page === "…") {
           return (
-            <li className="px-4 pt-3 mt-0 mb-0 border-t-2 border-transparent">
+            <li className="px-4 pt-3 mt-0 mb-0 border-t-2 border-transparent cursor-default dark:text-slate-400">
               {page}
             </li>
           );
         } else {
           return (
-            <li class="px-4 pt-3 mt-0 mb-0 border-t-2 border-transparent hover:border-slate-200 cursor-pointer">
+            <li class="px-4 pt-3 mt-0 mb-0 border-t-2 border-transparent hover:border-slate-200 hover:dark:bg-slate-800 cursor-pointer dark:text-slate-400">
               <button
                 onClick={() => {
                   setCurrentPage(+page - 1);
                 }}
-                style={{ color: "black" }}
                 class="cursor-pointer"
               >
                 {page}

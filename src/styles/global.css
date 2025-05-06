@@ -14,7 +14,7 @@ a {
 }
 
 @layer components {
-	a {
+	*:not(.prose) a {
 		@apply text-green no-underline
 	}
 
@@ -41,7 +41,7 @@ div.expressive-code {
 }
 
 pre.astro-code, pre.shiki {
-	@apply mt-0 mb-0 rounded-b-md border-[1px] border-slate-200
+	@apply mt-0 mb-0 rounded-b-md border-[1px] border-slate-200 dark:border-slate-800
 }
 
 .code-snippet > pre.shiki {
@@ -68,6 +68,6 @@ figure {
 
 	.shiki,
 	.shiki span {
-		@apply !bg-slate-100
+		@apply !bg-slate-100 dark:!bg-slate-700
 	}
 }

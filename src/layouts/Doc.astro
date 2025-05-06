@@ -25,12 +25,12 @@ const {
     >
       <Icon
         name="carbon--table-of-contents"
-        class="text-[#459087] text-4xl bg-gray-200 p-1 opacity-80"
+        class="text-[#459087] text-4xl bg-slate-200 dark:bg-slate-800 p-1 opacity-80"
       />
       <input type="checkbox" class="hidden" />
     </label>
     <nav
-      class="fixed top-[65px] h-full min-w-svw md:min-w-3xs pb-10 md:left-[initial] md:overflow-auto font-[Inter] border-r-[1px] bg-white border-slate-200 px-5 left-[-100%] transition-[left_1s_ease_out] peer-has-checked:left-0 not-prose"
+      class="fixed top-[65px] h-full min-w-svw md:min-w-3xs pb-10 md:left-[initial] md:overflow-auto font-[Inter] border-r-[1px] bg-white dark:bg-gray-800 border-slate-200 dark:border-slate-600 px-5 left-[-100%] transition-[left_1s_ease_out] peer-has-checked:left-0 not-prose"
     >
       {
         docFolders.map((folder) => (
@@ -43,8 +43,8 @@ const {
               >
                 <p
                   class:list={[
-                    "hover:bg-gray-300 px-3 py-1 my-1 rounded-md transition",
-                    { "bg-gray-200": id == doc.id },
+                    "hover:bg-slate-300 dark:bg-gray-800 px-3 py-1 my-1 rounded-md transition",
+                    { "bg-slate-200 dark:bg-slate-700": id == doc.id },
                   ]}
                 >
                   {doc.data.title}
@@ -59,7 +59,7 @@ const {
       <h3 class="text-4xl font-extrabold mb-3 mt-10 font-[Inter] tracking-wide">
         {title}
       </h3>
-      <article class="prose">
+      <article class="prose dark:prose-invert">
         <slot />
       </article>
     </div>

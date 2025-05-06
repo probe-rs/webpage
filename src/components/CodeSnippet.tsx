@@ -22,7 +22,7 @@ export default function CodeSnippet({ snippets }: Props) {
         `}</style>
       <ul
         aria-label="Code Tabs"
-        class="flex list-none p-0 m-0 mt-0 mb-0 h-full probe-rs-code-menu bg-slate-200 rounded-t-md overflow-hidden"
+        class="flex list-none p-0 m-0 mt-0 mb-0 h-full probe-rs-code-menu bg-slate-200 dark:bg-slate-600 rounded-t-md overflow-hidden"
       >
         <li class={"code-tabs-decorator mt-0 mb-0"}></li>
         {snippets.map((snippet: any, index) => (
@@ -30,11 +30,11 @@ export default function CodeSnippet({ snippets }: Props) {
             <button
               className={clsx(
                 {
-                  "bg-slate-100": selectedSnippet == index,
-                  "bg-slate-200": selectedSnippet != index,
+                  "bg-slate-100 dark:bg-slate-700": selectedSnippet == index,
+                  "bg-slate-200 dark:bg-slate-600": selectedSnippet != index,
                   "font-bold": selectedSnippet == index,
                 },
-                "p-2 px-4  hover:bg-slate-100 cursor-pointer"
+                "p-2 px-4  hover:bg-slate-100 dark:hover:bg-slate-700 cursor-pointer"
               )}
               onClick={() => setSelectedSnippet(index)}
             >

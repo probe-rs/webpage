@@ -12,8 +12,10 @@ const { title, description, image, fluid } = Astro.props;
 <html lang="en">
   <Head title={title} description={description} image={image} />
 
-  <body class="h-svh w-full">
-    <div class="border-b-[1px] border-slate-200 bg-white">
+  <body class="h-svh w-full dark:bg-gray-800">
+    <div
+      class="border-b-[1px] border-slate-200 dark:border-slate-600 bg-white dark:bg-gray-800"
+    >
       <header class="h-full px-4 md:px-16">
         <nav
           class="h-28 md:h-16 flex flex-col md:flex-row justify-around place-items-center max-w-7xl mx-auto"
@@ -23,7 +25,7 @@ const { title, description, image, fluid } = Astro.props;
               class="py-5 text-lg w-max font-semibold font-[Inter] transition"
             >
               <Icon name="banner" class="inline text-4xl mr-3" />
-              <span class="inline-block text-xl" style={{ color: "black" }}
+              <span class="inline-block text-xl text-black dark:text-white"
                 >{SITE_TITLE}</span
               >
             </h1>
@@ -49,25 +51,26 @@ const { title, description, image, fluid } = Astro.props;
     <div class="overflow-y-auto h-[calc(100vh-65px)] min-h-[calc(100vh-65px)]">
       <main
         class:list={[
-          "mx-auto prose min-h-[calc(100vh-64px-154px)]",
+          "prose dark:prose-invert mx-auto min-h-[calc(100vh-64px-154px)]",
           { "max-w-7xl p-10": !fluid, "w-full max-w-full": fluid },
         ]}
       >
         <slot />
       </main>
 
-      <footer class="bg-slate-100 py-5">
-        <div class="text-gray-500 text-center max-w-4xl mx-auto">
+      <footer class="bg-slate-100 dark:bg-gray-900 py-5">
+        <div class="text-slate-500 text-center max-w-4xl mx-auto">
           <Socials class="mx-auto py-3" />
-          <div class="w-full h-[1px] bg-slate-200"></div>
+          <div class="w-full h-[1px] bg-slate-200 dark:bg-gray-800"></div>
           <p class="py-3">
             by the <a
               class="hover:underline underline-offset-2"
               href="https://github.com/probe-rs/probe-rs/graphs/contributors"
               >probe-rs contributors</a
-            > &mdash; <a
-              class="border-[1px] border-slate-200 rounded-sm px-2 py-1 cursor-pointer"
-              href="#">Light theme</a
+            > &mdash; <button
+              data-theme-toggle
+              class="border-[1px] border-slate-200 dark:border-slate-800 rounded-sm px-2 py-1 cursor-pointer"
+              >Light theme</button
             >
           </p>
         </div>
