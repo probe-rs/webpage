@@ -43,11 +43,22 @@ div.expressive-code {
 
 pre.astro-code,
 pre.shiki {
-  @apply mt-0 mb-0 rounded-b-md border-[1px] border-slate-200 dark:border-slate-800;
+  @apply mt-0 mb-0;
 }
 
 .code-snippet > pre.shiki {
   @apply rounded-t-none;
+}
+
+.format-code code {
+  @apply before:!content-none after:!content-none;
+  @apply bg-slate-100 border-slate-300;
+  @apply dark:bg-slate-500/50 dark:border-slate-500/50;
+  @apply border-[1px] px-1 py-0.5 rounded-sm w-full max-w-3xl mx-auto;
+}
+
+.format-code pre code {
+  @apply before:!content-none after:!content-none bg-slate-100 dark:bg-black border-[0px] border-slate-500/50 px-1 py-0.5 rounded-sm w-full max-w-3xl mx-auto;
 }
 
 figure {
@@ -73,35 +84,15 @@ figure {
   }
 }
 
-.pagefind-ui {
-  --pagefind-ui-scale: 0.75;
-  --pagefind-ui-primary: navy;
-  --pagefind-ui-text: black;
-  --pagefind-ui-border: slategrey;
-  --pagefind-ui-border-width: 1px;
-  --pagefind-ui-border-radius: 0.25rem;
-  --pagefind-ui-font: sans-serif;
-}
-
-.pagefind-ui.yellow {
-  --pagefind-ui-background: lightyellow;
-}
-
-.pagefind-ui.red {
-  --pagefind-ui-background: peachpuff;
-  width: 100%;
-}
-
 .pagefind-ui .pagefind-ui__form {
   @apply dark:before:!bg-slate-200;
 }
 
 .pagefind-ui .pagefind-ui__search-input {
-  @apply dark:!bg-slate-900 dark:!text-white;
-  @apply not-placeholder-shown:w-full;
-
-  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2),
-    0 2px 2px 0 rgba(0, 0, 0, 0.1);
+  @apply !border-slate-200;
+  @apply dark:!bg-slate-900 dark:!text-slate-200 dark:!border-slate-600;
+  @apply not-placeholder-shown:w-full !border-[1px];
+  @apply focus-visible:!border-none focus-visible:!ring-0;
 }
 
 .pagefind-ui .pagefind-ui__search-clear {
@@ -111,8 +102,8 @@ figure {
 
 .pagefind-ui .pagefind-ui__drawer:not(.pagefind-ui__hidden) {
   @apply absolute top-14 md:top-16 right-0 left-0 mx-auto px-6 pb-6 rounded-md mt-0 z-50 overflow-y-auto;
-  @apply bg-slate-200 text-black;
-  @apply dark:bg-slate-900 dark:!text-white;
+  @apply bg-slate-100 text-black;
+  @apply dark:bg-slate-900 dark:!text-slate-200;
 
   box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2),
     0 2px 2px 0 rgba(0, 0, 0, 0.1);
@@ -123,13 +114,13 @@ figure {
 }
 
 .pagefind-ui .pagefind-ui__result-link {
-  @apply !text-black dark:!text-white;
+  @apply !text-black dark:!text-slate-200;
 }
 
 .pagefind-ui .pagefind-ui__result-title {
-  @apply text-black dark:text-white;
+  @apply text-black dark:text-slate-200;
 }
 
 .pagefind-ui .pagefind-ui__result-excerpt {
-  @apply text-black dark:text-white;
+  @apply text-black dark:text-slate-200;
 }
