@@ -2,72 +2,134 @@
 @plugin '@tailwindcss/typography';
 
 @theme {
-	--font-sans: 'Inter', sans-serif;
-	--color-green: #15846f;
-	--color-lightgreen: #15846f22;
-	--color-lightergreen: #15846f11;
-	--color-graytransparent: #55555555;
+  --font-sans: "Inter", sans-serif;
+  --color-green: #15846f;
+  --color-lightgreen: #15846f22;
+  --color-lightergreen: #15846f11;
+  --color-graytransparent: #55555555;
 }
 
 a {
-	@apply text-green no-underline
+  @apply text-green no-underline;
 }
 
 @layer components {
-	*:not(.prose) a {
-		@apply text-green no-underline
-	}
+  *:not(.prose) a {
+    @apply text-green no-underline;
+  }
 
-	a:hover, a:active {
-		@apply text-green transition ease-out;
-	}
+  a:hover,
+  a:active {
+    @apply text-green transition ease-out;
+  }
 }
 
 tr {
-	@apply even:bg-lightgreen;
+  @apply even:bg-lightgreen;
 }
 
 td {
-	@apply px-2 even:bg-lightergreen;
+  @apply px-2 even:bg-lightergreen;
 }
 
 th {
-	@apply text-center;
+  @apply text-center;
 }
 
 /* Prose styling */
 div.expressive-code {
-	@apply mb-10
+  @apply mb-10;
 }
 
-pre.astro-code, pre.shiki {
-	@apply mt-0 mb-0 rounded-b-md border-[1px] border-slate-200 dark:border-slate-800
+pre.astro-code,
+pre.shiki {
+  @apply mt-0 mb-0 rounded-b-md border-[1px] border-slate-200 dark:border-slate-800;
 }
 
 .code-snippet > pre.shiki {
-	@apply rounded-t-none
+  @apply rounded-t-none;
 }
 
 figure {
-	@apply flex flex-col items-center
+  @apply flex flex-col items-center;
 }
 
 @media (prefers-color-scheme: dark) {
-	.shiki,
-	.shiki span {
-		color: var(--shiki-dark) !important;
-		background-color: var(--shiki-dark-bg) !important;
-		/* Optional, if you also want font styles */
-		font-style: var(--shiki-dark-font-style) !important;
-		font-weight: var(--shiki-dark-font-weight) !important;
-		text-decoration: var(--shiki-dark-text-decoration) !important;
-	}
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }
 
 @media (prefers-color-scheme: light) {
+  .shiki,
+  .shiki span {
+    @apply !bg-slate-100 dark:!bg-slate-700;
+  }
+}
 
-	.shiki,
-	.shiki span {
-		@apply !bg-slate-100 dark:!bg-slate-700
-	}
+.pagefind-ui {
+  --pagefind-ui-scale: 0.75;
+  --pagefind-ui-primary: navy;
+  --pagefind-ui-text: black;
+  --pagefind-ui-border: slategrey;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 0.25rem;
+  --pagefind-ui-font: sans-serif;
+}
+
+.pagefind-ui.yellow {
+  --pagefind-ui-background: lightyellow;
+}
+
+.pagefind-ui.red {
+  --pagefind-ui-background: peachpuff;
+  width: 100%;
+}
+
+.pagefind-ui .pagefind-ui__form {
+  @apply dark:before:!bg-slate-200;
+}
+
+.pagefind-ui .pagefind-ui__search-input {
+  @apply dark:!bg-slate-900 dark:!text-white;
+  @apply not-placeholder-shown:w-full;
+
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.pagefind-ui .pagefind-ui__search-clear {
+  @apply !pl-3;
+  @apply dark:before:!bg-slate-200 dark:!bg-slate-900 dark:!text-white;
+}
+
+.pagefind-ui .pagefind-ui__drawer:not(.pagefind-ui__hidden) {
+  @apply absolute top-14 md:top-16 right-0 left-0 mx-auto px-6 pb-6 rounded-md mt-0 z-50 overflow-y-auto;
+  @apply bg-slate-200 text-black;
+  @apply dark:bg-slate-900 dark:!text-white;
+
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.pagefind-ui .pagefind-ui__result {
+  @apply !py-3;
+}
+
+.pagefind-ui .pagefind-ui__result-link {
+  @apply !text-black dark:!text-white;
+}
+
+.pagefind-ui .pagefind-ui__result-title {
+  @apply text-black dark:text-white;
+}
+
+.pagefind-ui .pagefind-ui__result-excerpt {
+  @apply text-black dark:text-white;
 }
