@@ -9,9 +9,11 @@ import { posts } from "../../utils";
   <ul class="not-prose">
     {
       posts.map((post) => (
-        <li class="hover:bg-slate-100 rounded-md p-5 mb-2">
+        <li class="hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md p-5 mb-2">
           <a href={import.meta.env.BASE_URL + "blog/" + post.id}>
-            <h2 class="font-bold text-black text-2xl">{post.data.title}</h2>
+            <h2 class="font-bold text-gray-800 dark:text-white text-2xl">
+              {post.data.title}
+            </h2>
             <p class="italic text-slate-500 my-1">
               by {post.data.authors.join(", ")} |
               <FormattedDate date={post.data.date} />
