@@ -51,7 +51,7 @@ with something like:
 
  astro  v5.5.2 ready in 1355 ms
 
-┃ Local    http://localhost:4322/probe.rs-astro
+┃ Local    http://localhost:4321/
 ┃ Network  use --host to expose
 
 10:04:56 watching for file changes...
@@ -78,18 +78,18 @@ http://localhost:3000/probe.rs-astro/
 
 ## Targets & Manufacturers Data Dependency
 
-This repo currently pulls in targets & manufacturer data from https://github.com/julianguide/probe.rs-data using
+This repo currently pulls in targets & manufacturer data from https://github.com/probe-rs/probe-rs using
 NPM:
 
 ```sh
-npm install https://github.com/julianguide/probe.rs-data
+npm install https://github.com/probe-rs/probe-rs
 ```
 
 The dependency gets updated automatically by .github/workflows/update-probe-rs-dep.yml,
 or can be updated manually with:
 
 ```sh
-npm update probe.rs-data
+npm update probe-rs-targets
 ```
 
 ## Changing URL
