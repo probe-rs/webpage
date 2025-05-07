@@ -77,72 +77,103 @@ const targetSchema = z.object({
         z.object({
           name: z.string(),
           type: z.string(),
-          core_access_options: z.object({
-            arm: z.object({
-              ap: z.object({
-                v1: z.string().optional(),
-                v2: z.string().optional(),
-              }).optional(),
-              targetsel: z.number().optional(),
-              debug_base: z.number().optional(),
-              cti_base: z.number().optional(),
-              jtag_tap: z.object({
-                v1: z.string().optional(),
-                v2: z.string().optional(),
-              }).optional()
-            }).optional().nullable(),
-            riscv: z.object({
-              hart_id: z.number().optional(),
-              jtag_tap: z.object({
-                v1: z.string().optional(),
-                v2: z.string().optional(),
-              }).optional()
-            }).optional().nullable(),
-            xtensa: z.object({
-              jtag_tap: z.object({
-                v1: z.string().optional(),
-                v2: z.string().optional(),
-              }).optional()
-            }).optional().nullable()
-          }).optional(),
+          core_access_options: z
+            .object({
+              arm: z
+                .object({
+                  ap: z
+                    .object({
+                      v1: z.string().optional(),
+                      v2: z.string().optional(),
+                    })
+                    .optional(),
+                  targetsel: z.number().optional(),
+                  debug_base: z.number().optional(),
+                  cti_base: z.number().optional(),
+                  jtag_tap: z
+                    .object({
+                      v1: z.string().optional(),
+                      v2: z.string().optional(),
+                    })
+                    .optional(),
+                })
+                .optional()
+                .nullable(),
+              riscv: z
+                .object({
+                  hart_id: z.number().optional(),
+                  jtag_tap: z
+                    .object({
+                      v1: z.string().optional(),
+                      v2: z.string().optional(),
+                    })
+                    .optional(),
+                })
+                .optional()
+                .nullable(),
+              xtensa: z
+                .object({
+                  jtag_tap: z
+                    .object({
+                      v1: z.string().optional(),
+                      v2: z.string().optional(),
+                    })
+                    .optional(),
+                })
+                .optional()
+                .nullable(),
+            })
+            .optional(),
         })
       ),
       memory_map: z.array(
         z.object({
-          nvm: z.object({
-            name: z.string().optional(),
-            range: z.object({ start: z.number(), end: z.number() }),
-            cores: z.array(z.string()),
-            access: z.object({
-              read: z.boolean().optional().default(true),
-              write: z.boolean().optional().default(true),
-              execute: z.boolean().optional().default(true),
-              boot: z.boolean().optional().default(false),
-            }).optional(),
-            is_alias: z.boolean().optional().default(false)
-          }).optional(),
-          ram: z.object({
-            name: z.string().optional(),
-            range: z.object({ start: z.number(), end: z.number() }),
-            cores: z.array(z.string()),
-            access: z.object({
-              read: z.boolean().optional().default(true),
-              write: z.boolean().optional().default(true),
-              execute: z.boolean().optional().default(true),
-              boot: z.boolean().optional().default(false),
-            }).optional()
-          }).optional(),
-          generic: z.object({
-            name: z.string().optional(),
-            range: z.object({ start: z.number(), end: z.number() }),
-            cores: z.array(z.string()),
-            access: z.object({
-              read: z.boolean().optional().default(true),
-              write: z.boolean().optional().default(true),
-              execute: z.boolean().optional().default(true),
-              boot: z.boolean().optional().default(false),
-            }).optional()
-          }).optional()
+          nvm: z
+            .object({
+              name: z.string().optional(),
+              range: z.object({ start: z.number(), end: z.number() }),
+              cores: z.array(z.string()),
+              access: z
+                .object({
+                  read: z.boolean().optional().default(true),
+                  write: z.boolean().optional().default(true),
+                  execute: z.boolean().optional().default(true),
+                  boot: z.boolean().optional().default(false),
+                })
+                .optional(),
+              is_alias: z.boolean().optional().default(false),
+            })
+            .optional(),
+          ram: z
+            .object({
+              name: z.string().optional(),
+              range: z.object({ start: z.number(), end: z.number() }),
+              cores: z.array(z.string()),
+              access: z
+                .object({
+                  read: z.boolean().optional().default(true),
+                  write: z.boolean().optional().default(true),
+                  execute: z.boolean().optional().default(true),
+                  boot: z.boolean().optional().default(false),
+                })
+                .optional(),
+            })
+            .optional(),
+          generic: z
+            .object({
+              name: z.string().optional(),
+              range: z.object({ start: z.number(), end: z.number() }),
+              cores: z.array(z.string()),
+              access: z
+                .object({
+                  read: z.boolean().optional().default(true),
+                  write: z.boolean().optional().default(true),
+                  execute: z.boolean().optional().default(true),
+                  boot: z.boolean().optional().default(false),
+                })
+                .optional(),
+            })
+            .optional(),
         })
       ),
     })
@@ -191,7 +222,7 @@ const targetLoader: Loader = {
     // Vite's recommended import.meta.glob doesn't seem
     // to work in content.config.ts :/
     // const FOLDER = "src/content/probe-rs-repo/probe-rs/targets/";
-    const FOLDER = 'node_modules/probe.rs-data/probe-rs/targets/';  // pull from git repo
+    const FOLDER = "node_modules/probe-rs-targets/probe-rs/targets/"; // pull from git repo
     for (const file of readdirSync(FOLDER)) {
       const raw = readFileSync(FOLDER + file).toString();
       const parsed = yaml.load(raw, {
