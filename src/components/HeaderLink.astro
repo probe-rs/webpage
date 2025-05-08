@@ -22,7 +22,10 @@ const finalHref = href?.toString().startsWith("http")
     },
   ]}
 >
-  <a href={finalHref} class:list={[className, "hover:text-green"]} {...props}>
-    <slot />
+  <a
+    href={finalHref}
+    class:list={[className, "hover:text-green whitespace-nowrap"]}
+    {...props}
+    ><slot />
   </a>
 </li>
