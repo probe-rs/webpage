@@ -8,7 +8,7 @@ order: 20
 
 probe-rs supports multiple probes out of the box.
 
-Most of them require little to no setup. For linux, [udev](#linux%3A-udev-rules) rules
+Most of them require little to no setup. For linux, [udev](#linux-udev-rules) rules
 are required for non admin access.
 
 ### Linux: udev rules
@@ -17,7 +17,7 @@ By default, the debug probes are only accessible by users with root privileges
 on Linux based systems. It is recommend to use appropriate udev rules to allow
 users without root privileges access to the debug probes as well.
 
-1. Download the <a href="/files/69-probe-rs.rules" download>rules file</a> and place
+1. Download the <a href="/files/69-probe-rs.rules" download="69-probe-rs.rules">rules file</a> and place
    it in /etc/udev/rules.d.
 2. Run `udevadm control --reload` to ensure the new rules are used.
 3. Run `udevadm trigger` to ensure the new rules are applied to already added
@@ -59,7 +59,7 @@ implementing this standard are supported by probe-rs.
 
 No additional drivers are required to use CMSIS-DAP based probes on Linux
 systems. To ensure that users without root privileges can use the debug probe,
-it is recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
+it is recommended to configure udev as described in [udev rules](#linux-udev-rules).
 
 #### Windows, macOS
 
@@ -87,7 +87,7 @@ the [ST website](https://www.st.com/en/development-tools/stsw-link007.html).
 
 No additional drivers are required to use a ST-Link debug probe on Linux
 systems. To ensure that users without root privileges can use the debug probe,
-it is recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
+it is recommended to configure udev as described in [udev rules](#linux-udev-rules).
 
 #### Windows
 
@@ -114,7 +114,7 @@ speed as the official J-Link tools.
 
 No additional drivers are required to use a J-Link debug probe on Linux systems.
 To ensure that users without root privileges can use the debug probe, it is
-recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
+recommended to configure udev as described in [udev rules](#linux-udev-rules).
 
 #### Windows
 
@@ -133,7 +133,7 @@ tool. To install the generic WinUSB driver with the J-Link Configurator tool:
 - Click **OK**
 
 Some J-Link probes will have the option to select WinUSB in the configuration
-dialog disabled. In this case, use [Zadig](#windows%3A-winusb-drivers) to
+dialog disabled. In this case, use [Zadig](#windows-winusb-drivers) to
 install the generic WinUSB driver for your probe.
 
 #### macOS
@@ -170,13 +170,13 @@ The following devices are known to work with probe-rs:
 
 No additional drivers are required to use a FTDI-based debug probe on Linux systems.
 To ensure that users without root privileges can use the debug probe, it is
-recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
+recommended to configure udev as described in [udev rules](#linux-udev-rules).
 
 #### Windows
 
 Unfortunately, probe-rs doesn't work with the official (VCP or D2xx) drivers on Windows. To
 use probe-rs it is necessary to install a generic WinUSB driver. The recommended
-way of doing this is by using [Zadig](#windows%3A-winusb-drivers).
+way of doing this is by using [Zadig](#windows-winusb-drivers).
 
 #### macOS
 
@@ -194,7 +194,7 @@ there's a good chance the one marked as `USB` can act as a debug probe.
 
 No additional drivers are required to use an ESP32 built-in debug interface on Linux systems.
 To ensure that users without root privileges can use the debug probe, it is
-recommended to configure udev as described in [udev rules](#linux%3A-udev-rules).
+recommended to configure udev as described in [udev rules](#linux-udev-rules).
 
 #### Windows, macOS
 
