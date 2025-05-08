@@ -22,7 +22,7 @@ export default defineConfig({
   site,
   base,
   build: {
-    format: "file",
+    format: "directory",
   },
   integrations: [
     expressiveCode({ themes: ["vitesse-light", "vitesse-dark"] }), // Must go before mdx() to add code blocks
