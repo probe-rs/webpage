@@ -43,7 +43,7 @@ We can take an `armv7-unknown-linux-gnueabihf` base system from the `rust-embedd
 
 After that, follow the instructions from the `probe-rs` [prerequisites](/docs/getting-started/installation#prerequisites) to prepare the image for the building steps.
 
-You can download the Dockerfile for this example from [here](/files/cross-dockerfile.txt).
+You can download the Dockerfile for this example from <a href="/files/cross-dockerfile.txt" download="cross-dockerfile.txt">here</a>.
 
 ```sh
 # Create and edit a Cross.toml file in the root of the cloned repo.
@@ -58,11 +58,15 @@ image = "crossimage"
 ```
 
 ```sh
-# Build and tag the container image, specifying the name as defined in the `Cross.toml`.
+# Build and tag the container image,
+# specifying the name as defined in the `Cross.toml`.
 docker build -t crossimage crossimage/
 
 # Run cross to compile, cross arguments are the same as the `cargo` ones
-cross build -p probe-rs-tools --release --target=armv7-unknown-linux-gnueabihf
+cross build \
+    -p probe-rs-tools \
+    --release \
+    --target=armv7-unknown-linux-gnueabihf
 
 # Done
 ```
