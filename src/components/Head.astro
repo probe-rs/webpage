@@ -57,6 +57,18 @@ const fontCss = FONTS.map(
   }
   <style is:inline set:html={fontCss}></style>
 
+  <!-- Custom search styles -->
+  <style is:inline>
+    .pagefind-ui--rounded .pagefind-ui__search-input { 
+      border-radius: 9999px; 
+      padding-left: 1rem; 
+      padding-right: 1rem; 
+    }
+    .pagefind-ui--rounded .pagefind-ui__form { 
+      width: 100%; 
+    }
+  </style>
+
   <!-- Canonical URL -->
   <link rel="canonical" href={canonicalURL} />
 
