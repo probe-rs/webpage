@@ -17,11 +17,11 @@ const { title, description, image, fluid } = Astro.props;
     <div
       class="border-b-[1px] border-slate-200 dark:border-slate-600 bg-white dark:bg-gray-800"
     >
-      <header class="h-full px-4 md:px-16">
+      <header class="relative z-20 h-full px-4 md:px-16">
         <nav
-          class="h-48 md:h-16 flex flex-col md:flex-row justify-around place-items-center max-w-7xl mx-auto"
+          class="h-16 flex flex-row justify-between items-center max-w-7xl mx-auto"
         >
-          <a href={import.meta.env.BASE_URL}>
+          <a href={import.meta.env.BASE_URL} class="flex-shrink-0">
             <h1
               class="py-5 text-lg w-max font-semibold font-[Inter] transition"
             >
@@ -32,29 +32,60 @@ const { title, description, image, fluid } = Astro.props;
             </h1>
           </a>
 
-          <div class="w-1 h-24"></div>
-          <div class="absolute md:static w-full px-3 md:px-20">
+          <div class="hidden md:block flex-grow max-w-md mx-4">
             <Search
               id="search"
-              className="pagefind-ui my-2"
+              className="pagefind-ui pagefind-ui--rounded my-2"
               uiOptions={{ showImages: false }}
             />
           </div>
 
           <ul
-            class="h-full flex flex-row justify-center align-middle space-x-1 md:space-x-2 md:ml-auto"
+            class="hidden md:flex flex-row items-center space-x-2 md:ml-auto"
           >
             <HeaderLink href="targets">Targets</HeaderLink>
             <HeaderLink href="docs">Documentation</HeaderLink>
             <HeaderLink href="blog">Blog</HeaderLink>
             <HeaderLink href="https://shop.probe.rs/" target="_blank"
-              >Shop <Icon
-                name="line-md--external-link"
-                class="inline"
-              /></HeaderLink
+              >Shop</HeaderLink
+            >
+            <HeaderLink href="https://github.com/probe-rs/probe-rs" target="_blank"
+              ><Icon name="line-md--github-loop" class="inline mr-1" /> GitHub</HeaderLink
             >
           </ul>
+
+          <button
+            id="mobile-menu-toggle"
+            class="md:hidden flex items-center p-2 text-black dark:text-white"
+            aria-label="Toggle mobile menu"
+          >
+            <Icon name="hamburger-menu" class="text-2xl" />
+          </button>
         </nav>
+
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg z-10 px-4 py-3"
+        >
+          <div class="mb-4">
+            <Search
+              id="mobile-search"
+              className="pagefind-ui pagefind-ui--rounded my-2"
+              uiOptions={{ showImages: false }}
+            />
+          </div>
+          <ul class="flex flex-col w-full">
+            <HeaderLink href="targets">Targets</HeaderLink>
+            <HeaderLink href="docs">Documentation</HeaderLink>
+            <HeaderLink href="blog">Blog</HeaderLink>
+            <HeaderLink href="https://shop.probe.rs/" target="_blank"
+              >Shop</HeaderLink
+            >
+            <HeaderLink href="https://github.com/probe-rs/probe-rs" target="_blank"
+              ><Icon name="line-md--github-loop" class="inline mr-1" /> GitHub</HeaderLink
+            >
+          </ul>
+        </div>
       </header>
     </div>
 
@@ -86,5 +117,14 @@ const { title, description, image, fluid } = Astro.props;
         </div>
       </footer>
     </div>
+
+    <script>
+      document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu) {
+          mobileMenu.classList.toggle('hidden');
+        }
+      });
+    </script>
   </body>
 </html>
