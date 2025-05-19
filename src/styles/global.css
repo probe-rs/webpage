@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/typography';
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --color-green: #15846f;
+  --color-lightgreen: #15846f22;
+  --color-lightergreen: #15846f11;
+  --color-graytransparent: #55555555;
+}
+
+a {
+  @apply text-green no-underline;
+}
+
+@layer components {
+  *:not(.prose) a {
+    @apply text-green no-underline;
+  }
+
+  a:hover,
+  a:active {
+    @apply text-green transition ease-out;
+  }
+}
+
+tr {
+  @apply even:bg-lightgreen;
+}
+
+td {
+  @apply px-2 even:bg-lightergreen;
+}
+
+th {
+  @apply text-center;
+}
+
+/* Prose styling */
+div.expressive-code {
+  @apply mb-10;
+}
+
+pre.astro-code,
+pre.shiki {
+  @apply mt-0 mb-0;
+}
+
+.code-snippet > pre.shiki {
+  @apply rounded-t-none;
+}
+
+.format-code code {
+  @apply before:!content-none after:!content-none;
+  @apply bg-slate-100 border-slate-300;
+  @apply dark:bg-slate-500/50 dark:border-slate-500/50;
+  @apply border-[1px] px-1 py-0.5 rounded-sm w-full max-w-3xl mx-auto;
+}
+
+.format-code pre code {
+  @apply before:!content-none after:!content-none bg-slate-100 dark:bg-slate-900 border-[0px] border-slate-500/50 px-1 py-0.5 rounded-sm w-full max-w-3xl mx-auto;
+}
+
+figure {
+  @apply flex flex-col items-center;
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    @apply dark:!bg-slate-900;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .shiki,
+  .shiki span {
+    @apply !bg-slate-100;
+  }
+}
+
+.pagefind-ui .pagefind-ui__form {
+  @apply dark:before:!bg-slate-200;
+}
+
+.pagefind-ui .pagefind-ui__search-input {
+  @apply !border-slate-200;
+  @apply dark:!bg-slate-900 dark:!text-slate-200 dark:!border-slate-600;
+  @apply not-placeholder-shown:w-full !border-[1px];
+  @apply focus-visible:!border-none focus-visible:!ring-0;
+}
+
+.pagefind-ui .pagefind-ui__search-clear {
+  @apply !pl-3;
+  @apply dark:before:!bg-slate-200 dark:!bg-slate-900 dark:!text-white;
+}
+
+.pagefind-ui .pagefind-ui__drawer:not(.pagefind-ui__hidden) {
+  @apply absolute top-14 md:top-16 right-0 left-0 mx-auto px-6 pb-6 rounded-md mt-0 z-50 overflow-y-auto;
+  @apply bg-slate-100 text-black;
+  @apply dark:bg-slate-900 dark:!text-slate-200;
+
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.pagefind-ui .pagefind-ui__result {
+  @apply !py-3;
+}
+
+.pagefind-ui .pagefind-ui__result-link {
+  @apply !text-black dark:!text-slate-200;
+}
+
+.pagefind-ui .pagefind-ui__result-title {
+  @apply text-black dark:text-slate-200;
+}
+
+.pagefind-ui .pagefind-ui__result-excerpt {
+  @apply text-black dark:text-slate-200;
+}

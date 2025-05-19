@@ -1,0 +1,50 @@
+---
+import { Icon } from "astro-icon/components";
+
+const { class: className, ...props } = Astro.props;
+
+const socials = [
+  {
+    title: "Matrix Chat",
+    icon: "chat",
+    href: "https://matrix.to/#/#probe-rs:matrix.org",
+  },
+  {
+    title: "GitHub",
+    icon: "line-md--github",
+    href: "https://github.com/probe-rs/probe-rs",
+  },
+  {
+    title: "Open Collective",
+    icon: "bi--opencollective",
+    href: "https://opencollective.com/probe-rs",
+  },
+  {
+    title: "GitHub Sponsors",
+    icon: "gh-sponsors",
+    href: "https://github.com/sponsors/probe-rs",
+  },
+  {
+    title: "RSS",
+    icon: "line-md--rss",
+    href: "/rss.xml",
+  },
+];
+---
+
+<div
+  class:list={[
+    className,
+    "grid grid-cols-2 gap-y-2 md:flex justify-center gap-3",
+  ]}
+>
+  {
+    socials.map((s) => (
+      <a href={s.href} title={s.title} target="_blank">
+        <div class="py-1 px-2 m-1 rounded-sm align-middle hover:bg-slate-200 dark:hover:bg-slate-800">
+          {s.title} <Icon name={s.icon} class="inline -mt-1" />
+        </div>
+      </a>
+    ))
+  }
+</div>

@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...props } = Astro.props;
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
+const subpath = pathname.match(/[^\/]+/g);
+const isActive =
+  pathname.startsWith(href as string) || href === "/" + (subpath?.[0] || "");
+const finalHref = href?.toString().startsWith("http")
+  ? href
+  : import.meta.env.BASE_URL + href;
+const isExternal = href?.toString().startsWith("http");
+---
+
+<li
+  class:list={[
+    "flex items-center content-center mx-2 border-b-2 font-bold active:mx-2 hover:border-b-green text-sm md:text-md w-full md:w-auto",
+    {
+      "border-b-green": isActive,
+      "border-white dark:border-gray-800": !isActive,
+    },
+  ]}
+>
+  <a
+    href={finalHref}
+    class:list={[className, "hover:text-green whitespace-nowrap py-2 px-2 flex items-center w-full"]}
+    {...props}
+    ><slot />{isExternal && <Icon name="line-md--external-link" class="inline ml-1" />}
+  </a>
+</li>

@@ -1,0 +1,126 @@
+---
+import Head from "../components/Head.astro";
+import HeaderLink from "../components/HeaderLink.astro";
+import Socials from "../components/Socials.astro";
+import { SITE_TITLE } from "../consts";
+import { Icon } from "astro-icon/components";
+import Search from "astro-pagefind/components/Search";
+
+const { title, description, image, fluid } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <Head title={title} description={description} image={image} />
+
+  <body class="h-svh w-full dark:bg-gray-800">
+    <div
+      class="border-b-[1px] border-slate-200 dark:border-slate-600 bg-white dark:bg-gray-800"
+    >
+      <header class="relative z-20 h-full px-4 md:px-16">
+        <nav
+          class="h-16 flex flex-row justify-between items-center max-w-7xl mx-auto"
+        >
+          <a href={import.meta.env.BASE_URL} class="flex-shrink-0">
+            <h1
+              class="py-5 text-lg w-max font-semibold font-[Inter] transition"
+            >
+              <Icon name="banner" class="inline text-4xl mr-3" />
+              <span class="inline-block text-xl text-black dark:text-white"
+                >{SITE_TITLE}</span
+              >
+            </h1>
+          </a>
+
+          <div class="hidden md:block flex-grow max-w-md mx-4">
+            <Search
+              id="search"
+              className="pagefind-ui pagefind-ui--rounded my-2"
+              uiOptions={{ showImages: false }}
+            />
+          </div>
+
+          <ul
+            class="hidden md:flex flex-row items-center space-x-2 md:ml-auto"
+          >
+            <HeaderLink href="targets">Targets</HeaderLink>
+            <HeaderLink href="docs">Documentation</HeaderLink>
+            <HeaderLink href="blog">Blog</HeaderLink>
+            <HeaderLink href="https://shop.probe.rs/" target="_blank"
+              >Shop</HeaderLink
+            >
+            <HeaderLink href="https://github.com/probe-rs/probe-rs" target="_blank"
+              ><Icon name="line-md--github-loop" class="inline mr-1" /> GitHub</HeaderLink
+            >
+          </ul>
+
+          <button
+            id="mobile-menu-toggle"
+            class="md:hidden flex items-center p-2 text-black dark:text-white"
+            aria-label="Toggle mobile menu"
+          >
+            <Icon name="hamburger-menu" class="text-2xl" />
+          </button>
+        </nav>
+
+        <div
+          id="mobile-menu"
+          class="hidden md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg z-10 px-4 py-3"
+        >
+          <div class="mb-4">
+            <Search
+              id="mobile-search"
+              className="pagefind-ui pagefind-ui--rounded my-2"
+              uiOptions={{ showImages: false }}
+            />
+          </div>
+          <ul class="flex flex-col w-full">
+            <HeaderLink href="targets">Targets</HeaderLink>
+            <HeaderLink href="docs">Documentation</HeaderLink>
+            <HeaderLink href="blog">Blog</HeaderLink>
+            <HeaderLink href="https://shop.probe.rs/" target="_blank"
+              >Shop</HeaderLink
+            >
+            <HeaderLink href="https://github.com/probe-rs/probe-rs" target="_blank"
+              ><Icon name="line-md--github-loop" class="inline mr-1" /> GitHub</HeaderLink
+            >
+          </ul>
+        </div>
+      </header>
+    </div>
+
+    <div class="overflow-y-auto h-[calc(100vh-65px)] min-h-[calc(100vh-65px)]">
+      <main
+        class:list={[
+          "prose dark:prose-invert format-code",
+          { "max-w-7xl p-10 mx-auto": !fluid, "w-full max-w-full": fluid },
+        ]}
+      >
+        <slot />
+      </main>
+
+      <footer class="bg-slate-100 dark:bg-gray-900 py-5">
+        <div class="text-slate-500 text-center max-w-4xl mx-auto">
+          <Socials class="mx-auto py-3" />
+          <div class="w-full h-[1px] bg-slate-200 dark:bg-gray-800"></div>
+          <p class="py-3">
+            by the <a
+              class="hover:underline underline-offset-2"
+              href="https://github.com/probe-rs/probe-rs/graphs/contributors"
+              >probe-rs contributors</a
+            >
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu) {
+          mobileMenu.classList.toggle('hidden');
+        }
+      });
+    </script>
+  </body>
+</html>

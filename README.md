@@ -1,4 +1,4 @@
-# The new probe.rs webpage
+# The new (new) probe.rs webpage
 
 ## Goals
 
@@ -15,37 +15,100 @@
       - Can we also add hints in our error messages
   - Clean up docs a lot and explain in more detail.
 - Add a searchable list of provided targets with information about each target.
+- Avoid maintenance issues of Deno & Lume.
 
 ## Development
 
-[Install](https://deno.land/manual@v1.36.3/getting_started/installation) deno
+[Install](https://deno.land/manual@v1.36.3/getting_started/installation) NodeJS
 which is the JS runtime to generate all webpage docs.
+
+Alternatively, use [Nix](https://nixos.org/download/) to fetch the
+development shell tools:
+
+```sh
+nix-shell
+```
+
+Fetch dependencies. Be patient, it may take a while on the first run.
+
+```sh
+npm install
+```
 
 Then locally serve the documentation from the root of this repository. Be
 patient, it may take a while on the first run.
 
-```
-$ deno task serve
+```sh
+npm run dev
 ```
 
 When the documentation preview is ready and gets served, you will be greeted
 with something like:
 
 ```
-🍾 Site built into ./target
-  129 files generated in 62.64 seconds
+> probe.rs-astro@0.0.1 dev
+> astro dev
 
-  Server started at:
-  http://localhost:3000/ (local)
-  http://192.0.2.3:3000/ (network)
+ astro  v5.5.2 ready in 1355 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+10:04:56 watching for file changes...
 ```
 
-When doing heavy development, you might end in the need to provide a GitHub API
-Token (for fetching the probe-rs repository in the background). See
-[here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-for how to get yours, save it to a file like `~/.probe-rs-github-token` and
-provide it to deno via the environment variable `GITHUB_TOKEN` as follows:
+## Building & Testing Static Site
 
+To build the site, into the `dist/` folder:
+
+```sh
+npm run build
 ```
-$ export GITHUB_TOKEN=$(cat ~/.probe-rs-github-token)
+
+And start a local static server with the contents of `dist/`,
+served at your configured base path:
+
+```sh
+npm run preview
+```
+
+And visit it, _with_ your base path if set:
+
+http://localhost:3000/probe.rs-astro/
+
+## Targets & Manufacturers Data Dependency
+
+This repo currently pulls in targets & manufacturer data from https://github.com/probe-rs/probe-rs using
+NPM:
+
+```sh
+npm install https://github.com/probe-rs/probe-rs
+```
+
+The dependency gets updated automatically by .github/workflows/update-probe-rs-dep.yml,
+or can be updated manually with:
+
+```sh
+npm update probe-rs-targets
+```
+
+## Changing URL
+
+If changing the serving domain or path, update `site` and `base` in astro.config.mjs.
+
+## Icons
+
+Find free / open source icons (https://iconify.design/),
+throw them in `src/icons`, and use an `<Icon />` tag:
+
+```html
+<Icon name="carbon--table-of-contents" class="text-green" />
+```
+
+## Original Template
+
+This website is a customzied version of Astro's blog template:
+
+```sh
+npm create astro@latest -- --template blog
 ```

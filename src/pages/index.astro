@@ -1,0 +1,346 @@
+---
+import Html from "../layouts/Html.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+import banner from "../images/banner.svg";
+import { Code } from "astro:components";
+
+import { Image } from "astro:assets";
+import arm from "../images/landing/manufacturers/arm.webp";
+import st from "../images/landing/manufacturers/st.png";
+import nxp from "../images/landing/manufacturers/nxp.svg";
+import espressif from "../images/landing/manufacturers/espressif.svg";
+import raspberrypi from "../images/landing/manufacturers/raspberrypi.png";
+import riscv from "../images/landing/manufacturers/risc-v.png";
+import nordic from "../images/landing/manufacturers/nordic3.svg";
+import cmsis from "../images/landing/probes/cmsis-dap.webp";
+import jlink from "../images/landing/probes/jlink.svg";
+import stlink from "../images/landing/probes/stlink.png";
+import ftdi from "../images/landing/probes/ftdi.png";
+import probe_rs_debugger from "../images/landing/probe-rs-debugger.png";
+import CodeSnippet from "../components/CodeSnippet.tsx";
+import { Icon } from "astro-icon/components";
+import Install from "../components/index/Install";
+---
+
+<Html title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="flex flex-col justify-center mt-32 mb-16">
+    <h1
+      class="text-3xl sm:text-5xl md:text-7xl not-prose-headings font-bold text-center mt-0 mb-0"
+    >
+      <span>The </span>
+      <span class="text-green">user-friendly</span> &<br />
+      <span class="text-green">flexible</span> embedded toolkit<br />
+      that <span class="text-green">just works</span>
+    </h1>
+
+    <!-- <img src={banner.src} alt="probe-rs logo" class="mx-auto" /> -->
+  </div>
+
+  <Install client:load />
+
+  <div
+    class="grid grid-cols-1 lg:grid-cols-3 gap-7 md:gap-14 lg:gap-28 w-full mt-32 mb-16"
+  >
+    <div>
+      <h2 class="text-2lg mt-0 mb-2">Embedded programming made easy</h2>
+      <p>
+        Run a program on your microchip with the ease of a native application.
+      </p>
+      <p>
+        Easily print to STDOUT via <a
+          href="https://github.com/probe-rs/rtt-target">RTT</a
+        > and <a href="https://github.com/knurling-rs/defmt">defmt</a> encoding when
+        using <code>probe-rs run</code>.
+        <p>
+          <a href="/docs/tools/cargo-flash/">cargo-flash</a> can be used to just
+          flash a target and <a href="/docs/tools/cargo-embed/">cargo-embed</a>
+          can be used to get a full RTT terminal to also send commands to the target
+          and view multiple channels at one.
+        </p>
+      </p>
+    </div>
+    <div class="lg:col-span-2">
+      <CodeSnippet
+        client:load
+        snippets={[
+          {
+            title: "Rust",
+            lang: "shell",
+            code: `$ cargo run --release
+  Compiling microbit v0.1.0 (/microbit/)
+    Finished release [optimized + debuginfo] target(s) in 0.17s
+    Running 'probe-rs run --chip nRF51822_xxAA target/thumbv6m-none-eabi/release/microbit'
+    Erasing sectors ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 8.09 KiB/s (eta 0s )
+Programming pages   ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 5.29 KiB/s (eta 0s )
+
+Hello from the microbit!
+Going to udf to print a stacktrace on the host ...
+
+Frame 0: exp_u128 @ 0x00000fa2
+Frame 1: __udf @ 0x000000f2 inline
+      /.cargo/registry/src/index.crates.io-6f17d22bba15/cortex-m-0.7.7/src/../asm/inline.rs:181:5
+Frame 2: udf @ 0x00000000000000f2 inline
+      /.cargo/registry/src/index.crates.io-6f17d22bba15/cortex-m-0.7.7/src/call_asm.rs:11:43
+Frame 8: __cortex_m_rt_main @ 0x0000000000000154
+      /repos/microbit/examples/gpio-hal-blinky/src/main.rs:16:5
+Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
+      /repos/microbit/examples/gpio-hal-blinky/src/main.rs:10:1`,
+          },
+          {
+            title: "C",
+            lang: "shell",
+            code: `$ make release
+$ probe-rs run --chip nRF51822_xxAA build/microbit.elf
+    Erasing sectors ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 8.09 KiB/s (eta 0s )
+Programming pages   ✔ [00:00:00] [############] 5.00 KiB/5.00 KiB @ 5.29 KiB/s (eta 0s )
+
+Hello from the microbit!
+Going to udf to print a stacktrace on the host ...
+
+Frame 0: exp_u128 @ 0x00000fa2
+Frame 1: __udf @ 0x000000f2 inline
+      /.cargo/registry/src/index.crates.io-6f17d22bba15/cortex-m-0.7.7/src/../asm/inline.rs:181:5
+Frame 2: udf @ 0x00000000000000f2 inline
+      /.cargo/registry/src/index.crates.io-6f17d22bba15/cortex-m-0.7.7/src/call_asm.rs:11:43
+Frame 8: __cortex_m_rt_main @ 0x0000000000000154
+      /repos/microbit/examples/gpio-hal-blinky/src/main.rs:16:5
+Frame 9: __cortex_m_rt_main_trampoline @ 0x00000104
+      /repos/microbit/examples/gpio-hal-blinky/src/main.rs:10:1`,
+          },
+        ]}
+      />
+    </div>
+    <div>
+      <h2 class="text-2lg mt-0 mb-2">Easy debugging in VSCode</h2>
+      <p>
+        Use <a href="/docs/tools/debugger/">VSCode's</a> awesome debug capabilities
+        with our native debug plugin.
+      </p>
+      <p>
+        Run the target, set breakpoints, halt on break point, inspect the
+        stackframe and manipulate variables.
+      </p>
+      <p>
+        <a href="https://github.com/probe-rs/rtt-target">RTT</a> is fully integrated
+        and GDB-like expressions can be evaluated in the built in <a
+          href="/docs/tools/debugger/">REPL</a
+        >.
+      </p>
+      <p>
+        VSCode not your cup of tea? No problem! probe-rs implements the <a
+          href="https://microsoft.github.io/debug-adapter-protocol/overview"
+          >Debug Adapter Protocol</a
+        >, so you can use other <a
+          href="https://microsoft.github.io/debug-adapter-protocol/implementors/tools/"
+          >editors, IDEs, and visual debuggers</a
+        >, such as <a href="https://github.com/puremourning/vimspector#readme"
+          >Vimspector</a
+        >...
+      </p>
+    </div>
+    <div class="lg:col-span-2">
+      <Image
+        src={probe_rs_debugger}
+        class="mt-0 mb-0 rounded-md"
+        alt="probe-rs debugger"
+      />
+    </div>
+    <div>
+      <h2 class="text-2lg mt-0 mb-2">A clean and intuitive API</h2>
+      <p>
+        Manipulate your target from the host - read and write memory, set
+        breakpoints, run, halt.
+      </p>
+      <p>
+        Build production utilities or awesome HITL setups. The sky is the limit!
+      </p>
+    </div>
+    <div class="lg:col-span-2">
+      <CodeSnippet
+        client:load
+        snippets={[
+          {
+            title: "Rust",
+            lang: "rust",
+            code: `// Attach to the first connected probe.
+let session = Session::auto_attach("nrf52", Permissions::default())?;
+// Select the first core found.
+let mut core = session.core(0);
+// Halt the core.
+core.halt()?;
+
+// Read a block of 50 32 bit words.
+let mut data = [0u32;50];
+core.read_32(0x2000_0000, &mut data)?;
+
+// Writing is just as simple.
+let data = [0u32;50];
+core.write_32(0x2000_0000, &data)?;`,
+          },
+        ]}
+      />
+    </div>
+    <div>
+      <h2 class="text-2lg mt-0 mb-2">Every ARM or RISC-V target</h2>
+      <p>
+        Hundreds of targets are shipped with probe-rs. You found a missing one?
+      </p>
+      <p>
+        <a href="/docs/knowledge-base/cmsis-packs/#target-extraction"
+          >Generate</a
+        > your own target description from an existing CMSIS-Pack in 2 minutes.
+      </p>
+      <p>
+        No CMSIS-Pack? <a
+          href="https://github.com/probe-rs/flash-algorithm-template"
+          >Write your own flash algorithm</a
+        > in 2 hours with the help of our templates with automatic tests.
+      </p>
+    </div>
+    <div class="lg:col-span-2">
+      <div class="flex flex-wrap min-h-[100px] max-w-full">
+        <Image
+          src={arm}
+          alt="arm"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={nordic}
+          alt="nordic"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={st}
+          alt="st"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={nxp}
+          alt="nxp"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={espressif}
+          alt="espressif"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={raspberrypi}
+          alt="raspberrypi"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={riscv}
+          alt="risc-v"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+      </div>
+    </div>
+    <div>
+      <h2 class="text-2lg mt-0 mb-2">Supports many debug probes</h2>
+      <p>
+        Debug targets via CMSIS-DAP, JLink, ST-Link and FTDI or add your own
+        probe easily.
+      </p>
+      <p>
+        We even have our own open-source probe to <a
+          href="https://github.com/probe-rs/rusty-probe">build</a
+        > or <a href="https://shop.probe.rs">buy</a> (coming soon)
+      </p>
+    </div>
+    <div class="lg:col-span-2">
+      <div class="flex flex-wrap min-h-[100px]">
+        <Image
+          src={cmsis}
+          alt="cmsis"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={jlink}
+          alt="jlink"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={stlink}
+          alt="stlink"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+        <Image
+          src={ftdi}
+          alt="ftdi"
+          class="mt-[8px] mb-[8px] m-[8px] p-[10px] max-h-[105px] w-auto bg-white rounded-md"
+        />
+      </div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <h2 class="text-2lg mt-0 mb-2">How to contribute</h2>
+      <ul class="list-none ml-0 pl-0">
+        {
+          [
+            {
+              i: "gh-star",
+              n: (
+                <>
+                  Star the{" "}
+                  <a href="https://github.com/probe-rs/probe-rs">
+                    repo on GitHub
+                  </a>
+                  .
+                </>
+              ),
+            },
+            {
+              i: "gh-sponsors",
+              n: (
+                <>
+                  Support this project by
+                  <a href="https://github.com/sponsors/probe-rs">
+                    sponsoring it
+                  </a>
+                  .
+                </>
+              ),
+            },
+            {
+              i: "icon-park-outline--fork",
+              n: (
+                <>
+                  Fork the repo and{" "}
+                  <a href="https://github.com/probe-rs/probe-rs">contribute</a>{" "}
+                  fixing bugs, adding docs or tackling new features.
+                </>
+              ),
+            },
+            {
+              i: "material-symbols--docs-outline",
+              n: (
+                <>
+                  Help to{" "}
+                  <a href="https://docs.rs/probe-rs">improve the docs</a>.
+                </>
+              ),
+            },
+            {
+              i: "chat",
+              n: (
+                <>
+                  Get help and discuss
+                  <a href="https://matrix.to/#/#probe-rs:matrix.org">
+                    on Matrix
+                  </a>
+                  .
+                </>
+              ),
+            },
+          ].map(({ i, n }) => (
+            <li class="pl-0">
+              <Icon name={i} class="inline -mt-0.5 mr-2 text-green" /> {n}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Html>
