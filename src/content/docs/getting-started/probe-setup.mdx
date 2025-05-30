@@ -199,3 +199,40 @@ recommended to configure udev as described in [udev rules](#linux-udev-rules).
 #### Windows, macOS
 
 No driver installation required.
+
+
+## [Glasgow Interface Explorer](https://glasgow-embedded.org/)
+
+No additional drivers are required on any OS, but the device must be first configured using
+the Python toolkit that comes with it. Refer to the [installation instructions](https://glasgow-embedded.org/latest/install.html)
+for further details.
+
+### Setup
+
+Before running probe-rs, configure the target voltage and pinout using the `glasgow` CLI
+command. For example, if your target's SWCLK is connected to pin "A0" and SWDIO is connected
+to pin "A1", and it uses 3.3 V logic levels, use:
+
+```console
+$ glasgow run probe-rs -V A=3.3 --swclk A0 --swdio A1
+```
+
+The terminal output of the `glasgow` command will include the arguments needed to run probe-rs.
+
+Note that the "*V" (voltage) pins provide power to the target, and the "*S" (sense) pins measure
+the target's logic voltage level. If your target provides a reference voltage level (Vtg or similar),
+for example, you could connect it to the "AS" pin and run the `glasgow` tool as:
+
+```console
+$ glasgow run probe-rs -V A=SA --swclk A0 --swdio A1
+```
+
+Do not back-power the probe by connecting a power source to the "*V" pins.
+
+It is also possible to use the debug probe functionality together with other applets, such
+as a serial terminal; for example, if your target's transmit wire is connected to pin "A2" and
+receive wire to pin "A3":
+
+```console
+$ glasgow multi probe-rs -V A=3.3 --swclk A0 --swdio A1 ++ uart --rx A2 --tx A3 --auto-baud
+```
