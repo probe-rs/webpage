@@ -21,7 +21,7 @@ And there is much more to come in the future!
 You can use it like any cargo command would be used
 
 ```bash
-cargo embed <args>
+cargo embed [OPTIONS] [CONFIG_PROFILE]
 ```
 
 This will do following in sequence:
@@ -73,10 +73,10 @@ precedence.
 
 The data in the `Embed.toml` is structured in two levels: The outer layer is a
 configuration profile name, inside each profile there are then a series of
-sections with different options. The default profile is called "default" ;) When
-invoking cargo-embed, a different profile name can be passed as an argument with
-`--config <profile>`, which will load the settings under that profile instead of
-`default`.
+sections with different options. The default profile is called "default" ;)
+When invoking cargo-embed, a different profile name can be passed as positional
+argument `CONFIG_PROFILE`, which will load the settings under that profile
+instead of `default` (see [Usage](#usage)).
 
 For example, in your `Embed.toml`:
 
@@ -92,8 +92,8 @@ chip = "STM32F401CCUx"
 enabled = true
 ```
 
-Now you can run `cargo embed --config with_rtt` to have RTT enabled, while
-`cargo embed` will use the default config "default" without RTT.
+Now you can run `cargo embed with_rtt` to have RTT enabled, while `cargo embed`
+will use the default config "default" without RTT.
 
 ## RTT
 
