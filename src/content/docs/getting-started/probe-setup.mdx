@@ -199,3 +199,5 @@ recommended to configure udev as described in [udev rules](#linux-udev-rules).
 #### Windows, macOS
 
 No driver installation required.
+
+Some ESP32 devices have an incorrect WinUSB Descriptor. If ``probe-rs list`` shows your device, but ``probe-rs info`` fails with ``Could not find DeviceInterfaceGUIDs in registry``, you may need to reinstall the driver using Zadig. You can find more information in this GitHub discussion: https://github.com/probe-rs/probe-rs/discussions/3193
