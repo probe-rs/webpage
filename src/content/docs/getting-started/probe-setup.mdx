@@ -24,7 +24,14 @@ users without root privileges access to the debug probes as well.
    devices.
 
 If you're still unable to access the debug probes after following these steps,
-try adding your user to the plugdev group.
+try adding your user to the plugdev group. This group needs to be a system group
+if you use systemd version higher than v258. In this case you can try the following
+commands to fix the udev rules :
+
+```bash
+sudo groupadd --system plugdev
+sudo usermod -a -G plugdev $USER
+```
 
 [^1]: The file needs to have an initial number lower than 73, otherwise the udev
 rules do not get applied properly. See
