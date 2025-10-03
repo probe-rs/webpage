@@ -29,6 +29,7 @@ let probe = probes[0].open()?;
 Now you can access all the functionality a probe can offer. Not all probes offer the same functionality, which is why some calls may return a negative `Result`.
 
 ```rs
+
 // Perform a hard reset of the connected target via the probe.
 probe.target_reset()?;
 
@@ -67,7 +68,7 @@ In the previous sections we have learned how we attach to a core.
 Sometimes you want to access the core operations in quick fashion.
 This is what [Session::auto_attach()](https://docs.rs/probe-rs/*/probe_rs/struct.Session.html#method.auto_attach) is for.
 It lets you attach to the Core without first opening a Probe.
-It will try to open a connected prbe, and select the Core as best as it can
+It will try to open a connected probe, and select the Core as best as it can
 
 ```rs
 let session = Session::auto_attach("chip_name")?;
