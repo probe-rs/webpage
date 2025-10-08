@@ -19,19 +19,11 @@ users without root privileges access to the debug probes as well.
 
 1. Download the <a href="/files/69-probe-rs.rules" download="69-probe-rs.rules">rules file</a> and place
    it in /etc/udev/rules.d.
-2. Run `udevadm control --reload` to ensure the new rules are used.
-3. Run `udevadm trigger` to ensure the new rules are applied to already added
+2. If you want to use probe-rs in SSH session, please see the comment at the end of udev rule and
+   and modify it according to it.
+3. Run `udevadm control --reload` to ensure the new rules are used.
+4. Run `udevadm trigger` to ensure the new rules are applied to already added
    devices.
-
-If you're still unable to access the debug probes after following these steps,
-try adding your user to the plugdev group. This group needs to be a system group
-if you use systemd version higher than v258. In this case you can try the following
-commands to fix the udev rules :
-
-```bash
-sudo groupadd --system plugdev
-sudo usermod -a -G plugdev $USER
-```
 
 [^1]: The file needs to have an initial number lower than 73, otherwise the udev
 rules do not get applied properly. See
