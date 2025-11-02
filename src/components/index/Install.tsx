@@ -4,7 +4,8 @@ import { useEffect, useState } from "preact/hooks";
 
 type Props = {};
 
-const shell = `curl -LsSf https://github.com/probe-rs/probe-rs/releases/latest/download/probe-rs-tools-installer.sh | sh`;
+const latestBase = `https://github.com/probe-rs/probe-rs/releases/latest/download`;
+const shell = `curl -LsSf ${latestBase}/probe-rs-tools-installer.sh | sh`;
 
 export default function TargetsView({}: Props) {
   const [instructions, setInstructions] = useState([shell, "shell"] as [
@@ -47,7 +48,7 @@ export function installInstructions(): [string, BundledLanguage] {
     return [shell, "shell"];
   } else if (windowsPlatforms.indexOf(platform) !== -1) {
     return [
-      `powershell -ExecutionPolicy Bypass -c "irm https://github.com/probe-rs/probe-rs/releases/download/v0.27.0/probe-rs-tools-installer.ps1 | iex"`,
+      `powershell -ExecutionPolicy Bypass -c "irm ${latestBase}/probe-rs-tools-installer.ps1 | iex"`,
       "powershell",
     ];
   } else if (/Android/.test(userAgent)) {

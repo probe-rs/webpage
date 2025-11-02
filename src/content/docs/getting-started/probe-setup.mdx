@@ -24,7 +24,14 @@ users without root privileges access to the debug probes as well.
    devices.
 
 If you're still unable to access the debug probes after following these steps,
-try adding your user to the plugdev group.
+try adding your user to the plugdev group. This group needs to be a system group
+if you use systemd version higher than v258. In this case you can try the following
+commands to fix the udev rules :
+
+```bash
+sudo groupadd --system plugdev
+sudo usermod -a -G plugdev $USER
+```
 
 [^1]: The file needs to have an initial number lower than 73, otherwise the udev
 rules do not get applied properly. See
@@ -200,6 +207,7 @@ recommended to configure udev as described in [udev rules](#linux-udev-rules).
 
 No driver installation required.
 
+Some ESP32 devices have an incorrect WinUSB Descriptor. If ``probe-rs list`` shows your device, but ``probe-rs info`` fails with ``Could not find DeviceInterfaceGUIDs in registry``, you may need to reinstall the driver using Zadig. You can find more information in this GitHub discussion: https://github.com/probe-rs/probe-rs/discussions/3193
 
 ## [Glasgow Interface Explorer](https://glasgow-embedded.org/)
 
