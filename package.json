@@ -22,7 +22,7 @@
     "fuse.js": "^7.1.0",
     "hast-util-to-jsx-runtime": "^2.3.6",
     "jep106": "github:Yatekii/jep106",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "preact": "^10.26.4",
     "probe-rs-targets": "github:probe-rs/probe-rs",
     "react-shiki": "^0.5.3",
