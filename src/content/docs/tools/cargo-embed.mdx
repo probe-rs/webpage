@@ -242,24 +242,24 @@ fn main() -> ! {
     let channels = rtt_init! {
         up: {
             0: {
-                size: 512
-                mode: BlockIfFull
-                name: "Up zero"
+                size: 512,
+                mode: BlockIfFull,
+                name: "Up zero",
             }
             1: {
-                size: 128
-                name: "Up one"
+                size: 128,
+                name: "Up one",
             }
             2: {
-                size: 128
-                name: "Up two"
+                size: 128,
+                name: "Up two",
             }
         }
         down: {
             0: {
-                size: 512
-                mode: BlockIfFull
-                name: "Down zero"
+                size: 512,
+                mode: BlockIfFull,
+                name: "Down zero",
             }
         }
     };
