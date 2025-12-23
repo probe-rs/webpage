@@ -35,8 +35,62 @@ To use [RTT](https://docs.rs/rtt-target/latest/rtt_target/) or [defmt](https://d
 
 This is great for inspecting a target - where you might not even have knowledge of the firmware - without altering its state.
 
+## serve
+
+> The probe-rs server and client support is gated behind the `remote` feature and are not available in the default distribution.
+
+`probe-rs serve` starts a remote server on your machine. You can `run`, `attach` to a device, `read` and `write` memory, `list` probes and read device `info` from another machine.
+
+The server communicates over websockets. It is recommended to add your own TLS layer on top of it. You can specify the bind address and port, as well as the list of user credentials in the `probe-rs` configuration file.
+
+To connect to a server, use the `--host` and `--token` options: `probe-rs [command] --host ws[s]://<host> --token <token> [additional arguments]`.
+
 ## Additional commands
 
 To learn more about additional commands, use the `probe-rs help` or `probe-rs <command> --help` commands.
+
+## Configuration
+
+`probe-rs` can be configured via a config file. Currently the following options are available:
+
+- Server listening parameters
+- Server users
+- Command presets
+
+The config file can be a `toml`, `json`, `yaml` or `yml` file located at the following paths:
+
+- The current working folder
+- The folder of the `probe-rs` executable
+- The user's HOME directory
+
+### Specifying server options
+
+You can specify the port and bind address of the server, as well as a list of users. It is not possible to connect to a server that has no users. You can configure which probes a particular user may access. User tokens must be unique, and user names are only used to log access.
+
+```toml
+[server]
+port = 3000 # default is 3000
+address = "127.0.0.1" # default is 0.0.0.0
+
+[[server.users]]
+name = "user1"
+token = "foo"
+access = "all" # Optional, defaults to "all"
+# access = { allow = ["probe serial 1", "probe serial 2"] }
+# access = { deny = ["probe serial 1", "probe serial 2"] }
+```
+
+### Specifying presets
+
+Presets allow you to simplify the CLI arguments. You can define any number of presets, and then use the `--preset <name>` option to select one. The arguments in the preset will then be added to the command. You may create a `default` preset that will be selected when `--preset` is not specified.
+
+For example, you may have the following presets:
+
+```toml
+[presets]
+preset_name = { probe = "vid:pid:serial", host = "remote", token = "token" }
+```
+
+Then, issuing the `probe-rs run <firmware> --preset preset_name` command will effectively run `probe-rs run <firmware> --probe vid:pid:serial --host remote --token token`.
 
 </probe-rs-code>
