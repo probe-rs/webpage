@@ -974,9 +974,10 @@ BODY is the contents of the event."
 (add-to-list 'dape-configs
                '(probe-rs modes (rust-mode)
                           command "probe-rs"
-                          command-args ("dap-server" "--port" ":autoport")
+                          command-args ("dap-server" "--port" :autoport)
                           host "localhost"
                           port :autoport
+                          compile "cargo build"
                           :chip target-chip
                           :coreConfigs [(
                                          :programBinary target-binary-path
