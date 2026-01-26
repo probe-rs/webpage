@@ -933,6 +933,64 @@ VSCode not your cup of tea? No problem!
 
 probe-rs implements the [Debug Adapter Protocol](https://microsoft.github.io/debug-adapter-protocol/overview), so you can use other [editors, IDEs, and visual debuggers](https://microsoft.github.io/debug-adapter-protocol/implementors/tools/), such as [Vimspector](https://github.com/puremourning/vimspector#readme)...
 
+## Emacs via Dape
+
+Dape is a well-written Emacs package for DAP debuggers. Setup with Eglot tends to be a little tricky at times, as Dape does not support launch.json configurations, so transposition into the configuration syntax is required. Additionally, in order to support RTT logging, some event handling methods are required. Once setup, however, it works well.
+
+[You can read more about Dape here](https://github.com/svaante/dape/). In addition to the documentation and regular help functions built into Emacs, such as `describe-function`, `describe-variable` and `customize`, you can also visit the [Dape wiki page](https://github.com/svaante/dape/wiki) for more examples for many different DAP debuggers.
+
+Assuming dape is already installed, you can setup dape for probe-rs as follows:
+
+```elisp
+  ;; These methods setup and then intercept RTT data events from
+  ;; probe-rs, providing Log output directly in the REPL.
+  (cl-defmethod dape-handle-event (conn (_event (eql probe-rs-rtt-data)) body)
+    "When Probe.rs sends RTT messages, insert them into the REPL.
+CONN is the `dape-connection'.
+BODY is the contents of the event."
+    (let ((data (plist-get body :data)))
+      (dape--repl-insert (format "%s\n" data))))
+
+  (cl-defmethod dape-handle-event (conn (_event (eql probe-rs-rtt-channel-config)) body)
+    "When Probe.rs sends channel config info, send a request to let it know the 'terminal window' is open.
+CONN is the `dape-connection'.
+BODY is the contents of the event."
+    (dape-request conn "rttWindowOpened"
+                  '((channelNumber . 0)(windowIsOpen . t))))
+
+(setq target-binary "embassy-blinky"
+      target-architecture-triple "thumbv7em-none-eabihf"
+      target-chip "STM32WB55RG"
+      target-chip-svd-path
+      (expand-file-name "res/STM32WB55_CM4.svd"
+                        (project-root (project-current)))
+      target-binary-path
+      (expand-file-name
+       (format "target/%s/debug/%s"
+               target-architecture-triple
+               target-binary)
+       (project-root (project-current))))
+
+(add-to-list 'dape-configs
+               '(probe-rs modes (rust-mode)
+                          command "probe-rs"
+                          command-args ("dap-server" "--port" ":autoport")
+                          host "localhost"
+                          port :autoport
+                          :chip target-chip
+                          :coreConfigs [(
+                                         :programBinary target-binary-path
+                                         :coreIndex 0
+                                         :svdFile target-chip-svd-path
+                                         :rttEnabled t
+                                         :rttChannelFormats [(:channelNumber 0 :dataFormat "String" :showTimestamps t)])]
+                          :flashingConfig (:flashingEnabled t)
+                          :type "probe-rs-debug"
+                          :consoleLogLevel "Console"
+                          :type "probe-rs-debug"
+                          :request "launch"))
+```
+
 ## NVIM via nvim-dap
 nvim-dap is a popular nvim plugin to work with dap debuggers. Setting up nvim-dap for probe-rs is in principle straight forward, and many things work with minimal config. RTT messages and other messages from probe-rs are implemented over DAP events like "probe-rs-show-messages", "probe-rs-rtt-data", and "probe-rs-rtt-channel-config". The last one is requiring a response to enable the RTT data.
 
