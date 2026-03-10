@@ -91,35 +91,20 @@ const targetSchema = z.object({
                   targetsel: z.number().optional(),
                   debug_base: z.number().optional(),
                   cti_base: z.number().optional(),
-                  jtag_tap: z
-                    .object({
-                      v1: z.string().optional(),
-                      v2: z.string().optional(),
-                    })
-                    .optional(),
+                  jtag_tap: z.number().optional(),
                 })
                 .optional()
                 .nullable(),
               riscv: z
                 .object({
                   hart_id: z.number().optional(),
-                  jtag_tap: z
-                    .object({
-                      v1: z.string().optional(),
-                      v2: z.string().optional(),
-                    })
-                    .optional(),
+                  jtag_tap: z.number().optional(),
                 })
                 .optional()
                 .nullable(),
               xtensa: z
                 .object({
-                  jtag_tap: z
-                    .object({
-                      v1: z.string().optional(),
-                      v2: z.string().optional(),
-                    })
-                    .optional(),
+                  jtag_tap: z.number().optional(),
                 })
                 .optional()
                 .nullable(),
