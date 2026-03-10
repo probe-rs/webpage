@@ -55,6 +55,7 @@ const targetYamlSchema = yaml.DEFAULT_SCHEMA.extend([
   new yaml.Type("!NordicFicrInfo", { kind: "mapping", construct: d => ({ nordicFicrInfo: d }) }),
   new yaml.Type("!Nvm", { kind: "mapping", construct: d => ({ nvm: d }) }),
   new yaml.Type("!Ram", { kind: "mapping", construct: d => ({ ram: d }) }),
+  new yaml.Type("!RenesasPnr", { kind: "mapping", construct: d => ({ renesasPnr: d }) }),
   new yaml.Type("!Riscv", { kind: 'mapping', construct: d => ({ riscv: d }) }),
   new yaml.Type("!v1", { kind: "scalar", construct: d => ({ v1: d }) }),
   new yaml.Type("!v2", { kind: "scalar", construct: d => ({ v2: d }) }),
