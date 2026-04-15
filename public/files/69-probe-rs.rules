@@ -145,4 +145,7 @@ ATTRS{product}=="*CMSIS-DAP*", MODE="660", GROUP="plugdev", TAG+="uaccess"
 ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="8010", MODE="660", GROUP="plugdev", TAG+="uaccess"
 ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="8011", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
+# Infineon KitProg
+ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="f155", MODE="660", GROUP="plugdev", TAG+="uaccess"
+
 LABEL="probe_rs_rules_end"
