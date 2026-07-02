@@ -148,4 +148,7 @@ ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="8011", MODE="660", GROUP="plugdev", 
 # Infineon KitProg
 ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="f155", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
+# NXP mbed
+ATTRS{idVendor}=="0d28", ATTRS{idProduct}=="0204", MODE="660", GROUP="plugdev", TAG+="uaccess"
+
 LABEL="probe_rs_rules_end"
