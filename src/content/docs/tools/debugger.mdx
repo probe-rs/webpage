@@ -218,6 +218,120 @@ Then use the following `launch.json` to connect to it:
 }
 ```
 
+##### Running the `probe-rs dap-server` on a different machine
+
+When the `probe-rs dap-server` runs on a different machine from the VSCode
+client (for example, the probe is wired to a build server that the developer
+connects to over the network), the extension automatically switches into
+**remote server mode**. This changes two things:
+
+- The `programBinary`, `svdFile`, and `chipDescriptionPath` files referenced by
+  the configuration are read by the **VSCode extension on the client side** and
+  uploaded (base64-encoded, in-band with the launch request) to the dap-server.
+  The server materializes the bytes to a session-scoped temporary directory and
+  uses them for flashing, RTT scanning, defmt metadata, and DWARF debug info
+  loading. The server never tries to open the original client paths.
+- Source paths emitted by the server in stack frames, breakpoints, and
+  disassembly come straight from DWARF debug information without any
+  server-side existence check or rewrite. The VSCode extension resolves them
+  against the user's local source tree, applying any rewrites configured via
+  [`sourceFileMap`](#mapping-build-host-paths-to-local-source-paths-with-sourcefilemap)
+  on the way through.
+
+Remote server mode is **auto-detected** from the `server` field:
+
+| `server`                                        | Resolved `remoteServerMode` |
+| ----------------------------------------------- | --------------------------- |
+| _omitted_ (extension launches a local instance) | `false`                     |
+| `127.0.0.1:50000`, `localhost:50000`, `[::1]:50000`, etc. | `false`           |
+| any non-loopback host (e.g. `build-host.example.com:50001`) | `true`          |
+
+You can override the heuristic by setting `remoteServerMode` explicitly in
+`launch.json`. The override is useful for setups where the loopback detection
+is misleading — for example a docker port-forward to host, a WSL2 ↔ Windows
+host bridge, or simply to exercise the upload path during local testing.
+
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "preLaunchTask": "${defaultBuildTask}",
+      "type": "probe-rs-debug",
+      "request": "launch",
+      "name": "probe_rs Remote Server example",
+      //!MODIFY ... point at the remote machine where `probe-rs dap-server` is running.
+      // Because this is non-loopback, the extension auto-enables remoteServerMode;
+      // there is no need to set `remoteServerMode: true` explicitly here.
+      "server": "build-host.example.com:50001",
+      "cwd": "${workspaceFolder}",
+      //!MODIFY
+      "chip": "STM32H745ZITx",
+      "flashingConfig": {
+        "flashingEnabled": true
+      },
+      "coreConfigs": [
+        {
+          "coreIndex": 0,
+          //!MODIFY ... a path on the client machine; the bytes are uploaded automatically
+          "programBinary": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/your-firmware",
+          //!MODIFY (or remove)
+          "svdFile": "${workspaceFolder}/STM32H745.svd"
+        }
+      ],
+      "consoleLogLevel": "Console"
+    }
+  ]
+}
+```
+
+> **Tip:** Start the remote `probe-rs dap-server` once and reuse it across many
+> VSCode launches by omitting `--vscode` (it will then continue listening for
+> further connections). Each launch is isolated: the temp directory holding the
+> uploaded files is removed when that session ends.
+
+##### Mapping build-host paths to local source paths with `sourceFileMap`
+
+DWARF debug information records paths to source files exactly as they existed
+on the **build host** at compile time. When the editor and the build host are
+the same machine, those paths "just work" — VSCode opens them directly. When
+they differ (cross-compile sysroots, CI containers, relocated checkouts, or
+remote build servers), the embedded paths point at files the editor cannot see.
+
+The `sourceFileMap` setting in `launch.json` rewrites these paths on the
+client side as DAP messages flow back from the dap-server. Each entry rewrites
+paths that **start with** the key by replacing that prefix with the
+corresponding value:
+
+```json
+{
+  "sourceFileMap": {
+    "/builds/my-org/my-project/": "${workspaceFolder}/",
+    "/opt/cross/arm-none-eabi/": "/usr/local/arm-none-eabi/"
+  }
+}
+```
+
+Use this for any DWARF-bearing language (Rust, C, C++, etc.). Longer prefixes
+are tried first, so more specific mappings win over more general ones —
+`/builds/my-org/my-project/vendor/` will be applied in preference to a more
+general `/builds/` entry.
+
+**Rust users:** the extension automatically adds an entry that maps the
+synthetic `/rustc/<hash>/...` prefix used by precompiled rustlib sources to
+the active toolchain's local `sysroot`, so stepping into `core::` /
+`alloc::` / `std::` resolves to a viewable file. The auto-entry is added
+**only if** `sourceFileMap` does not already contain a `/rustc/...` key, so
+you can override it (or disable it by mapping `/rustc/` to an empty string).
+
+**C/C++ users:** there is no automatic detection of toolchain sysroots — add
+explicit entries for whichever build prefixes appear in your binaries. You can
+inspect the embedded paths with `addr2line` or `llvm-dwarfdump --debug-line`
+on the artifact.
+
+`sourceFileMap` is applied in **all** modes (local, loopback `server`, and
+remote `server`) — wherever DWARF paths might not match the local filesystem.
+
 ### Configuring RTT to transfer data
 
 `probe-rs` and the VS Code extension supports using RTT in your target
@@ -573,6 +687,18 @@ for more details.
             "description": "Allow the session to erase all memory of the chip or reset it to factory default.",
             "default": false
         },
+        "remoteServerMode": {
+            "type": "boolean",
+            "description": "Indicates that the `probe-rs dap-server` is running on a different machine from the VSCode client. When in effect, the extension reads `programBinary`, `svdFile`, and `chipDescriptionPath` on the client side and uploads their contents (base64-encoded) to the server. The server also emits source paths from DWARF debug information verbatim, with rewriting handled by the client via `sourceFileMap`.\n\nWhen this property is omitted, the extension auto-detects remote mode from `server`: a loopback `server` (e.g. `127.0.0.1:50000`, `localhost:50000`, `[::1]:50000`) is treated as local; a non-loopback host is treated as remote. Set this property explicitly to override the heuristic for setups where the loopback detection is misleading (e.g. docker port-forward to host, WSL2 ↔ Windows host)."
+        },
+        "sourceFileMap": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            },
+            "description": "Map of source-path prefixes to apply to incoming `Source.path` values from the dap-server before VSCode opens the file. Each entry rewrites paths that **start with** the key by replacing that prefix with the corresponding value. Useful when DWARF debug information records build-host paths that don't exist on the editor's machine — for example C/C++ artifacts built in a CI container, cross-compile sysroots, or relocated checkouts. Longer prefixes are tried first, so more specific mappings shadow more general ones.\n\nFor Rust users, the extension automatically adds an entry that maps the synthetic `/rustc/<hash>/...` prefix used by precompiled rustlib sources to the active toolchain's local sysroot. The auto-entry is only added when this map does not already contain a `/rustc/...` key.",
+            "default": {}
+        },
         "flashingConfig": {
             "type": "object",
             "additionalProperties": false,
@@ -833,6 +959,18 @@ for more details.
             "type": "boolean",
             "description": "Allow the session to erase all memory of the chip or reset it to factory default.",
             "default": false
+        },
+        "remoteServerMode": {
+            "type": "boolean",
+            "description": "Indicates that the `probe-rs dap-server` is running on a different machine from the VSCode client. When in effect, the extension reads `programBinary`, `svdFile`, and `chipDescriptionPath` on the client side and uploads their contents (base64-encoded) to the server. The server also emits source paths from DWARF debug information verbatim, with rewriting handled by the client via `sourceFileMap`.\n\nWhen this property is omitted, the extension auto-detects remote mode from `server`: a loopback `server` (e.g. `127.0.0.1:50000`, `localhost:50000`, `[::1]:50000`) is treated as local; a non-loopback host is treated as remote. Set this property explicitly to override the heuristic for setups where the loopback detection is misleading (e.g. docker port-forward to host, WSL2 ↔ Windows host)."
+        },
+        "sourceFileMap": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            },
+            "description": "Map of source-path prefixes to apply to incoming `Source.path` values from the dap-server before VSCode opens the file. Each entry rewrites paths that **start with** the key by replacing that prefix with the corresponding value. Useful when DWARF debug information records build-host paths that don't exist on the editor's machine — for example C/C++ artifacts built in a CI container, cross-compile sysroots, or relocated checkouts. Longer prefixes are tried first, so more specific mappings shadow more general ones.\n\nFor Rust users, the extension automatically adds an entry that maps the synthetic `/rustc/<hash>/...` prefix used by precompiled rustlib sources to the active toolchain's local sysroot. The auto-entry is only added when this map does not already contain a `/rustc/...` key.",
+            "default": {}
         },
         "coreConfigs": {
             "type": "array",
