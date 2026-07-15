@@ -20,12 +20,12 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install & build with Astro
-        uses: withastro/action@v5
+        uses: withastro/action@v6
 
       - name: Deploy to CF Pages
         id: deploy-preview
