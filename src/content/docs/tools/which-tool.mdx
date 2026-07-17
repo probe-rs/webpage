@@ -1,0 +1,35 @@
+---
+title: "Which tool should I use?"
+description: "How to choose between probe-rs run, cargo-embed and cargo-flash."
+order: 5
+---
+
+The probe-rs tools overlap a fair bit in functionality, which makes it easy to
+pick the wrong one. Here is the short version.
+
+## Start with `probe-rs run`
+
+For most projects, [`probe-rs run`](/docs/tools/probe-rs/#run) is what you want.
+It flashes your firmware, resets the target and streams `RTT`/`defmt` output and
+panics back to your console, so it works as a cargo target runner.
+
+Point cargo at it once:
+
+<probe-rs-code>
+
+```rust { title=".cargo/config.toml" }
+[target.<architecture-triple>]
+runner = 'probe-rs run --chip <chip-name>'
+```
+
+</probe-rs-code>
+
+and then a plain `cargo run` flashes and runs your firmware.
+
+## The other tools
+
+- [`cargo-embed`](/docs/tools/cargo-embed) offers similar functionality with an
+  interactive `RTT` terminal on top. It is expected to be phased out in the
+  future, so prefer `probe-rs run` for new setups.
+- [`cargo-flash`](/docs/tools/cargo-flash) just flashes a binary onto the target
+  without any further faff, for when you only need to program the chip.
