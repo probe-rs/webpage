@@ -73,6 +73,44 @@ You have multiple options, the two most interesting are:
 See the [Cargo book](https://doc.rust-lang.org/cargo/commands/cargo-install.html) for details.
 
 
+## Uninstalling
+
+How you remove probe-rs depends on how you installed it.
+
+### Install scripts
+
+The install scripts don't ship an uninstaller, so the binaries have to be
+removed by hand. They are placed in Cargo's binary directory
+(`~/.cargo/bin`, or `%USERPROFILE%\.cargo\bin` on Windows):
+
+```bash
+rm ~/.cargo/bin/probe-rs ~/.cargo/bin/cargo-flash ~/.cargo/bin/cargo-embed
+```
+
+The installer also drops an install receipt that you can remove:
+
+```bash
+rm -r ~/.config/probe-rs-tools
+```
+
+If you installed shell completions with `probe-rs complete install`, delete the
+completion file it created for your shell. If you allowed the installer to
+modify your `PATH`, remove the line it added to your shell profile.
+
+### homebrew
+
+```bash
+brew uninstall probe-rs
+brew untap probe-rs/probe-rs
+```
+
+### cargo (`cargo install` / `cargo binstall`)
+
+```bash
+cargo uninstall probe-rs-tools
+```
+
+
 ## Shell completion
 
 You likely want to install shell completion support along with the probe-rs binaries. Just run:
