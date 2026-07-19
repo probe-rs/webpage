@@ -81,6 +81,53 @@ write access to the probe's device node. If `probe-rs list` reports a probe as
 inaccessible, or your probe is plugged in but missing from the list, that access
 is what to check.
 
+### Linux: probe stopped being detected after a system update
+
+systemd 258 (September 2025) tightened how udev applies device permissions,
+which can silently break a setup that worked before the update:
+
+- Rules that set `OWNER=`/`GROUP=` to a **non-system** group are now ignored.
+  `plugdev` is the usual culprit: if it was created as a regular group, it no
+  longer has any effect.
+- ACLs granted through the `uaccess` tag are only re-applied on `change` events
+  if the rule matches those events, not just `add`.
+
+If your probe disappeared after an update, inspect the current state:
+
+```bash
+# Does your user have an ACL entry on the probe's node?
+# (the path shows up in `probe-rs list` trace logs, e.g. /dev/bus/usb/001/006)
+getfacl /dev/bus/usb/*/*
+
+# Check that the rules file is actually accepted. On a broken setup this prints
+# something like: "Group plugdev is not a system group, ignoring"
+udevadm verify /etc/udev/rules.d/*probe-rs*.rules
+```
+
+To fix the `plugdev` case, recreate it as a **system** group and re-add yourself:
+
+```bash
+# If it already exists as a non-system group, remove it first.
+sudo groupdel plugdev
+
+sudo groupadd --system plugdev
+sudo usermod -a -G plugdev $USER
+```
+
+Then reload the rules and log out and back in:
+
+```bash
+sudo udevadm control --reload
+sudo udevadm trigger
+```
+
+If you maintain your own rules, prefer granting access with `uaccess` on every
+action except removal, so ACLs survive `change` events too:
+
+```
+ACTION!="remove", SUBSYSTEM=="usb", ATTRS{idVendor}=="2e8a", TAG+="uaccess"
+```
+
 ### Windows: WinUSB drivers
 
 Some of the probe implementations are implemented using [nusb](https://crates.io/crates/nusb) which
