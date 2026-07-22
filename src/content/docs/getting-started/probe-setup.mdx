@@ -244,3 +244,139 @@ receive wire to pin "A3":
 ```console
 $ glasgow multi probe-rs -V A=3.3 --swclk A0 --swdio A1 ++ uart --rx A2 --tx A3 --auto-baud
 ```
+
+## Linux GPIO bit-bang (`linuxgpiod`)
+
+Bit-bangs SWD over GPIO lines exposed by the Linux kernel's character-device
+interface (`/dev/gpiochipN`). Useful when the host running probe-rs is itself
+a Linux SBC whose GPIOs are routed to a target SoC's SWD pins (typically
+through level shifters), and you don't want a separate USB debug probe in
+the picture.
+
+**Linux only. SWD only.** Effective bit rate is bounded by `gpio-cdev` ioctl
+throughput — typically tens of kHz.
+
+This driver lives in the `probe-rs-linux` plugin crate, which `probe-rs-tools`
+pulls in automatically on Linux — no Cargo features required.
+
+### Setup
+
+Pin assignments are passed via the `--probe` selector with VID and PID both
+set to zero, and the SWD line offsets in the serial field:
+
+```console
+$ probe-rs run \
+    --probe '0:0:gpiochip1,swclk=26,swdio=25,srst=38' \
+    --chip <CHIP> firmware.elf
+```
+
+`<gpiochip>` accepts `gpiochipN`, `/dev/gpiochipN`, or just the numeric
+index `N`. `srst` is optional — without it, target reset is software-only.
+
+#### Permissions
+
+`/dev/gpiochipN` is owned by `root:gpio` on most distributions. Add your
+user to the `gpio` group (or run probe-rs with `sudo`):
+
+```console
+$ sudo usermod -aG gpio $USER
+```
+
+Auto-discovery (`probe-rs list` with no `--probe`) does not enumerate gpiod
+probes — pin assignments are board-specific and cannot be inferred. You
+must always supply an explicit selector.
+
+For a worked end-to-end example on a real board, see the
+[Arduino UNO Q knowledge-base entry](/docs/knowledge-base/arduino-uno-q/).
+
+## Linux SPI bit-bang (`linuxspidevswd`)
+
+Emulates SWD over a Linux `spidev` bus by tying the host's PICO (MOSI) and
+POCI (MISO) lines together through a series resistor (~1 kΩ) and using that
+node as `SWDIO`. SCLK drives `SWCLK`. Useful when the host is a Linux SBC
+whose SPI peripheral is wired to a target's SWD pins, and you want speeds
+well above what `linuxgpiod` can sustain — this driver has been tested up
+to 18 MHz.
+
+**Linux only. SWD only.** Like `linuxgpiod`, this driver is part of the
+`probe-rs-linux` plugin crate and is registered automatically on Linux
+builds.
+
+### Wiring
+
+```text
+   Host                     Target
++--------+     1K         +--------+
+|    PICO|---/\/\/\---+   |        |
+|        |            |   |        |
+|    POCI|------------+---|SWDIO   |
+|        |                |        |
+|     SCK|----------------|SWDCLK  |
++--------+                +--------+
+```
+
+The exact resistor value depends on SWD clock speed and host/target drive
+strength; 1 kΩ is a good starting point.
+
+#### Raspberry Pi pinout (SPI0)
+
+| GPIO    | Function  | Header pin |
+|---------|-----------|------------|
+| GPIO 10 | SPI0 MOSI | 19         |
+| GPIO 9  | SPI0 MISO | 21         |
+| GPIO 11 | SPI0 SCLK | 23         |
+
+Enable SPI with `raspi-config` and reboot; the bus will appear as
+`/dev/spidev0.0`.
+
+### Probe selection
+
+Select the spidev device directly with a synthetic selector whose serial
+field carries the spidev path:
+
+```console
+$ probe-rs info --probe '0:0:/dev/spidev0.0'
+```
+
+The VID:PID portion is ignored.
+
+### Auto-discovery and the `spidev_swd` udev rule
+
+For safety, `probe-rs list` does **not** enumerate every SPI bus on the
+system — it only exposes spidev devices that are reachable through an
+explicit `/dev/spidev_swd*` symlink. To opt a bus into auto-discovery,
+create a udev rule:
+
+```console
+$ sudo tee /etc/udev/rules.d/99-spidev-swd.rules <<EOF
+SUBSYSTEM=="spi", KERNEL=="spidev*", SYMLINK+="spidev_swd%n"
+EOF
+```
+
+Explicit `--probe '0:0:/dev/spidevX.Y'` selectors always work regardless of
+whether the symlink exists.
+
+### Cross-compiling for a Raspberry Pi host
+
+```bash
+# Pi 1 / Pi Zero
+cross build -p probe-rs-tools --target arm-unknown-linux-gnueabihf --release --features remote
+
+# Pi 3 / 4 / 5
+cross build -p probe-rs-tools --target aarch64-unknown-linux-gnu --release --features remote
+```
+
+Copy the resulting binary onto the Pi and run it directly:
+
+```console
+$ ./probe-rs info --protocol swd --probe '0:0:/dev/spidev0.0' --speed 1000
+```
+
+To drive the Pi remotely from a workstation, run `probe-rs serve` on the Pi
+(see the [`probe-rs` tool docs](/docs/tools/probe-rs/) for the server
+config) and point a remote client at it:
+
+```console
+$ probe-rs --host ws://pi-zero-w.local:3000 --token "token" \
+    info --protocol swd --speed 1000 --probe '0:0:/dev/spidev0.0'
+```

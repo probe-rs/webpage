@@ -1,0 +1,75 @@
+---
+title: "Arduino UNO Q (STM32U585)"
+description: "Debug the on-board STM32U585 from the QRB2210 Linux host using probe-rs's linuxgpiod driver."
+order: 35
+---
+
+## Overview
+
+The [Arduino UNO Q](https://docs.arduino.cc/hardware/uno-q/) pairs a
+Qualcomm QRB2210 (Snapdragon 215 running Linux) with an STM32U585OI
+(Cortex-M33). The QRB2210's GPIOs reach the STM32's SWD pins through
+on-board level shifters, which the
+[`linuxgpiod`](/docs/getting-started/probe-setup/#linux-gpio-bit-bang-linuxgpiod)
+driver can drive directly.
+
+## Pin map
+
+| Signal | gpiochip   | Line |
+|--------|------------|------|
+| SWCLK  | `gpiochip1` | 26   |
+| SWDIO  | `gpiochip1` | 25   |
+| SRST   | `gpiochip1` | 38   |
+
+Selector for all probe-rs commands:
+
+```text
+0:0:gpiochip1,swclk=26,swdio=25,srst=38
+```
+
+## Chip description (one-time)
+
+probe-rs doesn't currently bundle the STM32U5 family. Generate a YAML
+description from STMicroelectronics' CMSIS pack with `target-gen`:
+
+```console
+$ curl -sSL -o pack.pack \
+    https://www.keil.com/pack/Keil.STM32U5xx_DFP.3.2.0.pack
+$ target-gen pack pack.pack ./u5-targets/
+```
+
+Pass the resulting `STM32U5_Series.yaml` via `--chip-description-path`;
+use the full STM package code as the chip name (`STM32U585OIYxQ` for the
+UNO Q):
+
+```console
+$ probe-rs info \
+    --probe '0:0:gpiochip1,swclk=26,swdio=25,srst=38' \
+    --chip STM32U585OIYxQ \
+    --chip-description-path ./u5-targets/STM32U5_Series.yaml
+```
+
+## Auto-boot quirk
+
+Stock UNO Q boards ship with the STM32U585's `NSBOOTADD1R` option byte set
+to `0x0BF90000`, so reset lands in the chip's ROM bootloader rather than
+user flash. probe-rs flashes user firmware correctly, but the chip won't
+auto-boot it on reset until `NSBOOTADD1R` is repointed at `0x08000000`.
+This is a one-time per-board option-byte change; use any STM32 option-byte
+programming tool.
+
+## Flashing and running firmware
+
+```console
+$ sudo probe-rs run \
+    --probe '0:0:gpiochip1,swclk=26,swdio=25,srst=38' \
+    --chip STM32U585OIYxQ \
+    --chip-description-path ./u5-targets/STM32U5_Series.yaml \
+    firmware.elf
+     Erasing ✔ [00:00:01] [#####] 16.00 KiB / 16.00 KiB
+ Programming ✔ [00:00:02] [#####] 11.51 KiB / 11.51 KiB
+    Finished in 4.7s
+[INFO ] firmware booted
+```
+
+probe-rs streams `defmt` log output over RTT until `^C`.
