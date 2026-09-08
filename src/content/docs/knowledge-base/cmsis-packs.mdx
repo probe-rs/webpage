@@ -61,7 +61,7 @@ variants:
     memory_map:
       # The type of the memory. Possible are [!Ram, !Nvm, !Generic].
       # There needs to be at least one of !Ram and !Nvm present.
-      - !Ram:
+      - !Ram
           range:
             # The start address of the memory (inclusive).
             start: number
@@ -73,7 +73,7 @@ variants:
           # List of cores that can access this region
           cores:
             - core name
-      - !Nvm:
+      - !Nvm
           range:
             # The start address of the memory (inclusive).
             start: number
@@ -85,7 +85,7 @@ variants:
           # List of cores that can access this region
           cores:
             - core name
-      - !Generic:
+      - !Generic
           range:
             # The start address of the memory (inclusive).
             start: number
