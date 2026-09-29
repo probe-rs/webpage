@@ -145,6 +145,11 @@ ATTRS{product}=="*CMSIS-DAP*", MODE="660", GROUP="plugdev", TAG+="uaccess"
 ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="8010", MODE="660", GROUP="plugdev", TAG+="uaccess"
 ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="8011", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
+# WCH CH347 (CH347F, CH347T in JTAG mode, and the third product id WCH's tools use)
+ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55de", MODE="660", GROUP="plugdev", TAG+="uaccess"
+ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55dd", MODE="660", GROUP="plugdev", TAG+="uaccess"
+ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55e8", MODE="660", GROUP="plugdev", TAG+="uaccess"
+
 # Infineon KitProg
 ATTRS{idVendor}=="04b4", ATTRS{idProduct}=="f155", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
