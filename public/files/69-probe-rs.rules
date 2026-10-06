@@ -7,7 +7,7 @@
 #
 # This file is available under the GNU General Public License v2.0
 
-ACTION!="add|change", GOTO="probe_rs_rules_end"
+ACTION=="remove", GOTO="probe_rs_rules_end"
 
 SUBSYSTEM=="gpio", MODE="0660", GROUP="plugdev", TAG+="uaccess"
 
