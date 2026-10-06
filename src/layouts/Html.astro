@@ -6,7 +6,7 @@ import { SITE_TITLE } from "../consts";
 import { Icon } from "astro-icon/components";
 import Search from "astro-pagefind/components/Search";
 
-const { title, description, image, fluid } = Astro.props;
+const { title, description, image, fluid, docsSidebar } = Astro.props;
 ---
 
 <!doctype html>
@@ -90,14 +90,16 @@ const { title, description, image, fluid } = Astro.props;
       <main
         class:list={[
           "prose dark:prose-invert format-code",
-          { "max-w-7xl p-10 mx-auto": !fluid, "w-full max-w-full": fluid },
+          {
+            "max-w-7xl p-10 mx-auto": !fluid, "w-full max-w-full min-w-0": fluid,
+          },
         ]}
       >
         <slot />
       </main>
 
-      <footer class="bg-slate-100 dark:bg-gray-900 py-5">
-        <div class="text-slate-500 text-center max-w-4xl mx-auto">
+      <footer class:list={["bg-slate-100 dark:bg-gray-900 py-5", {"md:pl-74 md:pr-10": docsSidebar},]}>
+        <div class="text-slate-500 text-center max-w-4xl mx-auto min-w-0">
           <Socials class="mx-auto py-3" />
           <div class="w-full h-[1px] bg-slate-200 dark:bg-gray-800"></div>
           <p class="py-3">
