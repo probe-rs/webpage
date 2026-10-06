@@ -19,7 +19,7 @@ const {
 </script>
 
 <Html title={`${title} | ${SITE_TITLE}`} description={description} fluid docsSidebar>
-  <div class="flex flex-col">
+  <div class="flex min-w-0 flex-col">
     <label
       class="sticky top-4 peer z-1 md:hidden -mt-10 w-max ml-auto not-prose"
     >
@@ -55,11 +55,13 @@ const {
         ))
       }
     </nav>
-    <div id="outside-menu" class="pb-10 mx-10 min-w-0 max-w-full w-full md:mx-0 md:pl-74 md:pr-10">
-      <h3 class="text-4xl font-extrabold mb-3 mt-10 font-[Inter] tracking-wide">
+    <div id="outside-menu" class="pb-10 min-w-0 max-w-full w-full px-4 sm:px-6 md:px-0 md:pl-74 md:pr-10">
+      <h3 class="text-4xl font-extrabold mb-3 mt-10 font-[Inter] tracking-wide break-words">
         {title}
       </h3>
-      <article class="prose dark:prose-invert format-code">
+      <article class="prose dark:prose-invert format-code min-w-0 break-words
+               [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_.expressive-code]:max-w-full"
+      >
         <slot />
       </article>
     </div>
