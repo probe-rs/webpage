@@ -70,6 +70,11 @@ You have multiple options, the two most interesting are:
 - To install the latest release, run `cargo install probe-rs-tools --locked`
 - To try the latest development version (a.k.a the `master` branch) with experimental and unreleased changes, run `cargo install probe-rs-tools --git https://github.com/probe-rs/probe-rs --locked`
 
+On Linux, the host-side probe drivers from the `probe-rs-linux` crate
+([`linuxgpiod`](/docs/getting-started/probe-setup/#linux-gpio-bit-bang-linuxgpiod)
+and [`linuxspidevswd`](/docs/getting-started/probe-setup/#linux-spi-bit-bang-linuxspidevswd))
+are pulled in automatically — no Cargo features required.
+
 See the [Cargo book](https://doc.rust-lang.org/cargo/commands/cargo-install.html) for details.
 
 
