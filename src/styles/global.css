@@ -79,43 +79,74 @@ figure {
   }
 }
 
-.pagefind-ui .pagefind-ui__form {
-  @apply dark:before:!bg-slate-200;
+.search {
+  --pf-input-height: 51.2px;
+  --pf-font:
+    system, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",
+    "San Francisco", Roboto, "Segoe UI", "Helvetica Neue", "Lucida Grande",
+    Ubuntu, arial, sans-serif;
+  --pf-input-font-size: 1.05rem;
+  --pf-border-radius: 8px;
+  --pf-searchbox-max-width: none;
+  --pf-searchbox-dropdown-max-height: min(70vh, 640px);
+  --pf-text: var(--color-black);
+  --pf-text-secondary: var(--color-slate-600);
+  --pf-text-muted: var(--color-slate-500);
+  --pf-background: var(--color-white);
+  --pf-border: var(--color-slate-200);
+  --pf-hover: var(--color-slate-100);
+  --pf-mark: var(--color-black);
+  --search-input-text: rgb(57, 57, 57);
 }
 
-.pagefind-ui .pagefind-ui__search-input {
-  @apply !border-slate-200;
-  @apply dark:!bg-slate-900 dark:!text-slate-200 dark:!border-slate-600;
-  @apply not-placeholder-shown:w-full !border-[1px];
-  @apply focus-visible:!border-none focus-visible:!ring-0;
+@media (prefers-color-scheme: dark) {
+  .search {
+    --pf-text: var(--color-slate-200);
+    --pf-text-secondary: var(--color-slate-400);
+    --pf-text-muted: var(--color-slate-400);
+    --pf-background: var(--color-slate-900);
+    --pf-border: var(--color-slate-600);
+    --pf-border-focus: var(--color-slate-500);
+    --pf-hover: var(--color-slate-800);
+    --pf-mark: var(--color-white);
+    --pf-skeleton: var(--color-slate-800);
+    --pf-skeleton-shine: var(--color-slate-700);
+    --pf-outline-focus: #58a6ff;
+    --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --search-input-text: var(--color-slate-200);
+  }
 }
 
-.pagefind-ui .pagefind-ui__search-clear {
-  @apply !pl-3;
-  @apply dark:before:!bg-slate-200 dark:!bg-slate-900 dark:!text-white;
+/* Pagefind styles use high specificity, so these rules need !important. */
+.search {
+  /* Layout containment rounds the input to different pixels. */
+  contain: none !important;
 }
 
-.pagefind-ui .pagefind-ui__drawer:not(.pagefind-ui__hidden) {
-  @apply absolute top-14 md:top-16 right-0 left-0 mx-auto px-6 pb-6 rounded-md mt-0 z-50 overflow-y-auto;
-  @apply bg-slate-100 text-black;
-  @apply dark:bg-slate-900 dark:!text-slate-200;
-
-  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.2),
-    0 2px 2px 0 rgba(0, 0, 0, 0.1);
+.search .pf-searchbox-input {
+  color: var(--search-input-text) !important;
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+  padding-inline-start: 43.2px !important;
 }
 
-.pagefind-ui .pagefind-ui__result {
-  @apply !py-3;
+.search .pf-searchbox-input-wrapper::before {
+  inset-inline-start: 16px !important;
+  top: 18.4px !important;
+  width: 14.4px !important;
+  height: 14.4px !important;
+  background-color: var(--search-input-text) !important;
+  opacity: 0.7;
 }
 
-.pagefind-ui .pagefind-ui__result-link {
-  @apply !text-black dark:!text-slate-200;
+.search .pf-searchbox-input::placeholder {
+  color: var(--search-input-text) !important;
+  opacity: 0.2;
 }
 
-.pagefind-ui .pagefind-ui__result-title {
-  @apply text-black dark:text-slate-200;
-}
-
-.pagefind-ui .pagefind-ui__result-excerpt {
-  @apply text-black dark:text-slate-200;
+/* The screen reader regions are at the end of the body. Keep them out of the page height. */
+[data-pagefind-announcer] {
+  position: fixed;
+  top: 0;
+  left: 0;
 }

@@ -4,7 +4,7 @@ import HeaderLink from "../components/HeaderLink.astro";
 import Socials from "../components/Socials.astro";
 import { SITE_TITLE } from "../consts";
 import { Icon } from "astro-icon/components";
-import Search from "astro-pagefind/components/Search";
+import Search from "astro-pagefind/components/Search.astro";
 
 const { title, description, image, fluid, docsSidebar } = Astro.props;
 ---
@@ -33,11 +33,7 @@ const { title, description, image, fluid, docsSidebar } = Astro.props;
           </a>
 
           <div class="hidden md:block flex-grow max-w-md mx-4">
-            <Search
-              id="search"
-              className="pagefind-ui pagefind-ui--rounded my-2"
-              uiOptions={{ showImages: false }}
-            />
+            <Search className="search" />
           </div>
 
           <ul
@@ -65,11 +61,7 @@ const { title, description, image, fluid, docsSidebar } = Astro.props;
           class="hidden md:hidden absolute top-full left-0 right-0 bg-white dark:bg-gray-800 shadow-lg z-10 px-4 py-3"
         >
           <div class="mb-4">
-            <Search
-              id="mobile-search"
-              className="pagefind-ui pagefind-ui--rounded my-2"
-              uiOptions={{ showImages: false }}
-            />
+            <Search className="search" />
           </div>
           <ul class="flex flex-col w-full">
             <HeaderLink href="targets">Targets</HeaderLink>
