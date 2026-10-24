@@ -1,40 +1,65 @@
 # This workflow always runs from the state on `master`.
-# If you want to test changes to the workflow, you need to open a second PR against the branch of the PR with the workflow changes.
-# This is a security feature so one cannot meddle with secrets.
+# It has the secrets, so it must not run code from the PR.
+# It only deploys the files that "Build preview" made.
 
 name: Publish preview on CF Pages
 
 on:
-  pull_request_target:
+  workflow_run:
+    workflows: ["Build preview"]
+    types: [completed]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-  issues: write
+  actions: read
   pull-requests: write
 
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v7
+      - name: Download site
+        uses: actions/download-artifact@v8
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          name: preview
+          path: dist/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
 
-      - name: Install & build with Astro
-        uses: withastro/action@v6
+      # Find the PR from the event data. Do not use data from the artifact, because the PR controls it.
+      - name: Find PR number
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          PR_NUMBER=$(gh api --paginate "repos/$GH_REPO/pulls?state=open&per_page=100" \
+            --jq '.[] | select(.head.sha == env.SHA) | .number')
+          # Fails if no PR or more than one PR matches.
+          if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "No single open PR for commit $SHA"
+            exit 1
+          fi
+          echo "number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
 
       - name: Deploy to CF Pages
-        id: deploy-preview
+        id: deploy
         uses: cloudflare/wrangler-action@v4
-        env:
-          API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         with:
-          apiToken: ${{ env.API_TOKEN }}
-          accountId: ${{ env.ACCOUNT_ID }}
-          command: pages deploy dist --project-name=${{ github.event.repository.name }} --branch=${{ env.BRANCH_NAME }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ github.event.repository.name }} --branch=pr-${{ steps.pr.outputs.number }}
+
+      # Edit the same comment on each push, so that the PR gets only one.
+      - name: Post preview URL
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          ALIAS_URL: ${{ steps.deploy.outputs.pages-deployment-alias-url }}
+          DEPLOY_URL: ${{ steps.deploy.outputs.deployment-url }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          gh pr comment "$PR_NUMBER" --edit-last --create-if-none --body "Preview: ${ALIAS_URL:-$DEPLOY_URL} (commit $SHA)"
