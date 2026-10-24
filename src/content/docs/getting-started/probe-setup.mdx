@@ -47,6 +47,87 @@ for more information.
 command="service udev start"
 ```
 
+### Linux: serial-port probes
+
+Some probes — such as the Black Magic Probe and the SiFli UART probe — are
+accessed through a serial port (`/dev/ttyACM*`, `/dev/ttyUSB*`) rather than a raw
+USB node. On most distributions these ports belong to the `dialout` group (some
+use `uucp`), not `plugdev`, so add your user to it:
+
+```bash
+sudo usermod -a -G dialout $USER
+```
+
+Log out and back in afterwards for the new group membership to take effect.
+
+### Linux: other distributions
+
+The rules file and the `plugdev`/`dialout` groups above are the Debian/Ubuntu
+convention. Other systems handle this differently:
+
+- **NixOS** manages udev declaratively. Install the rules through
+  `services.udev.packages` or `services.udev.extraRules`, and add your user to
+  the relevant group via `users.users.<name>.extraGroups`, rather than copying a
+  file into `/etc/udev/rules.d`.
+- **Alpine and other non-systemd systems** use eudev or mdev instead of udev.
+  There is usually no `plugdev` group; use `dialout` (or `uucp`) for serial ports
+  and reload rules with `udevadm control --reload` — or reboot — after installing
+  them.
+- udev also reads rules from `/usr/lib/udev/rules.d` and `/run/udev/rules.d`, so a
+  rule can be in effect even when `/etc/udev/rules.d` looks empty.
+
+Whatever the distribution, what actually matters is that your user has read and
+write access to the probe's device node. If `probe-rs list` reports a probe as
+inaccessible, or your probe is plugged in but missing from the list, that access
+is what to check.
+
+### Linux: probe stopped being detected after a system update
+
+systemd 258 (September 2025) tightened how udev applies device permissions,
+which can silently break a setup that worked before the update:
+
+- Rules that set `OWNER=`/`GROUP=` to a **non-system** group are now ignored.
+  `plugdev` is the usual culprit: if it was created as a regular group, it no
+  longer has any effect.
+- ACLs granted through the `uaccess` tag are only re-applied on `change` events
+  if the rule matches those events, not just `add`.
+
+If your probe disappeared after an update, inspect the current state:
+
+```bash
+# Does your user have an ACL entry on the probe's node?
+# (the path shows up in `probe-rs list` trace logs, e.g. /dev/bus/usb/001/006)
+getfacl /dev/bus/usb/*/*
+
+# Check that the rules file is actually accepted. On a broken setup this prints
+# something like: "Group plugdev is not a system group, ignoring"
+udevadm verify /etc/udev/rules.d/*probe-rs*.rules
+```
+
+To fix the `plugdev` case, recreate it as a **system** group and re-add yourself:
+
+```bash
+# If it already exists as a non-system group, remove it first.
+sudo groupdel plugdev
+
+sudo groupadd --system plugdev
+sudo usermod -a -G plugdev $USER
+```
+
+Then reload the rules and log out and back in:
+
+```bash
+sudo udevadm control --reload
+sudo udevadm trigger
+```
+
+If you maintain your own rules, prefer granting access with `uaccess` on every
+action except removal, so ACLs survive `change` events too:
+
+```
+ACTION!="remove", SUBSYSTEM=="usb", ATTRS{idVendor}=="2e8a", TAG+="uaccess"
+```
+
 ### Windows: WinUSB drivers
 
 Some of the probe implementations are implemented using [nusb](https://crates.io/crates/nusb) which
