@@ -29,6 +29,8 @@ Now you can execute `cargo run` in your project as you would for any native bina
 
 To use [RTT](https://docs.rs/rtt-target/latest/rtt_target/) or [defmt](https://docs.rs/defmt/0.3.5/defmt/), follow the instructions in the respective crates to integrate them into your firmware.
 
+`probe-rs run` also shows the output of the serial port to the target, if there is one. See [Serial port to the target](#serial-port-to-the-target).
+
 ## attach
 
 `probe-rs attach` works exactly like `probe-rs run` except that it does not issue a reset and does not flash the target on connecting to preserve the currently running state.
@@ -56,6 +58,7 @@ To learn more about additional commands, use the `probe-rs help` or `probe-rs <c
 - Server listening parameters
 - Server users
 - Command presets
+- Probe settings
 
 The config file can be a `toml`, `json`, `yaml` or `yml` file located at the following paths:
 
@@ -92,5 +95,76 @@ preset_name = { probe = "vid:pid:serial", host = "remote", token = "token" }
 ```
 
 Then, issuing the `probe-rs run <firmware> --preset preset_name` command will effectively run `probe-rs run <firmware> --probe vid:pid:serial --host remote --token token`.
+
+### Specifying probe settings
+
+The `probes` table holds settings for each probe. The key is a probe selector: `VID:PID`, `VID:PID-interface` or `VID:PID:serial`. When more than one key matches a probe, all of them apply. `VID:PID:serial` overrides `VID:PID-interface`, which overrides `VID:PID`. Command line options override the table.
+
+```toml
+[probes."0403:6010"]
+speed = 4000 # The protocol speed in kHz.
+protocol = "swd" # "swd" or "jtag".
+reset_line_connected = true
+```
+
+`reset_line_connected` tells if the reset line of the probe connects to the reset pin of the target. If `true`, `probe-rs reset` uses a pin reset. If `false`, probe-rs does not assert the reset line, and operations that need a pin reset fail.
+
+In remote mode, the table of the machine with the probe applies.
+
+#### Driver settings
+
+The `driver` table holds settings of one probe driver. `type` selects the driver.
+
+A CH347 can drive the reset line of the target with one of its pins. `reset_pin` is `"trst"` or `"gpio0"` to `"gpio7"`. TRST forces SWD. The pin needs a pull-up.
+
+```toml
+[probes."1a86:55dd".driver]
+type = "ch347"
+reset_pin = "trst"
+```
+
+An FTDI probe can give one of its channels as the serial port to the target. `uart` is the channel wired to the UART of the target: `"a"`, `"b"`, `"c"` or `"d"`. `uart_reset = "esp"` resets the target through the auto-reset circuit of ESP32 boards on the DTR and RTS lines of that channel. It needs `uart` and `reset_line_connected = true`.
+
+```toml
+[probes."0403:6010"]
+reset_line_connected = true
+
+[probes."0403:6010".driver]
+type = "ftdi"
+uart = "b"
+uart_reset = "esp"
+```
+
+#### Serial port to the target
+
+`probe-rs run` and `probe-rs attach` show the output of the serial port to the target. They open the port before attach, so the output after a reset is not lost. `run` drops the output from before the boot.
+
+Some probes give a serial port: the ESP USB-Serial-JTAG gives its CDC-ACM port, and an FTDI probe gives its `uart` channel. For other probes, set a replacement port.
+
+The `serial` table holds the settings of the port. All keys are optional.
+
+```toml
+[probes."303a:1001".serial]
+enabled = true # false never opens the port.
+baud = 115200 # USB CDC-ACM ports ignore the baud rate.
+dtr = "keep" # "keep", "low" or "high".
+rts = "keep"
+usb = "1a86:7523" # Use this USB serial port: VID:PID, VID:PID-interface or VID:PID:serial.
+# port = "COM7" # Use the port with this OS name, for example "/dev/ttyUSB0".
+```
+
+- `enabled = false` ignores the serial port of the probe.
+- `dtr` and `rts` set the modem control lines after open. `"keep"` keeps the state that the OS sets. On many boards, these lines control reset and boot mode.
+- `usb` and `port` replace the port of the probe. Use one of them. If more than one USB port matches `usb`, add the serial number.
+- If the port is not there at start, or disconnects, probe-rs opens it when it appears.
+
+To ignore the serial port of the ESP USB-Serial-JTAG:
+
+```toml
+[probes."303a:1001".serial]
+enabled = false
+```
+
+After the port sends data, `serial` is an input target of the prompt, after the RTT down channels. Press `Ctrl+D` to select the next input target. `--target-output-file serial=<file>` writes the output to a file.
 
 </probe-rs-code>
