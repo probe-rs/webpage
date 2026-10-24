@@ -4,6 +4,12 @@ description: "Easy debugging in your code editor."
 order: 20
 ---
 
+**probe-rs** implements two debugging protocols: the **GDB server** and the
+**DAP server**. To debug in VS Code or another editor, read the [VSCode](#vscode)
+section. To debug in your terminal, read the [GDB server](#gdb-server) section.
+
+## VSCode
+
 The **probe-rs VS Code extension** uses the Microsoft Debug Adapter Protocol to
 implement an interactive debugging experience between VS Code and a probe-rs
 target.
@@ -1202,3 +1208,32 @@ return {
   end,
 }
 ```
+
+# GDB server
+
+To start a **GDB server**, run:
+
+```sh
+probe-rs gdb --chip <chip-name>
+```
+
+Then connect to the GDB server:
+
+```sh
+gdb
+(gdb) target remote :1337
+```
+
+**probe-rs** can also start `gdb` for you. This example assumes that `gdb` is in your `PATH`:
+
+```sh
+probe-rs gdb --chip <chip-name> --gdb gdb <path-to-elf-file>
+```
+
+GUI frontends for GDB are also available. The [GDB wiki](https://sourceware.org/gdb/wiki/GDB%20Front%20Ends) has a list of them.
+
+## Working with GDB
+
+**probe-rs** supports most GDB features, for example restarting the program, setting breakpoints and stepping through the program.
+
+For a GDB tutorial, read the [official GDB documentation](https://sourceware.org/gdb/current/onlinedocs/gdb).
