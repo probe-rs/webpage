@@ -15,7 +15,7 @@ export default function TargetsView({}: Props) {
   useEffect(() => {
     const [command, lang] = installInstructions();
     setInstructions([command, lang]);
-  });
+  }, []);
 
   const [command, lang] = instructions;
   return (

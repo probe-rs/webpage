@@ -10,7 +10,10 @@ export function CodeBlock({ code, lang }: { code: string, lang: BundledLanguage,
     const [nodes, setNodes] = useState(undefined as JSX.Element | undefined)
 
     useLayoutEffect(() => {
-        void highlight(code, lang).then(setNodes)
+        // Ignore the result if the code changed before it is ready.
+        let current = true
+        void highlight(code, lang).then((nodes) => current && setNodes(nodes))
+        return () => { current = false }
     }, [code, lang])
 
     return nodes ?? <p>Loading...</p>
