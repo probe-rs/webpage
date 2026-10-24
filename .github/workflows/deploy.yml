@@ -13,6 +13,11 @@ permissions:
   pages: write
   id-token: write
 
+# Queue deploys. Do not cancel a deploy that runs.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
